@@ -1,0 +1,4 @@
+params/microgateway.passphrase
+params/*.lic
+params/github-secrets.yaml
+!.gitkeep
