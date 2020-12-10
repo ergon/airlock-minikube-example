@@ -1,15 +1,9 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: echoserver
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: echoserver-deployment
+  name: echoserver
   labels:
     app: echoserver
-  namespace: echoserver
 spec:
   replicas: 1
   selector:
@@ -34,10 +28,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: echoserver-service
+  name: echoserver
   labels:
     app: echoserver
-  namespace: echoserver
 spec:
   selector:
     app: echoserver

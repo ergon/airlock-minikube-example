@@ -7,7 +7,7 @@ metadata:
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: fluentd-daemonset
+  name: fluentd
   namespace: kube-system
   labels:
     app: fluentd
@@ -74,9 +74,9 @@ data:
   microgateway.conf: |
     <filter kubernetes.var.log.containers.microgateway**>
       @type parser
-      format json
       key_name log
       reserve_data true
+      remove_key_name_field true
       <parse>
         @type json
       </parse>

@@ -6,7 +6,7 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: elasticsearch-deployment
+  name: elasticsearch
   namespace: logging
   labels:
     app: elasticsearch

@@ -30,9 +30,10 @@ This setup spins up an Airlock Microgateway, Airlock IAM and additional containe
   :exclamation: The Airlock products do not work without a valid license. To order one, please contact order@airlock.com.
 
 ## Start Minikube
-Start Minikube by running the following command:
+Start Minikube and configure ingress by running the following commands:
 ```console
 minikube start --vm=true --cpus=2 --memory=10240 --disk-size='40gb' --addons=ingress
+kubectl apply -f ingress/
 ```
 
 ## Prepare for the deployment
@@ -85,7 +86,8 @@ minikube ip
 ```
 Open a browser to navigate the different web applications:
 * Kibana URL: `http://$(minikube ip)/kibana`
-* Echoserver URL: `http://$(minikube ip)/echo`
+* Echoserver URL: `http://$(minikube ip)/echo`<br>
+  The `Echoserver` is described here: https://ealenn.github.io/Echo-Server/
 
 ## Cleanup
 The following chapter describes the possibilities to cleanup the deployment/installation. This could be handy in order to restart from stratch or just to clean the environment.
