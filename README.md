@@ -23,10 +23,10 @@ This setup spins up an Airlock Microgateway, Airlock IAM and additional containe
 * Install `kubectl`
 * A Docker Hub account granted to access the private repositories:
   * hub.docker.com/r/ergon/airlock-microgateway
-  * hub.docker.com/r/ergon/airlock-iam
+  * hub.docker.com/r/ergon/airlock-iam<br>
   :exclamation: To get the permissions to access these private Docker Hub repositories, please contact order@airlock.com.
 * Airlock licenses
-  * A valid license for Airlock Microgateway
+  * A valid license for Airlock Microgateway<br>
   :exclamation: The Airlock products do not work without a valid license. To order one, please contact order@airlock.com.
 
 ## Start Minikube
