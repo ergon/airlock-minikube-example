@@ -77,6 +77,10 @@ data:
       key_name log
       reserve_data true
       remove_key_name_field true
+
+      # Enable `inject_key_prefix` to add a
+      # prefix to the microgateway keys
+      inject_key_prefix microgateway.
       <parse>
         @type json
       </parse>
