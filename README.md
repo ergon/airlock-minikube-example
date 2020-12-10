@@ -21,11 +21,19 @@ This setup spins up an Airlock Microgateway, Airlock IAM and additional containe
 ## Prerequisites
 * Install `Minikube`
 * Install `kubectl`
+* A Docker Hub account granted to access the private repositories:
+  * hub.docker.com/r/ergon/airlock-microgateway
+  * hub.docker.com/r/ergon/airlock-iam<br>
+  :exclamation: To get the permissions to access these private Docker Hub repositories, please contact order@airlock.com.
+* Airlock licenses
+  * A valid license for Airlock Microgateway<br>
+  :exclamation: The Airlock products do not work without a valid license. To order one, please contact order@airlock.com.
 
 ## Start Minikube
-Start Minikube by running the following command:
+Start Minikube and configure ingress by running the following commands:
 ```console
 minikube start --vm=true --cpus=2 --memory=10240 --disk-size='40gb' --addons=ingress
+kubectl apply -f ingress/
 ```
 
 ## Prepare for the deployment
@@ -44,7 +52,10 @@ openssl rand -base64 102 | tr -d '\n' > params/microgateway.passphrase
 ```console
 kubectl create secret generic microgateway-secrets \
   --from-file=license=params/microgateway.lic \
-  --from-file=passphrase=params/microgateway.passphrase
+  --from-file=passphrase=params/microgateway.passphrase \
+  --dry-run=client \
+  -o yaml > params/microgateway-secret.yaml
+kubectl apply -f params/microgateway-secret.yaml
 ```
 
 ### Create a DockerHub secret to pull the Airlock images
@@ -54,13 +65,18 @@ kubectl create secret docker-registry dockerregcred \
   --docker-server='https://index.docker.io/v1/' \
   --docker-username=<DOCKER_USER> \
   --docker-password=<DOCKER_PASSWORD> \
-  --docker-email=<DOCKER_EMAIL>
+  --docker-email=<DOCKER_EMAIL> \
+  --dry-run=client \
+  -o yaml > params/dockerhub-secret.yaml
+kubectl apply -f params/dockerhub-secret.yaml
 ```
 
 ## Start the deployment
 To deploy the demo setup, run the following commands:
 ```console
 kubectl apply -f efk/
+kubectl apply -f redis/
+kubectl apply -f echoserver/
 ```
 
 ## Use the demo
@@ -70,6 +86,8 @@ minikube ip
 ```
 Open a browser to navigate the different web applications:
 * Kibana URL: `http://$(minikube ip)/kibana`
+* Echoserver URL: `http://$(minikube ip)/echo`<br>
+  The `Echoserver` is described here: https://ealenn.github.io/Echo-Server/
 
 ## Cleanup
 The following chapter describes the possibilities to cleanup the deployment/installation. This could be handy in order to restart from stratch or just to clean the environment.
@@ -78,6 +96,8 @@ The following chapter describes the possibilities to cleanup the deployment/inst
 To delete the Kuberenetes deployment, run the following commands:
 ```console
 kubectl delete -f efk/
+kubectl delete -f redis/
+kubectl delete -f echoserver/
 ```
 
 ### Delete Minikube
