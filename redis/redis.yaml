@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+  labels:
+    app: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-server
+  template:
+    metadata:
+      labels:
+        app: redis-server
+    spec:
+      containers:
+        - name: redis
+          image: redis:5.0.8
+          env:
+            - name: REDIS_REPLICATION_MODE
+              value: master
+          ports:
+            - containerPort: 6379
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service
+  labels:
+    app: redis-server
+spec:
+  selector:
+    app: redis-server
+  ports:
+    - name: redis-6379
+      port: 6379

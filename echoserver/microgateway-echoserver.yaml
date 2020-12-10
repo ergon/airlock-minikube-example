@@ -1,0 +1,121 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microgateway-echoserver-deployment
+  labels:
+    app: microgateway-echoserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: microgateway-echoserver
+  template:
+    metadata:
+      labels:
+        app: microgateway-echoserver
+    spec:
+      imagePullSecrets:
+        - name: dockerregcred
+      containers:
+      - name: microgateway-echoserver
+        image: ergon/airlock-microgateway:1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8080
+        - name: https
+          containerPort: 8443
+        volumeMounts:
+        - name: config
+          mountPath: /config/config.yaml
+          subPath: config.yaml
+        - name: secret
+          mountPath: /secret/config/
+          readOnly: true
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 90
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 30
+      volumes:
+      - name: config
+        configMap:
+          name: microgateway-echoserver-config
+      - name: secret
+        secret:
+          secretName: microgateway-secrets
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: microgateway-echoserver-service
+  labels:
+    app: microgateway-echoserver
+spec:
+  selector:
+    app: microgateway-echoserver
+  ports:
+    - name: http
+      port: 8080
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: microgateway-echoserver-config
+data:
+  config.yaml: |
+    license_file: /secret/config/license
+
+    log:
+      level: info
+    
+    session:
+      redis_hosts:
+        - 'redis-service:6379'
+      store_mode: server
+      encryption_passphrase_file: /secret/config/passphrase
+    
+    apps:
+      - virtual_host:
+          name: vh-echoserver
+        mappings:
+          - name: echoserver
+            entry_path: /
+            session_handling: ignore_session
+            operational_mode: integration
+            deny_rules:
+              - level: strict
+                enabled: true
+                log_only: true
+            expert_settings:
+              security_gate: |
+                Cookie.PassthroughSelector.Pattern    "^.*$"
+                Cookie.PassthroughSelector.IgnoreCase "TRUE"
+        backend:
+          name: beg-echoserver
+          protocol: 'http'
+          hostname: echoserver-service.echoserver
+          port: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-microgateway-echoserver
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /echo
+        pathType: Prefix
+        backend:
+          service:
+            name: microgateway-echoserver-service
+            port: 
+              number: 8080
