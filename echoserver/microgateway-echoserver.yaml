@@ -86,6 +86,14 @@ data:
         RemoteIPInternalProxy 10.0.0.0/8
         RemoteIPInternalProxy 172.16.0.0/12
         RemoteIPInternalProxy 192.168.0.0/16
+      security_gate: |
+        # Needed until AP-21937 is available.
+        # Attention: Request Header Whitelist must allow this header
+        Request.Logging.Headers.Enable        "TRUE"
+        Request.Logging.Headers.Mode          "request"
+        Request.Logging.Headers.Pattern       "^x-request-id:"
+        Request.Logging.Headers.IgnoreCase    "TRUE"
+        Request.Logging.Headers.InvertPattern "FALSE"
     
     apps:
       - virtual_host:
