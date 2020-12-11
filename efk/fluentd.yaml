@@ -72,6 +72,7 @@ metadata:
   namespace: kube-system
 data:
   microgateway.conf: |
+    # Parse the logs as JSON
     <filter kubernetes.var.log.containers.microgateway**>
       @type parser
       key_name log
@@ -86,19 +87,34 @@ data:
       </parse>
     </filter>
 
+    # Create the key 'req_id' to track the requests across applications.
+    <filter kubernetes.var.log.containers.microgateway**>
+      @type record_transformer
+      enable_ruby
+
+      # TODO:
+      # Once AP-21937 is available the req_id could 
+      # be extracted from the correct field.
+      <record>
+        req_id ${JSON.parse(record['log'])['req_id']}
+      </record>
+      remove_keys "#{ENV['FLUENT_REMOVE_KEYS'] || 'log'}"
+    </filter>
+
   nginx-ingress.conf: |
     <source>
       @type tail
       path /var/log/containers/ingress-nginx-controller*.log
       pos_file /var/log/ingress-nginx-controller-containers.log.pos
-      tag nginx-ingress
+      tag "#{ENV['FLUENT_CONTAINER_TAIL_TAG'] || 'kubernetes.*'}"
       read_from_head true
       <parse>
         @type json
       </parse>
     </source>
     
-    <filter nginx-ingress>
+    # Parse the logs as JSON
+    <filter kubernetes.var.log.containers.ingress-nginx-controller**>
       @type parser
       key_name log
       reserve_data true
@@ -110,4 +126,42 @@ data:
       <parse>
         @type json
       </parse>
+    </filter>
+
+    # Create the key 'req_id' to track the requests across applications.
+    <filter kubernetes.var.log.containers.ingress-nginx-controller**>
+      @type record_transformer
+      enable_ruby
+    
+      <record>
+        req_id ${JSON.parse(record['log'])['req_id']}
+      </record>
+      remove_keys "#{ENV['FLUENT_REMOVE_KEYS'] || 'log'}"
+    </filter>
+
+  echoserver.conf: |
+    # Parse the logs as JSON
+    <filter kubernetes.var.log.containers.echoserver**>
+      @type parser
+      key_name log
+      reserve_data true
+      remove_key_name_field false
+
+      # Enable `inject_key_prefix` to add a
+      # prefix to the echoserver keys
+      inject_key_prefix echoserver.
+      <parse>
+        @type json
+      </parse>
+    </filter>
+
+    # Create the key 'req_id' to track the requests across applications.
+    <filter kubernetes.var.log.containers.echoserver**>
+      @type record_transformer
+      enable_ruby
+    
+      <record>
+        req_id ${JSON.parse(record['log'])['http_req']['http_x_request_id']}
+      </record>
+      remove_keys "#{ENV['FLUENT_REMOVE_KEYS'] || 'log'}"
     </filter>

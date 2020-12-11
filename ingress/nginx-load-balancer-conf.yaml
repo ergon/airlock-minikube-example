@@ -39,5 +39,7 @@ data:
       "client_ip": "$remote_addr",
       "front_src_ip": "$remote_addr",
       "front_src_port": "$remote_port",
-      "front_dst_port": "$server_port"
+      "front_dst_port": "$server_port",
+      "front_tls_proto": "$ssl_protocol",
+      "front_tls_cipher": "$ssl_cipher"
     }}'
