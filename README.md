@@ -87,7 +87,6 @@ minikube ip
 Open a browser to navigate the different web applications:
 * Kibana URL: `http://$(minikube ip)/kibana`
 * Echoserver URL: `http://$(minikube ip)/echo`<br>
-  The `Echoserver` is described here: https://ealenn.github.io/Echo-Server/
 
 ## Cleanup
 The following chapter describes the possibilities to cleanup the deployment/installation. This could be handy in order to restart from stratch or just to clean the environment.
