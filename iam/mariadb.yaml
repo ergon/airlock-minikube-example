@@ -1,0 +1,133 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mariadb
+  labels:
+    app: mariadb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb
+  serviceName: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      initContainers:
+      - name: git-sync
+        image: k8s.gcr.io/git-sync/git-sync:v3.2.0
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: GIT_SYNC_REPO
+          value: https://github.com/ergon/airlock-minikube-examples.git
+        - name: GIT_SYNC_BRANCH
+          value: iam
+        - name: GIT_SYNC_ROOT
+          value: /docker-entrypoint-initdb.d
+        - name: GIT_SYNC_DEST
+          value: tmp
+        - name: GIT_SYNC_SUBMODULES
+          value: "off"
+        - name: GIT_SYNC_ONE_TIME
+          value: "true"
+        volumeMounts:
+        - name: sql-init-scripts
+          mountPath: /docker-entrypoint-initdb.d
+      - name: copy-sql-files
+        image: busybox
+        command: ['sh', '-c', 'ls -la /docker-entrypoint-initdb.d/tmp/iam/ && mv /docker-entrypoint-initdb.d/tmp/iam/data/mariadb/*.sql /docker-entrypoint-initdb.d && rm -rf /docker-entrypoint-initdb.d/tmp/iam/' ]
+        volumeMounts:
+        - name: sql-init-scripts
+          mountPath: /docker-entrypoint-initdb.d
+      containers:
+      - image: mariadb
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secrets
+              key: MYSQL_DATABASE
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secrets
+              key: MYSQL_ROOT_PASSWORD
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secrets
+              key: MYSQL_USER
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secrets
+              key: MYSQL_PASSWORD
+        name: mariadb
+        ports:
+        - name: mysql
+          containerPort: 3306
+        volumeMounts:
+        - name: sql-init-scripts
+          mountPath: /docker-entrypoint-initdb.d
+        - name: data
+          mountPath: /var/lib/mysql
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+        livenessProbe:
+          exec:
+            command:
+            - bash
+            - "-c"
+            - |
+              set -ex
+              mysqladmin -p$MYSQL_ROOT_PASSWORD ping &> /dev/null
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          exec:
+            # Check we can execute queries over TCP (skip-networking is off).
+            command:
+            - bash
+            - "-c"
+            - |
+              set -ex
+              mysql -h 127.0.0.1 -p$MYSQL_ROOT_PASSWORD -e "SELECT 1" &> /dev/null
+          initialDelaySeconds: 5
+          periodSeconds: 2
+          timeoutSeconds: 1
+      volumes:
+      - name: sql-init-scripts
+        emptyDir: {}
+      - name: data
+        persistentVolumeClaim:
+          claimName: mariadb-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mariadb
+  labels:
+    app: mariadb
+spec:
+  selector:
+    app: mariadb
+  ports:
+    - name: mysql
+      port: 3306
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mariadb-pv-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
