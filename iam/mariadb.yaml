@@ -34,8 +34,8 @@ spec:
         - name: GIT_SYNC_ONE_TIME
           value: "true"
         volumeMounts:
-        - name: sql-init-scripts
-          mountPath: /docker-entrypoint-initdb.d
+        - name: git-sync-dir
+          mountPath: /var/tmp/gitsync/
       - name: copy-sql-files
         image: busybox
         command:
@@ -45,6 +45,8 @@ spec:
           ls -la /var/tmp/gitsync/tmp/iam/ && \
           cp -rp /var/tmp/gitsync/tmp/iam/data/mariadb/*.sql /docker-entrypoint-initdb.d
         volumeMounts:
+        - name: git-sync-dir
+          mountPath: /var/tmp/gitsync/
         - name: sql-init-scripts
           mountPath: /docker-entrypoint-initdb.d
       containers:
@@ -107,6 +109,8 @@ spec:
           periodSeconds: 2
           timeoutSeconds: 1
       volumes:
+      - name: git-sync-dir
+        emptyDir: {}
       - name: sql-init-scripts
         emptyDir: {}
       - name: data

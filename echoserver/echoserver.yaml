@@ -28,7 +28,7 @@ spec:
       volumes:
       - name: config
         configMap:
-          name: nginx-config
+          name: echoserver-nginx-config
 ---
 apiVersion: v1
 kind: Service
@@ -46,7 +46,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nginx-config
+  name: echoserver-nginx-config
 data:
   nginx.conf : |
     error_log  /dev/stderr debug;

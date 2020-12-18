@@ -104,6 +104,7 @@ To deploy the demo setup, run the following commands:
 kubectl apply -f efk/
 kubectl apply -f redis/
 kubectl apply -f echoserver/
+kubectl apply -f iam/
 ```
 
 ## Use the demo
@@ -124,6 +125,7 @@ To delete the Kuberenetes deployment, run the following commands:
 kubectl delete -f efk/
 kubectl delete -f redis/
 kubectl delete -f echoserver/
+kubectl delete -f iam/
 ```
 
 ### Delete Minikube

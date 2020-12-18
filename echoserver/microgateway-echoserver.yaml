@@ -21,8 +21,6 @@ spec:
         image: ergon/airlock-microgateway:1.0
         imagePullPolicy: IfNotPresent
         ports:
-        - name: http
-          containerPort: 8080
         - name: https
           containerPort: 8443
         volumeMounts:
@@ -35,12 +33,14 @@ spec:
         livenessProbe:
           httpGet:
             path: /healthz
-            port: http
+            port: https
+            scheme: HTTPS
           initialDelaySeconds: 90
         readinessProbe:
           httpGet:
             path: /healthz
-            port: http
+            port: https
+            scheme: HTTPS
           initialDelaySeconds: 30
       volumes:
       - name: config
@@ -60,8 +60,8 @@ spec:
   selector:
     app: microgateway-echoserver
   ports:
-    - name: http
-      port: 8080
+    - name: https
+      port: 8443
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -124,6 +124,7 @@ metadata:
   name: ingress-microgateway-echoserver
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/backend-protocol: https
 spec:
   rules:
   - http:
@@ -134,4 +135,4 @@ spec:
           service:
             name: microgateway-echoserver
             port: 
-              number: 8080
+              number: 8443
