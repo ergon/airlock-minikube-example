@@ -57,6 +57,17 @@ kubectl create secret generic microgateway-secrets \
   -o yaml > params/microgateway-secret.yaml
 kubectl apply -f params/microgateway-secret.yaml
 ```
+* Create the secret `mariadb-secrets`:
+```console
+kubectl create secret generic mariadb-secrets \
+  --from-literal=MYSQL_DATABASE=iam \
+  --from-literal=MYSQL_ROOT_PASSWORD=$(openssl rand -base64 36) \
+  --from-literal=MYSQL_USER=iam \
+  --from-literal=MYSQL_PASSWORD=$(openssl rand -base64 36) \
+  --dry-run=client \
+  -o yaml > params/mariadb-secret.yaml
+kubectl apply -f params/mariadb-secret.yaml
+```
 
 ### Create a DockerHub secret to pull the Airlock images
 The Airlock Docker images are in a private DockerHub repository. To download them, create a pull secret and replace the values in `<...>`. The DockerHub user must be granted to download the images.

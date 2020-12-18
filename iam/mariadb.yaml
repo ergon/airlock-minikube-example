@@ -22,6 +22,7 @@ spec:
         env:
         - name: GIT_SYNC_REPO
           value: https://github.com/ergon/airlock-minikube-examples.git
+          # TODO: Change before merge
         - name: GIT_SYNC_BRANCH
           value: iam
         - name: GIT_SYNC_ROOT
