@@ -26,7 +26,7 @@ spec:
         - name: GIT_SYNC_BRANCH
           value: iam
         - name: GIT_SYNC_ROOT
-          value: /docker-entrypoint-initdb.d
+          value: /var/tmp/gitsync/
         - name: GIT_SYNC_DEST
           value: tmp
         - name: GIT_SYNC_SUBMODULES
@@ -38,7 +38,12 @@ spec:
           mountPath: /docker-entrypoint-initdb.d
       - name: copy-sql-files
         image: busybox
-        command: ['sh', '-c', 'ls -la /docker-entrypoint-initdb.d/tmp/iam/ && mv /docker-entrypoint-initdb.d/tmp/iam/data/mariadb/*.sql /docker-entrypoint-initdb.d && rm -rf /docker-entrypoint-initdb.d/tmp/iam/' ]
+        command:
+        - sh
+        - "-c"
+        - |
+          ls -la /var/tmp/gitsync/tmp/iam/ && \
+          cp -rp /var/tmp/gitsync/tmp/iam/data/mariadb/*.sql /docker-entrypoint-initdb.d
         volumeMounts:
         - name: sql-init-scripts
           mountPath: /docker-entrypoint-initdb.d
@@ -118,8 +123,8 @@ spec:
   selector:
     app: mariadb
   ports:
-    - name: mysql
-      port: 3306
+  - name: mysql
+    port: 3306
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -127,7 +132,7 @@ metadata:
   name: mariadb-pv-claim
 spec:
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   resources:
     requests:
       storage: 500Mi

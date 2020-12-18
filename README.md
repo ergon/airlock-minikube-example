@@ -57,6 +57,9 @@ kubectl create secret generic microgateway-secrets \
   -o yaml > params/microgateway-secret.yaml
 kubectl apply -f params/microgateway-secret.yaml
 ```
+### Create a secret for the MariaDB database which is used by Airlock IAM
+After proceeding the steps below, a secret with the name `mariadb-secrets` is created.<br>
+Follow the instructions below:
 * Create the secret `mariadb-secrets`:
 ```console
 kubectl create secret generic mariadb-secrets \
@@ -67,6 +70,19 @@ kubectl create secret generic mariadb-secrets \
   --dry-run=client \
   -o yaml > params/mariadb-secret.yaml
 kubectl apply -f params/mariadb-secret.yaml
+```
+
+### Create a secret for the IAM license
+After proceeding the steps below, a secret with the name `iam-secrets` is created containing the IAM `license.txt`.<br>
+Follow the instructions below:
+* Save the IAM license file in `params/iam.lic`
+* Create the secret `iam-secrets`:
+```console
+kubectl create secret generic iam-secrets \
+  --from-file=license.txt=params/iam.lic \
+  --dry-run=client \
+  -o yaml > params/iam-secret.yaml
+kubectl apply -f params/iam-secret.yaml
 ```
 
 ### Create a DockerHub secret to pull the Airlock images

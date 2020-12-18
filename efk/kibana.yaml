@@ -21,19 +21,19 @@ spec:
         app: kibana
     spec:
       containers:
-        - name: kibana
-          image: docker.elastic.co/kibana/kibana:7.9.0
-          imagePullPolicy: IfNotPresent
-          env:
-            - name: ELASTICSEARCH_URL
-              value: "http://elasticsearch:9200"
-            - name: "SERVER_BASEPATH"
-              value: "/kibana"
-            - name: "SERVER_REWRITEBASEPATH"
-              value: "true"
-          ports:
-            - containerPort: 5601
-              name: webinterface
+      - name: kibana
+        image: docker.elastic.co/kibana/kibana:7.9.0
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: ELASTICSEARCH_URL
+          value: "http://elasticsearch:9200"
+        - name: "SERVER_BASEPATH"
+          value: "/kibana"
+        - name: "SERVER_REWRITEBASEPATH"
+          value: "true"
+        ports:
+        - containerPort: 5601
+          name: webinterface
 ---
 apiVersion: v1
 kind: Service

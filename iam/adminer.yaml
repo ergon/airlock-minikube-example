@@ -15,19 +15,19 @@ spec:
         app: adminer
     spec:
       containers:
-        - name: adminer
-          image: adminer:4.7.7-standalone
-          imagePullPolicy: IfNotPresent
-          ports:
-            - name: http
-              containerPort: 8080
-          env:
-            - name: ADMINER_PLUGINS
-              value: ''
-            - name: ADMINER_DESIGN
-              value: ''
-            - name: ADMINER_DEFAULT_SERVER
-              value: mariadb
+      - name: adminer
+        image: adminer:4.7.7-standalone
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8080
+        env:
+        - name: ADMINER_PLUGINS
+          value: ''
+        - name: ADMINER_DESIGN
+          value: ''
+        - name: ADMINER_DEFAULT_SERVER
+          value: mariadb
 ---
 apiVersion: v1
 kind: Service
@@ -39,8 +39,8 @@ spec:
   selector:
     app: adminer
   ports:
-    - name: http
-      port: 8080
+  - name: http
+    port: 8080
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
