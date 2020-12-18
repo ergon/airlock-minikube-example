@@ -86,19 +86,18 @@ spec:
             - "-c"
             - |
               set -ex
-              mysqladmin -p$MYSQL_ROOT_PASSWORD ping &> /dev/null
+              mysqladmin -u${MYSQL_USER} -p${MYSQL_PASSWORD} ping &> /dev/null
           initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 5
         readinessProbe:
           exec:
-            # Check we can execute queries over TCP (skip-networking is off).
             command:
             - bash
             - "-c"
             - |
               set -ex
-              mysql -h 127.0.0.1 -p$MYSQL_ROOT_PASSWORD -e "SELECT 1" &> /dev/null
+              mysql -h 127.0.0.1 -u${MYSQL_USER} -p${MYSQL_PASSWORD} -e "SELECT 1" &> /dev/null
           initialDelaySeconds: 5
           periodSeconds: 2
           timeoutSeconds: 1
