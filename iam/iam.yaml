@@ -76,6 +76,7 @@ spec:
         - name: secret
           mountPath: /home/airlock/iam/license.txt
           subPath: license.txt
+        # TODO:
         # livenessProbe:
         #   httpGet:
         #     path: /health
