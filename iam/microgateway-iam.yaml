@@ -22,10 +22,15 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: GIT_SYNC_REPO
-          value: https://github.com/ergon/airlock-minikube-examples.git
-          # TODO: Change before merge
+          valueFrom:
+            configMapKeyRef:
+              name: gitsync-bootstrap-parameters
+              key: GIT_SYNC_REPO
         - name: GIT_SYNC_BRANCH
-          value: iam
+          valueFrom:
+            configMapKeyRef:
+              name: gitsync-bootstrap-parameters
+              key: GIT_SYNC_BRANCH
         - name: GIT_SYNC_ROOT
           value: /var/tmp/gitsync/
         - name: GIT_SYNC_DEST
@@ -153,27 +158,33 @@ data:
           entry_path: /2fa/
           session_handling: enforce_session
           operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
+          expert_settings:
+            security_gate: |
+              RedirectForErrorPage "FALSE"
         - name: iam-auth
           mapping_template_file: /config/templates/loginapp-7.2-REST-public.xml
           entry_path: /2fa/rest/public
           session_handling: enforce_session
           operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
+          expert_settings:
+            security_gate: |
+              RedirectForErrorPage "FALSE"
         - name: iam-protected
           mapping_template_file: /config/templates/loginapp-7.2-REST-protected.xml
           entry_path: /2fa/rest/protected
           session_handling: enforce_session
           operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
-          # TODO: SET Secure COOKIE "off"
-          #       OR connect with HTTP
+          expert_settings:
+            security_gate: |
+              RedirectForErrorPage "FALSE"
         - name: admin
           mapping_template_file: /config/templates/adminapp-7.2.xml
           entry_path: /auth-admin/
           session_handling: enforce_session
           operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
-          # expert_settings:
-          #   security_gate: |
-          #     Cookie.PassthroughSelector.Pattern    "^.*$"
-          #     Cookie.PassthroughSelector.IgnoreCase "TRUE"
+          expert_settings:
+            security_gate: |
+              RedirectForErrorPage "FALSE"
         - name: roleref
           entry_path: /@@ALG_CFG_RND_LOC@@
           auth:
@@ -181,6 +192,9 @@ data:
             - roles:
               - mgw_authenticated
               - passwordless
+          expert_settings:
+            security_gate: |
+              RedirectForErrorPage "FALSE"
       backend:
         name: beg-iam
         protocol: 'https'

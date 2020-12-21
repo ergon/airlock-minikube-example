@@ -101,6 +101,7 @@ kubectl apply -f params/dockerhub-secret.yaml
 ## Start the deployment
 To deploy the demo setup, run the following commands:
 ```console
+kubectl apply -f params/gitsync-bootstrap-parameters.yaml
 kubectl apply -f efk/
 kubectl apply -f redis/
 kubectl apply -f echoserver/
