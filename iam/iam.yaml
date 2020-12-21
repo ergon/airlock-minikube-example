@@ -116,22 +116,3 @@ spec:
   resources:
     requests:
       storage: 500Mi
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: ingress-iam
-  annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/backend-protocol: https
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /auth
-        pathType: Prefix
-        backend:
-          service:
-            name: iam
-            port:
-              number: 8443

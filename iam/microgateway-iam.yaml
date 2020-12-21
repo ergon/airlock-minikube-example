@@ -1,0 +1,217 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microgateway-iam
+  labels:
+    app: microgateway-iam
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: microgateway-iam
+  template:
+    metadata:
+      labels:
+        app: microgateway-iam
+    spec:
+      imagePullSecrets:
+      - name: dockerregcred
+      initContainers:
+      - name: git-sync
+        image: k8s.gcr.io/git-sync/git-sync:v3.2.0
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: GIT_SYNC_REPO
+          value: https://github.com/ergon/airlock-minikube-examples.git
+          # TODO: Change before merge
+        - name: GIT_SYNC_BRANCH
+          value: iam
+        - name: GIT_SYNC_ROOT
+          value: /var/tmp/gitsync/
+        - name: GIT_SYNC_DEST
+          value: tmp
+        - name: GIT_SYNC_SUBMODULES
+          value: "off"
+        - name: GIT_SYNC_ONE_TIME
+          value: "true"
+        volumeMounts:
+        - name: git-sync-dir
+          mountPath: /var/tmp/gitsync/
+      - name: copy-mapping-templates
+        image: busybox
+        command:
+        - sh
+        - "-c"
+        - |
+          ls -la /var/tmp/gitsync/tmp/mapping-templates/ && \
+          cp -rp /var/tmp/gitsync/tmp/mapping-templates/*.xml /config/templates/ && \
+          ls -la /config/templates/
+        volumeMounts:
+        - name: git-sync-dir
+          mountPath: /var/tmp/gitsync/
+        - name: mapping-templates
+          mountPath: /config/templates/
+      containers:
+      - name: microgateway-iam
+        image: ergon/airlock-microgateway:1.0
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: ALG_CFG_OPERATIONAL_MODE
+          value: integration
+        # TODO: Needed?
+        - name: ALG_CFG_RND_LOC
+          value: "123"
+        ports:
+        - name: https
+          containerPort: 8443
+        volumeMounts:
+        - name: config
+          mountPath: /config/config.yaml
+          subPath: config.yaml
+        - name: secret
+          mountPath: /secret/config/
+          readOnly: true
+        - name: mapping-templates
+          mountPath: /config/templates/
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: https
+            scheme: HTTPS
+          initialDelaySeconds: 90
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: https
+            scheme: HTTPS
+          initialDelaySeconds: 30
+      volumes:
+      - name: git-sync-dir
+        emptyDir: {}
+      - name: config
+        configMap:
+          name: microgateway-iam-config
+      - name: secret
+        secret:
+          secretName: microgateway-secrets
+      - name: mapping-templates
+        persistentVolumeClaim:
+          claimName: microgateway-mapping-templates-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: microgateway-iam
+  labels:
+    app: microgateway-iam
+spec:
+  selector:
+    app: microgateway-iam
+  ports:
+    - name: https
+      port: 8443
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: microgateway-iam-config
+data:
+  config.yaml: |
+    license_file: /secret/config/license
+
+    log:
+      level: info
+    
+    session:
+      redis_hosts:
+      - 'redis:6379'
+      store_mode: server
+      encryption_passphrase_file: /secret/config/passphrase
+
+    expert_settings:
+      apache: |
+        RemoteIPHeader x-real-ip
+        RemoteIPInternalProxy 10.0.0.0/8
+        RemoteIPInternalProxy 172.16.0.0/12
+        RemoteIPInternalProxy 192.168.0.0/16
+      security_gate: |
+        # TODO:
+        # Needed until AP-21937 is available.
+        # Attention: Request Header Whitelist must allow this header
+        Request.Logging.Headers.Enable        "TRUE"
+        Request.Logging.Headers.Mode          "request"
+        Request.Logging.Headers.Pattern       "^x-request-id:"
+        Request.Logging.Headers.IgnoreCase    "TRUE"
+        Request.Logging.Headers.InvertPattern "FALSE"
+    
+    apps:
+    - virtual_host:
+        name: vh-iam
+      mappings:
+        - name: iam
+          mapping_template_file: /config/templates/loginapp-7.2.xml
+          entry_path: /2fa/
+          session_handling: enforce_session
+          operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
+        - name: iam-auth
+          mapping_template_file: /config/templates/loginapp-7.2-REST-public.xml
+          entry_path: /2fa/rest/public
+          session_handling: enforce_session
+          operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
+        - name: iam-protected
+          mapping_template_file: /config/templates/loginapp-7.2-REST-protected.xml
+          entry_path: /2fa/rest/protected
+          session_handling: enforce_session
+          operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
+          # TODO: SET Secure COOKIE "off"
+          #       OR connect with HTTP
+        - name: admin
+          mapping_template_file: /config/templates/adminapp-7.2.xml
+          entry_path: /auth-admin/
+          session_handling: enforce_session
+          operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
+          # expert_settings:
+          #   security_gate: |
+          #     Cookie.PassthroughSelector.Pattern    "^.*$"
+          #     Cookie.PassthroughSelector.IgnoreCase "TRUE"
+        - name: roleref
+          entry_path: /@@ALG_CFG_RND_LOC@@
+          auth:
+            access:
+            - roles:
+              - mgw_authenticated
+              - passwordless
+      backend:
+        name: beg-iam
+        protocol: 'https'
+        hostname: iam
+        port: 8443
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: microgateway-mapping-templates-pv-claim
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Mi
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-microgateway-iam
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: https
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /auth
+        pathType: Prefix
+        backend:
+          service:
+            name: microgateway-iam
+            port: 
+              number: 8443

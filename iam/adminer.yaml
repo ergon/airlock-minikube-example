@@ -47,7 +47,6 @@ kind: Ingress
 metadata:
   name: ingress-adminer
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
   - http:

@@ -9,6 +9,7 @@ metadata:
   name: nginx-load-balancer-conf
   namespace: kube-system
 data:
+  force-ssl-redirect: "true"
   hsts: "false"
   use-forwarded-headers: "true"
   log-format-escape-json: "true"

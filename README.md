@@ -113,8 +113,10 @@ Figure out the IP address of Minikube:
 minikube ip
 ```
 Open a browser to navigate the different web applications:
-* Kibana URL: `http://$(minikube ip)/kibana`
-* Echoserver URL: `http://$(minikube ip)/echo`<br>
+* Kibana URL: `https://$(minikube ip)/kibana`
+* Echoserver URL: `https://$(minikube ip)/echo`<br>
+* IAM Admin App URL: `https://$(minikube ip)/auth-admin`<br>
+* Adminer URL:  `https://$(minikube ip)/adminer`<br>
 
 ## Cleanup
 The following chapter describes the possibilities to cleanup the deployment/installation. This could be handy in order to restart from stratch or just to clean the environment.

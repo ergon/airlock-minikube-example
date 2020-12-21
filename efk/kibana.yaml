@@ -56,7 +56,6 @@ metadata:
   name: ingress-kibana
   namespace: logging
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
   - http:
