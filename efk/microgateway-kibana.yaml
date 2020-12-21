@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: microgateway-echoserver
+  name: microgateway-kibana
   labels:
-    app: microgateway-echoserver
+    app: microgateway-kibana
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: microgateway-echoserver
+      app: microgateway-kibana
   template:
     metadata:
       labels:
-        app: microgateway-echoserver
+        app: microgateway-kibana
     spec:
       imagePullSecrets:
         - name: dockerregcred
       containers:
-      - name: microgateway-echoserver
+      - name: microgateway-kibana
         image: ergon/airlock-microgateway:1.0
         imagePullPolicy: IfNotPresent
         env:
         - name: ALG_CFG_OPERATIONAL_MODE
-          value: integration
+          value: production
         ports:
         - name: https
           containerPort: 8443
@@ -48,7 +48,7 @@ spec:
       volumes:
       - name: config
         configMap:
-          name: microgateway-echoserver-config
+          name: microgateway-kibana-config
       - name: secret
         secret:
           secretName: microgateway-secrets
@@ -56,12 +56,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: microgateway-echoserver
+  name: microgateway-kibana
   labels:
-    app: microgateway-echoserver
+    app: microgateway-kibana
 spec:
   selector:
-    app: microgateway-echoserver
+    app: microgateway-kibana
   ports:
     - name: https
       port: 8443
@@ -69,7 +69,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: microgateway-echoserver-config
+  name: microgateway-kibana-config
 data:
   config.yaml: |
     license_file: /secret/config/license
@@ -101,40 +101,37 @@ data:
     
     apps:
     - virtual_host:
-        name: vh-echoserver
+        name: vh-kibana
       mappings:
-      - name: echoserver
+      - name: kibana
         entry_path: /
         session_handling: ignore_session
         operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
-        threat_handling: notify
         deny_rules:
-        - level: strict
-          enabled: true
-        expert_settings:
-          security_gate: |
-            Cookie.PassthroughSelector.Pattern    "^.*$"
-            Cookie.PassthroughSelector.IgnoreCase "TRUE"
+        - level: basic
+        limits:
+          json_limits:
+            max_value_length: 819200
       backend:
-        name: beg-echoserver
+        name: beg-kibana
         protocol: 'http'
-        hostname: echoserver
-        port: 8080
+        hostname: kibana
+        port: 5601
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-microgateway-echoserver
+  name: ingress-microgateway-kibana
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: https
 spec:
   rules:
   - http:
       paths:
-      - path: /echo
+      - path: /kibana
         pathType: Prefix
         backend:
           service:
-            name: microgateway-echoserver
+            name: microgateway-kibana
             port: 
               number: 8443
