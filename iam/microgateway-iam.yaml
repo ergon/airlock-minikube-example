@@ -62,7 +62,7 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: ALG_CFG_OPERATIONAL_MODE
-          value: integration
+          value: production
         ports:
         - name: https
           containerPort: 8443

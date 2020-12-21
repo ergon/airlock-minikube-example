@@ -17,6 +17,13 @@ spec:
       imagePullSecrets:
       - name: dockerregcred
       initContainers:
+      - name: iam-init
+        image: ergon/airlock-iam:latest-7.3
+        imagePullPolicy: IfNotPresent
+        args: ["init"]
+        volumeMounts:
+        - name: config
+          mountPath: /home/airlock/iam/
       - name: git-sync
         image: k8s.gcr.io/git-sync/git-sync:v3.2.0
         imagePullPolicy: IfNotPresent
@@ -48,10 +55,10 @@ spec:
         - sh
         - "-c"
         - |
-          ls -la /var/tmp/gitsync/tmp/iam/ && \
-          cp -rp /var/tmp/gitsync/tmp/iam/data/iam/ /home/airlock/iam/ && \
+          ls -laR /var/tmp/gitsync/tmp/iam/ && \
+          cp -rp /var/tmp/gitsync/tmp/iam/data/iam/* /home/airlock/iam/ && \
           cp /var/tmp/iam/license.txt /home/airlock/iam/ && \
-          ls -la /home/airlock/iam/
+          ls -laR /home/airlock/iam/
         volumeMounts:
         - name: git-sync-dir
           mountPath: /var/tmp/gitsync/
