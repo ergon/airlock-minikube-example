@@ -105,13 +105,19 @@ data:
       mappings:
       - name: kibana
         entry_path: /
-        session_handling: ignore_session
+        session_handling: enforce_session
         operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
         deny_rules:
         - level: basic
         limits:
           json_limits:
             max_value_length: 819200
+        auth:
+          flow: redirect
+          denied_access_url: /auth/check-login
+          access:
+          - roles:
+            - authenticated
       backend:
         name: beg-kibana
         protocol: 'http'
