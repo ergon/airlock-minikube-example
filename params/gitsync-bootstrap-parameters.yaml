@@ -1,8 +1,0 @@
-apiVersion: v1
-data:
-  GIT_SYNC_REPO: https://github.com/ergon/airlock-minikube-examples.git
-  GIT_SYNC_BRANCH: main
-kind: ConfigMap
-metadata:
-  creationTimestamp: null
-  name: gitsync-bootstrap-parameters

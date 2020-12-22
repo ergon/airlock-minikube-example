@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -21,6 +22,11 @@ spec:
         image: k8s.gcr.io/git-sync/git-sync:v3.2.0
         imagePullPolicy: IfNotPresent
         env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: generic-parameters
+              key: TZ
         - name: GIT_SYNC_REPO
           valueFrom:
             configMapKeyRef:
@@ -42,8 +48,15 @@ spec:
         volumeMounts:
         - name: git-sync-dir
           mountPath: /var/tmp/gitsync/
-      - name: copy-mapping-templates
+      - name: microgateway-bootstrap
         image: busybox
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: generic-parameters
+              key: TZ
         command:
         - sh
         - "-c"
@@ -61,6 +74,11 @@ spec:
         image: ergon/airlock-microgateway:1.0
         imagePullPolicy: IfNotPresent
         env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: generic-parameters
+              key: TZ
         - name: ALG_CFG_OPERATIONAL_MODE
           value: production
         ports:

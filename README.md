@@ -101,7 +101,7 @@ kubectl apply -f params/dockerhub-secret.yaml
 ## Start the deployment
 To deploy the demo setup, run the following commands:
 ```console
-kubectl apply -f params/gitsync-bootstrap-parameters.yaml
+kubectl apply -f params/environment-parameters.yaml
 kubectl apply -f efk/
 kubectl apply -f redis/
 kubectl apply -f echoserver/
@@ -118,6 +118,15 @@ Open a browser to navigate the different web applications:
 * Echoserver URL: `https://$(minikube ip)/echo`<br>
 * IAM Admin App URL: `https://$(minikube ip)/auth-admin`<br>
 * Adminer URL:  `https://$(minikube ip)/adminer`<br>
+
+### Users and passwords
+The following users can be used to authenticate:
+* IAM Admin App
+  * Username: `admin`
+  * Password (default): `password`
+* IAM Login APP
+  * Username: `2fa`
+  * Password (default): `password`
 
 ## Cleanup
 The following chapter describes the possibilities to cleanup the deployment/installation. This could be handy in order to restart from stratch or just to clean the environment.

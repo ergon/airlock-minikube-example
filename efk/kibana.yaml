@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,6 +20,11 @@ spec:
         image: docker.elastic.co/kibana/kibana:7.9.0
         imagePullPolicy: IfNotPresent
         env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: generic-parameters
+              key: TZ
         - name: ELASTICSEARCH_URL
           value: "http://elasticsearch:9200"
         - name: "SERVER_BASEPATH"

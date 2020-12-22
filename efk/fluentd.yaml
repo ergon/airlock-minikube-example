@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -28,6 +29,11 @@ spec:
         image: fluent/fluentd-kubernetes-daemonset:v1-debian-elasticsearch
         imagePullPolicy: IfNotPresent
         env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: generic-parameters
+              key: TZ
         - name:  FLUENT_ELASTICSEARCH_HOST
           value: "elasticsearch.default"
         - name:  FLUENT_ELASTICSEARCH_PORT

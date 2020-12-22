@@ -18,11 +18,17 @@ spec:
       containers:
         - name: redis
           image: redis:5.0.8
+          imagePullPolicy: IfNotPresent
           env:
-            - name: REDIS_REPLICATION_MODE
-              value: master
+          - name: TZ
+            valueFrom:
+              configMapKeyRef:
+                name: generic-parameters
+                key: TZ
+          - name: REDIS_REPLICATION_MODE
+            value: master
           ports:
-            - containerPort: 6379
+          - containerPort: 6379
       restartPolicy: Always
 ---
 apiVersion: v1
@@ -35,5 +41,5 @@ spec:
   selector:
     app: redis
   ports:
-    - name: redis-6379
-      port: 6379
+  - name: redis-6379
+    port: 6379

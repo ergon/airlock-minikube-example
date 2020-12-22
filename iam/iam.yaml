@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,6 +21,12 @@ spec:
       - name: iam-init
         image: ergon/airlock-iam:latest-7.3
         imagePullPolicy: IfNotPresent
+        env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: generic-parameters
+              key: TZ
         args: ["init"]
         volumeMounts:
         - name: config
@@ -28,6 +35,11 @@ spec:
         image: k8s.gcr.io/git-sync/git-sync:v3.2.0
         imagePullPolicy: IfNotPresent
         env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: generic-parameters
+              key: TZ
         - name: GIT_SYNC_REPO
           valueFrom:
             configMapKeyRef:
@@ -53,6 +65,11 @@ spec:
         image: busybox
         imagePullPolicy: IfNotPresent
         env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: generic-parameters
+              key: TZ
         - name: MARIADB_SERVICE
           value: mariadb
         - name: MYSQL_DATABASE
@@ -100,6 +117,11 @@ spec:
         image: ergon/airlock-iam:latest-7.3
         imagePullPolicy: IfNotPresent
         env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: generic-parameters
+              key: TZ
         - name: IAM_LOG_LEVEL
           value: DEBUG
         ports:

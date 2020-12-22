@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -20,6 +21,11 @@ spec:
         image: k8s.gcr.io/git-sync/git-sync:v3.2.0
         imagePullPolicy: IfNotPresent
         env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: generic-parameters
+              key: TZ
         - name: GIT_SYNC_REPO
           valueFrom:
             configMapKeyRef:
@@ -41,9 +47,15 @@ spec:
         volumeMounts:
         - name: git-sync-dir
           mountPath: /var/tmp/gitsync/
-      - name: copy-sql-files
+      - name: mariadb-bootstrap
         image: busybox
         imagePullPolicy: IfNotPresent
+        env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: generic-parameters
+              key: TZ
         command:
         - sh
         - "-c"
@@ -59,6 +71,11 @@ spec:
       - image: mariadb
         imagePullPolicy: IfNotPresent
         env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: generic-parameters
+              key: TZ
         - name: MYSQL_DATABASE
           valueFrom:
             secretKeyRef:
