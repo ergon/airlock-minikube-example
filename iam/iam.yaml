@@ -49,16 +49,44 @@ spec:
         volumeMounts:
         - name: git-sync-dir
           mountPath: /var/tmp/gitsync/
-      - name: copy-sql-files
+      - name: iam-bootstrap
         image: busybox
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: MARIADB_SERVICE
+          value: mariadb
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secrets
+              key: MYSQL_DATABASE
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secrets
+              key: MYSQL_USER
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secrets
+              key: MYSQL_PASSWORD
         command:
         - sh
         - "-c"
         - |
           ls -laR /var/tmp/gitsync/tmp/iam/ && \
+          echo "- Copying IAM files from git clone to IAM home" && \
           cp -rp /var/tmp/gitsync/tmp/iam/data/iam/* /home/airlock/iam/ && \
+          chown -R 1000:0 /home/airlock/iam/ && \
+          echo "- Copying IAM license to IAM home" && \
           cp /var/tmp/iam/license.txt /home/airlock/iam/ && \
-          ls -laR /home/airlock/iam/
+          ls -laR /home/airlock/iam/ && \
+          echo "- Replacing placeholders in IAM configuration with ENV variables" && \
+          sed -i "s,__DB_SERVICE__,${MARIADB_SERVICE},;\
+            s,__DB_IAM__,${MYSQL_DATABASE},; \
+            s,__DB_USER__,${MYSQL_USER},;\
+            s,__DB_PASSWORD__,${MYSQL_PASSWORD}," \
+            /home/airlock/iam/instances/auth/medusa-configuration.xml
         volumeMounts:
         - name: git-sync-dir
           mountPath: /var/tmp/gitsync/

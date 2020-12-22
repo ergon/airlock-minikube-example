@@ -43,6 +43,7 @@ spec:
           mountPath: /var/tmp/gitsync/
       - name: copy-sql-files
         image: busybox
+        imagePullPolicy: IfNotPresent
         command:
         - sh
         - "-c"
