@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="US-ASCII"?>
-<ExportConfigRoot Version="152" ConfigHash="4cb7547564e42b2b71209d992aaec71b">
+<ExportConfigRoot Version="168" ConfigHash="d186203f92c475c5293b801e13951788">
     <Mappings>
-        <Mapping Id="14">
-            <Name>Airlock-IAM-7.2-Loginapp-REST-Public</Name>
+        <Mapping Id="7" Tenant="">
+            <Name>Airlock-IAM-Loginapp-REST-Public</Name>
             <LockingEnabled>true</LockingEnabled>
             <MappingTemplateName></MappingTemplateName>
             <Labels Locked="false">
                 <Label>IAM</Label>
                 <Label>REST</Label>
-                <Label>Template</Label>
             </Labels>
             <Type>AIRLOCKIAM64_AIRLOCKIAM64</Type>
             <ThreatHandling Locked="false">BLOCK</ThreatHandling>
@@ -1887,7 +1886,7 @@ The empty pattern matches any string.</Comment>
                                         <DefaultId>-100</DefaultId>
                                     </IpPattern>
                                     <ParameterNamePattern>
-                                        <Name>Auth Password and Plaintext Fields</Name>
+                                        <Name>Auth Password, SSO Parameters and Plaintext Fields</Name>
                                         <Comment></Comment>
                                         <Active>true</Active>
                                         <Pattern>
@@ -1900,6 +1899,8 @@ The empty pattern matches any string.</Comment>
 | OLDPASSWORD
 | password
 | PROFILEITEM[0-9]+
+| sso
+| representation
 )$</PatternString>
                                             <IgnoreCase>false</IgnoreCase>
                                             <InvertPattern>false</InvertPattern>
@@ -1992,6 +1993,50 @@ The empty pattern matches any string.</Comment>
                         <DenyRuleUsage>
                             <DenyRuleId>-2164</DenyRuleId>
                             <Enabled Locked="false">true</Enabled>
+                            <LogOnly Locked="false">false</LogOnly>
+                            <DenyRuleExceptions Locked="false"/>
+                        </DenyRuleUsage>
+                    </DenyRuleUsages>
+                    <DenyRuleExceptions Locked="false"/>
+                </DenyRuleGroupUsage>
+                <DenyRuleGroupUsage>
+                    <DenyRuleGroupId>-30030</DenyRuleGroupId>
+                    <Enabled Locked="false">false</Enabled>
+                    <LogOnly Locked="false">false</LogOnly>
+                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <AdditionalLogging Locked="false">OFF</AdditionalLogging>
+                    <DenyRuleUsages>
+                        <DenyRuleUsage>
+                            <DenyRuleId>-2180</DenyRuleId>
+                            <Enabled Locked="false">false</Enabled>
+                            <LogOnly Locked="false">false</LogOnly>
+                            <DenyRuleExceptions Locked="false"/>
+                        </DenyRuleUsage>
+                        <DenyRuleUsage>
+                            <DenyRuleId>-2182</DenyRuleId>
+                            <Enabled Locked="false">false</Enabled>
+                            <LogOnly Locked="false">false</LogOnly>
+                            <DenyRuleExceptions Locked="false"/>
+                        </DenyRuleUsage>
+                    </DenyRuleUsages>
+                    <DenyRuleExceptions Locked="false"/>
+                </DenyRuleGroupUsage>
+                <DenyRuleGroupUsage>
+                    <DenyRuleGroupId>-30031</DenyRuleGroupId>
+                    <Enabled Locked="false">false</Enabled>
+                    <LogOnly Locked="false">false</LogOnly>
+                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <AdditionalLogging Locked="false">OFF</AdditionalLogging>
+                    <DenyRuleUsages>
+                        <DenyRuleUsage>
+                            <DenyRuleId>-2181</DenyRuleId>
+                            <Enabled Locked="false">false</Enabled>
+                            <LogOnly Locked="false">false</LogOnly>
+                            <DenyRuleExceptions Locked="false"/>
+                        </DenyRuleUsage>
+                        <DenyRuleUsage>
+                            <DenyRuleId>-2183</DenyRuleId>
+                            <Enabled Locked="false">false</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
@@ -2600,7 +2645,7 @@ The empty pattern matches any string.</Comment>
                                 <DefaultId>-100</DefaultId>
                             </IpPattern>
                             <ParameterNamePattern>
-                                <Name>Auth Password and Plaintext Fields</Name>
+                                <Name>Auth Password, SSO Parameters and Plaintext Fields</Name>
                                 <Comment></Comment>
                                 <Active>true</Active>
                                 <Pattern>
@@ -2613,6 +2658,8 @@ The empty pattern matches any string.</Comment>
 | OLDPASSWORD
 | password
 | PROFILEITEM[0-9]+
+| sso
+| representation
 )$</PatternString>
                                     <IgnoreCase>false</IgnoreCase>
                                     <InvertPattern>false</InvertPattern>
@@ -3431,7 +3478,7 @@ The empty pattern matches any string.</Comment>
                     <ActionType>REMOVE_HEADER</ActionType>
                     <Enabled>true</Enabled>
                     <HeaderName>
-                        <PatternString>^(?:Accept|Accept-Charset|Accept-Language|Authorization|Cache-Control|Content-Disposition|Content-Type|DNT|Host|If-Match|If-Modified-Since|If-None-Match|If-Range|Origin|Pragma|Range|Referer|Sec-WebSocket-Extensions|Sec-WebSocket-Key|Sec-WebSocket-Protocol|Sec-WebSocket-Version|SOAPAction|UA-CPU|User-Agent|Via|X-Do-Not-Track|X-Requested-With|X-Same-Domain|X-WAP-Profile|X-WAP-Profile-Diff|IAM-CAPTCHA-Solution|IAM-CAPTCHA-Context|Signature)$</PatternString>
+                        <PatternString>^(?:Accept|Accept-Charset|Accept-Language|Authorization|Cache-Control|Content-Disposition|Content-Type|DNT|Host|If-Match|If-Modified-Since|If-None-Match|If-Range|Origin|Pragma|Range|Referer|Sec-WebSocket-Extensions|Sec-WebSocket-Key|Sec-WebSocket-Protocol|Sec-WebSocket-Version|SOAPAction|UA-CPU|User-Agent|Via|X-Do-Not-Track|X-Requested-With|X-Same-Domain|X-Continue-Flow|X-WAP-Profile|X-WAP-Profile-Diff|IAM-CAPTCHA-Solution|IAM-CAPTCHA-Context|Signature|X-IAM-SSO-Ticket)$</PatternString>
                         <IgnoreCase>true</IgnoreCase>
                         <InvertPattern>true</InvertPattern>
                         <AirlockRegexFormat>true</AirlockRegexFormat>
@@ -3515,8 +3562,8 @@ Pattern: the empty string.</Comment>
             </HttpLimits>
             <UseEncryptedCookiePrefix Locked="false">false</UseEncryptedCookiePrefix>
             <EncryptedCookiePrefix Locked="false"></EncryptedCookiePrefix>
-	    <UsePassthroughCookiePrefix Locked="false">true</UsePassthroughCookiePrefix>
-            <PassthroughCookiePrefix Locked="false">^.*$</PassthroughCookiePrefix>
+            <UsePassthroughCookiePrefix Locked="false">false</UsePassthroughCookiePrefix>
+            <PassthroughCookiePrefix Locked="false"></PassthroughCookiePrefix>
             <EntryPathRegexEnabled Locked="false">false</EntryPathRegexEnabled>
             <OrderPriority Locked="false">-1</OrderPriority>
             <RequestBodySizeLimit Locked="false">10485760</RequestBodySizeLimit>
@@ -3545,6 +3592,20 @@ Pattern: the empty string.</Comment>
             <OpenApiId Locked="false">-1</OpenApiId>
             <OpenApiPublishSpecificationEnabled Locked="false">false</OpenApiPublishSpecificationEnabled>
             <OpenApiPublishSpecificationPath Locked="false"></OpenApiPublishSpecificationPath>
+            <ApiPolicyServiceEnabled Locked="false">false</ApiPolicyServiceEnabled>
+            <ApiPolicyServiceId Locked="false">-1</ApiPolicyServiceId>
+            <ApiPolicyKeyExtractionHeaderEnabled Locked="false">true</ApiPolicyKeyExtractionHeaderEnabled>
+            <ApiPolicyKeyExtractionHeaderPattern Locked="false">
+                <PatternString>^Api-Key: (.*)$</PatternString>
+                <IgnoreCase>false</IgnoreCase>
+                <InvertPattern>false</InvertPattern>
+                <AirlockRegexFormat>true</AirlockRegexFormat>
+            </ApiPolicyKeyExtractionHeaderPattern>
+            <ApiPolicyKeyExtractionHeaderRewrite Locked="false">$1</ApiPolicyKeyExtractionHeaderRewrite>
+            <ApiPolicyKeyExtractionQueryParameterEnabled Locked="false">false</ApiPolicyKeyExtractionQueryParameterEnabled>
+            <ApiPolicyKeyExtractionQueryParameterName Locked="false">api_key</ApiPolicyKeyExtractionQueryParameterName>
+            <ApiPolicyKeyExtractionCookieEnabled Locked="false">false</ApiPolicyKeyExtractionCookieEnabled>
+            <ApiPolicyKeyExtractionCookieName Locked="false">ApiKey</ApiPolicyKeyExtractionCookieName>
             <ServiceComment></ServiceComment>
             <TimeoutComment></TimeoutComment>
             <AccessComment></AccessComment>
@@ -3567,9 +3628,9 @@ Pattern: the empty string.</Comment>
             <EntitySoftLink>
                 <ModelSimpleClassName>Mapping</ModelSimpleClassName>
                 <Description></Description>
-                <Link>Airlock-IAM-7.2-Loginapp-REST-Public</Link>
-                <EntityId>14</EntityId>
-                <DisplayName>Airlock-IAM-7.2-Loginapp-REST-Public</DisplayName>
+                <Link>Airlock-IAM-Loginapp-REST-Public</Link>
+                <EntityId>7</EntityId>
+                <DisplayName>Airlock-IAM-Loginapp-REST-Public</DisplayName>
             </EntitySoftLink>
             <SoftLinks>
                 <SoftLink>
@@ -3797,9 +3858,9 @@ The security level Strict prevents injection of JavaScript code in unquoted cont
                 <SoftLink>
                     <ModelSimpleClassName>DenyRule</ModelSimpleClassName>
                     <Description></Description>
-                    <Link>(default XSS_001a) HTML script or embed src attribute in parameter value</Link>
+                    <Link>(default XSS_001a) Source attribute of critical HTML tag in parameter value</Link>
                     <EntityId>-2043</EntityId>
-                    <DisplayName>(default XSS_001a) HTML script or embed src attribute in parameter value</DisplayName>
+                    <DisplayName>(default XSS_001a) Source attribute of critical HTML tag in parameter value</DisplayName>
                     <ReferencingFieldName>denyRuleId</ReferencingFieldName>
                 </SoftLink>
                 <SoftLink>
@@ -3896,9 +3957,9 @@ The security level Strict prevents injection of JavaScript code in unquoted cont
                 <SoftLink>
                     <ModelSimpleClassName>DenyRule</ModelSimpleClassName>
                     <Description></Description>
-                    <Link>(default XSS_001b) HTML script or embed src attribute in HTTP header value</Link>
+                    <Link>(default XSS_001b) Source attribute of critical HTML tag in HTTP header value</Link>
                     <EntityId>-2044</EntityId>
-                    <DisplayName>(default XSS_001b) HTML script or embed src attribute in HTTP header value</DisplayName>
+                    <DisplayName>(default XSS_001b) Source attribute of critical HTML tag in HTTP header value</DisplayName>
                     <ReferencingFieldName>denyRuleId</ReferencingFieldName>
                 </SoftLink>
                 <SoftLink>
@@ -3987,9 +4048,9 @@ The security level Strict prevents injection of JavaScript code in unquoted cont
                 <SoftLink>
                     <ModelSimpleClassName>DenyRule</ModelSimpleClassName>
                     <Description></Description>
-                    <Link>(default XSS_001c) HTML script or embed src attribute in path</Link>
+                    <Link>(default XSS_001c) Source attribute of critical HTML tag in path</Link>
                     <EntityId>-2045</EntityId>
-                    <DisplayName>(default XSS_001c) HTML script or embed src attribute in path</DisplayName>
+                    <DisplayName>(default XSS_001c) Source attribute of critical HTML tag in path</DisplayName>
                     <ReferencingFieldName>denyRuleId</ReferencingFieldName>
                 </SoftLink>
                 <SoftLink>
@@ -4351,6 +4412,54 @@ The security level Strict prevents injection of any kind of HTML tags as well as
                     <Link>(default LDAP_002b) LDAP query injection (strict) in HTTP header value</Link>
                     <EntityId>-2164</EntityId>
                     <DisplayName>(default LDAP_002b) LDAP query injection (strict) in HTTP header value</DisplayName>
+                    <ReferencingFieldName>denyRuleId</ReferencingFieldName>
+                </SoftLink>
+                <SoftLink>
+                    <ModelSimpleClassName>DenyRuleGroup</ModelSimpleClassName>
+                    <Description>Prevents PHP code injection in parameter values</Description>
+                    <Link>(default) PHP Injection in Parameter Value</Link>
+                    <EntityId>-30030</EntityId>
+                    <DisplayName>(default) PHP Injection in Parameter Value</DisplayName>
+                    <ReferencingFieldName>denyRuleGroupId</ReferencingFieldName>
+                </SoftLink>
+                <SoftLink>
+                    <ModelSimpleClassName>DenyRule</ModelSimpleClassName>
+                    <Description></Description>
+                    <Link>(default PHP_001a) PHP tag injection in parameter value</Link>
+                    <EntityId>-2180</EntityId>
+                    <DisplayName>(default PHP_001a) PHP tag injection in parameter value</DisplayName>
+                    <ReferencingFieldName>denyRuleId</ReferencingFieldName>
+                </SoftLink>
+                <SoftLink>
+                    <ModelSimpleClassName>DenyRule</ModelSimpleClassName>
+                    <Description></Description>
+                    <Link>(default PHP_002a) PHP short tag injection in parameter value</Link>
+                    <EntityId>-2182</EntityId>
+                    <DisplayName>(default PHP_002a) PHP short tag injection in parameter value</DisplayName>
+                    <ReferencingFieldName>denyRuleId</ReferencingFieldName>
+                </SoftLink>
+                <SoftLink>
+                    <ModelSimpleClassName>DenyRuleGroup</ModelSimpleClassName>
+                    <Description>Prevents PHP code injection in header values</Description>
+                    <Link>(default) PHP Injection in Header Value</Link>
+                    <EntityId>-30031</EntityId>
+                    <DisplayName>(default) PHP Injection in Header Value</DisplayName>
+                    <ReferencingFieldName>denyRuleGroupId</ReferencingFieldName>
+                </SoftLink>
+                <SoftLink>
+                    <ModelSimpleClassName>DenyRule</ModelSimpleClassName>
+                    <Description></Description>
+                    <Link>(default PHP_001b) PHP tag injection in HTTP header value</Link>
+                    <EntityId>-2181</EntityId>
+                    <DisplayName>(default PHP_001b) PHP tag injection in HTTP header value</DisplayName>
+                    <ReferencingFieldName>denyRuleId</ReferencingFieldName>
+                </SoftLink>
+                <SoftLink>
+                    <ModelSimpleClassName>DenyRule</ModelSimpleClassName>
+                    <Description></Description>
+                    <Link>(default PHP_002b) PHP short tag injection in HTTP header value</Link>
+                    <EntityId>-2183</EntityId>
+                    <DisplayName>(default PHP_002b) PHP short tag injection in HTTP header value</DisplayName>
                     <ReferencingFieldName>denyRuleId</ReferencingFieldName>
                 </SoftLink>
                 <SoftLink>

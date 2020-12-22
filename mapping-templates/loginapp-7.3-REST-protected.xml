@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="US-ASCII"?>
-<ExportConfigRoot Version="152" ConfigHash="4cb7547564e42b2b71209d992aaec71b">
+<ExportConfigRoot Version="168" ConfigHash="d186203f92c475c5293b801e13951788">
     <Mappings>
-        <Mapping Id="10">
-            <Name>Airlock-IAM-7.2-Adminapp</Name>
+        <Mapping Id="6" Tenant="">
+            <Name>Airlock-IAM-Loginapp-REST-Protected</Name>
             <LockingEnabled>true</LockingEnabled>
             <MappingTemplateName></MappingTemplateName>
             <Labels Locked="false">
                 <Label>IAM</Label>
-                <Label>Adminapp</Label>
-                <Label>Template</Label>
+                <Label>REST</Label>
             </Labels>
-            <Type>UNKNOWN</Type>
+            <Type>AIRLOCKIAM64_AIRLOCKIAM64</Type>
             <ThreatHandling Locked="false">BLOCK</ThreatHandling>
             <OperationalMode Locked="false">Production</OperationalMode>
             <CredentialsPropagationType Locked="false">NONE</CredentialsPropagationType>
             <CredentialsPropagationMandatory Locked="false">false</CredentialsPropagationMandatory>
-            <ControlApi Locked="false">Denied</ControlApi>
+            <ControlApi Locked="false">Allowed</ControlApi>
             <EnvCookies Locked="false">true</EnvCookies>
             <MaintenancePage Locked="false">false</MaintenancePage>
-            <OutputCompression Locked="false">false</OutputCompression>
+            <OutputCompression Locked="false">true</OutputCompression>
             <SessionHandling Locked="false">ENFORCE_SESSION</SessionHandling>
             <LoadBalancingCookie Locked="false">false</LoadBalancingCookie>
             <SslClientCertAuthentication Locked="false">NotRequired</SslClientCertAuthentication>
             <NTLMPassthrough Locked="false">false</NTLMPassthrough>
             <AuthenticationFlow Locked="false">Redirect</AuthenticationFlow>
             <Authorizations Locked="false"/>
-            <DeniedAccessUrl Locked="false">/</DeniedAccessUrl>
+            <DeniedAccessUrl Locked="false">/auth/</DeniedAccessUrl>
             <DeniedAccessUrlMode Locked="false">Global</DeniedAccessUrlMode>
             <AccessTokensEnabled Locked="false">false</AccessTokensEnabled>
             <AccessTokensComment></AccessTokensComment>
@@ -57,11 +56,11 @@
             <BackendTimeout Locked="false">120</BackendTimeout>
             <MinSessionIdleTimeout Locked="false">0</MinSessionIdleTimeout>
             <VirtualHostIds/>
-            <EntryPath Locked="false">/auth-admin/</EntryPath>
+            <EntryPath Locked="false">/auth/rest/protected/</EntryPath>
             <BackendLogoutUrl Locked="false"></BackendLogoutUrl>
             <EntryPathIgnoreCase Locked="false">false</EntryPathIgnoreCase>
             <BackendGroupId>-1</BackendGroupId>
-            <BackendPath Locked="false">/auth-admin/</BackendPath>
+            <BackendPath Locked="false">/auth-login/rest/protected/</BackendPath>
             <HttpParameterPollution>
                 <BlockDuplicateParameters Locked="false">true</BlockDuplicateParameters>
                 <LogOnly Locked="false">false</LogOnly>
@@ -75,8 +74,8 @@
                 <JoinValuesOfDuplicateParameter Locked="false">true</JoinValuesOfDuplicateParameter>
                 <SameTypeComment></SameTypeComment>
             </HttpParameterPollution>
-            <RequestFrequencyFilter Locked="false">false</RequestFrequencyFilter>
-            <RequestFrequencyFilterMaxRequestsPerInterval Locked="false">500</RequestFrequencyFilterMaxRequestsPerInterval>
+            <RequestFrequencyFilter Locked="false">true</RequestFrequencyFilter>
+            <RequestFrequencyFilterMaxRequestsPerInterval Locked="false">3000</RequestFrequencyFilterMaxRequestsPerInterval>
             <RequestFrequencyFilterInterval Locked="false">60</RequestFrequencyFilterInterval>
             <RequestFrequencyFilterWhitelistIpPattern Locked="false">
                 <PatternString>^$</PatternString>
@@ -85,24 +84,9 @@
                 <AirlockRegexFormat>true</AirlockRegexFormat>
             </RequestFrequencyFilterWhitelistIpPattern>
             <RequestFrequencyFilterIpAddressWhitelistId Locked="false">-1</RequestFrequencyFilterIpAddressWhitelistId>
-            <BackendHttpRedirectLocationHeaderRewriteMode Locked="false">Custom</BackendHttpRedirectLocationHeaderRewriteMode>
+            <BackendHttpRedirectLocationHeaderRewriteMode Locked="false">Off</BackendHttpRedirectLocationHeaderRewriteMode>
             <BackendHttpRedirectLocationHeaderRewriteComment></BackendHttpRedirectLocationHeaderRewriteComment>
-            <BackendHttpRedirectLocationHeaderRewrites Locked="false">
-                <BackendHttpRedirectLocationHeaderRewrite>
-                    <RewriteFrom>^(?:https?://%BACKENDHOST%(?::%BACKENDPORT%)?)?/%BACKENDPATH%(/.*)?$</RewriteFrom>
-                    <RewriteTo>%ENTRYDIR%$1</RewriteTo>
-                    <IgnoreCase>true</IgnoreCase>
-                    <Comment></Comment>
-                    <Enabled>true</Enabled>
-                </BackendHttpRedirectLocationHeaderRewrite>
-                <BackendHttpRedirectLocationHeaderRewrite>
-                    <RewriteFrom>^(?:https?://%BACKENDHOST%)?/%BACKENDPATH[Airlock-IAM-Servicecontainer]%(/.*)?$</RewriteFrom>
-                    <RewriteTo>/%ENTRYPATH[Airlock-IAM-Servicecontainer]%$1</RewriteTo>
-                    <IgnoreCase>true</IgnoreCase>
-                    <Comment></Comment>
-                    <Enabled>true</Enabled>
-                </BackendHttpRedirectLocationHeaderRewrite>
-            </BackendHttpRedirectLocationHeaderRewrites>
+            <BackendHttpRedirectLocationHeaderRewrites Locked="false"/>
             <GeneralBackendContentRewriteMode Locked="false">Off</GeneralBackendContentRewriteMode>
             <GeneralBackendContentRewriteComment></GeneralBackendContentRewriteComment>
             <GeneralBackendContentRewrites Locked="false"/>
@@ -113,9 +97,9 @@
             <BackendErrorPageReplacementComment></BackendErrorPageReplacementComment>
             <BackendErrorPageReplacements Locked="false"/>
             <DefaultCharset Locked="false">UTF-8</DefaultCharset>
-            <FallbackCharset Locked="false">Windows-1252</FallbackCharset>
+            <FallbackCharset Locked="false"></FallbackCharset>
             <WebSocketHandlingEnabled Locked="false">false</WebSocketHandlingEnabled>
-            <RedirectForErrorPage Locked="false">true</RedirectForErrorPage>
+            <RedirectForErrorPage Locked="false">false</RedirectForErrorPage>
             <StripComments Locked="false">true</StripComments>
             <ParseJsonObjects Locked="false">true</ParseJsonObjects>
             <JsonContentTypePattern Locked="false">
@@ -126,7 +110,7 @@
             </JsonContentTypePattern>
             <UrlEncryptionMode Locked="false">None</UrlEncryptionMode>
             <UrlEncryptionThreatHandling Locked="false">BLOCK</UrlEncryptionThreatHandling>
-            <UrlEncryptionIllegalRedirectLocation Locked="false">/%ENTRYPATH%</UrlEncryptionIllegalRedirectLocation>
+            <UrlEncryptionIllegalRedirectLocation Locked="false">%ENTRYDIR%/</UrlEncryptionIllegalRedirectLocation>
             <UrlEncryptionPathExceptionPatterns Locked="false">
                 <UrlEncryptionPathExceptionPattern>
                     <ExceptionPattern>^/%ENTRYPATH%/?$</ExceptionPattern>
@@ -136,7 +120,13 @@
             </UrlEncryptionPathExceptionPatterns>
             <EnableSmartFormProtection Locked="false">false</EnableSmartFormProtection>
             <EnableSmartFormValueProtection Locked="false">false</EnableSmartFormValueProtection>
-            <FormProtectionFieldNameExceptionPatterns Locked="false"/>
+            <FormProtectionFieldNameExceptionPatterns Locked="false">
+                <FormProtectionFieldNameExceptionPattern>
+                    <ExceptionPattern>^polling$|^cmd$</ExceptionPattern>
+                    <IgnoreCase>false</IgnoreCase>
+                    <Comment></Comment>
+                </FormProtectionFieldNameExceptionPattern>
+            </FormProtectionFieldNameExceptionPatterns>
             <CsrfTokenEnabled Locked="false">false</CsrfTokenEnabled>
             <CsrfTokenIllegalRedirectLocation Locked="false">/%ENTRYPATH%</CsrfTokenIllegalRedirectLocation>
             <CsrfTokenPathExceptionPatterns Locked="false">
@@ -179,7 +169,7 @@
                     <DenyRuleGroupId>-30000</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -190,9 +180,119 @@
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2019</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
-                            <DenyRuleExceptions Locked="false"/>
+                            <DenyRuleExceptions Locked="false">
+                                <DenyRuleException>
+                                    <Comment></Comment>
+                                    <Enabled>true</Enabled>
+                                    <PathPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All paths. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-200</DefaultId>
+                                    </PathPattern>
+                                    <IpPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All IP addresses.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-100</DefaultId>
+                                    </IpPattern>
+                                    <ParameterNamePattern>
+                                        <Name>Auth Password and Plaintext JSON Properties (REST)</Name>
+                                        <Comment></Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>(?x)^
+(?:
+| password
+| oldPassword
+| newPassword
+)$</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>false</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-1</DefaultId>
+                                    </ParameterNamePattern>
+                                    <ParameterValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All values. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-400</DefaultId>
+                                    </ParameterValuePattern>
+                                    <HeaderNamePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Names.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-800</DefaultId>
+                                    </HeaderNamePattern>
+                                    <HeaderValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Values.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-900</DefaultId>
+                                    </HeaderValuePattern>
+                                    <HttpMethodPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All HTTP Methods.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-604</DefaultId>
+                                    </HttpMethodPattern>
+                                    <ContentTypePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All content types. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-700</DefaultId>
+                                    </ContentTypePattern>
+                                </DenyRuleException>
+                            </DenyRuleExceptions>
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2114</DenyRuleId>
@@ -220,9 +320,119 @@
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2037</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
-                            <DenyRuleExceptions Locked="false"/>
+                            <DenyRuleExceptions Locked="false">
+                                <DenyRuleException>
+                                    <Comment></Comment>
+                                    <Enabled>true</Enabled>
+                                    <PathPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All paths. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-200</DefaultId>
+                                    </PathPattern>
+                                    <IpPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All IP addresses.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-100</DefaultId>
+                                    </IpPattern>
+                                    <ParameterNamePattern>
+                                        <Name>Auth Password and Plaintext JSON Properties (REST)</Name>
+                                        <Comment></Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>(?x)^
+(?:
+| password
+| oldPassword
+| newPassword
+)$</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>false</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-1</DefaultId>
+                                    </ParameterNamePattern>
+                                    <ParameterValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All values. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-400</DefaultId>
+                                    </ParameterValuePattern>
+                                    <HeaderNamePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Names.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-800</DefaultId>
+                                    </HeaderNamePattern>
+                                    <HeaderValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Values.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-900</DefaultId>
+                                    </HeaderValuePattern>
+                                    <HttpMethodPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All HTTP Methods.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-604</DefaultId>
+                                    </HttpMethodPattern>
+                                    <ContentTypePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All content types. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-700</DefaultId>
+                                    </ContentTypePattern>
+                                </DenyRuleException>
+                            </DenyRuleExceptions>
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2040</DenyRuleId>
@@ -232,9 +442,222 @@
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2118</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
-                            <DenyRuleExceptions Locked="false"/>
+                            <DenyRuleExceptions Locked="false">
+                                <DenyRuleException>
+                                    <Comment></Comment>
+                                    <Enabled>true</Enabled>
+                                    <PathPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All paths. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-200</DefaultId>
+                                    </PathPattern>
+                                    <IpPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All IP addresses.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-100</DefaultId>
+                                    </IpPattern>
+                                    <ParameterNamePattern>
+                                        <Name>Auth Password and Plaintext JSON Properties (REST)</Name>
+                                        <Comment></Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>(?x)^
+(?:
+| password
+| oldPassword
+| newPassword
+)$</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>false</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-1</DefaultId>
+                                    </ParameterNamePattern>
+                                    <ParameterValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All values. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-400</DefaultId>
+                                    </ParameterValuePattern>
+                                    <HeaderNamePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Names.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-800</DefaultId>
+                                    </HeaderNamePattern>
+                                    <HeaderValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Values.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-900</DefaultId>
+                                    </HeaderValuePattern>
+                                    <HttpMethodPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All HTTP Methods.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-604</DefaultId>
+                                    </HttpMethodPattern>
+                                    <ContentTypePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All content types. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-700</DefaultId>
+                                    </ContentTypePattern>
+                                </DenyRuleException>
+                                <DenyRuleException>
+                                    <Comment></Comment>
+                                    <Enabled>true</Enabled>
+                                    <PathPattern>
+                                        <Name>Device Token Endpoints (In Protected REST Subpath)</Name>
+                                        <Comment></Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>^%ENTRYDIR%/my/tokens/device-tokens$</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-1</DefaultId>
+                                    </PathPattern>
+                                    <IpPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All IP addresses.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-100</DefaultId>
+                                    </IpPattern>
+                                    <ParameterNamePattern>
+                                        <Name>Device Token Public Key JSON Data</Name>
+                                        <Comment></Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>^#json#data#attributes#publicJwk#</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-1</DefaultId>
+                                    </ParameterNamePattern>
+                                    <ParameterValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All values. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-400</DefaultId>
+                                    </ParameterValuePattern>
+                                    <HeaderNamePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Names.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-800</DefaultId>
+                                    </HeaderNamePattern>
+                                    <HeaderValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Values.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-900</DefaultId>
+                                    </HeaderValuePattern>
+                                    <HttpMethodPattern>
+                                        <Name>(default) POST</Name>
+                                        <Comment>HTTP method POST</Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>^POST$</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-602</DefaultId>
+                                    </HttpMethodPattern>
+                                    <ContentTypePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All content types. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-700</DefaultId>
+                                    </ContentTypePattern>
+                                </DenyRuleException>
+                            </DenyRuleExceptions>
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2120</DenyRuleId>
@@ -261,12 +684,12 @@
                     <DenyRuleGroupId>-30006</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
                             <DenyRuleId>-2020</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
@@ -296,7 +719,7 @@
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2038</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
@@ -308,7 +731,7 @@
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2119</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
@@ -337,7 +760,7 @@
                     <DenyRuleGroupId>-30001</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -378,19 +801,343 @@
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2064</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
-                            <DenyRuleExceptions Locked="false"/>
+                            <DenyRuleExceptions Locked="false">
+                                <DenyRuleException>
+                                    <Comment></Comment>
+                                    <Enabled>true</Enabled>
+                                    <PathPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All paths. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-200</DefaultId>
+                                    </PathPattern>
+                                    <IpPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All IP addresses.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-100</DefaultId>
+                                    </IpPattern>
+                                    <ParameterNamePattern>
+                                        <Name>Auth Password and Plaintext JSON Properties (REST)</Name>
+                                        <Comment></Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>(?x)^
+(?:
+| password
+| oldPassword
+| newPassword
+)$</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>false</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-1</DefaultId>
+                                    </ParameterNamePattern>
+                                    <ParameterValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All values. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-400</DefaultId>
+                                    </ParameterValuePattern>
+                                    <HeaderNamePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Names.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-800</DefaultId>
+                                    </HeaderNamePattern>
+                                    <HeaderValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Values.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-900</DefaultId>
+                                    </HeaderValuePattern>
+                                    <HttpMethodPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All HTTP Methods.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-604</DefaultId>
+                                    </HttpMethodPattern>
+                                    <ContentTypePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All content types. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-700</DefaultId>
+                                    </ContentTypePattern>
+                                </DenyRuleException>
+                                <DenyRuleException>
+                                    <Comment></Comment>
+                                    <Enabled>true</Enabled>
+                                    <PathPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All paths. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-200</DefaultId>
+                                    </PathPattern>
+                                    <IpPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All IP addresses.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-100</DefaultId>
+                                    </IpPattern>
+                                    <ParameterNamePattern>
+                                        <Name>REST Filter Parameter</Name>
+                                        <Comment></Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>^filter$</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>false</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-1</DefaultId>
+                                    </ParameterNamePattern>
+                                    <ParameterValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All values. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-400</DefaultId>
+                                    </ParameterValuePattern>
+                                    <HeaderNamePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Names.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-800</DefaultId>
+                                    </HeaderNamePattern>
+                                    <HeaderValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Values.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-900</DefaultId>
+                                    </HeaderValuePattern>
+                                    <HttpMethodPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All HTTP Methods.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-604</DefaultId>
+                                    </HttpMethodPattern>
+                                    <ContentTypePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All content types. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-700</DefaultId>
+                                    </ContentTypePattern>
+                                </DenyRuleException>
+                            </DenyRuleExceptions>
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2067</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
-                            <DenyRuleExceptions Locked="false"/>
+                            <DenyRuleExceptions Locked="false">
+                                <DenyRuleException>
+                                    <Comment></Comment>
+                                    <Enabled>true</Enabled>
+                                    <PathPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All paths. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-200</DefaultId>
+                                    </PathPattern>
+                                    <IpPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All IP addresses.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-100</DefaultId>
+                                    </IpPattern>
+                                    <ParameterNamePattern>
+                                        <Name>Auth Password and Plaintext JSON Properties (REST)</Name>
+                                        <Comment></Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>(?x)^
+(?:
+| password
+| oldPassword
+| newPassword
+)$</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>false</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-1</DefaultId>
+                                    </ParameterNamePattern>
+                                    <ParameterValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All values. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-400</DefaultId>
+                                    </ParameterValuePattern>
+                                    <HeaderNamePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Names.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-800</DefaultId>
+                                    </HeaderNamePattern>
+                                    <HeaderValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Values.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-900</DefaultId>
+                                    </HeaderValuePattern>
+                                    <HttpMethodPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All HTTP Methods.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-604</DefaultId>
+                                    </HttpMethodPattern>
+                                    <ContentTypePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All content types. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-700</DefaultId>
+                                    </ContentTypePattern>
+                                </DenyRuleException>
+                            </DenyRuleExceptions>
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2070</DenyRuleId>
-                            <Enabled Locked="false">true</Enabled>
+                            <Enabled Locked="false">false</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
@@ -413,7 +1160,7 @@
                     <DenyRuleGroupId>-30007</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -454,13 +1201,13 @@
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2068</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2071</DenyRuleId>
-                            <Enabled Locked="false">true</Enabled>
+                            <Enabled Locked="false">false</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
@@ -483,7 +1230,7 @@
                     <DenyRuleGroupId>-30008</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -506,13 +1253,13 @@
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2069</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2072</DenyRuleId>
-                            <Enabled Locked="false">true</Enabled>
+                            <Enabled Locked="false">false</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
@@ -523,7 +1270,7 @@
                     <DenyRuleGroupId>-30028</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -551,7 +1298,7 @@
                     <DenyRuleGroupId>-30023</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">BASIC</SecurityLevel>
+                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -562,7 +1309,7 @@
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2127</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
@@ -574,7 +1321,7 @@
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2124</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
@@ -585,30 +1332,30 @@
                     <DenyRuleGroupId>-30024</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
                             <DenyRuleId>-2050</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2128</DenyRuleId>
-                            <Enabled Locked="false">true</Enabled>
-                            <LogOnly Locked="false">false</LogOnly>
-                            <DenyRuleExceptions Locked="false"/>
-                        </DenyRuleUsage>
-                        <DenyRuleUsage>
-                            <DenyRuleId>-2053</DenyRuleId>
                             <Enabled Locked="false">false</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
                         <DenyRuleUsage>
-                            <DenyRuleId>-2125</DenyRuleId>
+                            <DenyRuleId>-2053</DenyRuleId>
                             <Enabled Locked="false">true</Enabled>
+                            <LogOnly Locked="false">false</LogOnly>
+                            <DenyRuleExceptions Locked="false"/>
+                        </DenyRuleUsage>
+                        <DenyRuleUsage>
+                            <DenyRuleId>-2125</DenyRuleId>
+                            <Enabled Locked="false">false</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
@@ -619,30 +1366,30 @@
                     <DenyRuleGroupId>-30025</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
                             <DenyRuleId>-2051</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2129</DenyRuleId>
-                            <Enabled Locked="false">true</Enabled>
-                            <LogOnly Locked="false">false</LogOnly>
-                            <DenyRuleExceptions Locked="false"/>
-                        </DenyRuleUsage>
-                        <DenyRuleUsage>
-                            <DenyRuleId>-2165</DenyRuleId>
                             <Enabled Locked="false">false</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
                         <DenyRuleUsage>
-                            <DenyRuleId>-2126</DenyRuleId>
+                            <DenyRuleId>-2165</DenyRuleId>
                             <Enabled Locked="false">true</Enabled>
+                            <LogOnly Locked="false">false</LogOnly>
+                            <DenyRuleExceptions Locked="false"/>
+                        </DenyRuleUsage>
+                        <DenyRuleUsage>
+                            <DenyRuleId>-2126</DenyRuleId>
+                            <Enabled Locked="false">false</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
@@ -653,7 +1400,7 @@
                     <DenyRuleGroupId>-30018</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -670,15 +1417,235 @@
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2153</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
-                            <DenyRuleExceptions Locked="false"/>
+                            <DenyRuleExceptions Locked="false">
+                                <DenyRuleException>
+                                    <Comment></Comment>
+                                    <Enabled>true</Enabled>
+                                    <PathPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All paths. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-200</DefaultId>
+                                    </PathPattern>
+                                    <IpPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All IP addresses.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-100</DefaultId>
+                                    </IpPattern>
+                                    <ParameterNamePattern>
+                                        <Name>Auth Password and Plaintext JSON Properties (REST)</Name>
+                                        <Comment></Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>(?x)^
+(?:
+| password
+| oldPassword
+| newPassword
+)$</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>false</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-1</DefaultId>
+                                    </ParameterNamePattern>
+                                    <ParameterValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All values. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-400</DefaultId>
+                                    </ParameterValuePattern>
+                                    <HeaderNamePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Names.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-800</DefaultId>
+                                    </HeaderNamePattern>
+                                    <HeaderValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Values.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-900</DefaultId>
+                                    </HeaderValuePattern>
+                                    <HttpMethodPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All HTTP Methods.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-604</DefaultId>
+                                    </HttpMethodPattern>
+                                    <ContentTypePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All content types. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-700</DefaultId>
+                                    </ContentTypePattern>
+                                </DenyRuleException>
+                            </DenyRuleExceptions>
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2155</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
-                            <DenyRuleExceptions Locked="false"/>
+                            <DenyRuleExceptions Locked="false">
+                                <DenyRuleException>
+                                    <Comment></Comment>
+                                    <Enabled>true</Enabled>
+                                    <PathPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All paths. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-200</DefaultId>
+                                    </PathPattern>
+                                    <IpPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All IP addresses.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-100</DefaultId>
+                                    </IpPattern>
+                                    <ParameterNamePattern>
+                                        <Name>Auth Password and Plaintext JSON Properties (REST)</Name>
+                                        <Comment></Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>(?x)^
+(?:
+| password
+| oldPassword
+| newPassword
+)$</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>false</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-1</DefaultId>
+                                    </ParameterNamePattern>
+                                    <ParameterValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All values. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-400</DefaultId>
+                                    </ParameterValuePattern>
+                                    <HeaderNamePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Names.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-800</DefaultId>
+                                    </HeaderNamePattern>
+                                    <HeaderValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Values.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-900</DefaultId>
+                                    </HeaderValuePattern>
+                                    <HttpMethodPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All HTTP Methods.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-604</DefaultId>
+                                    </HttpMethodPattern>
+                                    <ContentTypePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All content types. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-700</DefaultId>
+                                    </ContentTypePattern>
+                                </DenyRuleException>
+                            </DenyRuleExceptions>
                         </DenyRuleUsage>
                     </DenyRuleUsages>
                     <DenyRuleExceptions Locked="false"/>
@@ -687,7 +1654,7 @@
                     <DenyRuleGroupId>-30019</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -704,13 +1671,13 @@
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2154</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2156</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
@@ -721,7 +1688,7 @@
                     <DenyRuleGroupId>-30026</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -732,9 +1699,119 @@
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2159</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
-                            <DenyRuleExceptions Locked="false"/>
+                            <DenyRuleExceptions Locked="false">
+                                <DenyRuleException>
+                                    <Comment></Comment>
+                                    <Enabled>true</Enabled>
+                                    <PathPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All paths. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-200</DefaultId>
+                                    </PathPattern>
+                                    <IpPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All IP addresses.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-100</DefaultId>
+                                    </IpPattern>
+                                    <ParameterNamePattern>
+                                        <Name>Auth Password and Plaintext JSON Properties (REST)</Name>
+                                        <Comment></Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>(?x)^
+(?:
+| password
+| oldPassword
+| newPassword
+)$</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>false</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-1</DefaultId>
+                                    </ParameterNamePattern>
+                                    <ParameterValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All values. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-400</DefaultId>
+                                    </ParameterValuePattern>
+                                    <HeaderNamePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Names.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-800</DefaultId>
+                                    </HeaderNamePattern>
+                                    <HeaderValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Values.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-900</DefaultId>
+                                    </HeaderValuePattern>
+                                    <HttpMethodPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All HTTP Methods.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-604</DefaultId>
+                                    </HttpMethodPattern>
+                                    <ContentTypePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All content types. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-700</DefaultId>
+                                    </ContentTypePattern>
+                                </DenyRuleException>
+                            </DenyRuleExceptions>
                         </DenyRuleUsage>
                     </DenyRuleUsages>
                     <DenyRuleExceptions Locked="false"/>
@@ -743,7 +1820,7 @@
                     <DenyRuleGroupId>-30027</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -754,7 +1831,7 @@
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2160</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
@@ -778,7 +1855,123 @@
                             <DenyRuleId>-2163</DenyRuleId>
                             <Enabled Locked="false">false</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
-                            <DenyRuleExceptions Locked="false"/>
+                            <DenyRuleExceptions Locked="false">
+                                <DenyRuleException>
+                                    <Comment></Comment>
+                                    <Enabled>true</Enabled>
+                                    <PathPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All paths. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-200</DefaultId>
+                                    </PathPattern>
+                                    <IpPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All IP addresses.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-100</DefaultId>
+                                    </IpPattern>
+                                    <ParameterNamePattern>
+                                        <Name>Auth Password, SSO Parameters and Plaintext Fields</Name>
+                                        <Comment></Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>(?x)^
+(?:
+  LABEL
+| name
+| (?:NEW)?PASSWORD[12]?
+| NEWPASSWORDCONFIRMATION
+| OLDPASSWORD
+| password
+| PROFILEITEM[0-9]+
+| sso
+| representation
+)$</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>false</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-1</DefaultId>
+                                    </ParameterNamePattern>
+                                    <ParameterValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All values. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-400</DefaultId>
+                                    </ParameterValuePattern>
+                                    <HeaderNamePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Names.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-800</DefaultId>
+                                    </HeaderNamePattern>
+                                    <HeaderValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Values.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-900</DefaultId>
+                                    </HeaderValuePattern>
+                                    <HttpMethodPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All HTTP Methods.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-604</DefaultId>
+                                    </HttpMethodPattern>
+                                    <ContentTypePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All content types. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-700</DefaultId>
+                                    </ContentTypePattern>
+                                </DenyRuleException>
+                            </DenyRuleExceptions>
                         </DenyRuleUsage>
                     </DenyRuleUsages>
                     <DenyRuleExceptions Locked="false"/>
@@ -787,17 +1980,61 @@
                     <DenyRuleGroupId>-30022</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
                             <DenyRuleId>-2162</DenyRuleId>
-                            <Enabled Locked="false">true</Enabled>
+                            <Enabled Locked="false">false</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2164</DenyRuleId>
+                            <Enabled Locked="false">true</Enabled>
+                            <LogOnly Locked="false">false</LogOnly>
+                            <DenyRuleExceptions Locked="false"/>
+                        </DenyRuleUsage>
+                    </DenyRuleUsages>
+                    <DenyRuleExceptions Locked="false"/>
+                </DenyRuleGroupUsage>
+                <DenyRuleGroupUsage>
+                    <DenyRuleGroupId>-30030</DenyRuleGroupId>
+                    <Enabled Locked="false">false</Enabled>
+                    <LogOnly Locked="false">false</LogOnly>
+                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <AdditionalLogging Locked="false">OFF</AdditionalLogging>
+                    <DenyRuleUsages>
+                        <DenyRuleUsage>
+                            <DenyRuleId>-2180</DenyRuleId>
+                            <Enabled Locked="false">false</Enabled>
+                            <LogOnly Locked="false">false</LogOnly>
+                            <DenyRuleExceptions Locked="false"/>
+                        </DenyRuleUsage>
+                        <DenyRuleUsage>
+                            <DenyRuleId>-2182</DenyRuleId>
+                            <Enabled Locked="false">false</Enabled>
+                            <LogOnly Locked="false">false</LogOnly>
+                            <DenyRuleExceptions Locked="false"/>
+                        </DenyRuleUsage>
+                    </DenyRuleUsages>
+                    <DenyRuleExceptions Locked="false"/>
+                </DenyRuleGroupUsage>
+                <DenyRuleGroupUsage>
+                    <DenyRuleGroupId>-30031</DenyRuleGroupId>
+                    <Enabled Locked="false">false</Enabled>
+                    <LogOnly Locked="false">false</LogOnly>
+                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <AdditionalLogging Locked="false">OFF</AdditionalLogging>
+                    <DenyRuleUsages>
+                        <DenyRuleUsage>
+                            <DenyRuleId>-2181</DenyRuleId>
+                            <Enabled Locked="false">false</Enabled>
+                            <LogOnly Locked="false">false</LogOnly>
+                            <DenyRuleExceptions Locked="false"/>
+                        </DenyRuleUsage>
+                        <DenyRuleUsage>
+                            <DenyRuleId>-2183</DenyRuleId>
                             <Enabled Locked="false">false</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
@@ -837,7 +2074,7 @@
                     <DenyRuleGroupId>-30004</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -878,7 +2115,7 @@
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2083</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
@@ -896,21 +2133,241 @@
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2087</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
-                            <DenyRuleExceptions Locked="false"/>
+                            <DenyRuleExceptions Locked="false">
+                                <DenyRuleException>
+                                    <Comment></Comment>
+                                    <Enabled>true</Enabled>
+                                    <PathPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All paths. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-200</DefaultId>
+                                    </PathPattern>
+                                    <IpPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All IP addresses.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-100</DefaultId>
+                                    </IpPattern>
+                                    <ParameterNamePattern>
+                                        <Name>Auth Password and Plaintext JSON Properties (REST)</Name>
+                                        <Comment></Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>(?x)^
+(?:
+| password
+| oldPassword
+| newPassword
+)$</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>false</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-1</DefaultId>
+                                    </ParameterNamePattern>
+                                    <ParameterValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All values. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-400</DefaultId>
+                                    </ParameterValuePattern>
+                                    <HeaderNamePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Names.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-800</DefaultId>
+                                    </HeaderNamePattern>
+                                    <HeaderValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Values.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-900</DefaultId>
+                                    </HeaderValuePattern>
+                                    <HttpMethodPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All HTTP Methods.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-604</DefaultId>
+                                    </HttpMethodPattern>
+                                    <ContentTypePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All content types. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-700</DefaultId>
+                                    </ContentTypePattern>
+                                </DenyRuleException>
+                            </DenyRuleExceptions>
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2090</DenyRuleId>
-                            <Enabled Locked="false">true</Enabled>
+                            <Enabled Locked="false">false</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2092</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
-                            <DenyRuleExceptions Locked="false"/>
+                            <DenyRuleExceptions Locked="false">
+                                <DenyRuleException>
+                                    <Comment></Comment>
+                                    <Enabled>true</Enabled>
+                                    <PathPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All paths. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-200</DefaultId>
+                                    </PathPattern>
+                                    <IpPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All IP addresses.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-100</DefaultId>
+                                    </IpPattern>
+                                    <ParameterNamePattern>
+                                        <Name>Auth Password and Plaintext JSON Properties (REST)</Name>
+                                        <Comment></Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>(?x)^
+(?:
+| password
+| oldPassword
+| newPassword
+)$</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>false</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-1</DefaultId>
+                                    </ParameterNamePattern>
+                                    <ParameterValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All values. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-400</DefaultId>
+                                    </ParameterValuePattern>
+                                    <HeaderNamePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Names.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-800</DefaultId>
+                                    </HeaderNamePattern>
+                                    <HeaderValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Values.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-900</DefaultId>
+                                    </HeaderValuePattern>
+                                    <HttpMethodPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All HTTP Methods.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-604</DefaultId>
+                                    </HttpMethodPattern>
+                                    <ContentTypePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All content types. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-700</DefaultId>
+                                    </ContentTypePattern>
+                                </DenyRuleException>
+                            </DenyRuleExceptions>
                         </DenyRuleUsage>
                     </DenyRuleUsages>
                     <DenyRuleExceptions Locked="false"/>
@@ -919,7 +2376,7 @@
                     <DenyRuleGroupId>-30009</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -936,7 +2393,7 @@
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2088</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
@@ -953,7 +2410,7 @@
                     <DenyRuleGroupId>-30010</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -993,7 +2450,7 @@
                     <DenyRuleGroupId>-30011</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -1016,13 +2473,13 @@
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2106</DenyRuleId>
-                            <Enabled Locked="false">true</Enabled>
+                            <Enabled Locked="false">false</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2132</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
@@ -1033,7 +2490,7 @@
                     <DenyRuleGroupId>-30012</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -1061,7 +2518,7 @@
                     <DenyRuleGroupId>-30013</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -1107,7 +2564,7 @@
                     <DenyRuleGroupId>-30014</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -1141,7 +2598,7 @@
                     <DenyRuleGroupId>-30003</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -1157,13 +2614,129 @@
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
                     </DenyRuleUsages>
-                    <DenyRuleExceptions Locked="false"/>
+                    <DenyRuleExceptions Locked="false">
+                        <DenyRuleException>
+                            <Comment></Comment>
+                            <Enabled>true</Enabled>
+                            <PathPattern>
+                                <Name>(default) No Restriction</Name>
+                                <Comment>All paths. The empty pattern matches any string.</Comment>
+                                <Active>false</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-200</DefaultId>
+                            </PathPattern>
+                            <IpPattern>
+                                <Name>(default) No Restriction</Name>
+                                <Comment>All IP addresses.
+The empty pattern matches any string.</Comment>
+                                <Active>false</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-100</DefaultId>
+                            </IpPattern>
+                            <ParameterNamePattern>
+                                <Name>Auth Password, SSO Parameters and Plaintext Fields</Name>
+                                <Comment></Comment>
+                                <Active>true</Active>
+                                <Pattern>
+                                    <PatternString>(?x)^
+(?:
+  LABEL
+| name
+| (?:NEW)?PASSWORD[12]?
+| NEWPASSWORDCONFIRMATION
+| OLDPASSWORD
+| password
+| PROFILEITEM[0-9]+
+| sso
+| representation
+)$</PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>false</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-1</DefaultId>
+                            </ParameterNamePattern>
+                            <ParameterValuePattern>
+                                <Name>(default) No Restriction</Name>
+                                <Comment>All values. The empty pattern matches any string.</Comment>
+                                <Active>false</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-400</DefaultId>
+                            </ParameterValuePattern>
+                            <HeaderNamePattern>
+                                <Name>(default) No Restriction</Name>
+                                <Comment>All Header Names.
+The empty pattern matches any string.</Comment>
+                                <Active>false</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-800</DefaultId>
+                            </HeaderNamePattern>
+                            <HeaderValuePattern>
+                                <Name>(default) No Restriction</Name>
+                                <Comment>All Header Values.
+The empty pattern matches any string.</Comment>
+                                <Active>false</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-900</DefaultId>
+                            </HeaderValuePattern>
+                            <HttpMethodPattern>
+                                <Name>(default) No Restriction</Name>
+                                <Comment>All HTTP Methods.
+The empty pattern matches any string.</Comment>
+                                <Active>false</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-604</DefaultId>
+                            </HttpMethodPattern>
+                            <ContentTypePattern>
+                                <Name>(default) No Restriction</Name>
+                                <Comment>All content types. The empty pattern matches any string.</Comment>
+                                <Active>false</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-700</DefaultId>
+                            </ContentTypePattern>
+                        </DenyRuleException>
+                    </DenyRuleExceptions>
                 </DenyRuleGroupUsage>
                 <DenyRuleGroupUsage>
                     <DenyRuleGroupId>-30015</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -1185,7 +2758,7 @@
                     <DenyRuleGroupId>-30002</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -1196,25 +2769,25 @@
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2109</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2110</DenyRuleId>
-                            <Enabled Locked="false">true</Enabled>
-                            <LogOnly Locked="false">false</LogOnly>
-                            <DenyRuleExceptions Locked="false"/>
-                        </DenyRuleUsage>
-                        <DenyRuleUsage>
-                            <DenyRuleId>-2111</DenyRuleId>
                             <Enabled Locked="false">false</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
                         <DenyRuleUsage>
-                            <DenyRuleId>-2112</DenyRuleId>
+                            <DenyRuleId>-2111</DenyRuleId>
                             <Enabled Locked="false">true</Enabled>
+                            <LogOnly Locked="false">false</LogOnly>
+                            <DenyRuleExceptions Locked="false"/>
+                        </DenyRuleUsage>
+                        <DenyRuleUsage>
+                            <DenyRuleId>-2112</DenyRuleId>
+                            <Enabled Locked="false">false</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
                             <DenyRuleExceptions Locked="false"/>
                         </DenyRuleUsage>
@@ -1225,7 +2798,7 @@
                     <DenyRuleGroupId>-30017</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -1236,18 +2809,337 @@
                         </DenyRuleUsage>
                         <DenyRuleUsage>
                             <DenyRuleId>-2113</DenyRuleId>
-                            <Enabled Locked="false">false</Enabled>
+                            <Enabled Locked="false">true</Enabled>
                             <LogOnly Locked="false">false</LogOnly>
-                            <DenyRuleExceptions Locked="false"/>
+                            <DenyRuleExceptions Locked="false">
+                                <DenyRuleException>
+                                    <Comment></Comment>
+                                    <Enabled>true</Enabled>
+                                    <PathPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All paths. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-200</DefaultId>
+                                    </PathPattern>
+                                    <IpPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All IP addresses.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-100</DefaultId>
+                                    </IpPattern>
+                                    <ParameterNamePattern>
+                                        <Name>Auth Password and Plaintext JSON Properties (REST)</Name>
+                                        <Comment></Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>(?x)^
+(?:
+| password
+| oldPassword
+| newPassword
+)$</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>false</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-1</DefaultId>
+                                    </ParameterNamePattern>
+                                    <ParameterValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All values. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-400</DefaultId>
+                                    </ParameterValuePattern>
+                                    <HeaderNamePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Names.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-800</DefaultId>
+                                    </HeaderNamePattern>
+                                    <HeaderValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Values.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-900</DefaultId>
+                                    </HeaderValuePattern>
+                                    <HttpMethodPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All HTTP Methods.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-604</DefaultId>
+                                    </HttpMethodPattern>
+                                    <ContentTypePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All content types. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-700</DefaultId>
+                                    </ContentTypePattern>
+                                </DenyRuleException>
+                            </DenyRuleExceptions>
                         </DenyRuleUsage>
                     </DenyRuleUsages>
-                    <DenyRuleExceptions Locked="false"/>
+                    <DenyRuleExceptions Locked="false">
+                        <DenyRuleException>
+                            <Comment>Don't check Location parameter for User Representation feature.</Comment>
+                            <Enabled>true</Enabled>
+                            <PathPattern>
+                                <Name>(default) No Restriction</Name>
+                                <Comment>All paths. The empty pattern matches any string.</Comment>
+                                <Active>false</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-200</DefaultId>
+                            </PathPattern>
+                            <IpPattern>
+                                <Name>(default) No Restriction</Name>
+                                <Comment>All IP addresses.
+The empty pattern matches any string.</Comment>
+                                <Active>false</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-100</DefaultId>
+                            </IpPattern>
+                            <ParameterNamePattern>
+                                <Name>Location Parameter</Name>
+                                <Comment></Comment>
+                                <Active>true</Active>
+                                <Pattern>
+                                    <PatternString>^Location$</PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-1</DefaultId>
+                            </ParameterNamePattern>
+                            <ParameterValuePattern>
+                                <Name>Pollution Exception</Name>
+                                <Comment></Comment>
+                                <Active>true</Active>
+                                <Pattern>
+                                    <PatternString>/representation/start</PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-1</DefaultId>
+                            </ParameterValuePattern>
+                            <HeaderNamePattern>
+                                <Name>(default) No Restriction</Name>
+                                <Comment>All Header Names.
+The empty pattern matches any string.</Comment>
+                                <Active>false</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-800</DefaultId>
+                            </HeaderNamePattern>
+                            <HeaderValuePattern>
+                                <Name>(default) No Restriction</Name>
+                                <Comment>All Header Values.
+The empty pattern matches any string.</Comment>
+                                <Active>false</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-900</DefaultId>
+                            </HeaderValuePattern>
+                            <HttpMethodPattern>
+                                <Name>(default) No Restriction</Name>
+                                <Comment>All HTTP Methods.
+The empty pattern matches any string.</Comment>
+                                <Active>false</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-604</DefaultId>
+                            </HttpMethodPattern>
+                            <ContentTypePattern>
+                                <Name>(default) No Restriction</Name>
+                                <Comment>All content types. The empty pattern matches any string.</Comment>
+                                <Active>false</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-700</DefaultId>
+                            </ContentTypePattern>
+                        </DenyRuleException>
+                        <DenyRuleException>
+                            <Comment></Comment>
+                            <Enabled>true</Enabled>
+                            <PathPattern>
+                                <Name>REST Authentication Location Endpoints (Within REST Subpath)</Name>
+                                <Comment></Comment>
+                                <Active>true</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-1</DefaultId>
+                            </PathPattern>
+                            <IpPattern>
+                                <Name>(default) No Restriction</Name>
+                                <Comment>All IP addresses.
+                                    The empty pattern matches any string.</Comment>
+                                <Active>false</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-100</DefaultId>
+                            </IpPattern>
+                            <ParameterNamePattern>
+                                <Name>Location JSON Property</Name>
+                                <Comment></Comment>
+                                <Active>true</Active>
+                                <Pattern>
+                                    <PatternString>^#json#location$</PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>false</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-1</DefaultId>
+                            </ParameterNamePattern>
+                            <ParameterValuePattern>
+                                <Name>(default) No Restriction</Name>
+                                <Comment>All values. The empty pattern matches any string.</Comment>
+                                <Active>false</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-400</DefaultId>
+                            </ParameterValuePattern>
+                            <HeaderNamePattern>
+                                <Name>(default) No Restriction</Name>
+                                <Comment>All Header Names.
+                                    The empty pattern matches any string.</Comment>
+                                <Active>false</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-800</DefaultId>
+                            </HeaderNamePattern>
+                            <HeaderValuePattern>
+                                <Name>(default) No Restriction</Name>
+                                <Comment>All Header Values.
+                                    The empty pattern matches any string.</Comment>
+                                <Active>false</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-900</DefaultId>
+                            </HeaderValuePattern>
+                            <HttpMethodPattern>
+                                <Name>(default) No Restriction</Name>
+                                <Comment>All HTTP Methods.
+                                    The empty pattern matches any string.</Comment>
+                                <Active>false</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-604</DefaultId>
+                            </HttpMethodPattern>
+                            <ContentTypePattern>
+                                <Name>(default) No Restriction</Name>
+                                <Comment>All content types. The empty pattern matches any string.</Comment>
+                                <Active>false</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-700</DefaultId>
+                            </ContentTypePattern>
+                        </DenyRuleException>
+                    </DenyRuleExceptions>
                 </DenyRuleGroupUsage>
                 <DenyRuleGroupUsage>
                     <DenyRuleGroupId>-30020</DenyRuleGroupId>
                     <Enabled Locked="false">true</Enabled>
                     <LogOnly Locked="false">false</LogOnly>
-                    <SecurityLevel Locked="false">STANDARD</SecurityLevel>
+                    <SecurityLevel Locked="false">STRICT</SecurityLevel>
                     <AdditionalLogging Locked="false">OFF</AdditionalLogging>
                     <DenyRuleUsages>
                         <DenyRuleUsage>
@@ -1305,31 +3197,36 @@
             <CustomDenyRuleGroupUsages Locked="false"/>
             <AllowRules Locked="false">
                 <AllowRule>
-                    <Name>Airlock IAM Adminapp Allow Rule</Name>
-                    <Comment>Allow all paths, variable names and values</Comment>
+                    <Name>Path Blacklist</Name>
+                    <Comment></Comment>
                     <PathPattern>
-                        <Name>(default) No Restriction</Name>
-                        <Comment>All paths. The empty pattern matches any string.</Comment>
-                        <Active>false</Active>
-                        <Pattern>
-                            <PatternString></PatternString>
-                            <IgnoreCase>false</IgnoreCase>
-                            <InvertPattern>false</InvertPattern>
-                            <AirlockRegexFormat>true</AirlockRegexFormat>
-                        </Pattern>
-                        <DefaultId>-200</DefaultId>
-                    </PathPattern>
-                    <HttpMethodPattern>
-                        <Name>IAM Adminapp REST HTTP Verbs</Name>
+                        <Name>Auth Path Blacklist</Name>
                         <Comment></Comment>
                         <Active>true</Active>
                         <Pattern>
-                            <PatternString>^GET$
-^POST$
-^PATCH$
-^DELETE$
-^PUT$
-^OPTIONS$</PatternString>
+                            <PatternString>(?x)
+\.(?:
+  class
+| conf
+| configuration
+| jar
+| jsp
+| log
+| properties
+| xml
+)$</PatternString>
+                            <IgnoreCase>true</IgnoreCase>
+                            <InvertPattern>false</InvertPattern>
+                            <AirlockRegexFormat>false</AirlockRegexFormat>
+                        </Pattern>
+                        <DefaultId>-1</DefaultId>
+                    </PathPattern>
+                    <HttpMethodPattern>
+                        <Name>No match</Name>
+                        <Comment></Comment>
+                        <Active>true</Active>
+                        <Pattern>
+                            <PatternString>$no_match^</PatternString>
                             <IgnoreCase>false</IgnoreCase>
                             <InvertPattern>false</InvertPattern>
                             <AirlockRegexFormat>true</AirlockRegexFormat>
@@ -1361,11 +3258,95 @@ The empty pattern matches any string.</Comment>
                         </Pattern>
                         <DefaultId>-100</DefaultId>
                     </IpPattern>
+                    <AllowRuleParameters/>
+                    <Active>true</Active>
+                    <LogOnly>false</LogOnly>
+                    <defaultId>-1</defaultId>
+                </AllowRule>
+                <AllowRule>
+                    <Name>REST HTTP Methods And Content Types</Name>
+                    <Comment></Comment>
+                    <PathPattern>
+                        <Name>(default) No Restriction</Name>
+                        <Comment>All paths. The empty pattern matches any string.</Comment>
+                        <Active>false</Active>
+                        <Pattern>
+                            <PatternString></PatternString>
+                            <IgnoreCase>false</IgnoreCase>
+                            <InvertPattern>false</InvertPattern>
+                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                        </Pattern>
+                        <DefaultId>-200</DefaultId>
+                    </PathPattern>
+                    <HttpMethodPattern>
+                        <Name>CRUD methods or OPTIONS</Name>
+                        <Comment></Comment>
+                        <Active>true</Active>
+                        <Pattern>
+                            <PatternString>^GET$
+^POST$
+^PATCH$
+^DELETE$
+^PUT$
+^OPTIONS$</PatternString>
+                            <IgnoreCase>true</IgnoreCase>
+                            <InvertPattern>false</InvertPattern>
+                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                        </Pattern>
+                        <DefaultId>-1</DefaultId>
+                    </HttpMethodPattern>
+                    <ContentTypePattern>
+                        <Name>REST JSON or none</Name>
+                        <Comment></Comment>
+                        <Active>true</Active>
+                        <Pattern>
+                            <PatternString>^application/(?:vnd.api\+)?json$
+^$</PatternString>
+                            <IgnoreCase>false</IgnoreCase>
+                            <InvertPattern>false</InvertPattern>
+                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                        </Pattern>
+                        <DefaultId>-1</DefaultId>
+                    </ContentTypePattern>
+                    <IpPattern>
+                        <Name>(default) No Restriction</Name>
+                        <Comment>All IP addresses.
+The empty pattern matches any string.</Comment>
+                        <Active>false</Active>
+                        <Pattern>
+                            <PatternString></PatternString>
+                            <IgnoreCase>false</IgnoreCase>
+                            <InvertPattern>false</InvertPattern>
+                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                        </Pattern>
+                        <DefaultId>-100</DefaultId>
+                    </IpPattern>
                     <AllowRuleParameters>
                         <AllowRuleParameter>
                             <Required>false</Required>
                             <ParameterNamePattern>
-                                <PatternString>.*</PatternString>
+                                <PatternString>^[[:alpha:]][[:alnum:]._\-]*$</PatternString>
+                                <IgnoreCase>false</IgnoreCase>
+                                <InvertPattern>false</InvertPattern>
+                                <AirlockRegexFormat>true</AirlockRegexFormat>
+                            </ParameterNamePattern>
+                            <ParameterValuePattern>
+                                <Name>(default) No Restriction</Name>
+                                <Comment>All values. The empty pattern matches any string.</Comment>
+                                <Active>false</Active>
+                                <Pattern>
+                                    <PatternString></PatternString>
+                                    <IgnoreCase>false</IgnoreCase>
+                                    <InvertPattern>false</InvertPattern>
+                                    <AirlockRegexFormat>true</AirlockRegexFormat>
+                                </Pattern>
+                                <DefaultId>-400</DefaultId>
+                            </ParameterValuePattern>
+                        </AllowRuleParameter>
+                        <AllowRuleParameter>
+                            <Required>false</Required>
+                            <ParameterNamePattern>
+                                <PatternString>^#json#</PatternString>
                                 <IgnoreCase>false</IgnoreCase>
                                 <InvertPattern>false</InvertPattern>
                                 <AirlockRegexFormat>true</AirlockRegexFormat>
@@ -1386,7 +3367,7 @@ The empty pattern matches any string.</Comment>
                     </AllowRuleParameters>
                     <Active>true</Active>
                     <LogOnly>false</LogOnly>
-                    <defaultId>-1000</defaultId>
+                    <defaultId>-1</defaultId>
                 </AllowRule>
             </AllowRules>
             <GlobalRequestHeaderActionUsages>
@@ -1482,21 +3463,21 @@ The empty pattern matches any string.</Comment>
                 </GlobalActionUsage>
                 <GlobalActionUsage Locked="false">
                     <GlobalActionId>-20019</GlobalActionId>
-                    <State>DISABLED</State>
+                    <State>ENABLED</State>
                 </GlobalActionUsage>
                 <GlobalActionUsage Locked="false">
                     <GlobalActionId>-20020</GlobalActionId>
-                    <State>DISABLED</State>
+                    <State>ENABLED</State>
                 </GlobalActionUsage>
             </GlobalResponseHeaderActionUsages>
             <RequestHeaderActions Locked="false">
                 <RequestHeaderAction>
-                    <Name>IAM Adminapp HTTP Headers</Name>
+                    <Name>IAM header whitelist</Name>
                     <Comment></Comment>
                     <ActionType>REMOVE_HEADER</ActionType>
                     <Enabled>true</Enabled>
                     <HeaderName>
-                        <PatternString>^(?:Accept|Accept-Charset|Accept-Language|Authorization|Cache-Control|Content-Disposition|Content-Type|DNT|Host|If-Match|If-Modified-Since|If-None-Match|If-Range|Origin|Pragma|Range|Referer|Sec-WebSocket-Extensions|Sec-WebSocket-Key|Sec-WebSocket-Protocol|Sec-WebSocket-Version|SOAPAction|UA-CPU|User-Agent|Via|X-Do-Not-Track|X-Requested-With|X-WAP-Profile|X-WAP-Profile-Diff|X-Same-Domain)$</PatternString>
+                        <PatternString>^(?:Accept|Accept-Charset|Accept-Language|Authorization|Cache-Control|Content-Disposition|Content-Type|DNT|Host|If-Match|If-Modified-Since|If-None-Match|If-Range|Origin|Pragma|Range|Referer|Sec-WebSocket-Extensions|Sec-WebSocket-Key|Sec-WebSocket-Protocol|Sec-WebSocket-Version|SOAPAction|UA-CPU|User-Agent|Via|X-Do-Not-Track|X-Requested-With|X-Same-Domain|X-Continue-Flow|X-WAP-Profile|X-WAP-Profile-Diff|IAM-CAPTCHA-Solution|IAM-CAPTCHA-Context|Signature|X-IAM-SSO-Ticket)$</PatternString>
                         <IgnoreCase>true</IgnoreCase>
                         <InvertPattern>true</InvertPattern>
                         <AirlockRegexFormat>true</AirlockRegexFormat>
@@ -1521,10 +3502,16 @@ The empty pattern matches any string.</Comment>
             <IcapResponseServiceClientViewUsages Locked="false"/>
             <IcapResponseServiceBackendViewUsages Locked="false"/>
             <ExpertSettingsSgEnabled Locked="false">true</ExpertSettingsSgEnabled>
-            <ExpertSettingsSg Locked="false"># Change default content type from application/x-www-form-urlencoded to application/json, such that
+            <ExpertSettingsSg Locked="false"># Mask static secrets (passwords and alike) in WAF logs and policy learning data
+ParameterMasking.Enable              &quot;TRUE&quot;
+ParameterMasking.Name.Pattern        &quot;^#json#(?:.*)?(?:password|password|oldPassword|newPassword|answer|otp|firstOtp|secondOtp|challengeResponse)$&quot;
+ParameterMasking.Name.IgnoreCase     &quot;FALSE&quot;
+ParameterMasking.Name.InvertPattern  &quot;FALSE&quot;
+
+# Change default content type from application/x-www-form-urlencoded to application/json, such that
 # bodiless POST requests to the REST API are allowed.
 DefaultPostRequestContentType        &quot;application/json&quot;
-            </ExpertSettingsSg>
+			</ExpertSettingsSg>
             <ExpertSettingsSgComment></ExpertSettingsSgComment>
             <ExpertSettingsApacheEnabled Locked="false">false</ExpertSettingsApacheEnabled>
             <ExpertSettingsApache Locked="false"></ExpertSettingsApache>
@@ -1554,9 +3541,9 @@ Pattern: the empty string.</Comment>
                 <Comment></Comment>
             </JsonLimits>
             <HttpLimits>
-                <MaxParameters Locked="false">256</MaxParameters>
-                <MaxParameterNameLength Locked="false">128</MaxParameterNameLength>
-                <MaxParameterValueLength Locked="false">10240</MaxParameterValueLength>
+                <MaxParameters Locked="false">128</MaxParameters>
+                <MaxParameterNameLength Locked="false">100</MaxParameterNameLength>
+                <MaxParameterValueLength Locked="false">16384</MaxParameterValueLength>
                 <ParameterLengthException Locked="false">
                     <Name>(default) None</Name>
                     <Comment>No whitelisted parameters.
@@ -1577,8 +3564,8 @@ Pattern: the empty string.</Comment>
             <UsePassthroughCookiePrefix Locked="false">false</UsePassthroughCookiePrefix>
             <PassthroughCookiePrefix Locked="false"></PassthroughCookiePrefix>
             <EntryPathRegexEnabled Locked="false">false</EntryPathRegexEnabled>
-            <OrderPriority Locked="false">-2</OrderPriority>
-            <RequestBodySizeLimit Locked="false">104857600</RequestBodySizeLimit>
+            <OrderPriority Locked="false">-1</OrderPriority>
+            <RequestBodySizeLimit Locked="false">10485760</RequestBodySizeLimit>
             <UseRequestBodyStreaming Locked="false">false</UseRequestBodyStreaming>
             <RequestBodyStreamingHttpMethodPattern Locked="false">
                 <PatternString></PatternString>
@@ -1604,6 +3591,20 @@ Pattern: the empty string.</Comment>
             <OpenApiId Locked="false">-1</OpenApiId>
             <OpenApiPublishSpecificationEnabled Locked="false">false</OpenApiPublishSpecificationEnabled>
             <OpenApiPublishSpecificationPath Locked="false"></OpenApiPublishSpecificationPath>
+            <ApiPolicyServiceEnabled Locked="false">false</ApiPolicyServiceEnabled>
+            <ApiPolicyServiceId Locked="false">-1</ApiPolicyServiceId>
+            <ApiPolicyKeyExtractionHeaderEnabled Locked="false">true</ApiPolicyKeyExtractionHeaderEnabled>
+            <ApiPolicyKeyExtractionHeaderPattern Locked="false">
+                <PatternString>^Api-Key: (.*)$</PatternString>
+                <IgnoreCase>false</IgnoreCase>
+                <InvertPattern>false</InvertPattern>
+                <AirlockRegexFormat>true</AirlockRegexFormat>
+            </ApiPolicyKeyExtractionHeaderPattern>
+            <ApiPolicyKeyExtractionHeaderRewrite Locked="false">$1</ApiPolicyKeyExtractionHeaderRewrite>
+            <ApiPolicyKeyExtractionQueryParameterEnabled Locked="false">false</ApiPolicyKeyExtractionQueryParameterEnabled>
+            <ApiPolicyKeyExtractionQueryParameterName Locked="false">api_key</ApiPolicyKeyExtractionQueryParameterName>
+            <ApiPolicyKeyExtractionCookieEnabled Locked="false">false</ApiPolicyKeyExtractionCookieEnabled>
+            <ApiPolicyKeyExtractionCookieName Locked="false">ApiKey</ApiPolicyKeyExtractionCookieName>
             <ServiceComment></ServiceComment>
             <TimeoutComment></TimeoutComment>
             <AccessComment></AccessComment>
@@ -1611,8 +3612,8 @@ Pattern: the empty string.</Comment>
             <ApplicationComment></ApplicationComment>
             <AccessFrequencyComment></AccessFrequencyComment>
             <MiscComment></MiscComment>
-            <UrlEncryptionComment></UrlEncryptionComment>
-            <FormProtectionComment></FormProtectionComment>
+            <UrlEncryptionComment>URL encryption for Airlock IAM.</UrlEncryptionComment>
+            <FormProtectionComment>HTML code must be correct, e.g. must not contain nested forms in order for form protection to work.</FormProtectionComment>
             <CsrfTokenComment></CsrfTokenComment>
             <GeneralRequestLimitsComment></GeneralRequestLimitsComment>
             <DenyRulesComment></DenyRulesComment>
@@ -1626,9 +3627,9 @@ Pattern: the empty string.</Comment>
             <EntitySoftLink>
                 <ModelSimpleClassName>Mapping</ModelSimpleClassName>
                 <Description></Description>
-                <Link>Airlock-IAM-7.2-Adminapp</Link>
-                <EntityId>10</EntityId>
-                <DisplayName>Airlock-IAM-7.2-Adminapp</DisplayName>
+                <Link>Airlock-IAM-Loginapp-REST-Protected</Link>
+                <EntityId>6</EntityId>
+                <DisplayName>Airlock-IAM-Loginapp-REST-Protected</DisplayName>
             </EntitySoftLink>
             <SoftLinks>
                 <SoftLink>
@@ -1856,9 +3857,9 @@ The security level Strict prevents injection of JavaScript code in unquoted cont
                 <SoftLink>
                     <ModelSimpleClassName>DenyRule</ModelSimpleClassName>
                     <Description></Description>
-                    <Link>(default XSS_001a) HTML script or embed src attribute in parameter value</Link>
+                    <Link>(default XSS_001a) Source attribute of critical HTML tag in parameter value</Link>
                     <EntityId>-2043</EntityId>
-                    <DisplayName>(default XSS_001a) HTML script or embed src attribute in parameter value</DisplayName>
+                    <DisplayName>(default XSS_001a) Source attribute of critical HTML tag in parameter value</DisplayName>
                     <ReferencingFieldName>denyRuleId</ReferencingFieldName>
                 </SoftLink>
                 <SoftLink>
@@ -1955,9 +3956,9 @@ The security level Strict prevents injection of JavaScript code in unquoted cont
                 <SoftLink>
                     <ModelSimpleClassName>DenyRule</ModelSimpleClassName>
                     <Description></Description>
-                    <Link>(default XSS_001b) HTML script or embed src attribute in HTTP header value</Link>
+                    <Link>(default XSS_001b) Source attribute of critical HTML tag in HTTP header value</Link>
                     <EntityId>-2044</EntityId>
-                    <DisplayName>(default XSS_001b) HTML script or embed src attribute in HTTP header value</DisplayName>
+                    <DisplayName>(default XSS_001b) Source attribute of critical HTML tag in HTTP header value</DisplayName>
                     <ReferencingFieldName>denyRuleId</ReferencingFieldName>
                 </SoftLink>
                 <SoftLink>
@@ -2046,9 +4047,9 @@ The security level Strict prevents injection of JavaScript code in unquoted cont
                 <SoftLink>
                     <ModelSimpleClassName>DenyRule</ModelSimpleClassName>
                     <Description></Description>
-                    <Link>(default XSS_001c) HTML script or embed src attribute in path</Link>
+                    <Link>(default XSS_001c) Source attribute of critical HTML tag in path</Link>
                     <EntityId>-2045</EntityId>
-                    <DisplayName>(default XSS_001c) HTML script or embed src attribute in path</DisplayName>
+                    <DisplayName>(default XSS_001c) Source attribute of critical HTML tag in path</DisplayName>
                     <ReferencingFieldName>denyRuleId</ReferencingFieldName>
                 </SoftLink>
                 <SoftLink>
@@ -2410,6 +4411,54 @@ The security level Strict prevents injection of any kind of HTML tags as well as
                     <Link>(default LDAP_002b) LDAP query injection (strict) in HTTP header value</Link>
                     <EntityId>-2164</EntityId>
                     <DisplayName>(default LDAP_002b) LDAP query injection (strict) in HTTP header value</DisplayName>
+                    <ReferencingFieldName>denyRuleId</ReferencingFieldName>
+                </SoftLink>
+                <SoftLink>
+                    <ModelSimpleClassName>DenyRuleGroup</ModelSimpleClassName>
+                    <Description>Prevents PHP code injection in parameter values</Description>
+                    <Link>(default) PHP Injection in Parameter Value</Link>
+                    <EntityId>-30030</EntityId>
+                    <DisplayName>(default) PHP Injection in Parameter Value</DisplayName>
+                    <ReferencingFieldName>denyRuleGroupId</ReferencingFieldName>
+                </SoftLink>
+                <SoftLink>
+                    <ModelSimpleClassName>DenyRule</ModelSimpleClassName>
+                    <Description></Description>
+                    <Link>(default PHP_001a) PHP tag injection in parameter value</Link>
+                    <EntityId>-2180</EntityId>
+                    <DisplayName>(default PHP_001a) PHP tag injection in parameter value</DisplayName>
+                    <ReferencingFieldName>denyRuleId</ReferencingFieldName>
+                </SoftLink>
+                <SoftLink>
+                    <ModelSimpleClassName>DenyRule</ModelSimpleClassName>
+                    <Description></Description>
+                    <Link>(default PHP_002a) PHP short tag injection in parameter value</Link>
+                    <EntityId>-2182</EntityId>
+                    <DisplayName>(default PHP_002a) PHP short tag injection in parameter value</DisplayName>
+                    <ReferencingFieldName>denyRuleId</ReferencingFieldName>
+                </SoftLink>
+                <SoftLink>
+                    <ModelSimpleClassName>DenyRuleGroup</ModelSimpleClassName>
+                    <Description>Prevents PHP code injection in header values</Description>
+                    <Link>(default) PHP Injection in Header Value</Link>
+                    <EntityId>-30031</EntityId>
+                    <DisplayName>(default) PHP Injection in Header Value</DisplayName>
+                    <ReferencingFieldName>denyRuleGroupId</ReferencingFieldName>
+                </SoftLink>
+                <SoftLink>
+                    <ModelSimpleClassName>DenyRule</ModelSimpleClassName>
+                    <Description></Description>
+                    <Link>(default PHP_001b) PHP tag injection in HTTP header value</Link>
+                    <EntityId>-2181</EntityId>
+                    <DisplayName>(default PHP_001b) PHP tag injection in HTTP header value</DisplayName>
+                    <ReferencingFieldName>denyRuleId</ReferencingFieldName>
+                </SoftLink>
+                <SoftLink>
+                    <ModelSimpleClassName>DenyRule</ModelSimpleClassName>
+                    <Description></Description>
+                    <Link>(default PHP_002b) PHP short tag injection in HTTP header value</Link>
+                    <EntityId>-2183</EntityId>
+                    <DisplayName>(default PHP_002b) PHP short tag injection in HTTP header value</DisplayName>
                     <ReferencingFieldName>denyRuleId</ReferencingFieldName>
                 </SoftLink>
                 <SoftLink>
