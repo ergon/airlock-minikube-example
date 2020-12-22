@@ -6725,7 +6725,7 @@ The empty pattern matches any string.</Comment>
                             </ParameterValuePattern>
                         </AllowRuleParameter>
                     </AllowRuleParameters>
-                    <Active>false</Active>
+                    <Active>true</Active>
                     <LogOnly>false</LogOnly>
                     <defaultId>-1</defaultId>
                 </AllowRule>
