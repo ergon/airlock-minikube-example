@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,9 +16,15 @@ spec:
         app: echoserver
     spec:
       containers:
-      - image: openresty/openresty:1.19.3.1-alpine
+      - name: echoserver
+        image: openresty/openresty:1.19.3.1-alpine
         imagePullPolicy: IfNotPresent
-        name: echoserver
+        env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: generic-parameters
+              key: TZ
         ports:
         - name: http
           containerPort: 8080
@@ -28,7 +35,7 @@ spec:
       volumes:
       - name: config
         configMap:
-          name: nginx-config
+          name: echoserver-nginx-config
 ---
 apiVersion: v1
 kind: Service
@@ -46,7 +53,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nginx-config
+  name: echoserver-nginx-config
 data:
   nginx.conf : |
     error_log  /dev/stderr debug;

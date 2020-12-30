@@ -1,0 +1,66 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adminer
+  labels:
+    app: adminer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adminer
+  template:
+    metadata:
+      labels:
+        app: adminer
+    spec:
+      containers:
+      - name: adminer
+        image: adminer:4.7.7-standalone
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: generic-parameters
+              key: TZ
+        - name: ADMINER_PLUGINS
+          value: ''
+        - name: ADMINER_DESIGN
+          value: ''
+        - name: ADMINER_DEFAULT_SERVER
+          value: mariadb
+        ports:
+        - name: http
+          containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: adminer
+  labels:
+    app: adminer
+spec:
+  selector:
+    app: adminer
+  ports:
+  - name: http
+    port: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-adminer
+  annotations:
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /adminer
+        pathType: Prefix
+        backend:
+          service:
+            name: adminer
+            port: 
+              number: 8080

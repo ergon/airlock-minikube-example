@@ -57,6 +57,33 @@ kubectl create secret generic microgateway-secrets \
   -o yaml > params/microgateway-secret.yaml
 kubectl apply -f params/microgateway-secret.yaml
 ```
+### Create a secret for the MariaDB database which is used by Airlock IAM
+After proceeding the steps below, a secret with the name `mariadb-secrets` is created.<br>
+Follow the instructions below:
+* Create the secret `mariadb-secrets`:
+```console
+kubectl create secret generic mariadb-secrets \
+  --from-literal=MYSQL_DATABASE=iam \
+  --from-literal=MYSQL_ROOT_PASSWORD=$(openssl rand -base64 36) \
+  --from-literal=MYSQL_USER=iam \
+  --from-literal=MYSQL_PASSWORD=$(openssl rand -base64 36) \
+  --dry-run=client \
+  -o yaml > params/mariadb-secret.yaml
+kubectl apply -f params/mariadb-secret.yaml
+```
+
+### Create a secret for the IAM license
+After proceeding the steps below, a secret with the name `iam-secrets` is created containing the IAM `license.txt`.<br>
+Follow the instructions below:
+* Save the IAM license file in `params/iam.lic`
+* Create the secret `iam-secrets`:
+```console
+kubectl create secret generic iam-secrets \
+  --from-file=license.txt=params/iam.lic \
+  --dry-run=client \
+  -o yaml > params/iam-secret.yaml
+kubectl apply -f params/iam-secret.yaml
+```
 
 ### Create a DockerHub secret to pull the Airlock images
 The Airlock Docker images are in a private DockerHub repository. To download them, create a pull secret and replace the values in `<...>`. The DockerHub user must be granted to download the images.
@@ -74,9 +101,11 @@ kubectl apply -f params/dockerhub-secret.yaml
 ## Start the deployment
 To deploy the demo setup, run the following commands:
 ```console
+kubectl apply -f params/environment-parameters.yaml
 kubectl apply -f efk/
 kubectl apply -f redis/
 kubectl apply -f echoserver/
+kubectl apply -f iam/
 ```
 
 ## Use the demo
@@ -85,8 +114,19 @@ Figure out the IP address of Minikube:
 minikube ip
 ```
 Open a browser to navigate the different web applications:
-* Kibana URL: `http://$(minikube ip)/kibana`
-* Echoserver URL: `http://$(minikube ip)/echo`<br>
+* Kibana URL: `https://$(minikube ip)/kibana`
+* Echoserver URL: `https://$(minikube ip)/echo`<br>
+* IAM Admin App URL: `https://$(minikube ip)/auth-admin`<br>
+* Adminer URL:  `https://$(minikube ip)/adminer`<br>
+
+### Users and passwords
+The following users can be used to authenticate:
+* IAM Admin App
+  * Username: `admin`
+  * Password (default): `password`
+* IAM Login APP
+  * Username: `2fa`
+  * Password (default): `password`
 
 ## Cleanup
 The following chapter describes the possibilities to cleanup the deployment/installation. This could be handy in order to restart from stratch or just to clean the environment.
@@ -97,6 +137,7 @@ To delete the Kuberenetes deployment, run the following commands:
 kubectl delete -f efk/
 kubectl delete -f redis/
 kubectl delete -f echoserver/
+kubectl delete -f iam/
 ```
 
 ### Delete Minikube

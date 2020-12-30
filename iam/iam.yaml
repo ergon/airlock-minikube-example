@@ -1,0 +1,181 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iam
+  labels:
+    app: iam
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iam
+  template:
+    metadata:
+      labels:
+        app: iam
+    spec:
+      imagePullSecrets:
+      - name: dockerregcred
+      initContainers:
+      - name: iam-init
+        image: ergon/airlock-iam:latest-7.3
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: generic-parameters
+              key: TZ
+        args: ["init"]
+        volumeMounts:
+        - name: config
+          mountPath: /home/airlock/iam/
+      - name: git-sync
+        image: k8s.gcr.io/git-sync/git-sync:v3.2.0
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: generic-parameters
+              key: TZ
+        - name: GIT_SYNC_REPO
+          valueFrom:
+            configMapKeyRef:
+              name: gitsync-bootstrap-parameters
+              key: GIT_SYNC_REPO
+        - name: GIT_SYNC_BRANCH
+          valueFrom:
+            configMapKeyRef:
+              name: gitsync-bootstrap-parameters
+              key: GIT_SYNC_BRANCH
+        - name: GIT_SYNC_ROOT
+          value: /var/tmp/gitsync/
+        - name: GIT_SYNC_DEST
+          value: tmp
+        - name: GIT_SYNC_SUBMODULES
+          value: "off"
+        - name: GIT_SYNC_ONE_TIME
+          value: "true"
+        volumeMounts:
+        - name: git-sync-dir
+          mountPath: /var/tmp/gitsync/
+      - name: iam-bootstrap
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: generic-parameters
+              key: TZ
+        - name: MARIADB_SERVICE
+          value: mariadb
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secrets
+              key: MYSQL_DATABASE
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secrets
+              key: MYSQL_USER
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secrets
+              key: MYSQL_PASSWORD
+        command:
+        - sh
+        - "-c"
+        - |
+          ls -laR /var/tmp/gitsync/tmp/iam/ && \
+          echo "- Copying IAM files from git clone to IAM home" && \
+          cp -rp /var/tmp/gitsync/tmp/iam/data/iam/* /home/airlock/iam/ && \
+          chown -R 1000:0 /home/airlock/iam/ && \
+          echo "- Copying IAM license to IAM home" && \
+          cp /var/tmp/iam/license.txt /home/airlock/iam/ && \
+          ls -laR /home/airlock/iam/ && \
+          echo "- Replacing placeholders in IAM configuration with ENV variables" && \
+          sed -i "s,__DB_SERVICE__,${MARIADB_SERVICE},;\
+            s,__DB_IAM__,${MYSQL_DATABASE},; \
+            s,__DB_USER__,${MYSQL_USER},;\
+            s,__DB_PASSWORD__,${MYSQL_PASSWORD}," \
+            /home/airlock/iam/instances/auth/medusa-configuration.xml
+        volumeMounts:
+        - name: git-sync-dir
+          mountPath: /var/tmp/gitsync/
+        - name: config
+          mountPath: /home/airlock/iam/
+        - name: secret
+          mountPath: /var/tmp/iam/license.txt
+          subPath: license.txt
+      containers:
+      - name: iam
+        image: ergon/airlock-iam:latest-7.3
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: generic-parameters
+              key: TZ
+        - name: IAM_LOG_LEVEL
+          value: DEBUG
+        ports:
+        - name: https
+          containerPort: 8443
+        volumeMounts:
+        - name: config
+          mountPath: /home/airlock/iam/
+        - name: secret
+          mountPath: /home/airlock/iam/license.txt
+          subPath: license.txt
+        # TODO:
+        # livenessProbe:
+        #   httpGet:
+        #     path: /health
+        #     port: https
+        #     scheme: HTTPS
+        #   initialDelaySeconds: 60
+        # readinessProbe:
+        #   httpGet:
+        #     path: /auth-login/health
+        #     port: https
+        #     scheme: HTTPS
+        #   initialDelaySeconds: 120
+      volumes:
+      - name: git-sync-dir
+        emptyDir: {}
+      - name: config
+        persistentVolumeClaim:
+          claimName: iam-pv-claim
+      - name: secret
+        secret:
+          secretName: iam-secrets
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iam
+  labels:
+    app: iam
+spec:
+  selector:
+    app: iam
+  ports:
+  - name: https
+    port: 8443
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: iam-pv-claim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
