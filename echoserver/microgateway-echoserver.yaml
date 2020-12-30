@@ -119,6 +119,7 @@ data:
           enabled: true
         expert_settings:
           security_gate: |
+            Backend.AddEnvironmentCookies         "TRUE"
             Cookie.PassthroughSelector.Pattern    "^.*$"
             Cookie.PassthroughSelector.IgnoreCase "TRUE"
       backend:
