@@ -10,6 +10,7 @@ INSERT INTO `medusa_user` (username,
                            valid,
                            failed_token_counts,
                            pwd_hash,
+                           pwd_next_chg,
                            pwd_chg_enf)
 
 VALUES ('2fa',
@@ -20,5 +21,6 @@ VALUES ('2fa',
         1,
         '{}',
         'MedusaPwdHistoryAAAARjE2Mzg0fEk61Xwi7Q16p0tt9fakb+j9EcLtch4QXhWuGnQzczaRue8NSY6TZIgCGll6+x7ZwT4ujRO3dNvAxBNRM6dZbNY=',
-        0 /* Password change not enforced */
+        0 /* Password change on next sign-in is disabled */
+        0 /* Enforced password change is disabled */
        ) ON DUPLICATE KEY UPDATE username=username;
