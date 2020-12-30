@@ -25,9 +25,10 @@ This setup spins up an Airlock Microgateway, Airlock IAM and additional containe
   * hub.docker.com/r/ergon/airlock-microgateway
   * hub.docker.com/r/ergon/airlock-iam<br>
   :exclamation: To get the permissions to access these private Docker Hub repositories, please contact order@airlock.com.
-* Airlock licenses
+* Airlock license files
   * A valid license for Airlock Microgateway<br>
-  :exclamation: The Airlock products do not work without a valid license. To order one, please contact order@airlock.com.
+  * A valid license for Airlock IAM<br>
+  :exclamation: Airlock Microgateway and Airlock IAM do not work without a valid license. To order one, please contact order@airlock.com.
 
 ## Start Minikube
 Start Minikube and configure ingress by running the following commands:
