@@ -13,5 +13,5 @@ VALUES ('admin',
         'Administrator',
         'superadmin',
         'MedusaPwdHistoryAAAARjE2Mzg0fF1jjOhya0ZuJ5OrHXgSXznOBBLl6eJ70PTdFYerSYPwgrlK1uq6UCzc5cvN8t1xtgc+YBQO8UgWBYhzDgpkQGM=',
-        1 /* Password change enforced */
+        0 /* Enforced password change is disabled */
        ) ON DUPLICATE KEY UPDATE username=username;

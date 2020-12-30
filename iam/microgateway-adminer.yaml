@@ -2,23 +2,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: microgateway-echoserver
+  name: microgateway-adminer
   labels:
-    app: microgateway-echoserver
+    app: microgateway-adminer
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: microgateway-echoserver
+      app: microgateway-adminer
   template:
     metadata:
       labels:
-        app: microgateway-echoserver
+        app: microgateway-adminer
     spec:
       imagePullSecrets:
         - name: dockerregcred
       containers:
-      - name: microgateway-echoserver
+      - name: microgateway-adminer
         image: ergon/airlock-microgateway:1.0
         imagePullPolicy: IfNotPresent
         env:
@@ -54,7 +54,7 @@ spec:
       volumes:
       - name: config
         configMap:
-          name: microgateway-echoserver-config
+          name: microgateway-adminer-config
       - name: secret
         secret:
           secretName: microgateway-secrets
@@ -62,12 +62,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: microgateway-echoserver
+  name: microgateway-adminer
   labels:
-    app: microgateway-echoserver
+    app: microgateway-adminer
 spec:
   selector:
-    app: microgateway-echoserver
+    app: microgateway-adminer
   ports:
     - name: https
       port: 8443
@@ -75,7 +75,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: microgateway-echoserver-config
+  name: microgateway-adminer-config
 data:
   config.yaml: |
     license_file: /secret/config/license
@@ -107,40 +107,41 @@ data:
     
     apps:
     - virtual_host:
-        name: vh-echoserver
+        name: vh-adminer
       mappings:
-      - name: echoserver
-        entry_path: /
+      - name: adminer
+        entry_path: /adminer/
         session_handling: enforce_session
         operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
-        threat_handling: notify
+        threat_handling: block
         deny_rules:
-        - level: strict
-          enabled: true
-        expert_settings:
-          security_gate: |
-            Cookie.PassthroughSelector.Pattern    "^.*$"
-            Cookie.PassthroughSelector.IgnoreCase "TRUE"
+        - level: basic
+        auth:
+          flow: redirect
+          denied_access_url: /auth/check-login
+          access:
+          - roles:
+            - authenticated
       backend:
-        name: beg-echoserver
+        name: beg-adminer
         protocol: 'http'
-        hostname: echoserver
+        hostname: adminer
         port: 8080
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-microgateway-echoserver
+  name: ingress-microgateway-adminer
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: https
 spec:
   rules:
   - http:
       paths:
-      - path: /echo
+      - path: /adminer
         pathType: Prefix
         backend:
           service:
-            name: microgateway-echoserver
+            name: microgateway-adminer
             port: 
               number: 8443

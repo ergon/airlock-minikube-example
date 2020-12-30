@@ -2210,6 +2210,40 @@
     </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.sso.NoIdentityPropagator" id="No ID Propagation" uuid="7714e0f8-4ef2-4df7-9e43-c697ee65966a"/>
+  <plugin class="com.airlock.iam.core.misc.impl.sso.onbehalflogin.CookieMapping" id="Adminer - adminer_key cookie" uuid="c3ed9257-3ce1-4841-beb1-c8df301a8cf0">
+    <property name="sourceAccessCookieName">adminer_key</property>
+    <property name="targetAccessCookieDomain">@adminer:8080</property>
+  </plugin>
+  <plugin class="com.airlock.iam.core.misc.impl.sso.onbehalflogin.CookieMapping" id="Adminer - adminer_sid cookie" uuid="f2913268-111e-4b75-b238-d1e9620518b0">
+    <property name="sourceAccessCookieName">adminer_sid</property>
+    <property name="targetAccessCookieDomain">@adminer:8080</property>
+  </plugin>
+  <plugin class="com.airlock.iam.core.misc.impl.sso.onbehalflogin.HttpGetOnBehalfLoginStep" id="Adminer - Get Login Form" uuid="8c6be608-f367-4ecf-96eb-7d518b33a35f">
+    <property name="targetApplicationLoginPageUrl">http://adminer:8080/adminer</property>
+  </plugin>
+  <plugin class="com.airlock.iam.core.misc.impl.sso.onbehalflogin.HttpPostOnBehalfLoginStep" id="Adminer - Sign-in" uuid="55dd5e34-1955-4bb7-ae45-2aba658a44a5">
+    <pluginList name="httpParams">
+      <plugin uuidref="5dc04961-5e6b-4aeb-9990-64c7a2381028"/>
+      <plugin uuidref="87e8b065-61d5-4374-a0f0-9b79bb9cfcb8"/>
+      <plugin uuidref="e8998c8f-7572-459b-9ef1-259492d3438d"/>
+      <plugin uuidref="baa67ed2-d9ac-4c36-90b8-547e6a2e713c"/>
+      <plugin uuidref="507b0649-2545-4dd7-a33a-b7065e3c573a"/>
+    </pluginList>
+    <property name="targetUrl">http://adminer:8080/adminer</property>
+  </plugin>
+  <plugin class="com.airlock.iam.core.misc.impl.sso.onbehalflogin.OnBehalfLoginIdentityPropagator" uuid="0ac6dc14-d423-429c-85a9-5e55783348a3">
+    <pluginList name="cookies">
+      <plugin uuidref="f2913268-111e-4b75-b238-d1e9620518b0"/>
+      <plugin uuidref="c3ed9257-3ce1-4841-beb1-c8df301a8cf0"/>
+    </pluginList>
+    <pluginProperty name="httpClientConfig">
+      <plugin uuidref="5ef69e7e-a2f6-474e-9f65-3f6611e85ed2"/>
+    </pluginProperty>
+    <pluginList name="onBehalfLoginSteps">
+      <plugin uuidref="8c6be608-f367-4ecf-96eb-7d518b33a35f"/>
+      <plugin uuidref="55dd5e34-1955-4bb7-ae45-2aba658a44a5"/>
+    </pluginList>
+  </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.tanserver.DefaultTanService" uuid="76297c4d-fdae-45d8-afa8-d4198cd93cc5">
     <property name="activateNewListWithFirstUsage">true</property>
     <pluginProperty name="hashFunction">
@@ -2288,6 +2322,30 @@
   </plugin>
   <plugin class="com.airlock.iam.core.misc.util.crypto.PasswordBasedEncryption" uuid="9c0ed6c9-1d78-44b7-85f3-353bca5d4c15">
     <property name="encryptionPassphrase">changeme</property>
+  </plugin>
+  <plugin class="com.airlock.iam.core.misc.util.httpclient.HttpClientConfig" uuid="5ef69e7e-a2f6-474e-9f65-3f6611e85ed2">
+    <property name="userAgent">Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko</property>
+    <property name="verifyServerHostname">false</property>
+  </plugin>
+  <plugin class="com.airlock.iam.core.misc.util.httpclient.HttpParameter" id="Adminer param -  auth[db]" uuid="507b0649-2545-4dd7-a33a-b7065e3c573a">
+    <property name="name">auth[db]</property>
+    <property name="value">__DB_IAM__</property>
+  </plugin>
+  <plugin class="com.airlock.iam.core.misc.util.httpclient.HttpParameter" id="Adminer param - auth[driver]" uuid="5dc04961-5e6b-4aeb-9990-64c7a2381028">
+    <property name="name">auth[driver]</property>
+    <property name="value">server</property>
+  </plugin>
+  <plugin class="com.airlock.iam.core.misc.util.httpclient.HttpParameter" id="Adminer param - auth[server]" uuid="87e8b065-61d5-4374-a0f0-9b79bb9cfcb8">
+    <property name="name">auth[server]</property>
+    <property name="value">__DB_SERVICE__</property>
+  </plugin>
+  <plugin class="com.airlock.iam.core.misc.util.httpclient.HttpParameter" id="Adminer param -  auth[password]" uuid="baa67ed2-d9ac-4c36-90b8-547e6a2e713c">
+    <property name="name">auth[password]</property>
+    <property name="value">__DB_PASSWORD__</property>
+  </plugin>
+  <plugin class="com.airlock.iam.core.misc.util.httpclient.HttpParameter" id="Adminer param -  auth[username]" uuid="e8998c8f-7572-459b-9ef1-259492d3438d">
+    <property name="name">auth[username]</property>
+    <property name="value">__DB_USER__</property>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.util.password.hash.PasswordHistoryHash" id="History Password Hash" uuid="aaf43cff-19bc-4a28-abbb-c8de7970e348">
     <pluginProperty name="passwordHash">
@@ -2797,6 +2855,8 @@
     </pluginProperty>
     <pluginList name="targetApplications">
       <plugin uuidref="e7290557-8e74-474f-b4ab-70195720a1c3"/>
+      <plugin uuidref="66ed2a71-8e7c-4b69-9f69-1c1393d24fcc"/>
+      <plugin uuidref="b2b20084-f71e-4329-9100-b9ea53046065"/>
     </pluginList>
   </plugin>
   <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.IdPropagatorTargetApplication" id="IAM Portal" uuid="215d7b35-8b34-404c-a179-6fad4b8701cc">
@@ -2810,6 +2870,35 @@
     <property name="showInPortal">false</property>
     <property name="urlPattern">^portal$</property>
   </plugin>
+  <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.IdPropagatorTargetApplication" id="Adminer" uuid="66ed2a71-8e7c-4b69-9f69-1c1393d24fcc">
+    <propertyList name="airlockCredentials">
+      <propertyValue>authenticated</propertyValue>
+    </propertyList>
+    <propertyList name="allowedUrls">
+      <propertyValue>/adminer/.*</propertyValue>
+    </propertyList>
+    <property name="defaultUrl">/adminer/?server=__DB_SERVICE__&amp;username=__DB_USER__&amp;db=__DB_IAM__&amp;lang=en</property>
+    <pluginProperty name="identityPropagator">
+      <plugin uuidref="0ac6dc14-d423-429c-85a9-5e55783348a3"/>
+    </pluginProperty>
+    <property name="labelKeyInPortal">portal.app.adminer.label</property>
+    <property name="openInNewWindow">true</property>
+    <property name="portalApplicationGroupId">admintools</property>
+    <property name="urlPattern">/adminer/.*</property>
+  </plugin>
+  <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.IdPropagatorTargetApplication" id="echo" uuid="b2b20084-f71e-4329-9100-b9ea53046065">
+    <propertyList name="allowedUrls">
+      <propertyValue>/echo/.*</propertyValue>
+    </propertyList>
+    <property name="defaultUrl">/echo/</property>
+    <pluginProperty name="identityPropagator">
+      <plugin uuidref="7714e0f8-4ef2-4df7-9e43-c697ee65966a"/>
+    </pluginProperty>
+    <property name="labelKeyInPortal">portal.app.echo.label</property>
+    <property name="openInNewWindow">true</property>
+    <property name="portalApplicationGroupId">generalservices</property>
+    <property name="urlPattern">/echo/.*</property>
+  </plugin>
   <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.IdPropagatorTargetApplication" id="Kibana" uuid="e7290557-8e74-474f-b4ab-70195720a1c3">
     <propertyList name="airlockCredentials">
       <propertyValue>authenticated</propertyValue>
@@ -2821,10 +2910,25 @@
     <pluginProperty name="identityPropagator">
       <plugin uuidref="7714e0f8-4ef2-4df7-9e43-c697ee65966a"/>
     </pluginProperty>
+    <property name="labelKeyInPortal">portal.app.kibana.label</property>
+    <property name="openInNewWindow">true</property>
+    <property name="portalApplicationGroupId">admintools</property>
     <property name="urlPattern">/kibana/.*</property>
   </plugin>
   <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.PortalApplicationConfig" uuid="54fcd1f1-cada-4b74-823a-1dd8afe51f3c">
+    <pluginList name="applicationGroups">
+      <plugin uuidref="ce6c1199-47c8-45b7-bd3f-9c7d9b34471a"/>
+      <plugin uuidref="4a44bb49-ab85-4cd7-af73-79873813a484"/>
+    </pluginList>
     <pluginProperty name="userPersister"/>
+  </plugin>
+  <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.PortalApplicationGroup" id="generalservices" uuid="4a44bb49-ab85-4cd7-af73-79873813a484">
+    <property name="id">generalservices</property>
+    <property name="titleKey">portal.group.generalservices.label</property>
+  </plugin>
+  <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.PortalApplicationGroup" id="admintools" uuid="ce6c1199-47c8-45b7-bd3f-9c7d9b34471a">
+    <property name="id">admintools</property>
+    <property name="titleKey">portal.group.admintools.label</property>
   </plugin>
   <plugin class="com.airlock.iam.login.application.configuration.EmailChangeVerificationStepConfig" id="E-Mail Verification Step" uuid="d370c25e-5019-4cc3-8491-4b095f1bb110">
     <pluginProperty name="emailItemDefinition">
