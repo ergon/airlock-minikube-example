@@ -2881,7 +2881,9 @@
     <pluginProperty name="identityPropagator">
       <plugin uuidref="0ac6dc14-d423-429c-85a9-5e55783348a3"/>
     </pluginProperty>
+    <property name="labelKeyInPortal">portal.app.adminer.label</property>
     <property name="openInNewWindow">true</property>
+    <property name="portalApplicationGroupId">admintools</property>
     <property name="urlPattern">/adminer/.*</property>
   </plugin>
   <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.IdPropagatorTargetApplication" id="echo" uuid="b2b20084-f71e-4329-9100-b9ea53046065">
@@ -2892,7 +2894,9 @@
     <pluginProperty name="identityPropagator">
       <plugin uuidref="7714e0f8-4ef2-4df7-9e43-c697ee65966a"/>
     </pluginProperty>
+    <property name="labelKeyInPortal">portal.app.echo.label</property>
     <property name="openInNewWindow">true</property>
+    <property name="portalApplicationGroupId">generalservices</property>
     <property name="urlPattern">/echo/.*</property>
   </plugin>
   <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.IdPropagatorTargetApplication" id="Kibana" uuid="e7290557-8e74-474f-b4ab-70195720a1c3">
@@ -2906,11 +2910,25 @@
     <pluginProperty name="identityPropagator">
       <plugin uuidref="7714e0f8-4ef2-4df7-9e43-c697ee65966a"/>
     </pluginProperty>
+    <property name="labelKeyInPortal">portal.app.kibana.label</property>
     <property name="openInNewWindow">true</property>
+    <property name="portalApplicationGroupId">admintools</property>
     <property name="urlPattern">/kibana/.*</property>
   </plugin>
   <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.PortalApplicationConfig" uuid="54fcd1f1-cada-4b74-823a-1dd8afe51f3c">
+    <pluginList name="applicationGroups">
+      <plugin uuidref="ce6c1199-47c8-45b7-bd3f-9c7d9b34471a"/>
+      <plugin uuidref="4a44bb49-ab85-4cd7-af73-79873813a484"/>
+    </pluginList>
     <pluginProperty name="userPersister"/>
+  </plugin>
+  <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.PortalApplicationGroup" id="generalservices" uuid="4a44bb49-ab85-4cd7-af73-79873813a484">
+    <property name="id">generalservices</property>
+    <property name="titleKey">portal.group.generalservices.label</property>
+  </plugin>
+  <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.PortalApplicationGroup" id="admintools" uuid="ce6c1199-47c8-45b7-bd3f-9c7d9b34471a">
+    <property name="id">admintools</property>
+    <property name="titleKey">portal.group.admintools.label</property>
   </plugin>
   <plugin class="com.airlock.iam.login.application.configuration.EmailChangeVerificationStepConfig" id="E-Mail Verification Step" uuid="d370c25e-5019-4cc3-8491-4b095f1bb110">
     <pluginProperty name="emailItemDefinition">
