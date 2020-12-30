@@ -2856,6 +2856,7 @@
     <pluginList name="targetApplications">
       <plugin uuidref="e7290557-8e74-474f-b4ab-70195720a1c3"/>
       <plugin uuidref="66ed2a71-8e7c-4b69-9f69-1c1393d24fcc"/>
+      <plugin uuidref="b2b20084-f71e-4329-9100-b9ea53046065"/>
     </pluginList>
   </plugin>
   <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.IdPropagatorTargetApplication" id="IAM Portal" uuid="215d7b35-8b34-404c-a179-6fad4b8701cc">
@@ -2882,6 +2883,17 @@
     </pluginProperty>
     <property name="openInNewWindow">true</property>
     <property name="urlPattern">/adminer/.*</property>
+  </plugin>
+  <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.IdPropagatorTargetApplication" id="echo" uuid="b2b20084-f71e-4329-9100-b9ea53046065">
+    <propertyList name="allowedUrls">
+      <propertyValue>/echo/.*</propertyValue>
+    </propertyList>
+    <property name="defaultUrl">/echo/</property>
+    <pluginProperty name="identityPropagator">
+      <plugin uuidref="7714e0f8-4ef2-4df7-9e43-c697ee65966a"/>
+    </pluginProperty>
+    <property name="openInNewWindow">true</property>
+    <property name="urlPattern">/echo/.*</property>
   </plugin>
   <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.IdPropagatorTargetApplication" id="Kibana" uuid="e7290557-8e74-474f-b4ab-70195720a1c3">
     <propertyList name="airlockCredentials">

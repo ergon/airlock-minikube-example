@@ -111,7 +111,7 @@ data:
       mappings:
       - name: echoserver
         entry_path: /
-        session_handling: ignore_session
+        session_handling: enforce_session
         operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
         threat_handling: notify
         deny_rules:
