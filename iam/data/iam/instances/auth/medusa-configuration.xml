@@ -2210,8 +2210,16 @@
     </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.sso.NoIdentityPropagator" id="No ID Propagation" uuid="7714e0f8-4ef2-4df7-9e43-c697ee65966a"/>
-  <plugin class="com.airlock.iam.core.misc.impl.sso.onbehalflogin.CookieMapping" uuid="f2913268-111e-4b75-b238-d1e9620518b0">
+  <plugin class="com.airlock.iam.core.misc.impl.sso.onbehalflogin.CookieMapping" id="Adminer - adminer_key cookie" uuid="c3ed9257-3ce1-4841-beb1-c8df301a8cf0">
+    <property name="sourceAccessCookieName">adminer_key</property>
+    <property name="targetAccessCookieDomain">@adminer:8080</property>
+  </plugin>
+  <plugin class="com.airlock.iam.core.misc.impl.sso.onbehalflogin.CookieMapping" id="Adminer - adminer_sid cookie" uuid="f2913268-111e-4b75-b238-d1e9620518b0">
     <property name="sourceAccessCookieName">adminer_sid</property>
+    <property name="targetAccessCookieDomain">@adminer:8080</property>
+  </plugin>
+  <plugin class="com.airlock.iam.core.misc.impl.sso.onbehalflogin.HttpGetOnBehalfLoginStep" id="Adminer - Get Login Form" uuid="8c6be608-f367-4ecf-96eb-7d518b33a35f">
+    <property name="targetApplicationLoginPageUrl">http://adminer:8080/adminer</property>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.sso.onbehalflogin.HttpPostOnBehalfLoginStep" id="Adminer - Sign-in" uuid="55dd5e34-1955-4bb7-ae45-2aba658a44a5">
     <pluginList name="httpParams">
@@ -2221,16 +2229,18 @@
       <plugin uuidref="baa67ed2-d9ac-4c36-90b8-547e6a2e713c"/>
       <plugin uuidref="507b0649-2545-4dd7-a33a-b7065e3c573a"/>
     </pluginList>
-    <property name="targetUrl">http://adminer:8080/adminer?server=mariadb</property>
+    <property name="targetUrl">http://adminer:8080/adminer</property>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.sso.onbehalflogin.OnBehalfLoginIdentityPropagator" uuid="0ac6dc14-d423-429c-85a9-5e55783348a3">
     <pluginList name="cookies">
       <plugin uuidref="f2913268-111e-4b75-b238-d1e9620518b0"/>
+      <plugin uuidref="c3ed9257-3ce1-4841-beb1-c8df301a8cf0"/>
     </pluginList>
     <pluginProperty name="httpClientConfig">
       <plugin uuidref="5ef69e7e-a2f6-474e-9f65-3f6611e85ed2"/>
     </pluginProperty>
     <pluginList name="onBehalfLoginSteps">
+      <plugin uuidref="8c6be608-f367-4ecf-96eb-7d518b33a35f"/>
       <plugin uuidref="55dd5e34-1955-4bb7-ae45-2aba658a44a5"/>
     </pluginList>
   </plugin>
@@ -2866,7 +2876,7 @@
     <propertyList name="allowedUrls">
       <propertyValue>/adminer/.*</propertyValue>
     </propertyList>
-    <property name="defaultUrl">/adminer/</property>
+    <property name="defaultUrl">/adminer/?server=__DB_SERVICE__&amp;username=__DB_USER__&amp;db=__DB_IAM__&amp;lang=en</property>
     <pluginProperty name="identityPropagator">
       <plugin uuidref="0ac6dc14-d423-429c-85a9-5e55783348a3"/>
     </pluginProperty>
