@@ -4,13 +4,13 @@
 
 INSERT INTO `medusa_user` (username,
                            givenname,
-			   surname,
+                           surname,
                            auth_method,
-			   next_auth_method,
-			   valid,
-			   failed_token_counts,
-			   pwd_hash,
-			   pwd_chg_enf)
+                           next_auth_method,
+                           valid,
+                           failed_token_counts,
+                           pwd_hash,
+                           pwd_chg_enf)
 
 VALUES ('2fa',
         '2FA',
@@ -20,5 +20,5 @@ VALUES ('2fa',
         1,
         '{}',
         'MedusaPwdHistoryAAAARjE2Mzg0fEk61Xwi7Q16p0tt9fakb+j9EcLtch4QXhWuGnQzczaRue8NSY6TZIgCGll6+x7ZwT4ujRO3dNvAxBNRM6dZbNY=',
-        1
+        0 /* Password change not enforced */
        ) ON DUPLICATE KEY UPDATE username=username;
