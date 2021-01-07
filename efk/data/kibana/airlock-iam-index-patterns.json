@@ -1,0 +1,50 @@
+[
+	{
+		"type": "index-pattern",
+		"id": "airlock",
+		"attributes": {
+			"title": "airlock-*",
+			"timeFieldName": "@timestamp"
+		}
+	},
+	{
+		"type": "index-pattern",
+		"id": "airlock-iam",
+		"attributes": {
+			"title": "airlock-iam-*",
+			"timeFieldName": "@timestamp"
+		}
+	},
+	{
+		"type": "index-pattern",
+		"id": "airlock-iam-audit",
+		"attributes": {
+			"title": "airlock-iam-audit-*",
+			"timeFieldName": "@timestamp"
+		}
+	},
+	{
+		"type": "index-pattern",
+		"id": "airlock-iam-detail",
+		"attributes": {
+			"title": "airlock-iam-detail-*",
+			"timeFieldName": "@timestamp"
+		}
+	},
+	{
+		"type": "index-pattern",
+		"id": "airlock-iam-reporting",
+		"attributes": {
+			"title": "airlock-iam-reporting-*",
+			"timeFieldName": "@timestamp"
+		}
+	},
+	{
+		"type": "index-pattern",
+		"id": "airlock-iam-usertrail",
+		"attributes": {
+			"title": "airlock-iam-usertrail-*",
+			"timeFieldName": "@timestamp"
+		}
+	}
+]

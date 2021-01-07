@@ -1,0 +1,18 @@
+[
+	{
+		"type": "index-pattern",
+		"id": "airlock",
+		"attributes": {
+			"title": "airlock-*",
+			"timeFieldName": "@timestamp"
+		}
+	},
+	{
+		"type": "index-pattern",
+		"id": "airlock-waf-default-*",
+		"attributes": {
+			"title": "airlock-waf-default-*",
+			"timeFieldName": "@timestamp"
+		}
+	}
+]
