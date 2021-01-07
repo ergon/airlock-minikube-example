@@ -15,10 +15,122 @@ spec:
       labels:
         app: kibana
     spec:
+      initContainers:
+      - name: git-sync
+        image: k8s.gcr.io/git-sync/git-sync:v3.2.0
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: generic-parameters
+              key: TZ
+        - name: GIT_SYNC_REPO
+          valueFrom:
+            configMapKeyRef:
+              name: gitsync-bootstrap-parameters
+              key: GIT_SYNC_REPO
+        - name: GIT_SYNC_BRANCH
+          valueFrom:
+            configMapKeyRef:
+              name: gitsync-bootstrap-parameters
+              key: GIT_SYNC_BRANCH
+        - name: GIT_SYNC_ROOT
+          value: /var/tmp/gitsync/
+        - name: GIT_SYNC_DEST
+          value: tmp
+        - name: GIT_SYNC_SUBMODULES
+          value: "off"
+        - name: GIT_SYNC_ONE_TIME
+          value: "true"
+        volumeMounts:
+        - name: git-sync-dir
+          mountPath: /var/tmp/gitsync/
+      - name: kibana-bootstrap
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: generic-parameters
+              key: TZ
+        command:
+        - sh
+        - "-c"
+        - |
+          ls -laR /var/tmp/gitsync/tmp/efk/ && \
+          cp -rp /var/tmp/gitsync/tmp/efk/data/kibana/* /var/tmp/kibana-init/
+        volumeMounts:
+        - name: git-sync-dir
+          mountPath: /var/tmp/gitsync/
+        - name: kibana-template-files
+          mountPath: /var/tmp/kibana-init/
       containers:
       - name: kibana
         image: docker.elastic.co/kibana/kibana:7.9.0
         imagePullPolicy: IfNotPresent
+        lifecycle:
+          postStart:
+            exec:
+              command:
+              - bash
+              - "-c"
+              - |
+                set -x
+
+                cd /var/tmp/kibana-init/
+
+                KIBANA_HOST=localhost
+                KIBANA_PORT=5601
+
+                requests=0
+                max_requests=30
+                sleep_for=10
+
+                while true; do
+                  STATUS_CODE=$(curl -s -m 10 -k -L -o /dev/null -w "%{http_code}" "http://${KIBANA_HOST}:${KIBANA_PORT}${SERVER_BASEPATH}/api/status")
+                  requests=$((requests+1))
+                  echo "INFO: Request Nr. " $requests
+                  if [ "${STATUS_CODE}" = "200" ]; then
+                	  echo "INFO: Kibana is started."
+                	  break
+                  fi
+                  if [ ${requests} -gt ${max_requests} ]; then
+                	  echo "FAILED: Instance not ready in time."
+                	  echo " # timeout"
+                	  exit 1
+                  fi
+                  sleep ${sleep_for}
+                done
+
+                function kibana_index_patterns() {
+                  curl -fsS -w '\n' \
+                    -X 'POST' \
+                    -H 'kbn-xsrf: true' -H 'Content-Type: application/json' \
+                    -d "@$1" \
+                    http://"${KIBANA_HOST}:${KIBANA_PORT}${SERVER_BASEPATH}/api/saved_objects/_bulk_create?overwrite=true"
+                }
+
+                function kibana_import() {
+                  curl -fsS -w '\n' \
+                    -X POST \
+                    -H 'kbn-xsrf: true' \
+                    --form "file=@$1" \
+                    http://"${KIBANA_HOST}:${KIBANA_PORT}${SERVER_BASEPATH}/api/saved_objects/_import?overwrite=true"
+                }
+                
+                if ((NO_IAM != 1)); then
+                	kibana_index_patterns './airlock-iam-index-patterns.json'
+                	kibana_import './airlock-iam-kibana.ndjson'
+                fi
+                
+                if ((NO_WAF != 1)); then
+                	kibana_index_patterns './airlock-waf-index-patterns.json'
+                	kibana_import './airlock-waf-kibana.ndjson'
+                fi
+
+                echo -e '\n\e[0;32mKibana setup completed\e[0m\n'
         env:
         - name: TZ
           valueFrom:
@@ -34,6 +146,14 @@ spec:
         ports:
         - containerPort: 5601
           name: webinterface
+        volumeMounts:
+        - name: kibana-template-files
+          mountPath: /var/tmp/kibana-init/
+      volumes:
+      - name: git-sync-dir
+        emptyDir: {}
+      - name: kibana-template-files
+        emptyDir: {}
 ---
 apiVersion: v1
 kind: Service

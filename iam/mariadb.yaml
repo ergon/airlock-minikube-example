@@ -60,7 +60,7 @@ spec:
         - sh
         - "-c"
         - |
-          ls -la /var/tmp/gitsync/tmp/iam/ && \
+          ls -laR /var/tmp/gitsync/tmp/iam/ && \
           cp -rp /var/tmp/gitsync/tmp/iam/data/mariadb/*.sql /docker-entrypoint-initdb.d
         volumeMounts:
         - name: git-sync-dir
