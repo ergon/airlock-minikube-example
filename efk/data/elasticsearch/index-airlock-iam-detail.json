@@ -1,0 +1,14 @@
+{
+  "index_patterns": "airlock-iam-detail-*",
+  "version": 7300,
+  "template": {
+    "settings": {
+      "index.lifecycle.name": "timeseries_10g_1yr_policy",
+      "index.lifecycle.rollover_alias": "airlock-iam-active-detail"
+    },
+    "aliases": {
+      "airlock-iam-search-detail": {}
+    }
+  },
+  "composed_of": ["component_airlock-iam-mappings", "component_airlock-iam-settings"]
+}

@@ -1,0 +1,5 @@
+{
+  "index_patterns": "airlock-waf-default-*",
+  "version": 7300,
+  "composed_of": ["component_airlock-waf-mappings", "component_airlock-waf-settings", "component_airlock-waf-alias"]
+}

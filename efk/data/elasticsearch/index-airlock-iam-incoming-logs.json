@@ -1,0 +1,5 @@
+{
+  "index_patterns": "airlock-iam-logs-*",
+  "version": 7300,
+  "composed_of": ["component_airlock-iam-settings"]
+}
