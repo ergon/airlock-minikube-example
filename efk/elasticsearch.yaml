@@ -68,7 +68,7 @@ spec:
           mountPath: /var/tmp/elasticsearch-init/
       containers:
       - name: elasticsearch
-        image: docker.elastic.co/elasticsearch/elasticsearch:7.9.0
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
         imagePullPolicy: IfNotPresent
         lifecycle:
           postStart:
@@ -113,35 +113,13 @@ spec:
                 }
               
                 if ((NO_IAM != 1)); then
-                  curl_es "PUT" "/_index_template/airlock-iam-detail" "./index-airlock-iam-detail.json"
-                  curl_es "PUT" "/airlock-iam-detail-${DATE}"
-                  curl_es "PUT" "/airlock-iam-detail-${DATE}/_alias/airlock-iam-active-detail"
-
-                  curl_es "PUT" "/_index_template/airlock-iam-audit" "./index-airlock-iam-audit.json"
-                  curl_es "PUT" "/airlock-iam-audit-${DATE}"
-                  curl_es "PUT" "/airlock-iam-audit-${DATE}/_alias/airlock-iam-active-audit"
-
-                  curl_es "PUT" "/_index_template/airlock-iam-usertrail" "./index-airlock-iam-usertrail.json"
-                  curl_es "PUT" "/airlock-iam-usertrail-${DATE}"
-                  curl_es "PUT" "/airlock-iam-usertrail-${DATE}/_alias/airlock-iam-active-usertrail"
-
-                  curl_es "PUT" "/_index_template/airlock-iam-reporting" "./index-airlock-iam-reporting.json"
-                  curl_es "PUT" "/airlock-iam-reporting-${DATE}"
-                  curl_es "PUT" "/airlock-iam-reporting-${DATE}/_alias/airlock-iam-active-reporting"
-
-                  curl_es "PUT" "/_index_template/airlock-iam-incoming-logs" "./index-airlock-iam-incoming-logs.json"
-
-                  curl_es "PUT" "/_ingest/pipeline/airlock-iam-default-pipeline" "./airlock-iam-ingest-pipeline.json"
-                  curl_es "PUT" "/_template/airlock-iam" "./airlock-iam-template.json"
+                  curl_es 'PUT' '/_ingest/pipeline/airlock-iam-default-pipeline' './airlock-iam-ingest-pipeline.json'
+                  curl_es 'PUT' '/_template/airlock-iam' './airlock-iam-template.json'
                 fi
                 
                 if ((NO_WAF != 1)); then
-                  curl_es "PUT" "/_index_template/airlock-waf-default" "./index-airlock-waf-default.json"
-                  curl_es "PUT" "/airlock-waf-default-${DATE}"
-                  curl_es "PUT" "/airlock-waf-default-${DATE}/_alias/airlock-waf-active"
-
-                  curl_es "PUT" "/_ingest/pipeline/airlock-waf-default-pipeline" "./airlock-waf-ingest-pipeline.json"
-                  curl_es "PUT" "/_template/airlock-waf" "./airlock-waf-template.json"
+                  curl_es 'PUT' '/_ingest/pipeline/airlock-waf-default-pipeline' './airlock-waf-ingest-pipeline.json'
+                  curl_es 'PUT' '/_template/airlock-waf' './airlock-waf-template.json'
                 fi
                 
                 echo -e "\n\e[0;32mElasticsearch setup completed\e[0m\n"

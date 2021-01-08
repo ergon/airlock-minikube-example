@@ -68,7 +68,7 @@ spec:
           mountPath: /var/tmp/kibana-init/
       containers:
       - name: kibana
-        image: docker.elastic.co/kibana/kibana:7.9.0
+        image: docker.elastic.co/kibana/kibana:7.6.2
         imagePullPolicy: IfNotPresent
         lifecycle:
           postStart:
