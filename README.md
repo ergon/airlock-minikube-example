@@ -130,10 +130,10 @@ The following users can be used to authenticate:
   * Password (default): `password`
 
 ## Cleanup
-The following chapter describes the possibilities to cleanup the deployment/installation. This could be handy in order to restart from stratch or just to clean the environment.
+The following chapter describes the possibilities to cleanup the deployment/installation. This could be handy in order to restart from scratch or just to clean the environment.
 
 ### Delete the deployment
-To delete the Kuberenetes deployment, run the following commands:
+To delete the Kubernetes deployment, run the following commands:
 ```console
 kubectl delete -f efk/
 kubectl delete -f redis/
