@@ -1,0 +1,10 @@
+[
+	{
+		"type": "index-pattern",
+		"id": "default-*",
+		"attributes": {
+			"title": "default-*",
+			"timeFieldName": "@timestamp"
+		}
+	}
+]
