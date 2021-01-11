@@ -119,6 +119,8 @@ spec:
                     --form "file=@$1" \
                     http://"${KIBANA_HOST}:${KIBANA_PORT}${SERVER_BASEPATH}/api/saved_objects/_import?overwrite=true"
                 }
+
+                kibana_index_patterns './default-index-patterns.json'
                 
                 if ((NO_IAM != 1)); then
                 	kibana_index_patterns './airlock-iam-index-patterns.json'
