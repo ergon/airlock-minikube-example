@@ -87,7 +87,7 @@ spec:
                 
                 requests=0
                 max_requests=30
-                sleep_for=1
+                sleep_for=5
 
                 while true; do
                   STATUS_CODE=$(curl -s -m 10 -k -L -o /dev/null -w "%{http_code}" "http://${ES_HOST}:${ES_PORT}")
