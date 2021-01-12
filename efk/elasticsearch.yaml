@@ -111,6 +111,8 @@ spec:
                 		${3:+-H 'Content-Type: application/json' -d "@$3"} \
                 		"http://${ES_HOST}:${ES_PORT}${2}"
                 }
+
+                curl_es 'PUT' '/_template/default' './default-template.json'
               
                 if ((NO_IAM != 1)); then
                   curl_es 'PUT' '/_ingest/pipeline/airlock-iam-default-pipeline' './airlock-iam-ingest-pipeline.json'
