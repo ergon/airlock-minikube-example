@@ -18,49 +18,6 @@ spec:
       imagePullSecrets:
       - name: dockerregcred
       initContainers:
-      - name: iam-init
-        image: ergon/airlock-iam:latest-7.3
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: TZ
-          valueFrom:
-            configMapKeyRef:
-              name: generic-parameters
-              key: TZ
-        args: ["init"]
-        volumeMounts:
-        - name: config
-          mountPath: /home/airlock/iam/
-      - name: git-sync
-        image: k8s.gcr.io/git-sync/git-sync:v3.2.0
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: TZ
-          valueFrom:
-            configMapKeyRef:
-              name: generic-parameters
-              key: TZ
-        - name: GIT_SYNC_REPO
-          valueFrom:
-            configMapKeyRef:
-              name: gitsync-bootstrap-parameters
-              key: GIT_SYNC_REPO
-        - name: GIT_SYNC_BRANCH
-          valueFrom:
-            configMapKeyRef:
-              name: gitsync-bootstrap-parameters
-              key: GIT_SYNC_BRANCH
-        - name: GIT_SYNC_ROOT
-          value: /var/tmp/gitsync/
-        - name: GIT_SYNC_DEST
-          value: tmp
-        - name: GIT_SYNC_SUBMODULES
-          value: "off"
-        - name: GIT_SYNC_ONE_TIME
-          value: "true"
-        volumeMounts:
-        - name: git-sync-dir
-          mountPath: /var/tmp/gitsync/
       - name: iam-bootstrap
         image: busybox
         imagePullPolicy: IfNotPresent
@@ -91,27 +48,16 @@ spec:
         - sh
         - "-c"
         - |
-          ls -laR /var/tmp/gitsync/tmp/iam/ && \
-          echo "- Copying IAM files from git clone to IAM home" && \
-          cp -rp /var/tmp/gitsync/tmp/iam/data/iam/* /home/airlock/iam/ && \
-          chown -R 1000:0 /home/airlock/iam/ && \
-          echo "- Copying IAM license to IAM home" && \
-          cp /var/tmp/iam/license.txt /home/airlock/iam/ && \
-          ls -laR /home/airlock/iam/ && \
-          echo "- Replacing placeholders in IAM configuration with ENV variables" && \
-          sed -i "s,__DB_SERVICE__,${MARIADB_SERVICE},;\
-            s,__DB_IAM__,${MYSQL_DATABASE},; \
-            s,__DB_USER__,${MYSQL_USER},;\
-            s,__DB_PASSWORD__,${MYSQL_PASSWORD}," \
+          echo "- Replacing the placeholders in the IAM configuration"
+          sed -i "s,@@DB_SERVICE@@,${MARIADB_SERVICE},;\
+            s,@@DB_IAM@@,${MYSQL_DATABASE},; \
+            s,@@DB_USER@@,${MYSQL_USER},;\
+            s,@@DB_PASSWORD@@,${MYSQL_PASSWORD}," \
             /home/airlock/iam/instances/auth/medusa-configuration.xml
         volumeMounts:
-        - name: git-sync-dir
-          mountPath: /var/tmp/gitsync/
-        - name: config
+        - name: data
           mountPath: /home/airlock/iam/
-        - name: secret
-          mountPath: /var/tmp/iam/license.txt
-          subPath: license.txt
+          subPath: iam
       containers:
       - name: iam
         image: ergon/airlock-iam:latest-7.3
@@ -128,8 +74,9 @@ spec:
         - name: https
           containerPort: 8443
         volumeMounts:
-        - name: config
+        - name: data
           mountPath: /home/airlock/iam/
+          subPath: iam
         - name: secret
           mountPath: /home/airlock/iam/license.txt
           subPath: license.txt
@@ -147,11 +94,9 @@ spec:
         #     scheme: HTTPS
         #   initialDelaySeconds: 120
       volumes:
-      - name: git-sync-dir
-        emptyDir: {}
-      - name: config
+      - name: data
         persistentVolumeClaim:
-          claimName: iam-claim
+          claimName: data-claim
       - name: secret
         secret:
           secretName: iam-secrets
@@ -168,14 +113,3 @@ spec:
   ports:
   - name: https
     port: 8443
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: iam-claim
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 500Mi

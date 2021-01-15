@@ -2132,9 +2132,9 @@
   </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.persistency.db.HikariCpDataSource" id="H2 Database Connection" uuid="f0d2a309-8eb4-4574-a622-503d6e5f47be">
     <property name="driverClass">org.mariadb.jdbc.Driver</property>
-    <property name="password">__DB_PASSWORD__</property>
-    <property name="url">jdbc:mariadb://__DB_SERVICE__:3306/__DB_IAM__</property>
-    <property name="user">__DB_USER__</property>
+    <property name="password">@@DB_PASSWORD@@</property>
+    <property name="url">jdbc:mariadb://@@DB_SERVICE@@:3306/@@DB_IAM@@</property>
+    <property name="user">@@DB_USER@@</property>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.persistency.token.DatabaseTokenPersister" id="Database Token Persister" uuid="b8a6410c-97e5-48a8-9f52-341290758225">
     <pluginProperty name="sqlDataSource">
@@ -2329,7 +2329,7 @@
   </plugin>
   <plugin class="com.airlock.iam.core.misc.util.httpclient.HttpParameter" id="Adminer param -  auth[db]" uuid="507b0649-2545-4dd7-a33a-b7065e3c573a">
     <property name="name">auth[db]</property>
-    <property name="value">__DB_IAM__</property>
+    <property name="value">@@DB_IAM@@</property>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.util.httpclient.HttpParameter" id="Adminer param - auth[driver]" uuid="5dc04961-5e6b-4aeb-9990-64c7a2381028">
     <property name="name">auth[driver]</property>
@@ -2337,15 +2337,15 @@
   </plugin>
   <plugin class="com.airlock.iam.core.misc.util.httpclient.HttpParameter" id="Adminer param - auth[server]" uuid="87e8b065-61d5-4374-a0f0-9b79bb9cfcb8">
     <property name="name">auth[server]</property>
-    <property name="value">__DB_SERVICE__</property>
+    <property name="value">@@DB_SERVICE@@</property>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.util.httpclient.HttpParameter" id="Adminer param -  auth[password]" uuid="baa67ed2-d9ac-4c36-90b8-547e6a2e713c">
     <property name="name">auth[password]</property>
-    <property name="value">__DB_PASSWORD__</property>
+    <property name="value">@@DB_PASSWORD@@</property>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.util.httpclient.HttpParameter" id="Adminer param -  auth[username]" uuid="e8998c8f-7572-459b-9ef1-259492d3438d">
     <property name="name">auth[username]</property>
-    <property name="value">__DB_USER__</property>
+    <property name="value">@@DB_USER@@</property>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.util.password.hash.PasswordHistoryHash" id="History Password Hash" uuid="aaf43cff-19bc-4a28-abbb-c8de7970e348">
     <pluginProperty name="passwordHash">
@@ -2877,7 +2877,7 @@
     <propertyList name="allowedUrls">
       <propertyValue>/adminer/.*</propertyValue>
     </propertyList>
-    <property name="defaultUrl">/adminer/?server=__DB_SERVICE__&amp;username=__DB_USER__&amp;db=__DB_IAM__&amp;lang=en</property>
+    <property name="defaultUrl">/adminer/?server=@@DB_SERVICE@@&amp;username=@@DB_USER@@&amp;db=@@DB_IAM@@&amp;lang=en</property>
     <pluginProperty name="identityPropagator">
       <plugin uuidref="0ac6dc14-d423-429c-85a9-5e55783348a3"/>
     </pluginProperty>

@@ -20,6 +20,7 @@ spec:
     - "--"
     args: 
     - | 
+      rm -rf /data/iam
       mkdir -p /data/iam
       chown -R 1000:0 /data/iam
     volumeMounts:
