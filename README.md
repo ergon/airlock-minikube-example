@@ -99,6 +99,8 @@ Run the following commands to prepare Kubernetes for the deployment:
 ```console
 kubectl apply -f ingress/
 kubectl apply -f params/
+kubectl apply -f prepare/
+kubectl cp ./data/ data-pod:/
 ```
 
 ## Start the deployment

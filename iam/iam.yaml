@@ -151,7 +151,7 @@ spec:
         emptyDir: {}
       - name: config
         persistentVolumeClaim:
-          claimName: iam-pv-claim
+          claimName: iam-claim
       - name: secret
         secret:
           secretName: iam-secrets
@@ -172,7 +172,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: iam-pv-claim
+  name: iam-claim
 spec:
   accessModes:
   - ReadWriteOnce

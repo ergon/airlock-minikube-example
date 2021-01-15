@@ -138,7 +138,7 @@ spec:
         emptyDir: {}
       - name: data
         persistentVolumeClaim:
-          claimName: mariadb-pv-claim
+          claimName: mariadb-claim
 ---
 apiVersion: v1
 kind: Service
@@ -156,7 +156,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mariadb-pv-claim
+  name: mariadb-claim
 spec:
   accessModes:
   - ReadWriteOnce
