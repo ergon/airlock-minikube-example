@@ -34,7 +34,6 @@ This setup spins up an Airlock Microgateway, Airlock IAM and additional containe
 Start Minikube and configure ingress by running the following commands:
 ```console
 minikube start --vm=true --cpus=2 --memory=10240 --disk-size='40gb' --addons=ingress
-kubectl apply -f ingress/
 ```
 
 ## Prepare for the deployment
@@ -56,7 +55,6 @@ kubectl create secret generic microgateway-secrets \
   --from-file=passphrase=params/microgateway.passphrase \
   --dry-run=client \
   -o yaml > params/microgateway-secret.yaml
-kubectl apply -f params/microgateway-secret.yaml
 ```
 ### Create a secret for the MariaDB database which is used by Airlock IAM
 After proceeding the steps below, a secret with the name `mariadb-secrets` is created.<br>
@@ -70,7 +68,6 @@ kubectl create secret generic mariadb-secrets \
   --from-literal=MYSQL_PASSWORD=$(openssl rand -base64 36) \
   --dry-run=client \
   -o yaml > params/mariadb-secret.yaml
-kubectl apply -f params/mariadb-secret.yaml
 ```
 
 ### Create a secret for the IAM license
@@ -83,7 +80,6 @@ kubectl create secret generic iam-secrets \
   --from-file=license.txt=params/iam.lic \
   --dry-run=client \
   -o yaml > params/iam-secret.yaml
-kubectl apply -f params/iam-secret.yaml
 ```
 
 ### Create a DockerHub secret to pull the Airlock images
@@ -96,13 +92,18 @@ kubectl create secret docker-registry dockerregcred \
   --docker-email=<DOCKER_EMAIL> \
   --dry-run=client \
   -o yaml > params/dockerhub-secret.yaml
-kubectl apply -f params/dockerhub-secret.yaml
+```
+
+### Prepare Kubernetes for the deployment
+Run the following commands to prepare Kubernetes for the deployment:
+```console
+kubectl apply -f ingress/
+kubectl apply -f params/
 ```
 
 ## Start the deployment
 To deploy the demo setup, run the following commands:
 ```console
-kubectl apply -f params/environment-parameters.yaml
 kubectl apply -f efk/
 kubectl apply -f redis/
 kubectl apply -f echoserver/
