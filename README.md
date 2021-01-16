@@ -95,7 +95,7 @@ kubectl create secret docker-registry dockerregcred \
 ```
 
 ### Create the Kubernetes objects and initialize the volume
-Run the following commands to prepare Kubernetes for the deployment:
+Run the following commands to create the Kubernetes objects and initialize the volume:
 ```console
 kubectl apply -f ingress/
 kubectl apply -f params/
