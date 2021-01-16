@@ -94,7 +94,7 @@ kubectl create secret docker-registry dockerregcred \
   -o yaml > params/dockerhub-secret.yaml
 ```
 
-### Prepare Kubernetes for the deployment
+### Create the Kubernetes objects and initialize the volume
 Run the following commands to prepare Kubernetes for the deployment:
 ```console
 kubectl apply -f ingress/
