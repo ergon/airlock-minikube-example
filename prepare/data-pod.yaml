@@ -9,31 +9,20 @@ spec:
   imagePullSecrets:
   - name: dockerregcred
   initContainers:
-  - name: iam-prepare
-    image: alpine
-    imagePullPolicy: IfNotPresent
-    securityContext:
-      runAsUser: 0
-    command:
-    - sh
-    - -c
-    - "--"
-    args: 
-    - | 
-      rm -rf /data/iam
-      mkdir -p /data/iam
-      chown -R 1000:0 /data/iam
-    volumeMounts:
-    - name: data
-      mountPath: /data/
   - name: iam-init
     image: ergon/airlock-iam:latest-7.3
     imagePullPolicy: IfNotPresent
-    args: 
-    - init
+    command:
+    - bash
+    - -c
+    - |
+      if [ ! -d /home/airlock/iam/instances ]; then
+        /iam_entrypoint init
+      fi
     volumeMounts:
     - name: data
-      mountPath: /home/airlock/
+      mountPath: /home/airlock/iam/
+      subPath: iam
   containers:
   - name: data-container
     image: alpine
