@@ -15,57 +15,6 @@ spec:
       labels:
         app: kibana
     spec:
-      initContainers:
-      - name: git-sync
-        image: k8s.gcr.io/git-sync/git-sync:v3.2.0
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: TZ
-          valueFrom:
-            configMapKeyRef:
-              name: generic-parameters
-              key: TZ
-        - name: GIT_SYNC_REPO
-          valueFrom:
-            configMapKeyRef:
-              name: gitsync-bootstrap-parameters
-              key: GIT_SYNC_REPO
-        - name: GIT_SYNC_BRANCH
-          valueFrom:
-            configMapKeyRef:
-              name: gitsync-bootstrap-parameters
-              key: GIT_SYNC_BRANCH
-        - name: GIT_SYNC_ROOT
-          value: /var/tmp/gitsync/
-        - name: GIT_SYNC_DEST
-          value: tmp
-        - name: GIT_SYNC_SUBMODULES
-          value: "off"
-        - name: GIT_SYNC_ONE_TIME
-          value: "true"
-        volumeMounts:
-        - name: git-sync-dir
-          mountPath: /var/tmp/gitsync/
-      - name: kibana-bootstrap
-        image: busybox
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: TZ
-          valueFrom:
-            configMapKeyRef:
-              name: generic-parameters
-              key: TZ
-        command:
-        - sh
-        - "-c"
-        - |
-          ls -laR /var/tmp/gitsync/tmp/efk/ && \
-          cp -rp /var/tmp/gitsync/tmp/efk/data/kibana/* /var/tmp/kibana-init/
-        volumeMounts:
-        - name: git-sync-dir
-          mountPath: /var/tmp/gitsync/
-        - name: kibana-template-files
-          mountPath: /var/tmp/kibana-init/
       containers:
       - name: kibana
         image: docker.elastic.co/kibana/kibana:7.6.2
@@ -149,13 +98,13 @@ spec:
         - containerPort: 5601
           name: webinterface
         volumeMounts:
-        - name: kibana-template-files
+        - name: data
           mountPath: /var/tmp/kibana-init/
+          subPath: kibana
       volumes:
-      - name: git-sync-dir
-        emptyDir: {}
-      - name: kibana-template-files
-        emptyDir: {}
+      - name: data
+        persistentVolumeClaim:
+          claimName: data-claim
 ---
 apiVersion: v1
 kind: Service
