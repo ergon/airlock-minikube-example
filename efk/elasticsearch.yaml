@@ -66,11 +66,13 @@ spec:
                 if ((NO_IAM != 1)); then
                   curl_es 'PUT' '/_ingest/pipeline/airlock-iam-default-pipeline' './airlock-iam-ingest-pipeline.json'
                   curl_es 'PUT' '/_template/airlock-iam' './airlock-iam-template.json'
+                  curl_es 'PUT' '/_template/airlock-iam' './airlock-iam-settings.json'
                 fi
                 
                 if ((NO_WAF != 1)); then
                   curl_es 'PUT' '/_ingest/pipeline/airlock-waf-default-pipeline' './airlock-waf-ingest-pipeline.json'
                   curl_es 'PUT' '/_template/airlock-waf' './airlock-waf-template.json'
+                  curl_es 'PUT' '/_template/airlock-waf' './airlock-waf-settings.json'
                 fi
                 
                 echo -e "\n\e[0;32mElasticsearch setup completed\e[0m\n"
