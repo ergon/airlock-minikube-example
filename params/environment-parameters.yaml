@@ -15,12 +15,3 @@ metadata:
   namespace: kube-system
 data:
   TZ: Europe/Zurich
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  creationTimestamp: null
-  name: gitsync-bootstrap-parameters
-data:
-  GIT_SYNC_REPO: https://github.com/ergon/airlock-minikube-examples.git
-  GIT_SYNC_BRANCH: main

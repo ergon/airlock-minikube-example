@@ -17,58 +17,6 @@ spec:
     spec:
       imagePullSecrets:
       - name: dockerregcred
-      initContainers:
-      - name: git-sync
-        image: k8s.gcr.io/git-sync/git-sync:v3.2.0
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: TZ
-          valueFrom:
-            configMapKeyRef:
-              name: generic-parameters
-              key: TZ
-        - name: GIT_SYNC_REPO
-          valueFrom:
-            configMapKeyRef:
-              name: gitsync-bootstrap-parameters
-              key: GIT_SYNC_REPO
-        - name: GIT_SYNC_BRANCH
-          valueFrom:
-            configMapKeyRef:
-              name: gitsync-bootstrap-parameters
-              key: GIT_SYNC_BRANCH
-        - name: GIT_SYNC_ROOT
-          value: /var/tmp/gitsync/
-        - name: GIT_SYNC_DEST
-          value: tmp
-        - name: GIT_SYNC_SUBMODULES
-          value: "off"
-        - name: GIT_SYNC_ONE_TIME
-          value: "true"
-        volumeMounts:
-        - name: git-sync-dir
-          mountPath: /var/tmp/gitsync/
-      - name: microgateway-bootstrap
-        image: busybox
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: TZ
-          valueFrom:
-            configMapKeyRef:
-              name: generic-parameters
-              key: TZ
-        command:
-        - sh
-        - "-c"
-        - |
-          ls -la /var/tmp/gitsync/tmp/mapping-templates/ && \
-          cp -rp /var/tmp/gitsync/tmp/mapping-templates/*.xml /config/templates/ && \
-          ls -la /config/templates/
-        volumeMounts:
-        - name: git-sync-dir
-          mountPath: /var/tmp/gitsync/
-        - name: mapping-templates
-          mountPath: /config/templates/
       containers:
       - name: microgateway-iam
         image: ergon/airlock-microgateway:1.0
@@ -91,8 +39,9 @@ spec:
         - name: secret
           mountPath: /secret/config/
           readOnly: true
-        - name: mapping-templates
+        - name: data
           mountPath: /config/templates/
+          subPath: microgateway/mapping-templates
         livenessProbe:
           httpGet:
             path: /healthz
@@ -106,17 +55,15 @@ spec:
             scheme: HTTPS
           initialDelaySeconds: 30
       volumes:
-      - name: git-sync-dir
-        emptyDir: {}
+      - name: data
+        persistentVolumeClaim:
+          claimName: data-claim
       - name: config
         configMap:
           name: microgateway-iam-config
       - name: secret
         secret:
           secretName: microgateway-secrets
-      - name: mapping-templates
-        persistentVolumeClaim:
-          claimName: microgateway-mapping-templates-pv-claim
 ---
 apiVersion: v1
 kind: Service
@@ -224,17 +171,6 @@ data:
         protocol: 'https'
         hostname: iam
         port: 8443
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: microgateway-mapping-templates-pv-claim
-spec:
-  accessModes:
-  - ReadWriteMany
-  resources:
-    requests:
-      storage: 100Mi
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress

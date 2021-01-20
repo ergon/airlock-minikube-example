@@ -19,8 +19,8 @@ The `airlock-minikube-examples` examples are used internally and we make them av
 This setup spins up an Airlock Microgateway, Airlock IAM and additional containers in order to make the use cases working and having the possibility to monitor what is happening.
 
 ## Prerequisites
-* Install `Minikube`
-* Install `kubectl`
+* Install `Minikube` (tested with Minikube version `1.16.0`, Kubernetes version `1.20.0`)
+* Install `kubectl` (tested with version `1.20.2`)
 * A Docker Hub account granted to access the private repositories:
   * hub.docker.com/r/ergon/airlock-microgateway
   * hub.docker.com/r/ergon/airlock-iam<br>
@@ -34,7 +34,6 @@ This setup spins up an Airlock Microgateway, Airlock IAM and additional containe
 Start Minikube and configure ingress by running the following commands:
 ```console
 minikube start --vm=true --cpus=2 --memory=10240 --disk-size='40gb' --addons=ingress
-kubectl apply -f ingress/
 ```
 
 ## Prepare for the deployment
@@ -56,7 +55,6 @@ kubectl create secret generic microgateway-secrets \
   --from-file=passphrase=params/microgateway.passphrase \
   --dry-run=client \
   -o yaml > params/microgateway-secret.yaml
-kubectl apply -f params/microgateway-secret.yaml
 ```
 ### Create a secret for the MariaDB database which is used by Airlock IAM
 After proceeding the steps below, a secret with the name `mariadb-secrets` is created.<br>
@@ -70,7 +68,6 @@ kubectl create secret generic mariadb-secrets \
   --from-literal=MYSQL_PASSWORD=$(openssl rand -base64 36) \
   --dry-run=client \
   -o yaml > params/mariadb-secret.yaml
-kubectl apply -f params/mariadb-secret.yaml
 ```
 
 ### Create a secret for the IAM license
@@ -83,7 +80,6 @@ kubectl create secret generic iam-secrets \
   --from-file=license.txt=params/iam.lic \
   --dry-run=client \
   -o yaml > params/iam-secret.yaml
-kubectl apply -f params/iam-secret.yaml
 ```
 
 ### Create a DockerHub secret to pull the Airlock images
@@ -96,13 +92,25 @@ kubectl create secret docker-registry dockerregcred \
   --docker-email=<DOCKER_EMAIL> \
   --dry-run=client \
   -o yaml > params/dockerhub-secret.yaml
-kubectl apply -f params/dockerhub-secret.yaml
+```
+
+### Create the Kubernetes objects and initialize the volume
+Run the following commands to create the Kubernetes objects and initialize the volume:
+```console
+kubectl apply -f ingress/
+kubectl apply -f params/
+kubectl apply -f prepare/
+```
+
+Wait until the data-pod is started and run afterwards the following commands:
+```console
+kubectl cp ./data/ data-pod:/
+kubectl exec data-pod -- sh -c "chown -R 1000:0 /data/iam/*"
 ```
 
 ## Start the deployment
 To deploy the demo setup, run the following commands:
 ```console
-kubectl apply -f params/environment-parameters.yaml
 kubectl apply -f efk/
 kubectl apply -f redis/
 kubectl apply -f echoserver/
@@ -130,10 +138,10 @@ The following users can be used to authenticate:
   * Password (default): `password`
 
 ## Cleanup
-The following chapter describes the possibilities to cleanup the deployment/installation. This could be handy in order to restart from stratch or just to clean the environment.
+The following chapter describes the possibilities to cleanup the deployment/installation. This could be handy in order to restart from scratch or just to clean the environment.
 
 ### Delete the deployment
-To delete the Kuberenetes deployment, run the following commands:
+To delete the Kubernetes deployment, run the following commands:
 ```console
 kubectl delete -f efk/
 kubectl delete -f redis/
