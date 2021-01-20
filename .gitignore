@@ -1,4 +1,1 @@
-params/microgateway.passphrase
-params/*.lic
-params/*-secret.yaml
-!.gitkeep
+/.idea/

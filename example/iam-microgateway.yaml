@@ -16,54 +16,54 @@ spec:
         app: microgateway-iam
     spec:
       imagePullSecrets:
-      - name: dockerregcred
+        - name: dockerregcred
       containers:
-      - name: microgateway-iam
-        image: ergon/airlock-microgateway:1.0
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: TZ
-          valueFrom:
-            configMapKeyRef:
-              name: generic-parameters
-              key: TZ
-        - name: ALG_CFG_OPERATIONAL_MODE
-          value: production
-        ports:
-        - name: https
-          containerPort: 8443
-        volumeMounts:
-        - name: config
-          mountPath: /config/config.yaml
-          subPath: config.yaml
-        - name: secret
-          mountPath: /secret/config/
-          readOnly: true
-        - name: data
-          mountPath: /config/templates/
-          subPath: microgateway/mapping-templates
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: https
-            scheme: HTTPS
-          initialDelaySeconds: 90
-        readinessProbe:
-          httpGet:
-            path: /healthz
-            port: https
-            scheme: HTTPS
-          initialDelaySeconds: 30
+        - name: microgateway-iam
+          image: ergon/airlock-microgateway:1.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: TZ
+              valueFrom:
+                configMapKeyRef:
+                  name: generic-parameters
+                  key: TZ
+            - name: ALG_CFG_OPERATIONAL_MODE
+              value: production
+          ports:
+            - name: https
+              containerPort: 8443
+          volumeMounts:
+            - name: config
+              mountPath: /config/config.yaml
+              subPath: config.yaml
+            - name: secret
+              mountPath: /secret/config/
+              readOnly: true
+            - name: data
+              mountPath: /config/templates/
+              subPath: microgateway/mapping-templates
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: https
+              scheme: HTTPS
+            initialDelaySeconds: 90
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: https
+              scheme: HTTPS
+            initialDelaySeconds: 30
       volumes:
-      - name: data
-        persistentVolumeClaim:
-          claimName: data-claim
-      - name: config
-        configMap:
-          name: microgateway-iam-config
-      - name: secret
-        secret:
-          secretName: microgateway-secrets
+        - name: data
+          persistentVolumeClaim:
+            claimName: data-claim
+        - name: config
+          configMap:
+            name: microgateway-iam-config
+        - name: secret
+          secret:
+            secretName: microgateway-secrets
 ---
 apiVersion: v1
 kind: Service
@@ -88,7 +88,7 @@ data:
 
     log:
       level: info
-    
+
     session:
       redis_hosts:
       - 'redis:6379'
@@ -110,7 +110,7 @@ data:
         Request.Logging.Headers.Pattern       "^x-request-id:"
         Request.Logging.Headers.IgnoreCase    "TRUE"
         Request.Logging.Headers.InvertPattern "FALSE"
-    
+
     apps:
     - virtual_host:
         name: vh-iam
@@ -130,7 +130,7 @@ data:
             # TODO:
             # Not required anymore with: ALMICRO-467
             CsrfTokens.Enable    "FALSE"
-            
+
             RedirectForErrorPage "FALSE"
       - name: iam-loginapp-rest-public
         mapping_template_file: /config/templates/loginapp-7.3-REST-public.xml
@@ -181,19 +181,19 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   rules:
-  - http:
-      paths:
-      - path: /$
-        pathType: Prefix
-        backend:
-          service:
-            name: microgateway-iam
-            port:
-              number: 8443
-      - path: /auth
-        pathType: Prefix
-        backend:
-          service:
-            name: microgateway-iam
-            port:
-              number: 8443
+    - http:
+        paths:
+          - path: /$
+            pathType: Prefix
+            backend:
+              service:
+                name: microgateway-iam
+                port:
+                  number: 8443
+          - path: /auth
+            pathType: Prefix
+            backend:
+              service:
+                name: microgateway-iam
+                port:
+                  number: 8443
