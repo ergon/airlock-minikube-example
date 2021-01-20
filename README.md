@@ -19,8 +19,8 @@ The `airlock-minikube-examples` examples are used internally and we make them av
 This setup spins up an Airlock Microgateway, Airlock IAM and additional containers in order to make the use cases working and having the possibility to monitor what is happening.
 
 ## Prerequisites
-* Install `Minikube`
-* Install `kubectl`
+* Install `Minikube` (tested with Minikube version `1.16.0`, Kubernetes version `1.20.0`)
+* Install `kubectl` (tested with version `1.20.2`)
 * A Docker Hub account granted to access the private repositories:
   * hub.docker.com/r/ergon/airlock-microgateway
   * hub.docker.com/r/ergon/airlock-iam<br>
