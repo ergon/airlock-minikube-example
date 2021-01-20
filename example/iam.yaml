@@ -32,17 +32,17 @@ spec:
             - name: MYSQL_DATABASE
               valueFrom:
                 secretKeyRef:
-                  name: mariadb-secrets
+                  name: mariadb-secret
                   key: MYSQL_DATABASE
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
-                  name: mariadb-secrets
+                  name: mariadb-secret
                   key: MYSQL_USER
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mariadb-secrets
+                  name: mariadb-secret
                   key: MYSQL_PASSWORD
           command:
             - sh
@@ -99,7 +99,7 @@ spec:
             claimName: data-claim
         - name: secret
           secret:
-            secretName: iam-secrets
+            secretName: iam-secret
 ---
 apiVersion: v1
 kind: Service

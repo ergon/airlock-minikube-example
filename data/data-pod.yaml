@@ -12,13 +12,7 @@ spec:
     - name: iam-init
       image: ergon/airlock-iam:latest-7.3
       imagePullPolicy: IfNotPresent
-      command:
-        - bash
-        - -c
-        - |
-          if [ ! -d /home/airlock/iam/instances ]; then
-            /iam_entrypoint init
-          fi
+      args: [ "init" ]
       volumeMounts:
         - name: data
           mountPath: /home/airlock/iam/
@@ -27,15 +21,8 @@ spec:
     - name: data-container
       image: alpine
       imagePullPolicy: IfNotPresent
-      command:
-        - sh
-        - -c
-        - "--"
-      args:
-        - |
-          while true; do
-            sleep 5;
-          done;
+      command: [ "/bin/sh" ]
+      args: [ "-c", "tail -f /dev/null" ]
       volumeMounts:
         - name: data
           mountPath: /data/
