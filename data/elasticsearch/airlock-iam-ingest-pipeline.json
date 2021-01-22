@@ -32,6 +32,10 @@
 		{
 			"date_index_name": {
 				"field": "@timestamp",
+				"date_formats": [
+					"ISO8601",
+					"yyyy-MM-dd'T'HH:mm:ss.SSSxx"
+				],
 				"index_name_prefix": "{{_index}}-",
 				"date_rounding": "d",
 				"index_name_format": "yyyy.MM.dd"
