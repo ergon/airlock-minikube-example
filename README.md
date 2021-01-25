@@ -104,6 +104,10 @@ kubectl apply -f prepare/
 
 Wait until the data-pod is started and run afterwards the following commands:
 ```console
+kubectl wait \
+  --for=condition=ready \
+  --timeout=90s \
+  pod/data-pod
 kubectl cp ./data/ data-pod:/
 kubectl exec data-pod -- sh -c "chown -R 1000:0 /data/iam/*"
 ```
