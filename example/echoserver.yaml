@@ -16,26 +16,26 @@ spec:
         app: echoserver
     spec:
       containers:
-      - name: echoserver
-        image: openresty/openresty:1.19.3.1-alpine
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: TZ
-          valueFrom:
-            configMapKeyRef:
-              name: generic-parameters
-              key: TZ
-        ports:
-        - name: http
-          containerPort: 8080
-        volumeMounts:
-        - name: config
-          mountPath: /usr/local/openresty/nginx/conf/nginx.conf
-          subPath: nginx.conf
+        - name: echoserver
+          image: openresty/openresty:1.19.3.1-alpine
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: TZ
+              valueFrom:
+                configMapKeyRef:
+                  name: generic-parameters
+                  key: TZ
+          ports:
+            - name: http
+              containerPort: 8080
+          volumeMounts:
+            - name: config
+              mountPath: /usr/local/openresty/nginx/conf/nginx.conf
+              subPath: nginx.conf
       volumes:
-      - name: config
-        configMap:
-          name: echoserver-nginx-config
+        - name: config
+          configMap:
+            name: echoserver-nginx-config
 ---
 apiVersion: v1
 kind: Service
@@ -55,7 +55,7 @@ kind: ConfigMap
 metadata:
   name: echoserver-nginx-config
 data:
-  nginx.conf : |
+  nginx.conf: |
     error_log  /dev/stderr debug;
 
     events {
@@ -97,7 +97,7 @@ data:
 
         server {
             listen       8080;
-            
+
             location / {
               echo_duplicate 1 $echo_client_request_headers;
               echo "\r";

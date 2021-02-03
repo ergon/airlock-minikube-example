@@ -1,89 +1,89 @@
-# airlock-minikube-examples
-This repository contains a example deployments for [Airlock](https://www.airlock.com/en/) and allows to demonstrate easily its functionalities.
+# Airlock Minikube Example
 
-The `airlock-minikube-examples` examples are used internally and we make them available publicly under the [MIT license](https://github.com/ergon/airlock-minikube-examples/blob/main/LICENSE).
+This repository contains a deployment example for [Airlock] on [Minikube]. It shows how to protect a backend application with Airlock Microgateway and how to identify users using Airlock IAM. The
+source code is available under the [MIT license].
 
 ## About Ergon
-*Airlock* is a registered trademark of [Ergon](https://www.ergon.ch). Ergon is a Swiss leader in leveraging digitalisation to create unique and effective client benefits, from conception to market, the result of which is the international distribution of globally revered products.
 
-## Table of contents
-* [Introduction](#introduction)
-* [Prerequisites](#prerequisites)
-* [Start Minikube](#start-minikube)
-* [Prepare for the deployment](#prepare-for-the-deployment)
-* [Start the deployment](#start-the-deployment)
-* [Use the demo](#use-the-demo)
-* [Cleanup](#cleanup)
-
-## Introduction
-This setup spins up an Airlock Microgateway, Airlock IAM and additional containers in order to make the use cases working and having the possibility to monitor what is happening.
+*Airlock* is a registered trademark of [Ergon]. Ergon is a Swiss leader in leveraging digitalisation to create unique and effective client benefits, from conception to market, the result of which is
+the international distribution of globally revered products.
 
 ## Prerequisites
-* Install `Minikube` (tested with Minikube version `1.16.0`, Kubernetes version `1.20.0`)
-* Install `kubectl` (tested with version `1.20.2`)
-* A Docker Hub account granted to access the private repositories:
-  * hub.docker.com/r/ergon/airlock-microgateway
-  * hub.docker.com/r/ergon/airlock-iam<br>
-  :exclamation: To get the permissions to access these private Docker Hub repositories, please contact order@airlock.com.
-* Airlock license files
-  * A valid license for Airlock Microgateway<br>
-  * A valid license for Airlock IAM<br>
-  :exclamation: Airlock Microgateway and Airlock IAM do not work without a valid license. To order one, please contact order@airlock.com.
+
+* Install [Minikube].
+* Install [kubectl].
+* A Docker Hub account with access to the private repositories:
+    * `hub.docker.com/r/ergon/airlock-microgateway`
+    * `hub.docker.com/r/ergon/airlock-iam`  
+      :exclamation: Please contact `order@airlock.com` to get access to the private repositories.
+* Airlock license files:
+    * A valid license for Airlock Microgateway
+    * A valid license for Airlock IAM  
+      :exclamation: Airlock Microgateway and Airlock IAM do not work without a valid license. Please contact `order@airlock.com` to get temporary Airlock license files.
 
 ## Start Minikube
-Start Minikube and configure ingress by running the following commands:
+
+Start Minikube and configure ingress by running the following command:
+
 ```console
-minikube start --vm=true --cpus=2 --memory=10240 --disk-size='40gb' --addons=ingress
+minikube start --vm=true --memory=8g --addons=ingress
 ```
 
-## Prepare for the deployment
-Several Kubernetes secrets are created within this chapter.<br>
-They are used later on in the deployment process. Without them, the deployment will fail.
+This deployment example requires `--vm=true` so we can use `--addons=ingress`.
 
-### Create a secret for the Microgateway license and passphrase
-After proceeding the steps below, a secret with the name `microgateway-secrets` is created containing the Microgateway `license` and a `passphrase` to encrypt/decrypt URLs.<br>
-Follow the instructions below:
-* Save the Microgateway license file in `params/microgateway.lic`
-* Generate a passphrase in `params/microgateway.passphrase`:
+## Copy licenses and create secrets
+
+### Airlock Microgateway
+
+* Copy the Airlock Microgateway license file to `init/microgateway.lic`.
+* Generate a passphrase and save it to `init/microgateway.passphrase`:
+
 ```console
-openssl rand -base64 102 | tr -d '\n' > params/microgateway.passphrase
+openssl rand -base64 102 | tr -d '\n' > init/microgateway.passphrase
 ```
-* Create the secret `microgateway-secrets`:
+
+* Create the secret `microgateway-secret`:
+
 ```console
-kubectl create secret generic microgateway-secrets \
-  --from-file=license=params/microgateway.lic \
-  --from-file=passphrase=params/microgateway.passphrase \
+kubectl create secret generic microgateway-secret \
+  --from-file=license=init/microgateway.lic \
+  --from-file=passphrase=init/microgateway.passphrase \
   --dry-run=client \
-  -o yaml > params/microgateway-secret.yaml
+  -o yaml > init/microgateway-secret.yaml
 ```
-### Create a secret for the MariaDB database which is used by Airlock IAM
-After proceeding the steps below, a secret with the name `mariadb-secrets` is created.<br>
-Follow the instructions below:
-* Create the secret `mariadb-secrets`:
+
+### Airlock IAM
+
+* Copy the Airlock IAM license file to `init/iam.lic`.
+* Create the secret `iam-secret`:
+
 ```console
-kubectl create secret generic mariadb-secrets \
-  --from-literal=MYSQL_DATABASE=iam \
+kubectl create secret generic iam-secret \
+  --from-file=license.txt=init/iam.lic \
+  --dry-run=client \
+  -o yaml > init/iam-secret.yaml
+```
+
+### MariaDB
+
+Airlock IAM uses MariaDB as storage backend.
+
+* Create the secret `mariadb-secret`:
+
+```console
+kubectl create secret generic mariadb-secret \
+  --from-literal=MYSQL_DATABASE=iamdb \
   --from-literal=MYSQL_ROOT_PASSWORD=$(openssl rand -base64 36) \
-  --from-literal=MYSQL_USER=iam \
+  --from-literal=MYSQL_USER=airlock \
   --from-literal=MYSQL_PASSWORD=$(openssl rand -base64 36) \
   --dry-run=client \
-  -o yaml > params/mariadb-secret.yaml
+  -o yaml > init/mariadb-secret.yaml
 ```
 
-### Create a secret for the IAM license
-After proceeding the steps below, a secret with the name `iam-secrets` is created containing the IAM `license.txt`.<br>
-Follow the instructions below:
-* Save the IAM license file in `params/iam.lic`
-* Create the secret `iam-secrets`:
-```console
-kubectl create secret generic iam-secrets \
-  --from-file=license.txt=params/iam.lic \
-  --dry-run=client \
-  -o yaml > params/iam-secret.yaml
-```
+### Docker Hub
 
-### Create a DockerHub secret to pull the Airlock images
-The Airlock Docker images are in a private DockerHub repository. To download them, create a pull secret and replace the values in `<...>`. The DockerHub user must be granted to download the images.
+A Docker Hub account with access to the private repositories is needed in order to pull Airlock docker images.
+
 ```console
 kubectl create secret docker-registry dockerregcred \
   --docker-server='https://index.docker.io/v1/' \
@@ -91,70 +91,75 @@ kubectl create secret docker-registry dockerregcred \
   --docker-password=<DOCKER_PASSWORD> \
   --docker-email=<DOCKER_EMAIL> \
   --dry-run=client \
-  -o yaml > params/dockerhub-secret.yaml
+  -o yaml > init/dockerhub-secret.yaml
 ```
 
-### Create the Kubernetes objects and initialize the volume
-Run the following commands to create the Kubernetes objects and initialize the volume:
+## Create Kubernetes objects and initialize volumes
+
+Run the following command to create Kubernetes objects and initialize volumes:
+
 ```console
-kubectl apply -f ingress/
-kubectl apply -f params/
-kubectl apply -f prepare/
+kubectl apply -f init/
 ```
 
-Wait until the data-pod is started and run afterwards the following commands:
+Run the following commands to copy data and configuration files to the data volume:
+
 ```console
-kubectl wait \
-  --for=condition=ready \
-  --timeout=90s \
-  pod/data-pod
-kubectl cp ./data/ data-pod:/
-kubectl exec data-pod -- sh -c "chown -R 1000:0 /data/iam/*"
+kubectl apply -f data/
+kubectl wait --for=condition=ready --timeout=300s pod/data-pod
+kubectl cp data/ data-pod:/
+kubectl exec data-pod -- sh -c "chown -R 1000:0 /data/iam/"
+kubectl delete -f data/
 ```
 
-## Start the deployment
-To deploy the demo setup, run the following commands:
+## Start deployment
+
+To deploy the example, run the following command:
+
 ```console
-kubectl apply -f efk/
-kubectl apply -f redis/
-kubectl apply -f echoserver/
-kubectl apply -f iam/
+kubectl apply -f example/
 ```
 
-## Use the demo
-Figure out the IP address of Minikube:
+## Use the example
+
+Get the Minikube IP address:
+
 ```console
 minikube ip
 ```
-Open a browser to navigate the different web applications:
-* Kibana URL: `https://$(minikube ip)/kibana`
-* Echoserver URL: `https://$(minikube ip)/echo`<br>
-* IAM Admin App URL: `https://$(minikube ip)/auth-admin`<br>
-* Adminer URL:  `https://$(minikube ip)/adminer`<br>
 
-### Users and passwords
-The following users can be used to authenticate:
-* IAM Admin App
-  * Username: `admin`
-  * Password (default): `password`
-* IAM Login APP
-  * Username: `2fa`
-  * Password (default): `password`
+Open a browser to navigate to the different web applications. Use `2fa` as the username and `password` as the password to authenticate.
+
+* Kibana URL: `https://<MINIKUBE_IP>/kibana`
+* Echoserver URL: `https://<MINIKUBE_IP>/echo`
+* Adminer URL:  `https://<MINIKUBE_IP>/adminer`
+
+Use the Airlock IAM Adminapp to administer users and their login factors.
+
+* Airlock IAM Adminapp URL: `https://<MINIKUBE_IP>/auth-admin`
+    * Username: `admin`
+    * Password: `password`
 
 ## Cleanup
-The following chapter describes the possibilities to cleanup the deployment/installation. This could be handy in order to restart from scratch or just to clean the environment.
 
-### Delete the deployment
-To delete the Kubernetes deployment, run the following commands:
+To delete the deployment example, run the following command:
+
 ```console
-kubectl delete -f efk/
-kubectl delete -f redis/
-kubectl delete -f echoserver/
-kubectl delete -f iam/
+kubectl delete -f example/
 ```
 
-### Delete Minikube
-If Minikube is not needed anymore or to redeploy everything again, do the following:
+If Minikube is not needed anymore or to restart from scratch, run this command:
+
 ```console
 minikube delete
 ```
+
+[MIT license]: https://github.com/ergon/airlock-minikube-examples/blob/main/LICENSE
+
+[Airlock]: https://www.airlock.com/
+
+[Ergon]: https://www.ergon.ch/
+
+[Minikube]: https://minikube.sigs.k8s.io/
+
+[kubectl]: https://kubernetes.io/docs/reference/kubectl/overview/

@@ -18,46 +18,46 @@ spec:
       imagePullSecrets:
         - name: dockerregcred
       containers:
-      - name: microgateway-echoserver
-        image: ergon/airlock-microgateway:1.0
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: TZ
-          valueFrom:
-            configMapKeyRef:
-              name: generic-parameters
-              key: TZ
-        - name: ALG_CFG_OPERATIONAL_MODE
-          value: integration
-        ports:
-        - name: https
-          containerPort: 8443
-        volumeMounts:
-        - name: config
-          mountPath: /config/config.yaml
-          subPath: config.yaml
-        - name: secret
-          mountPath: /secret/config/
-          readOnly: true
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: https
-            scheme: HTTPS
-          initialDelaySeconds: 90
-        readinessProbe:
-          httpGet:
-            path: /healthz
-            port: https
-            scheme: HTTPS
-          initialDelaySeconds: 30
+        - name: microgateway-echoserver
+          image: ergon/airlock-microgateway:1.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: TZ
+              valueFrom:
+                configMapKeyRef:
+                  name: generic-parameters
+                  key: TZ
+            - name: ALG_CFG_OPERATIONAL_MODE
+              value: integration
+          ports:
+            - name: https
+              containerPort: 8443
+          volumeMounts:
+            - name: config
+              mountPath: /config/config.yaml
+              subPath: config.yaml
+            - name: secret
+              mountPath: /secret/config/
+              readOnly: true
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: https
+              scheme: HTTPS
+            initialDelaySeconds: 90
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: https
+              scheme: HTTPS
+            initialDelaySeconds: 30
       volumes:
-      - name: config
-        configMap:
-          name: microgateway-echoserver-config
-      - name: secret
-        secret:
-          secretName: microgateway-secrets
+        - name: config
+          configMap:
+            name: microgateway-echoserver-config
+        - name: secret
+          secret:
+            secretName: microgateway-secret
 ---
 apiVersion: v1
 kind: Service
@@ -82,7 +82,7 @@ data:
 
     log:
       level: info
-    
+
     session:
       redis_hosts:
       - 'redis:6379'
@@ -104,7 +104,7 @@ data:
         Request.Logging.Headers.Pattern       "^x-request-id:"
         Request.Logging.Headers.IgnoreCase    "TRUE"
         Request.Logging.Headers.InvertPattern "FALSE"
-    
+
     apps:
     - virtual_host:
         name: vh-echoserver
@@ -136,12 +136,12 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: https
 spec:
   rules:
-  - http:
-      paths:
-      - path: /echo
-        pathType: Prefix
-        backend:
-          service:
-            name: microgateway-echoserver
-            port: 
-              number: 8443
+    - http:
+        paths:
+          - path: /echo
+            pathType: Prefix
+            backend:
+              service:
+                name: microgateway-echoserver
+                port:
+                  number: 8443
