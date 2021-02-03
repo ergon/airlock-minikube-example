@@ -137,6 +137,9 @@ data:
         entry_path: /auth/rest/public
         backend_path: /auth-login/rest/public
         session_handling: enforce_session
+        api_security:
+          openapi:
+            spec_file: /config/templates/login-rest-openapi.json
         operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
         expert_settings:
           security_gate: |
@@ -146,6 +149,9 @@ data:
         entry_path: /auth/rest/protected
         backend_path: /auth-login/rest/protected
         session_handling: enforce_session
+        api_security:
+          openapi:
+            spec_file: /config/templates/login-rest-openapi.json
         operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
         expert_settings:
           security_gate: |
