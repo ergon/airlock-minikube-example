@@ -69,7 +69,9 @@ spec:
                   name: generic-parameters
                   key: TZ
             - name: IAM_LOG_LEVEL
-              value: DEBUG
+              value: INFO
+            - name: IAM_HEALTH_ADDRESS
+              value: .*
           ports:
             - name: https
               containerPort: 8443
@@ -80,19 +82,18 @@ spec:
             - name: secret
               mountPath: /home/airlock/iam/license.txt
               subPath: license.txt
-          # TODO:
-          # livenessProbe:
-          #   httpGet:
-          #     path: /health
-          #     port: https
-          #     scheme: HTTPS
-          #   initialDelaySeconds: 60
-          # readinessProbe:
-          #   httpGet:
-          #     path: /auth-login/health
-          #     port: https
-          #     scheme: HTTPS
-          #   initialDelaySeconds: 120
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: https
+              scheme: HTTPS
+            initialDelaySeconds: 120
+          readinessProbe:
+            httpGet:
+              path: /auth-login/rest/health
+              port: https
+              scheme: HTTPS
+            initialDelaySeconds: 120
       volumes:
         - name: data
           persistentVolumeClaim:
