@@ -34,8 +34,8 @@ spec:
                     KIBANA_PORT=5601
 
                     requests=0
-                    max_requests=30
-                    sleep_for=5
+                    max_requests=300
+                    sleep_for=1
 
                     while true; do
                       STATUS_CODE=$(curl -s -m 10 -k -L -o /dev/null -w "%{http_code}" "http://${KIBANA_HOST}:${KIBANA_PORT}${SERVER_BASEPATH}/api/status")
