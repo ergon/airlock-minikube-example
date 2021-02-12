@@ -17,10 +17,10 @@ spec:
     spec:
       imagePullSecrets:
         - name: dockerregcred
-      containers:
-        - name: microgateway-echoserver
-          image: ergon/airlock-microgateway:1.0
-          imagePullPolicy: IfNotPresent
+      initContainers:
+        - name: configbuilder
+          image: docker.ergon.ch/airlock-pd-waf/airlock-microgateway-configbuilder:latest
+          imagePullPolicy: Always
           env:
             - name: TZ
               valueFrom:
@@ -29,16 +29,32 @@ spec:
                   key: TZ
             - name: ALG_CFG_OPERATIONAL_MODE
               value: integration
-          ports:
-            - name: https
-              containerPort: 8443
           volumeMounts:
             - name: config
               mountPath: /config/config.yaml
               subPath: config.yaml
+              readOnly: true
             - name: secret
               mountPath: /secret/config/
               readOnly: true
+            - name: config-files
+              mountPath: /resources-gen
+      containers:
+        - name: microgateway-echoserver
+          image: docker.ergon.ch/airlock-pd-waf/airlock-microgateway:latest
+          imagePullPolicy: Always
+          env:
+            - name: TZ
+              valueFrom:
+                configMapKeyRef:
+                  name: generic-parameters
+                  key: TZ
+          ports:
+            - name: https
+              containerPort: 8443
+          volumeMounts:
+            - name: config-files
+              mountPath: /config/
           livenessProbe:
             httpGet:
               path: /healthz
@@ -58,6 +74,8 @@ spec:
         - name: secret
           secret:
             secretName: microgateway-secret
+        - name: config-files
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
@@ -114,7 +132,7 @@ data:
         session_handling: enforce_session
         operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
         threat_handling: notify
-        deny_rules:
+        deny_rule_groups:
         - level: strict
           enabled: true
         expert_settings:
@@ -122,11 +140,12 @@ data:
             Backend.AddEnvironmentCookies         "TRUE"
             Cookie.PassthroughSelector.Pattern    "^.*$"
             Cookie.PassthroughSelector.IgnoreCase "TRUE"
-      backend:
-        name: beg-echoserver
-        protocol: 'http'
-        hostname: echoserver
-        port: 8080
+        backend:
+          name: beg-echoserver
+          hosts:
+          - protocol: 'http'
+            name: echoserver
+            port: 8080
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
