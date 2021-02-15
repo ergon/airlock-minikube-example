@@ -204,10 +204,6 @@ data:
         operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
         expert_settings:
           security_gate: |
-            # TODO:
-            # Not required anymore with: ALMICRO-467
-            CsrfTokens.Enable    "FALSE"
-
             RedirectForErrorPage "FALSE"
         backend:
           name: beg-iam
