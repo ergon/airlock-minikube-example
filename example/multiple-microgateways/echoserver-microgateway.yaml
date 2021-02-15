@@ -128,7 +128,7 @@ data:
         name: vh-echoserver
       mappings:
       - name: echoserver
-        entry_path: /
+        entry_path: /echo/
         session_handling: enforce_session
         operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
         threat_handling: notify

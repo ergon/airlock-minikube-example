@@ -1,6 +1,6 @@
 # Airlock Minikube Example
 
-This repository contains a deployment example for [Airlock] on [Minikube]. It shows how to protect a backend application with Airlock Microgateway and how to identify users using Airlock IAM. The
+This repository contains deployment examples for [Airlock] on [Minikube]. It shows how to protect a backend application with Airlock Microgateway and how to identify users using Airlock IAM. The
 source code is available under the [MIT license].
 
 ## About Ergon
@@ -115,10 +115,16 @@ kubectl delete -f data/
 
 ## Start deployment
 
-To deploy the example, run the following command:
+To deploy the example, run one of the following commands:
 
+Deployment with multiple microgateway instances:
 ```console
-kubectl apply -f example/
+kubectl apply -f example/ -f example/multiple-microgateways
+```
+
+Deployment with a single microgateway instances:
+```console
+kubectl apply -f example/ -f example/single-microgateway
 ```
 
 ## Use the example
@@ -143,10 +149,16 @@ Use the Airlock IAM Adminapp to administer users and their login factors.
 
 ## Cleanup
 
-To delete the deployment example, run the following command:
+To delete the deployment example, run one of the following commands:
 
+Deployment with multiple microgateway instances:
 ```console
-kubectl delete -f example/
+kubectl delete -f example/ -f example/multiple-microgateways
+```
+
+Deployment with a single microgateway instances:
+```console
+kubectl delete -f example/ -f example/single-microgateway
 ```
 
 If Minikube is not needed anymore or to restart from scratch, run this command:
