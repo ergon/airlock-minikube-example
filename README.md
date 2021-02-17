@@ -117,14 +117,8 @@ kubectl delete -f data/
 
 To deploy the example, run one of the following commands:
 
-Deployment with multiple microgateway instances:
 ```console
-kubectl apply -f example/ -f example/multiple-microgateways
-```
-
-Deployment with a single microgateway instances:
-```console
-kubectl apply -f example/ -f example/single-microgateway
+kubectl apply -f example/
 ```
 
 ## Use the example
@@ -151,14 +145,8 @@ Use the Airlock IAM Adminapp to administer users and their login factors.
 
 To delete the deployment example, run one of the following commands:
 
-Deployment with multiple microgateway instances:
 ```console
-kubectl delete -f example/ -f example/multiple-microgateways
-```
-
-Deployment with a single microgateway instances:
-```console
-kubectl delete -f example/ -f example/single-microgateway
+kubectl delete -f example/
 ```
 
 If Minikube is not needed anymore or to restart from scratch, run this command:
