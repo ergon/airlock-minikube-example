@@ -20,7 +20,7 @@ spec:
       initContainers:
         - name: configbuilder
           image: docker.ergon.ch/airlock-pd-waf/airlock-microgateway-configbuilder:latest
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           env:
             - name: TZ
               valueFrom:
@@ -42,7 +42,7 @@ spec:
       containers:
         - name: microgateway-kibana
           image: docker.ergon.ch/airlock-pd-waf/airlock-microgateway:latest
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           env:
             - name: TZ
               valueFrom:
@@ -119,7 +119,6 @@ data:
     session:
       redis_hosts:
       - 'redis:6379'
-      store_mode: server
       encryption_passphrase_file: /secret/config/passphrase
 
     expert_settings:
