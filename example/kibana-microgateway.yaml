@@ -36,21 +36,37 @@ spec:
             - name: config
               mountPath: /config/config.yaml
               subPath: config.yaml
+              readOnly: true
             - name: secret
               mountPath: /secret/config/
               readOnly: true
           livenessProbe:
+            failureThreshold: 9
+            timeoutSeconds: 5
             httpGet:
               path: /healthz
               port: https
               scheme: HTTPS
             initialDelaySeconds: 90
           readinessProbe:
+            failureThreshold: 3
             httpGet:
               path: /healthz
               port: https
               scheme: HTTPS
-            initialDelaySeconds: 30
+            initialDelaySeconds: 10
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - /usr/bin/sleep
+                  - "10"
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 30m
+            limits:
+              memory: 4048Mi
       volumes:
         - name: config
           configMap:
