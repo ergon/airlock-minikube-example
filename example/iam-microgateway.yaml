@@ -159,6 +159,9 @@ data:
         backend_path: /auth-login/
         session_handling: enforce_session
         operational_mode: ${OPERATIONAL_MODE:-production}
+        allow_rules:
+          - name: "Loginapp Single Page Application"
+            enabled: true
         expert_settings:
           security_gate: |
             # TODO:

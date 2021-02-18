@@ -10,18 +10,8 @@
     <pluginProperty name="logViewer">
       <plugin uuidref="49943ced-e9c0-4072-b6a5-c8136f858981"/>
     </pluginProperty>
-    <pluginProperty name="maintenanceMessages">
-      <plugin uuidref="ed4aeed8-0079-42cd-acbe-a2d8e41bd7c8"/>
-    </pluginProperty>
     <pluginProperty name="rest">
       <plugin uuidref="0948ff8a-b017-443a-b293-6733b140ed2e"/>
-    </pluginProperty>
-    <property name="serviceContainerSharedSecret">vpznbLDE5S37YTWy7LAZ</property>
-    <pluginProperty name="technicalClients">
-      <plugin uuidref="46944a64-b8b2-4470-bd54-8198bd62bb56"/>
-    </pluginProperty>
-    <pluginProperty name="tokens">
-      <plugin uuidref="b6fd780b-1594-4205-9229-27f41f0bb4d2"/>
     </pluginProperty>
     <pluginProperty name="users">
       <plugin uuidref="f5036cef-b96b-4fd3-aa39-1ec447265e03"/>
@@ -73,246 +63,6 @@
       <plugin uuidref="08fee59f-4b2d-4edf-8965-be5f6b0d641e"/>
     </pluginList>
     <property name="superAdminRole">superadmin</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.airlock2fa.Airlock2FAActivationLettersConfig" uuid="6a232638-d6f4-4c80-8f4f-8d50c7123b5c">
-    <property name="languageContextDataName">language</property>
-    <property name="outputDirectory">instances/auth/pdfs</property>
-    <pluginProperty name="renderer">
-      <plugin uuidref="c772477a-b2be-48bd-88e4-e2521de7b236"/>
-    </pluginProperty>
-    <property name="workingDirectory">instances/auth/pdfs/inwork</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.airlock2fa.Airlock2FAShipmentLettersConfig" uuid="ffdedbaf-f571-4c35-8934-07fc108b7f5b">
-    <property name="languageContextDataName">language</property>
-    <property name="outputDirectory">instances/auth/pdfs</property>
-    <pluginProperty name="renderer">
-      <plugin uuidref="38d5d538-d77f-4850-a3fb-405d5df49bcf"/>
-    </pluginProperty>
-    <property name="workingDirectory">instances/auth/pdfs/inwork</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.airlock2fa.Airlock2FATokenControllerConfig" id="Manage Airlock 2FA Tokens" uuid="5814ee45-6494-41ac-af59-7a130c07fc81">
-    <pluginProperty name="activationLetters">
-      <plugin uuidref="6a232638-d6f4-4c80-8f4f-8d50c7123b5c"/>
-    </pluginProperty>
-    <pluginProperty name="shipmentLetters">
-      <plugin uuidref="ffdedbaf-f571-4c35-8934-07fc108b7f5b"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.cronto.CrontoTokenController" id="Manage Cronto Tokens" uuid="fb76a6f9-aa1d-45ea-974a-982811259dfa"/>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.CredentialBasedAttributeMapping" id="SecurID Mapping" uuid="07a66c48-a0ea-48ea-b215-2cc00d59906c">
-    <pluginMap name="contextDataFields">
-      <plugin uuidref="dd36f301-350c-42e0-b5fb-5ee1232b96f0" key="securid_pin"/>
-    </pluginMap>
-    <property name="data">securidUser</property>
-    <property name="serialId">securid-serial</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.CredentialBasedAttributeMapping" id="Email OTP Mapping" uuid="1618c784-a08d-407b-9256-a4cb1486d3c2">
-    <property name="data">emailotp</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.CredentialBasedAttributeMapping$MappedContextDataField" uuid="dd36f301-350c-42e0-b5fb-5ee1232b96f0">
-    <property name="name">securidPin</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.CredentialBasedGenericTokenRepositoryConfig" uuid="09e1b453-c8d1-4259-b74c-f8a39ca8c94f">
-    <pluginProperty name="attributeMapping">
-      <plugin uuidref="07a66c48-a0ea-48ea-b215-2cc00d59906c"/>
-    </pluginProperty>
-    <pluginProperty name="credentialPersister">
-      <plugin uuidref="03e1e2ca-54af-43a7-8aac-c1f666ebc065"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.CredentialBasedGenericTokenRepositoryConfig" uuid="e2ca0d52-b4f0-4a00-b9c0-4c42812e3367">
-    <pluginProperty name="attributeMapping">
-      <plugin uuidref="1618c784-a08d-407b-9256-a4cb1486d3c2"/>
-    </pluginProperty>
-    <pluginProperty name="credentialPersister">
-      <plugin uuidref="af70a139-b1d8-4533-88af-0db6269d51e4"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.GenericTokenControllerConfig" id="Manage SecurIDs" uuid="1e55311a-2e1a-4642-a5b0-068391949610">
-    <property name="allowedForMigration">false</property>
-    <property name="id">securid</property>
-    <pluginProperty name="tokenEndpoint">
-      <plugin uuidref="07fe996a-7374-45d6-867a-aef6fcb278c8"/>
-    </pluginProperty>
-    <pluginProperty name="ui">
-      <plugin uuidref="f67b072f-f2ec-47cc-bbe4-29b3498ad1c3"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.GenericTokenControllerConfig" id="Manage Email OTP Credentials" uuid="31e5df52-3517-493f-91b3-d20dc9234c4b">
-    <property name="autoOrderOnAuthMethodAdd">true</property>
-    <property name="id">EMAILOTP</property>
-    <pluginProperty name="tokenEndpoint">
-      <plugin uuidref="e7f8c868-ec72-41a5-877e-1e641f2f6b65"/>
-    </pluginProperty>
-    <pluginProperty name="ui">
-      <plugin uuidref="2f9d9d28-6c81-4b89-8c91-eb1d727cfae7"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.GenericTokenControllerConfig" id="Manage Device Tokens" uuid="375a974b-1f48-4009-92e3-b30f95baa328">
-    <property name="allowedAsActive">false</property>
-    <property name="allowedForMigration">false</property>
-    <property name="id">DEVICE_TOKEN</property>
-    <pluginProperty name="tokenEndpoint">
-      <plugin uuidref="c406cff9-70f9-4c9a-a357-88844bc3ceb0"/>
-    </pluginProperty>
-    <pluginProperty name="ui">
-      <plugin uuidref="fc8bbc3b-40ee-4969-a050-5fb9798c2550"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.TokenBasedAttributeMapping" id="Map Token Data to Device Token Information" uuid="b1e60d0b-1791-404d-8451-62d35052c2e2">
-    <property name="activationDate">activationDate</property>
-    <property name="enabled">enabled</property>
-    <property name="firstUsageDate">firstUsage</property>
-    <property name="generationDate">generationDate</property>
-    <property name="genericDataElement1">label</property>
-    <property name="latestUsageDate">latestUsage</property>
-    <property name="serialId">serial</property>
-    <property name="totalUsages">totalUsages</property>
-    <property name="validFrom">validFrom</property>
-    <property name="validTo">validTo</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.TokenBasedGenericTokenRepositoryConfig" id="Device Token Data Repository" uuid="f0507390-02ba-40d5-8b69-0b586c767aac">
-    <pluginProperty name="attributeMapping">
-      <plugin uuidref="b1e60d0b-1791-404d-8451-62d35052c2e2"/>
-    </pluginProperty>
-    <property name="maxTokens">30</property>
-    <pluginProperty name="tokenDataProvider">
-      <plugin uuidref="885d411d-aabe-4bef-a4b9-6d63b3e59556"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.TokenEndpointConfig" uuid="07fe996a-7374-45d6-867a-aef6fcb278c8">
-    <pluginProperty name="tokenRepository">
-      <plugin uuidref="09e1b453-c8d1-4259-b74c-f8a39ca8c94f"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.TokenEndpointConfig" id="Device Token REST Endpoint" uuid="c406cff9-70f9-4c9a-a357-88844bc3ceb0">
-    <pluginProperty name="tokenRepository">
-      <plugin uuidref="f0507390-02ba-40d5-8b69-0b586c767aac"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.TokenEndpointConfig" uuid="e7f8c868-ec72-41a5-877e-1e641f2f6b65">
-    <pluginProperty name="tokenRepository">
-      <plugin uuidref="e2ca0d52-b4f0-4a00-b9c0-4c42812e3367"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.action.AlertTextConfig" uuid="9d4f2cea-ad23-4809-a54e-31c714ad4f00"/>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.action.RemoteActionConfig" id="Enable Action" uuid="1aa058cc-f8dc-40d8-a200-48af30ceb529">
-    <property name="method">POST</property>
-    <pluginProperty name="onSuccess">
-      <plugin uuidref="b38f6b89-65aa-4ac8-811b-6839578b9bdd"/>
-    </pluginProperty>
-    <pluginProperty name="successMessage">
-      <plugin uuidref="9d4f2cea-ad23-4809-a54e-31c714ad4f00"/>
-    </pluginProperty>
-    <property name="url">/users/{{userId}}/tokens/generic/DEVICE_TOKEN/{{data.id}}/enable/</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.action.RemoteActionConfig" id="Disable Action" uuid="56cba069-e0d5-465a-a06c-339a5eee128d" ref="Enable Action">
-    <property name="method">DELETE</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.action.UpdateElementOnRemoteSuccess" uuid="b38f6b89-65aa-4ac8-811b-6839578b9bdd">
-    <property name="url">/users/{{userId}}/tokens/generic/DEVICE_TOKEN/{{data.id}}/</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.leaf.ButtonConfig" id="Disable Button" uuid="a45ea8f6-0e6c-4cba-b3d7-3f8ce22f70d6">
-    <pluginProperty name="action">
-      <plugin uuidref="56cba069-e0d5-465a-a06c-339a5eee128d"/>
-    </pluginProperty>
-    <property name="label">button.disable</property>
-    <property name="visibleIf">data.attributes.enabled === true</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.leaf.ButtonConfig" id="Enable Button" uuid="aec6c965-311c-4802-9ee5-5e44c2c06190">
-    <pluginProperty name="action">
-      <plugin uuidref="1aa058cc-f8dc-40d8-a200-48af30ceb529"/>
-    </pluginProperty>
-    <property name="label">button.enable</property>
-    <property name="visibleIf">data.attributes.enabled === false</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.leaf.InputFieldConfig" id="Pin Field" uuid="2f5ffda9-9a3f-4e6e-b5b9-66360b785424">
-    <property name="label">user.securid.pin</property>
-    <property name="value">data.attributes.contextData.securidPin</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.leaf.InputFieldConfig" id="User Field" uuid="66392d1f-772c-470f-b459-9e7073410432">
-    <property name="label">user.securid.username</property>
-    <property name="value">data.attributes.securidUser</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.leaf.InputFieldConfig" id="Device Token Serial" uuid="6f1de87b-50ac-4ffa-831f-0e199e53b4ee">
-    <property name="label">user.generic-token.device-token.serial</property>
-    <property name="value">data.attributes.serial</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.leaf.InputFieldConfig" id="Device Token Label" uuid="832c6b3b-523b-439e-8b75-6029c6877ab6">
-    <property name="label">user.generic-token.device-token.label</property>
-    <property name="placeholder">My new smartphone</property>
-    <property name="value">data.attributes.label</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.leaf.InputFieldConfig" id="Email Field" uuid="9962ab1c-ce34-4045-b91e-fdf27bba7f24">
-    <property name="label">Email</property>
-    <property name="required">true</property>
-    <property name="validationPattern">[A-Za-z0-9_\-.]+@[A-Za-z0-9\-.]+\.[a-z]+</property>
-    <property name="value">data.attributes.emailotp</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.leaf.TextMessageConfig" id="Username Field" uuid="0a3a5b2d-ee64-4f6c-a0b2-a97f73fdb55b">
-    <property name="label">user.profile.username</property>
-    <property name="value">context.userId</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.leaf.TextMessageConfig" id="Enabled" uuid="13ef63d3-ad02-436a-9cc9-72d24e9d9c8d">
-    <property name="label">user.generic-token.device-token.enabled</property>
-    <property name="value">data.attributes.enabled</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.leaf.TextMessageConfig" id="Valid From" uuid="3fb18410-3561-46f2-9d2b-a615009bbc86">
-    <property name="label">user.generic-token.device-token.valid-from</property>
-    <property name="value">data.attributes.validFrom</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.leaf.TextMessageConfig" id="Total Usages" uuid="5594eee9-e8a4-4a50-8dc8-26881ce70381">
-    <property name="label">user.generic-token.device-token.usage.total</property>
-    <property name="value">data.attributes.totalUsages</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.leaf.TextMessageConfig" id="Valid To" uuid="5ca32cf8-408d-4beb-8a77-fcff4a70c7c1">
-    <property name="label">user.generic-token.device-token.valid-until</property>
-    <property name="value">data.attributes.validTo</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.leaf.TextMessageConfig" id="Latest Usage" uuid="81065b21-f48e-47c1-b211-d9df27a0eec6">
-    <property name="label">user.generic-token.device-token.usage.most-recent</property>
-    <property name="value">data.attributes.latestUsage</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.leaf.TextMessageConfig" id="First Usage Date" uuid="88f2cf7c-531e-4d36-b37e-c27e43b0c54e">
-    <property name="label">user.generic-token.device-token.usage.first</property>
-    <property name="value">data.attributes.firstUsage</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.leaf.TextMessageConfig" id="Device Token ID" uuid="d7c07287-44c0-4af7-85ad-47ce79324b4e">
-    <property name="label">user.generic-token.device-token.id</property>
-    <property name="value">data.id</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.ui.DefaultTokenControllerUi" uuid="2f9d9d28-6c81-4b89-8c91-eb1d727cfae7">
-    <pluginList name="components">
-      <plugin uuidref="9962ab1c-ce34-4045-b91e-fdf27bba7f24"/>
-    </pluginList>
-    <property name="withLetterInformation">false</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.ui.DefaultTokenControllerUi" uuid="f67b072f-f2ec-47cc-bbe4-29b3498ad1c3">
-    <pluginList name="components">
-      <plugin uuidref="0a3a5b2d-ee64-4f6c-a0b2-a97f73fdb55b"/>
-      <plugin uuidref="66392d1f-772c-470f-b459-9e7073410432"/>
-      <plugin uuidref="2f5ffda9-9a3f-4e6e-b5b9-66360b785424"/>
-    </pluginList>
-    <property name="withLetterInformation">false</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.generic.ui.DefaultTokenControllerUi" id="UI for Device Token Managment" uuid="fc8bbc3b-40ee-4969-a050-5fb9798c2550">
-    <property name="addToken">_AROLENOBODYHAS</property>
-    <pluginList name="components">
-      <plugin uuidref="d7c07287-44c0-4af7-85ad-47ce79324b4e"/>
-      <plugin uuidref="832c6b3b-523b-439e-8b75-6029c6877ab6"/>
-      <plugin uuidref="6f1de87b-50ac-4ffa-831f-0e199e53b4ee"/>
-      <plugin uuidref="3fb18410-3561-46f2-9d2b-a615009bbc86"/>
-      <plugin uuidref="5ca32cf8-408d-4beb-8a77-fcff4a70c7c1"/>
-      <plugin uuidref="13ef63d3-ad02-436a-9cc9-72d24e9d9c8d"/>
-      <plugin uuidref="88f2cf7c-531e-4d36-b37e-c27e43b0c54e"/>
-      <plugin uuidref="81065b21-f48e-47c1-b211-d9df27a0eec6"/>
-      <plugin uuidref="5594eee9-e8a4-4a50-8dc8-26881ce70381"/>
-      <plugin uuidref="aec6c965-311c-4802-9ee5-5e44c2c06190"/>
-      <plugin uuidref="a45ea8f6-0e6c-4cba-b3d7-3f8ce22f70d6"/>
-    </pluginList>
-    <property name="enableDisableToken">_AROLENOBODYHAS</property>
-    <property name="orderUnorderLetter">_AROLENOBODYHAS</property>
-    <property name="withLetterInformation">false</property>
   </plugin>
   <plugin class="com.airlock.iam.admin.application.configuration.logviewer.ColoringRule" id="Failed Logins" uuid="13e8aaea-edf9-4851-bf7a-54223605d3a4">
     <property name="backgroundColor">#f8ffdb</property>
@@ -435,55 +185,7 @@
       <plugin uuidref="c54c30b8-2813-404c-81e9-fde1ccfd8567"/>
     </pluginList>
   </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.maintenancemessages.MaintenanceMessageConfiguration" id="Manage Maintenance Messages" uuid="ed4aeed8-0079-42cd-acbe-a2d8e41bd7c8">
-    <property name="enableMenuItem">true</property>
-    <propertyList name="languages">
-      <propertyValue>de</propertyValue>
-      <propertyValue>en</propertyValue>
-      <propertyValue>fr</propertyValue>
-      <propertyValue>it</propertyValue>
-    </propertyList>
-    <property name="messagesPerPage">25</property>
-    <pluginProperty name="persister">
-      <plugin uuidref="be477dab-0781-44fb-89b8-9da5a66f99aa"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.matrixcard.MatrixCardGeneratorConfig" id="Matrixcard Generation" uuid="a7814268-25cf-463c-bbea-a6b090433e31">
-    <property name="fileNamePrefix">matrixcard</property>
-    <property name="fileNameSuffix">.pdf</property>
-    <pluginProperty name="hashFunction">
-      <plugin uuidref="b5cf40ae-5fbc-469d-adb7-be3de8c195ce"/>
-    </pluginProperty>
-    <property name="outputDirectory">instances/auth/pdfs</property>
-    <property name="tokenAlphabet">DIGITS_LETTERS</property>
-    <property name="tokenLength">3</property>
-    <pluginProperty name="tokenListRenderer">
-      <plugin uuidref="fac6970e-bb11-4b34-bb78-ce70ab825ad6"/>
-    </pluginProperty>
-    <property name="tokensPerList">130</property>
-    <property name="workingDirectory">instances/auth/pdfs/inwork</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.matrixcard.MatrixTokenController" id="Manage Matrix Cards" uuid="82850c7f-f2d7-46f1-bccb-1a3ee9981dd1">
-    <property name="autoOrder">true</property>
-    <pluginProperty name="matrixCardGenerator">
-      <plugin uuidref="a7814268-25cf-463c-bbea-a6b090433e31"/>
-    </pluginProperty>
-    <pluginProperty name="tokenListPersister">
-      <plugin uuidref="8f81e48e-89fb-409b-9671-a50903b53100"/>
-    </pluginProperty>
-    <property name="validityDays">365</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.mtan.MtanTokenController" id="Manage MTAN Tokens" uuid="19a4f1c5-6ba7-4ac3-a9db-176b09c87d37">
-    <pluginProperty name="mtanSettings"/>
-    <property name="showLetterAttributes">true</property>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.oathotp.OathOtpTokenController" id="Manage OATH OTP Tokens" uuid="4dedd68c-526d-4cbd-9987-c34768cbec20">
-    <pluginProperty name="oathOtpSettings"/>
-  </plugin>
   <plugin class="com.airlock.iam.admin.application.configuration.password.PasswordTokenController" id="Manage User Passwords" uuid="99ba4711-01cf-462b-9da1-b5615e7f1f80">
-    <pluginProperty name="passwordGenerator">
-      <plugin uuidref="ad730d56-24f9-48cb-a4f9-784584b5a215"/>
-    </pluginProperty>
     <pluginProperty name="passwordSettings"/>
     <pluginProperty name="userPersister"/>
   </plugin>
@@ -496,30 +198,6 @@
     <property name="outputDirectory">instances/auth/pdfs</property>
     <property name="workingDirectory">instances/auth/pdfs/inwork</property>
   </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.secretquestion.SecretQuestionsTokenController" id="Manage Secret Questions" uuid="d090412f-ec4e-43ce-92ba-ecb14249aa10">
-    <pluginProperty name="secretQuestionsSettings">
-      <plugin uuidref="612bf9ee-b52a-4495-97e6-7f73135c5a4f"/>
-    </pluginProperty>
-    <pluginProperty name="userStoreProvider">
-      <plugin uuidref="6a76be1e-94af-4a57-9837-ef7e4e15b7af"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.techclients.TechClientsConfig" uuid="46944a64-b8b2-4470-bd54-8198bd62bb56">
-    <pluginProperty name="repository">
-      <plugin uuidref="2191ce54-e785-40c3-9683-38cd29b9d14d"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.tokens.TokensConfiguration" id="Tokens Configuration" uuid="b6fd780b-1594-4205-9229-27f41f0bb4d2">
-    <pluginList name="tokenManagers">
-      <plugin uuidref="17c0b5ed-07dc-4618-8c0f-16725aaf0772"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.tokens.vasco.VascoOtpTokenManager" id="Manager for Vasco OTP Tokens" uuid="17c0b5ed-07dc-4618-8c0f-16725aaf0772">
-    <pluginProperty name="tokenDataProvider"/>
-    <pluginProperty name="vascoHandler">
-      <plugin uuidref="0310e726-b974-403b-a190-430c21072842"/>
-    </pluginProperty>
-  </plugin>
   <plugin class="com.airlock.iam.admin.application.configuration.users.LockingSettings" uuid="27390339-f0a6-480c-a629-eb84d9680ec1">
     <propertyList name="lockReasons">
       <propertyValue>LockReason.InitiatedByUser</propertyValue>
@@ -531,26 +209,6 @@
     <pluginProperty name="temporaryLockingSettings">
       <plugin uuidref="8052e2ea-20ef-48e6-a0ee-26c17a2f0b71"/>
     </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.users.UserDataDownload" id="User Data Download" uuid="bccd4395-793f-4fda-86db-ddde779ab5f4">
-    <propertyList name="contextKeys">
-      <propertyValue>salutation</propertyValue>
-      <propertyValue>givenname</propertyValue>
-      <propertyValue>surname</propertyValue>
-      <propertyValue>street</propertyValue>
-      <propertyValue>streetNumber</propertyValue>
-      <propertyValue>address2</propertyValue>
-      <propertyValue>zipcode</propertyValue>
-      <propertyValue>town</propertyValue>
-      <propertyValue>state</propertyValue>
-      <propertyValue>country</propertyValue>
-      <propertyValue>company</propertyValue>
-      <propertyValue>email</propertyValue>
-      <propertyValue>language</propertyValue>
-      <propertyValue>disclaimer_tag</propertyValue>
-      <propertyValue>auth_method</propertyValue>
-    </propertyList>
-    <property name="type">FULL</property>
   </plugin>
   <plugin class="com.airlock.iam.admin.application.configuration.users.UserStoreConfiguration" uuid="3decdcf5-4816-40a8-ac9d-7555360ef14e">
     <pluginProperty name="userStore">
@@ -574,21 +232,8 @@
       <plugin uuidref="12c47027-04b1-44f7-b963-e2ab88565963"/>
     </pluginList>
     <pluginList name="credentials">
-      <plugin uuidref="5814ee45-6494-41ac-af59-7a130c07fc81"/>
       <plugin uuidref="99ba4711-01cf-462b-9da1-b5615e7f1f80"/>
-      <plugin uuidref="82850c7f-f2d7-46f1-bccb-1a3ee9981dd1"/>
-      <plugin uuidref="19a4f1c5-6ba7-4ac3-a9db-176b09c87d37"/>
-      <plugin uuidref="1e55311a-2e1a-4642-a5b0-068391949610"/>
-      <plugin uuidref="31e5df52-3517-493f-91b3-d20dc9234c4b"/>
-      <plugin uuidref="b038f3b2-1187-4511-9ef0-b6bad7dd28c1"/>
-      <plugin uuidref="fb76a6f9-aa1d-45ea-974a-982811259dfa"/>
-      <plugin uuidref="4dedd68c-526d-4cbd-9987-c34768cbec20"/>
-      <plugin uuidref="375a974b-1f48-4009-92e3-b30f95baa328"/>
-      <plugin uuidref="d090412f-ec4e-43ce-92ba-ecb14249aa10"/>
     </pluginList>
-    <pluginProperty name="dataDownload">
-      <plugin uuidref="bccd4395-793f-4fda-86db-ddde779ab5f4"/>
-    </pluginProperty>
     <property name="defaultSortColumn">username</property>
     <property name="languageContextKey">language</property>
     <pluginProperty name="lockingSettings">
@@ -610,7 +255,6 @@
       <plugin uuidref="08fee59f-4b2d-4edf-8965-be5f6b0d641e"/>
       <plugin uuidref="fcef8983-f204-4540-a596-2895f399ade3"/>
     </pluginList>
-    <property name="showCredentialMigrationSection">true</property>
     <property name="showUserValidSection">true</property>
     <pluginProperty name="userPersisterSettings">
       <plugin uuidref="3decdcf5-4816-40a8-ac9d-7555360ef14e"/>
@@ -618,7 +262,6 @@
   </plugin>
   <plugin class="com.airlock.iam.admin.application.configuration.usersearch.filter.LockedUserFilter" id="Filter by locking status" uuid="e5c78225-d1a2-4dce-a575-f5eca17ab0ea"/>
   <plugin class="com.airlock.iam.admin.application.configuration.usersearch.filter.SimpleLatestSuccessfulLoginFilter" id="Filter by lastest successful login" uuid="e091bec2-800f-489a-a8b2-d972ac00e522"/>
-  <plugin class="com.airlock.iam.admin.application.configuration.vasco.VascoOtpTokenControllerConfig" id="Manage Vasco OTP Tokens" uuid="b038f3b2-1187-4511-9ef0-b6bad7dd28c1"/>
   <plugin class="com.airlock.iam.admin.rest.application.configuration.AdminappRestConfig" id="Adminapp REST API" uuid="0948ff8a-b017-443a-b293-6733b140ed2e">
     <pluginProperty name="authenticator">
       <plugin uuidref="27742242-f509-4d12-a7e1-14fbd3e50604"/>
@@ -688,65 +331,10 @@
     <property name="viewToken">tokenadmin,helpdesk,superadmin</property>
     <property name="viewUser">useradmin,tokenadmin,helpdesk,superadmin</property>
   </plugin>
-  <plugin class="com.airlock.iam.airlock2fa.application.configuration.Airlock2FAActivationStepConfig" id="Activate Airlock 2FA App Device Step" uuid="31adca02-a41e-46b4-8466-7e8be80c8547"/>
-  <plugin class="com.airlock.iam.airlock2fa.application.configuration.Airlock2FAConsistencyUserChangeListener" id="Airlock 2FA Consistency User Change Listener" uuid="48eb5e9f-2122-4312-b560-09ea7c0c0493"/>
-  <plugin class="com.airlock.iam.airlock2fa.application.configuration.Airlock2FARepositoryConfig" id="Airlock 2FA Repository" uuid="f83e37c1-2d5c-4b63-8081-87ad46c5cc0e">
-    <pluginProperty name="sqlDataSource">
-      <plugin uuidref="f0d2a309-8eb4-4574-a622-503d6e5f47be"/>
-    </pluginProperty>
-    <pluginProperty name="storageEncryptionConfig">
-      <plugin uuidref="37819d39-c997-4f2d-8883-d0684d75ad86"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.airlock2fa.application.configuration.Airlock2FASettingsConfig" id="Airlock 2FA Global Settings" uuid="9a42d34c-45f4-4e3f-ab0b-5d509937c8e0">
-    <pluginProperty name="accountDisplayNameProvider">
-      <plugin uuidref="ae590205-4849-4640-9c21-ac7ec4101ad7"/>
-    </pluginProperty>
-    <pluginProperty name="futuraeServer">
-      <plugin uuidref="99f4058c-18b5-4ae7-9205-07d011402511"/>
-    </pluginProperty>
-    <property name="oneTouchEnabled">false</property>
-    <pluginProperty name="repository">
-      <plugin uuidref="f83e37c1-2d5c-4b63-8081-87ad46c5cc0e"/>
-    </pluginProperty>
-    <property name="zeroTouchEnabled">true</property>
-  </plugin>
-  <plugin class="com.airlock.iam.airlock2fa.application.configuration.FuturaeServerConfig" id="Futurae Server Settings" uuid="99f4058c-18b5-4ae7-9205-07d011402511">
-    <property name="adminApiKey">change-me</property>
-    <property name="authApiKey">change-me</property>
-    <property name="serviceId">00000000-0000-0000-0000-000000000000</property>
-  </plugin>
-  <plugin class="com.airlock.iam.airlock2fa.application.configuration.enrollment.Airlock2FAContextDataDisplayNameProviderConfig" id="Airlock 2FA E-mail Address Display Name Provider" uuid="ae590205-4849-4640-9c21-ac7ec4101ad7">
-    <pluginProperty name="contextDataName">
-      <plugin uuidref="288c3d36-f456-4b98-bd1a-9e574dc43f42"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.airlock2fa.auth.application.configuration.Airlock2FAUserFactorAuthenticationStepConfig" uuid="4803fcdd-f5c2-46c1-b3d6-313eae980f1e">
-    <pluginList name="skipConditionTags">
-      <plugin uuidref="31dd1f6e-6a0f-472d-afdd-cc95d3b548b2"/>
-    </pluginList>
-    <pluginList name="tagsOnSuccess">
-      <plugin uuidref="31dd1f6e-6a0f-472d-afdd-cc95d3b548b2"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.airlock2fa.selfservice.application.configuration.Airlock2FADeviceListSelfServiceRestConfig" uuid="2ccdc80a-b409-491e-813f-f83ae05de33c"/>
-  <plugin class="com.airlock.iam.airlock2fa.selfservice.application.configuration.step.Airlock2FAApplyDeviceDeletionChangeConfig" uuid="11467ba9-c787-4045-94c1-0d2ed457ce8d"/>
-  <plugin class="com.airlock.iam.airlock2fa.selfservice.application.configuration.step.Airlock2FAApplyDeviceEditChangeConfig" uuid="ebff4ff1-3621-4069-ba05-c81e0fbaf306"/>
-  <plugin class="com.airlock.iam.airlock2fa.selfservice.application.configuration.step.Airlock2FASelfServiceDeviceDeleteInitiationStepConfig" id="Airlock 2FA Device Delete Initiation Step" uuid="4b0ccaba-ca52-4fdb-8f9b-45218f720757"/>
-  <plugin class="com.airlock.iam.airlock2fa.selfservice.application.configuration.step.Airlock2FASelfServiceDeviceEditInitiationStepConfig" id="Airlock 2FA Device Edit Initiation Step" uuid="988b336e-ae94-4499-8150-00dad213a047"/>
-  <plugin class="com.airlock.iam.apipolicyservice.rest.application.configuration.ApiPolicyServiceAppConfig" id="api-policy-service" uuid="23982e3-f907-4cb9-91e3-c58b2731567c">
-    <property name="hmacKey">XU5kNtDhPcjJ3Kln0IpmKLR1f2HwRYSczHxpTnN9ZR1u3qThFulwPCmMbKvf8ha+cyEqNNLxn88ZIorU9CKRWA==</property>
-    <pluginProperty name="repository">
-      <plugin uuidref="2191ce54-e785-40c3-9683-38cd29b9d14d"/>
-    </pluginProperty>
-  </plugin>
   <plugin class="com.airlock.iam.authentication.application.configuration.AuthenticationFlowConfig" id="Demo Authentication Flow" uuid="34211583-f239-4521-9526-9ca329da4b6c">
     <pluginList name="steps">
       <plugin uuidref="51341853-0480-4290-96e2-cd8313b13b6c"/>
-      <plugin uuidref="1bc0ce3e-dd95-45a6-84c3-a04a46f55c7b"/>
       <plugin uuidref="e068e9b4-d751-4e8c-b6ae-c09255656f0a"/>
-      <plugin uuidref="bbae4db7-c0c1-4363-bd4e-c0d81475bf15"/>
-      <plugin uuidref="b996cd2d-3ec3-482c-b7f8-68f957c19cf0"/>
     </pluginList>
     <pluginList name="usernameTransformers">
       <plugin uuidref="a5d35098-3d3f-43eb-9394-142ec4692598"/>
@@ -755,140 +343,10 @@
   <plugin class="com.airlock.iam.authentication.application.configuration.AuthenticationFlowConfig" id="Extended Authentication Flow" uuid="3733b689-2497-4674-8232-3dbaaba36ee2">
     <pluginList name="steps">
       <plugin uuidref="51341853-0480-4290-96e2-cd8313b13b6c"/>
-      <plugin uuidref="6b9c86e1-4e70-419e-8278-afdd1806ee4e"/>
       <plugin uuidref="e068e9b4-d751-4e8c-b6ae-c09255656f0a"/>
-      <plugin uuidref="01840722-d03a-4d14-b29e-fcc6013185d9"/>
     </pluginList>
     <pluginList name="usernameTransformers">
       <plugin uuidref="a5d35098-3d3f-43eb-9394-142ec4692598"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.cronto.CrontoActivationStepConfig" id="Cronto Activation Step" uuid="ab299174-b56a-4176-944e-52f63a462957"/>
-  <plugin class="com.airlock.iam.authentication.application.configuration.cronto.CrontoAuthStepConfig" id="Cronto Authentication Step" uuid="65eb55eb-88b1-482e-ba6e-dd920125c98d">
-    <pluginList name="skipConditionTags">
-      <plugin uuidref="1e2eeeea-54ad-4e3e-9574-118a63564402"/>
-    </pluginList>
-    <pluginList name="tagsOnSuccess">
-      <plugin uuidref="1e2eeeea-54ad-4e3e-9574-118a63564402"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.devicetoken.DeviceTokenAuthStepConfig" id="Device Token Step" uuid="307be227-003b-4c9e-9c03-e6a3e486124c">
-    <pluginProperty name="deviceTokenSettings">
-      <plugin uuidref="f25962c3-c6f1-4656-8473-7dcd08d18503"/>
-    </pluginProperty>
-    <pluginList name="preConditionTags">
-      <plugin uuidref="8a3cae4d-85fa-471a-b933-00d948455da8"/>
-    </pluginList>
-    <pluginList name="skipConditionTags">
-      <plugin uuidref="20b78041-8bc8-4d87-84ba-02c6de092d12"/>
-    </pluginList>
-    <pluginList name="tagsOnSuccess">
-      <plugin uuidref="20b78041-8bc8-4d87-84ba-02c6de092d12"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.emailotp.EmailOtpAuthStepConfig" id="Email OTP Authentication" uuid="3ae72293-53fd-4d7c-9d73-b2f9faa63882">
-    <pluginProperty name="credentialPersister">
-      <plugin uuidref="af70a139-b1d8-4533-88af-0db6269d51e4"/>
-    </pluginProperty>
-    <pluginProperty name="emailService">
-      <plugin uuidref="93988d14-184f-45d4-aaa4-5c2c1af00b5b"/>
-    </pluginProperty>
-    <property name="emailSubject">Airlock</property>
-    <property name="messageTemplate">Sicherheitscode / Security Code / Code de Sécurité: $TOKEN$</property>
-    <property name="messageTemplateIsHtml">false</property>
-    <pluginList name="skipConditionTags">
-      <plugin uuidref="d93e5b86-cac4-4145-a8c1-1a5a3c8ae3ff"/>
-    </pluginList>
-    <pluginProperty name="stepId">
-      <plugin uuidref="a15010c0-fd29-4ea6-8da8-4872800eac6c"/>
-    </pluginProperty>
-    <pluginList name="tagsOnSuccess">
-      <plugin uuidref="d93e5b86-cac4-4145-a8c1-1a5a3c8ae3ff"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.matrix.MatrixAuthStepConfig" id="Matrix Authentication Step" uuid="639c9d95-8987-4ca9-acb6-0772b530d658">
-    <pluginList name="skipConditionTags">
-      <plugin uuidref="6fb60618-30d4-4abd-bd82-41e25c552c90"/>
-    </pluginList>
-    <pluginList name="tagsOnSuccess">
-      <plugin uuidref="6fb60618-30d4-4abd-bd82-41e25c552c90"/>
-    </pluginList>
-    <property name="tanListType">MATRIX_CARD</property>
-    <pluginProperty name="tanService">
-      <plugin uuidref="76297c4d-fdae-45d8-afa8-d4198cd93cc5"/>
-    </pluginProperty>
-    <pluginProperty name="tokenListRenderer">
-      <plugin uuidref="fac6970e-bb11-4b34-bb78-ce70ab825ad6"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.migration.DefaultMigrationSelectionOptionConfig" id="Migration to Cronto" uuid="6eff41b4-9975-47f7-991f-da7933e645f7">
-    <pluginList name="steps">
-      <plugin uuidref="ab299174-b56a-4176-944e-52f63a462957"/>
-    </pluginList>
-    <property name="targetAuthMethod">CRONTO</property>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.migration.DefaultMigrationSelectionOptionConfig" id="Migration to Airlock 2FA" uuid="8d6296cb-7cb5-48eb-943e-81bc2dbd93c2">
-    <pluginList name="steps">
-      <plugin uuidref="31adca02-a41e-46b4-8466-7e8be80c8547"/>
-    </pluginList>
-    <property name="targetAuthMethod">AIRLOCK_2FA</property>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.migration.DefaultMigrationSelectionOptionConfig" id="Migration to mTAN" uuid="b93cc080-707f-4981-8eea-58ba11d42e2b">
-    <pluginList name="steps">
-      <plugin uuidref="e6da0ebd-707f-4598-ae65-3e92c5ea149f"/>
-      <plugin uuidref="c3b17163-518e-442b-9665-4c475991a3f1"/>
-      <plugin uuidref="7f9334a2-c7d4-4c85-8afd-ec6f1f3a0705"/>
-    </pluginList>
-    <property name="targetAuthMethod">MTAN</property>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.migration.DefaultMigrationSelectionOptionConfig" id="Migration to Vasco OTP" uuid="d06f7d43-011c-4bad-aaf4-27857ebc1770">
-    <pluginList name="steps">
-      <plugin uuidref="bc6bf91a-c933-4cdb-ab88-75dc0520b0f6"/>
-    </pluginList>
-    <property name="targetAuthMethod">VASCO</property>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.migration.MigrationSelectionStepConfig" id="Extended Migration Step" uuid="01840722-d03a-4d14-b29e-fcc6013185d9">
-    <pluginList name="availableOptions">
-      <plugin uuidref="b93cc080-707f-4981-8eea-58ba11d42e2b"/>
-      <plugin uuidref="6eff41b4-9975-47f7-991f-da7933e645f7"/>
-      <plugin uuidref="d06f7d43-011c-4bad-aaf4-27857ebc1770"/>
-      <plugin uuidref="8d6296cb-7cb5-48eb-943e-81bc2dbd93c2"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.migration.MigrationSelectionStepConfig" id="Migration Step" uuid="bbae4db7-c0c1-4363-bd4e-c0d81475bf15">
-    <pluginList name="availableOptions">
-      <plugin uuidref="8d6296cb-7cb5-48eb-943e-81bc2dbd93c2"/>
-      <plugin uuidref="6eff41b4-9975-47f7-991f-da7933e645f7"/>
-      <plugin uuidref="d06f7d43-011c-4bad-aaf4-27857ebc1770"/>
-    </pluginList>
-    <property name="neverMigratePossible">true</property>
-    <pluginProperty name="stepId">
-      <plugin uuidref="521c5404-35b1-428b-aae9-01887520d51a"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.mtan.MtanAuthStepConfig" id="mTAN Authentication Step" uuid="97baf5a1-3904-4a35-8709-fdc7d5d8d6ff">
-    <pluginProperty name="mtanAuthenticationConfig">
-      <plugin uuidref="ac9b4cfb-db19-458a-873b-4febf6646149"/>
-    </pluginProperty>
-    <pluginList name="skipConditionTags">
-      <plugin uuidref="707d6162-09a6-4ac4-82c2-a87c87790ae7"/>
-    </pluginList>
-    <pluginList name="tagsOnSuccess">
-      <plugin uuidref="707d6162-09a6-4ac4-82c2-a87c87790ae7"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.mtan.RestMtanAuthenticationConfig" uuid="ac9b4cfb-db19-458a-873b-4febf6646149">
-    <pluginProperty name="basicSettings">
-      <plugin uuidref="9f52f8bd-5b52-4b68-8b4d-3102ff0e706e"/>
-    </pluginProperty>
-    <property name="maxOtpResends">1</property>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.oath.OathOtpAuthStepConfig" id="OATH OTP Authentication Step" uuid="6496b74a-265f-4ebc-9003-67c6813d5549">
-    <pluginList name="skipConditionTags">
-      <plugin uuidref="67b7062a-cda4-4aa5-a6b3-b48d1b529bad"/>
-    </pluginList>
-    <pluginList name="tagsOnSuccess">
-      <plugin uuidref="67b7062a-cda4-4aa5-a6b3-b48d1b529bad"/>
     </pluginList>
   </plugin>
   <plugin class="com.airlock.iam.authentication.application.configuration.password.MandatoryPasswordChangeStepConfig" id="Mandatory Password Change Step" uuid="e068e9b4-d751-4e8c-b6ae-c09255656f0a">
@@ -919,80 +377,9 @@
       <plugin uuidref="658b3b83-f638-45ff-a433-1e130c847e0c"/>
     </pluginProperty>
   </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.password.repository.DatabasePasswordRepositoryConfig" uuid="45286efc-2e24-40e8-9d8f-dca04474d7a9">
-    <pluginProperty name="hashFunction">
-      <plugin uuidref="aaf43cff-19bc-4a28-abbb-c8de7970e348"/>
-    </pluginProperty>
-    <pluginProperty name="userStoreProvider">
-      <plugin uuidref="6a76be1e-94af-4a57-9837-ef7e4e15b7af"/>
-    </pluginProperty>
-  </plugin>
   <plugin class="com.airlock.iam.authentication.application.configuration.password.repository.InMemoryPasswordRepositoryConfig" uuid="5c54b2e6-287c-4118-a5b6-d64e8d4caf36">
     <pluginProperty name="hashFunction">
       <plugin uuidref="aaf43cff-19bc-4a28-abbb-c8de7970e348"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.secretquestions.SecretQuestionsProvisioningStepConfig" id="SQ" uuid="b996cd2d-3ec3-482c-b7f8-68f957c19cf0">
-    <pluginProperty name="secretQuestionsSettings">
-      <plugin uuidref="e09ee155-5d3d-473c-932a-6f824f76ee7e"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.selection.condition.AuthMethodBasedConditionConfig" id="Authentication Method MTAN" uuid="1e48526d-5d4e-441a-bcf7-aa99ae5b2ae8">
-    <property name="authMethod">MTAN</property>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.selection.condition.AuthMethodBasedConditionConfig" id="Authentication Method VASCO" uuid="37e704ec-2e68-496d-8909-3f8b7150732b">
-    <property name="authMethod">VASCO</property>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.selection.condition.AuthMethodBasedConditionConfig" id="Authentication Method AIRLOCK_2FA" uuid="39ddc138-dede-41c0-8a9a-95867e6a5aea">
-    <property name="authMethod">AIRLOCK_2FA</property>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.selection.condition.AuthMethodBasedConditionConfig" id="Authentication Method CRONTO" uuid="7da2604f-5fd0-4449-a926-2984781edc67">
-    <property name="authMethod">CRONTO</property>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.selection.condition.AuthMethodBasedConditionConfig" id="Authentication Method OATH_OTP" uuid="840994cb-45e5-4365-83ee-b19cdb8ebaa0">
-    <property name="authMethod">OATH_OTP</property>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.selection.condition.AuthMethodBasedConditionConfig" id="Authentication Method EMAILOTP" uuid="ded799f2-b5fc-4a4e-bd55-8383a26583da">
-    <property name="authMethod">EMAILOTP</property>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.selection.condition.AuthMethodBasedConditionConfig" id="Authentication Method PASSWORD" uuid="f8f0215e-745b-4cab-929b-d76df86c7a1a">
-    <property name="authMethod">PASSWORD</property>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.selection.condition.CrontoActivationRequiredConditionConfig" id="Cronto Activation Required" uuid="0b49d647-095a-4ecb-b4bb-7f7827f609a5"/>
-  <plugin class="com.airlock.iam.authentication.application.configuration.selection.condition.DeviceTokenConditionConfig" uuid="7198368c-5c96-4270-8e0a-b11ceda2cab4">
-    <pluginProperty name="deviceTokenSettings">
-      <plugin uuidref="f25962c3-c6f1-4656-8473-7dcd08d18503"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.selection.condition.MatrixCredentialConditionConfig" uuid="9df2eb23-c5a4-4258-bb54-0ed0b037450e">
-    <pluginProperty name="tanService">
-      <plugin uuidref="76297c4d-fdae-45d8-afa8-d4198cd93cc5"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.selection.condition.MtanCredentialConditionConfig" uuid="15e6f21b-9d4b-42ee-a3ee-a7e1e7a33be1">
-    <pluginProperty name="mtanHandler">
-      <plugin uuidref="f66285e5-7893-48cb-bc91-b944ce52654c"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.vasco.VascoOtpAuthStepConfig" id="Vasco OTP Authentication Step" uuid="bc6bf91a-c933-4cdb-ab88-75dc0520b0f6">
-    <pluginList name="skipConditionTags">
-      <plugin uuidref="20581512-2d32-4408-9393-319af777547a"/>
-    </pluginList>
-    <pluginList name="tagsOnSuccess">
-      <plugin uuidref="20581512-2d32-4408-9393-319af777547a"/>
-    </pluginList>
-    <pluginProperty name="vascoHandler">
-      <plugin uuidref="0310e726-b974-403b-a190-430c21072842"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.common.application.configuration.gdpr.persistence.UserConsentConsistencyUserChangeListener" id="Default Consent Consistency Listener" uuid="4dda9cf1-915b-4791-b04c-ef998ad6336b">
-    <pluginProperty name="consentPersisterConfig">
-      <plugin uuidref="4e3c30c3-1bc7-467d-9593-aa3470d3d78d"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.common.application.configuration.gdpr.persistence.UserConsentDatabasePersisterConfig" id="GDPR Database Repository" uuid="4e3c30c3-1bc7-467d-9593-aa3470d3d78d">
-    <pluginProperty name="sqlDataSource">
-      <plugin uuidref="f0d2a309-8eb4-4574-a622-503d6e5f47be"/>
     </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.common.application.configuration.jwt.JwtTicketDecoderSettings" id="REST JWT Ticket Decoder" uuid="a893dab4-bc32-4c9b-8b5c-596b24fd9801">
@@ -1020,124 +407,11 @@
   <plugin class="com.airlock.iam.common.application.configuration.jwt.signature.JwtTicketHmacSettings" id="REST JWT Ticket Signer" uuid="3bcae214-793d-403b-a0a4-3799843e7b35">
     <property name="hmacKey">[ENC]RegOpNNTzN7kVOGvGBCn5B51cHIPwyQ8NQIT8rGgiIctf4epOgFmuEJpg4+l8Po/T5TgczMFh41KljJl6UPdC5g6oaC0Bx14kiacRMEUlck9G9Wb5eUjbGDN+MOAIZO2YGRuYwEky3QEH/6vga5zeQ==</property>
   </plugin>
-  <plugin class="com.airlock.iam.common.application.configuration.loginhistory.DatabaseLoginHistoryRepositoryConfig" id="Login History Respository" uuid="6a2f828f-d67a-4160-864f-c21b279f1040">
-    <pluginProperty name="sqlDataSource">
-      <plugin uuidref="f0d2a309-8eb4-4574-a622-503d6e5f47be"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.common.application.configuration.loginhistory.LoginHistoryConsistencyUserChangeListener" id="Default Login History Consistency Listener" uuid="4572f2cd-5b46-47fd-9d52-857b8504495a">
-    <pluginProperty name="loginHistoryRepository">
-      <plugin uuidref="6a2f828f-d67a-4160-864f-c21b279f1040"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.common.application.configuration.secretquestion.SecretQuestionsSettings" id="Secret Questions Settings" uuid="612bf9ee-b52a-4495-97e6-7f73135c5a4f">
-    <propertyList name="questionResourceKeys">
-      <propertyValue>secretquestion.pet</propertyValue>
-      <propertyValue>secretquestion.mother</propertyValue>
-      <propertyValue>secretquestion.teacher</propertyValue>
-      <propertyValue>secretquestion.friend</propertyValue>
-    </propertyList>
-    <pluginProperty name="tokenDataProvider"/>
-  </plugin>
-  <plugin class="com.airlock.iam.common.application.configuration.security.StorageEncryptionConfig" uuid="37819d39-c997-4f2d-8883-d0684d75ad86">
-    <property name="secret">SzBlMEhT82/ZeK+jk43h7PHJfEGOsShfSI9Z98iYGypVoRgPAY8CByUhjt2HcR8PbEd3yV6KsJK7P6U2asaUdXQ8fcr2ReLNmFaHVI1lvYsLbNLCha8CHt00i3mkw8HV</property>
-  </plugin>
   <plugin class="com.airlock.iam.common.application.configuration.templock.ExponentialTemporaryLockingStrategyConfig" uuid="9660523f-ed9a-4f62-b32a-e5bd5db8c73b"/>
   <plugin class="com.airlock.iam.common.application.configuration.templock.TemporaryLockingConfig" id="Temporary Locking (REST)" uuid="d15ca80a-96b2-4580-ad24-deedf43af120">
     <pluginProperty name="temporaryLockingStrategyConfig">
       <plugin uuidref="9660523f-ed9a-4f62-b32a-e5bd5db8c73b"/>
     </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.common.application.configuration.termsofservice.DisclaimerTextConfig" id="ToS Text IT" uuid="964c9993-b3fe-4894-a9ca-a7afdcdd2811">
-    <property name="language">it</property>
-    <property name="text">&lt;h1&gt;Lorem&lt;/h2&gt;
-
-&lt;p&gt;&lt;b&gt;Lorem&lt;/b&gt; &lt;i&gt;ipsum&lt;/i&gt; &lt;u&gt;dolor&lt;/u&gt; &lt;a href=&quot;https://example.com&quot; target=&quot;_blank&quot;&gt;sit&lt;/a&gt; amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;lorem&lt;/li&gt;
-&lt;li&gt;ipsum&lt;/li&gt;
-&lt;li&gt;dolor&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-&lt;li&gt;lorem&lt;/li&gt;
-&lt;li&gt;ipsum&lt;/li&gt;
-&lt;li&gt;dolor&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;b&gt;Lorem&lt;/b&gt; &lt;i&gt;ipsum&lt;/i&gt; &lt;u&gt;dolor&lt;/u&gt; &lt;a href=&quot;https://example.com&quot; target=&quot;_blank&quot;&gt;sit&lt;/a&gt; amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.&lt;/p&gt;</property>
-  </plugin>
-  <plugin class="com.airlock.iam.common.application.configuration.termsofservice.DisclaimerTextConfig" id="ToS Text DE" uuid="a132a395-7d44-41be-8ba5-ce5dbea6145e">
-    <property name="language">de</property>
-    <property name="text">&lt;h1&gt;Lorem&lt;/h2&gt;
-
-&lt;p&gt;&lt;b&gt;Lorem&lt;/b&gt; &lt;i&gt;ipsum&lt;/i&gt; &lt;u&gt;dolor&lt;/u&gt; &lt;a href=&quot;https://example.com&quot; target=&quot;_blank&quot;&gt;sit&lt;/a&gt; amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;lorem&lt;/li&gt;
-&lt;li&gt;ipsum&lt;/li&gt;
-&lt;li&gt;dolor&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-&lt;li&gt;lorem&lt;/li&gt;
-&lt;li&gt;ipsum&lt;/li&gt;
-&lt;li&gt;dolor&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;b&gt;Lorem&lt;/b&gt; &lt;i&gt;ipsum&lt;/i&gt; &lt;u&gt;dolor&lt;/u&gt; &lt;a href=&quot;https://example.com&quot; target=&quot;_blank&quot;&gt;sit&lt;/a&gt; amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.&lt;/p&gt;</property>
-  </plugin>
-  <plugin class="com.airlock.iam.common.application.configuration.termsofservice.DisclaimerTextConfig" id="ToS Text EN" uuid="ef37ec62-3f5f-4fb0-a082-51bf8ef32df0">
-    <property name="language">en</property>
-    <property name="text">&lt;h1&gt;Lorem&lt;/h2&gt;
-
-&lt;p&gt;&lt;b&gt;Lorem&lt;/b&gt; &lt;i&gt;ipsum&lt;/i&gt; &lt;u&gt;dolor&lt;/u&gt; &lt;a href=&quot;https://example.com&quot; target=&quot;_blank&quot;&gt;sit&lt;/a&gt; amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;lorem&lt;/li&gt;
-&lt;li&gt;ipsum&lt;/li&gt;
-&lt;li&gt;dolor&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-&lt;li&gt;lorem&lt;/li&gt;
-&lt;li&gt;ipsum&lt;/li&gt;
-&lt;li&gt;dolor&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;b&gt;Lorem&lt;/b&gt; &lt;i&gt;ipsum&lt;/i&gt; &lt;u&gt;dolor&lt;/u&gt; &lt;a href=&quot;https://example.com&quot; target=&quot;_blank&quot;&gt;sit&lt;/a&gt; amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.&lt;/p&gt;</property>
-  </plugin>
-  <plugin class="com.airlock.iam.common.application.configuration.termsofservice.DisclaimerTextConfig" id="ToS  Text FR" uuid="ff32a449-490a-4554-ae52-c5a2dff81075">
-    <property name="language">fr</property>
-    <property name="text">&lt;h1&gt;Lorem&lt;/h2&gt;
-
-&lt;p&gt;&lt;b&gt;Lorem&lt;/b&gt; &lt;i&gt;ipsum&lt;/i&gt; &lt;u&gt;dolor&lt;/u&gt; &lt;a href=&quot;https://example.com&quot; target=&quot;_blank&quot;&gt;sit&lt;/a&gt; amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;lorem&lt;/li&gt;
-&lt;li&gt;ipsum&lt;/li&gt;
-&lt;li&gt;dolor&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-&lt;li&gt;lorem&lt;/li&gt;
-&lt;li&gt;ipsum&lt;/li&gt;
-&lt;li&gt;dolor&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;b&gt;Lorem&lt;/b&gt; &lt;i&gt;ipsum&lt;/i&gt; &lt;u&gt;dolor&lt;/u&gt; &lt;a href=&quot;https://example.com&quot; target=&quot;_blank&quot;&gt;sit&lt;/a&gt; amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.&lt;/p&gt;</property>
-  </plugin>
-  <plugin class="com.airlock.iam.common.application.configuration.termsofservice.TermsOfServiceConfig" id="ToS" uuid="d8bd4b6b-6d77-45c8-9d1d-8769441b138c">
-    <pluginList name="disclaimerTexts">
-      <plugin uuidref="a132a395-7d44-41be-8ba5-ce5dbea6145e"/>
-      <plugin uuidref="ef37ec62-3f5f-4fb0-a082-51bf8ef32df0"/>
-      <plugin uuidref="ff32a449-490a-4554-ae52-c5a2dff81075"/>
-      <plugin uuidref="964c9993-b3fe-4894-a9ca-a7afdcdd2811"/>
-    </pluginList>
-    <property name="tag">tos-v4</property>
-    <property name="timestampFormat">yyyyMMdd</property>
-    <property name="userPropertyName">disclaimer_tag</property>
   </plugin>
   <plugin class="com.airlock.iam.common.application.configuration.userprofile.DateUserProfileItemConfig" id="Birthdate Admintool Label" uuid="ee3f1194-ea27-496f-b36a-0f485941c882">
     <property name="dateFormat">dd.MM.yyyy</property>
@@ -1452,21 +726,6 @@
     <property name="propertyName">streetNumber</property>
     <property name="stringResourceKey">userdata.label.street-number</property>
   </plugin>
-  <plugin class="com.airlock.iam.common.application.configuration.validation.EmailAddressValidatorConfig" uuid="30907bb0-0984-404d-a5be-8d6f380fed15"/>
-  <plugin class="com.airlock.iam.common.application.configuration.validation.RegexStringValidatorConfig" id="Numerical String Validator" uuid="2c714485-0a49-4693-bac6-aa03b5077095">
-    <property name="validationPattern">[0-9]+</property>
-  </plugin>
-  <plugin class="com.airlock.iam.common.application.configuration.validation.RegexStringValidatorConfig" uuid="41102864-0f80-4018-9c1f-15a52788baeb">
-    <property name="validationPattern">.*</property>
-  </plugin>
-  <plugin class="com.airlock.iam.common.application.configuration.validation.RegexStringValidatorConfig" id="mTAN Label Validator" uuid="61539210-29cb-4906-847f-6d363225b0a2">
-    <property name="validationPattern">[0-9A-Za-z _,.-]+</property>
-  </plugin>
-  <plugin class="com.airlock.iam.common.application.configuration.valueprovider.contextdata.ContextDataStringValueProviderConfig" id="Existing E-Mail" uuid="eb5ab811-5265-40e1-b65d-f77a8f7867fa">
-    <pluginProperty name="contextDataField">
-      <plugin uuidref="288c3d36-f456-4b98-bd1a-9e574dc43f42"/>
-    </pluginProperty>
-  </plugin>
   <plugin class="com.airlock.iam.common.rest.application.authentication.BasicAuthCredentialPolicy" id="Basic Auth" uuid="e80eaa30-2299-4467-a4fb-0224a136323f"/>
   <plugin class="com.airlock.iam.common.rest.application.authentication.CookieTicketCredentialPolicy" id="Cookie Ticket Policy" uuid="025ab856-5262-4163-9e4b-cf325a1bdad0">
     <property name="cookieName">AUTH_TICKET</property>
@@ -1760,7 +1019,6 @@
   <plugin class="com.airlock.iam.core.misc.authen.PasswordSettings" id="Password Settings" uuid="2c362f77-b400-4367-bf89-2d5d571b00d1">
     <property name="adminMayGeneratePassword">true</property>
     <property name="adminMaySetPassword">true</property>
-    <property name="mayBeSelectedAsAuthMethod">true</property>
     <property name="passwordChangeWithoutOldPassword">true</property>
     <pluginProperty name="passwordGenerator">
       <plugin uuidref="17b90596-a9b8-415a-9c95-094042be9ff3"/>
@@ -1787,9 +1045,6 @@
     <property name="linearLockoutFactor">2000</property>
     <property name="lockoutMessageThreshold">7000</property>
   </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.authen.Alphabet" id="Upper Digits Alphabet" uuid="31c1750f-a666-4870-bb7f-6fc45fa60990">
-    <property name="characters">ABCDEFGHJKLMNPQRSTUVWXYZ23456789</property>
-  </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.authen.ContextDataUsernameTransformer" id="Login with E-Mail Address" uuid="a5d35098-3d3f-43eb-9394-142ec4692598">
     <propertyList name="contextDataColumns">
       <propertyValue>email</propertyValue>
@@ -1799,23 +1054,12 @@
     </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.authen.DenyingAuthenticator" uuid="3905a5aa-114e-4123-99b5-5b5c33f9b466"/>
-  <plugin class="com.airlock.iam.core.misc.impl.authen.ExtendedStringGenerator" id="Activation Key generator" uuid="07dd9c5a-9c31-4236-afb3-a31b614be097">
-    <pluginMap name="alphabets">
-      <plugin uuidref="31c1750f-a666-4870-bb7f-6fc45fa60990" key="upperdigits"/>
-    </pluginMap>
-    <property name="pattern">{upperdigits:16}</property>
-  </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.authen.ExtendedStringGenerator" id="User Password Generator" uuid="17b90596-a9b8-415a-9c95-094042be9ff3">
     <pluginProperty name="passwordPolicy">
       <plugin uuidref="658b3b83-f638-45ff-a433-1e130c847e0c"/>
     </pluginProperty>
     <property name="pattern">{distinct:12}</property>
   </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.authen.ExtendedStringGenerator" id="OTP Code Generator" uuid="513bbbde-0df3-47d4-b640-4b5320556512">
-    <pluginMap name="alphabets"/>
-    <property name="pattern">{digits:6}</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.authen.ExtendedStringGenerator" id="E-Mail OTP Generator" uuid="64872333-15a8-4d6a-8e27-7fea75415e80"/>
   <plugin class="com.airlock.iam.core.misc.impl.authen.ExtendedStringGenerator" id="Admin Password Generator" uuid="aafcf1a7-13cc-488f-9da5-c9390b10c948"/>
   <plugin class="com.airlock.iam.core.misc.impl.authen.MainAuthenticator" id="Adminapp Authenticator" uuid="27742242-f509-4d12-a7e1-14fbd3e50604">
     <property name="enableStealthMode">false</property>
@@ -1853,167 +1097,6 @@
     <property name="minRequiredLength">8</property>
     <property name="noPreviouslyUsedPasswords">true</property>
     <property name="requiredCharacters">CHARS_AND_DIGITS</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.authen.TanChallengeAuthenticator" id="Matrix Card Check for Users" uuid="d77452cc-9768-47fa-8a25-14d18468d9a6">
-    <property name="responseValidityMillis">300000</property>
-    <property name="tanListType">MATRIX_CARD</property>
-    <pluginProperty name="tanService">
-      <plugin uuidref="76297c4d-fdae-45d8-afa8-d4198cd93cc5"/>
-    </pluginProperty>
-    <pluginProperty name="tokenListRenderer">
-      <plugin uuidref="fac6970e-bb11-4b34-bb78-ce70ab825ad6"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.authen.mtan.MtanSettings" id="MTAN Settings" uuid="423982e2-f907-4cb9-91e3-c58b2731567c">
-    <property name="allowPhoneNumberChange">true</property>
-    <property name="credentialDataEditable">true</property>
-    <property name="enableMigration">true</property>
-    <property name="enablePhoneNumberManagement">true</property>
-    <property name="maxTokenRetransmissions">1</property>
-    <pluginProperty name="mtanHandler">
-      <plugin uuidref="f66285e5-7893-48cb-bc91-b944ce52654c"/>
-    </pluginProperty>
-    <property name="originatorName">Airlock</property>
-    <pluginProperty name="smsGateway">
-      <plugin uuidref="955bb007-fd7b-45eb-b16b-6d1ead9c4b29"/>
-    </pluginProperty>
-    <pluginProperty name="tokenGenerator">
-      <plugin uuidref="513bbbde-0df3-47d4-b640-4b5320556512"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.authen.mtan.TokenDataMtanHandler" id="mTAN Handler" uuid="f66285e5-7893-48cb-bc91-b944ce52654c">
-    <pluginProperty name="activationKeyGenerator">
-      <plugin uuidref="07dd9c5a-9c31-4236-afb3-a31b614be097"/>
-    </pluginProperty>
-    <pluginProperty name="hashFunction">
-      <plugin uuidref="b5cf40ae-5fbc-469d-adb7-be3de8c195ce"/>
-    </pluginProperty>
-    <pluginProperty name="tokenDataProvider">
-      <plugin uuidref="885d411d-aabe-4bef-a4b9-6d63b3e59556"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.cronto.crontoengine.CrontoEngineHandler" id="CrontoEngine Handler" uuid="b1a1a90b-0c01-4a96-bf83-cde263dbd98f">
-    <property name="defaultAllowedPlatforms">012</property>
-    <pluginProperty name="tokenDataProvider"/>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.email.DummyEmailService" uuid="93988d14-184f-45d4-aaa4-5c2c1af00b5b"/>
-  <plugin class="com.airlock.iam.core.misc.impl.persistency.db.DatabaseCredentialPersister" id="SecurIDs on Database" uuid="03e1e2ca-54af-43a7-8aac-c1f666ebc065" ref="Common Credential Data on DB">
-    <property name="colCredentialSerial">securid_serial</property>
-    <property name="colStringCredentialData">securid_user</property>
-    <propertyList name="contextDataColumns">
-      <propertyValue>salutation</propertyValue>
-      <propertyValue>givenname</propertyValue>
-      <propertyValue>surname</propertyValue>
-      <propertyValue>street</propertyValue>
-      <propertyValue>streetNumber</propertyValue>
-      <propertyValue>address2</propertyValue>
-      <propertyValue>zipcode</propertyValue>
-      <propertyValue>town</propertyValue>
-      <propertyValue>state</propertyValue>
-      <propertyValue>country</propertyValue>
-      <propertyValue>company</propertyValue>
-      <propertyValue>email</propertyValue>
-      <propertyValue>language</propertyValue>
-      <propertyValue>username</propertyValue>
-      <propertyValue>securid_pin</propertyValue>
-    </propertyList>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.persistency.db.DatabaseCredentialPersister" id="OATH OTP Data on Database" uuid="160ae604-2afa-4fec-85e9-ed9cc8b8e9aa" ref="Common Credential Data on DB">
-    <property name="colCredentialDeliveryDate">oathotp_del_date</property>
-    <property name="colCredentialGenerationDate">oathotp_gen_date</property>
-    <property name="colCredentialOrderedDate">oathotp_order_date</property>
-    <property name="colCredentialOrderedFlag">oathotp_order_new</property>
-    <property name="colCredentialOrderedUser">oathotp_order_user</property>
-    <property name="colCredentialSerial">oathotp_serial</property>
-    <property name="colStringCredentialData">oathotp_data</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.persistency.db.DatabaseCredentialPersister" id="Common Credential Data on DB" uuid="54bf026d-f322-4fdb-8747-46ec7f8f660d">
-    <property name="colRecordModificationDate">rowUpdateDate</property>
-    <property name="colRecordModificationUser">rowUpdateUser</property>
-    <property name="colUserName">username</property>
-    <property name="colVersionId">rowVersionId</property>
-    <propertyList name="contextDataColumns">
-      <propertyValue>salutation</propertyValue>
-      <propertyValue>givenname</propertyValue>
-      <propertyValue>surname</propertyValue>
-      <propertyValue>street</propertyValue>
-      <propertyValue>streetNumber</propertyValue>
-      <propertyValue>address2</propertyValue>
-      <propertyValue>zipcode</propertyValue>
-      <propertyValue>town</propertyValue>
-      <propertyValue>state</propertyValue>
-      <propertyValue>country</propertyValue>
-      <propertyValue>company</propertyValue>
-      <propertyValue>email</propertyValue>
-      <propertyValue>language</propertyValue>
-      <propertyValue>username</propertyValue>
-    </propertyList>
-    <property name="credentialTableName">medusa_user</property>
-    <pluginProperty name="sqlDataSource">
-      <plugin uuidref="f0d2a309-8eb4-4574-a622-503d6e5f47be"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.persistency.db.DatabaseCredentialPersister" id="Email OTP Data on Database" uuid="af70a139-b1d8-4533-88af-0db6269d51e4" ref="Common Credential Data on DB">
-    <property name="colStringCredentialData">email</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.persistency.db.DatabaseMaintenanceMessagePersister" id="Maintenance Messages on Database" uuid="be477dab-0781-44fb-89b8-9da5a66f99aa">
-    <property name="cacheTimeout">5</property>
-    <property name="messageColActive">active</property>
-    <property name="messageColLocation">location</property>
-    <property name="messageColName">name</property>
-    <property name="messageColRecordInsertionDate">rowInsertDate</property>
-    <property name="messageColRecordInsertionUser">rowInsertUser</property>
-    <property name="messageColRecordModificationDate">rowUpdateDate</property>
-    <property name="messageColRecordModificationUser">rowUpdateUser</property>
-    <property name="messageColSystemAvailable">system_available</property>
-    <property name="messageColValidFrom">valid_from</property>
-    <property name="messageColValidTo">valid_to</property>
-    <property name="messageColVersionId">rowVersionId</property>
-    <property name="messageTable">medusa_maint_msg</property>
-    <pluginProperty name="sqlDataSource">
-      <plugin uuidref="f0d2a309-8eb4-4574-a622-503d6e5f47be"/>
-    </pluginProperty>
-    <property name="translationColLanguage">language</property>
-    <property name="translationColMessage">message</property>
-    <property name="translationColMessageRef">message_ref</property>
-    <property name="translationTable">medusa_maint_msg_tnsl</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.persistency.db.DatabaseTokenListPersister" id="Matrixcard Data on Database" uuid="8f81e48e-89fb-409b-9671-a50903b53100">
-    <property name="colChallengeOpenSince">matrix_chal_open_since</property>
-    <property name="colDeliveryTimeStamp">matrix_del_date</property>
-    <property name="colGenerationTimeStamp">matrix_gen_date</property>
-    <property name="colNewListOrdered">matrix_order_new</property>
-    <property name="colNewListOrderedDate">matrix_order_date</property>
-    <property name="colNewListOrderedUser">matrix_order_user</property>
-    <property name="colNewTokenList">matrix_next_list</property>
-    <property name="colRecordModificationDate">rowUpdateDate</property>
-    <property name="colRecordModificationUser">rowUpdateUser</property>
-    <property name="colTokenList">matrix_current_list</property>
-    <property name="colUnansweredChallenges">matrix_open_chals</property>
-    <property name="colUserName">username</property>
-    <property name="colVersionId">rowVersionId</property>
-    <propertyList name="contextDataColumns">
-      <propertyValue>salutation</propertyValue>
-      <propertyValue>givenname</propertyValue>
-      <propertyValue>surname</propertyValue>
-      <propertyValue>street</propertyValue>
-      <propertyValue>streetNumber</propertyValue>
-      <propertyValue>address2</propertyValue>
-      <propertyValue>zipcode</propertyValue>
-      <propertyValue>town</propertyValue>
-      <propertyValue>state</propertyValue>
-      <propertyValue>country</propertyValue>
-      <propertyValue>company</propertyValue>
-      <propertyValue>email</propertyValue>
-      <propertyValue>language</propertyValue>
-      <propertyValue>username</propertyValue>
-    </propertyList>
-    <property name="recordModificationUser">AirlockIAM</property>
-    <property name="rowsetRangePattern">LIMIT %2$d OFFSET %1$d</property>
-    <pluginProperty name="sqlDataSource">
-      <plugin uuidref="f0d2a309-8eb4-4574-a622-503d6e5f47be"/>
-    </pluginProperty>
-    <property name="tokenListTableName">medusa_user</property>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.persistency.db.DatabaseUserPersister" id="Users on Database" uuid="2c2fe396-d7c4-45ab-b7d2-1fab5ecee047">
     <property name="colAuthMethod">auth_method</property>
@@ -2083,12 +1166,6 @@
     <pluginProperty name="sqlDataSource">
       <plugin uuidref="f0d2a309-8eb4-4574-a622-503d6e5f47be"/>
     </pluginProperty>
-    <pluginList name="userChangeEventListeners">
-      <plugin uuidref="48eb5e9f-2122-4312-b560-09ea7c0c0493"/>
-      <plugin uuidref="1359147a-0f95-4e81-b566-57ec07ab89db"/>
-      <plugin uuidref="4572f2cd-5b46-47fd-9d52-857b8504495a"/>
-      <plugin uuidref="4dda9cf1-915b-4791-b04c-ef998ad6336b"/>
-    </pluginList>
     <property name="userTableName">medusa_user</property>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.persistency.db.DatabaseUserPersister" id="Admins on Database" uuid="6ebce410-5585-44c1-9868-2cc114b304fb">
@@ -2136,69 +1213,6 @@
     <property name="url">jdbc:mariadb://@@DB_SERVICE@@:3306/@@DB_IAM@@</property>
     <property name="user">@@DB_USER@@</property>
   </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.persistency.token.DatabaseTokenPersister" id="Database Token Persister" uuid="b8a6410c-97e5-48a8-9f52-341290758225">
-    <pluginProperty name="sqlDataSource">
-      <plugin uuidref="f0d2a309-8eb4-4574-a622-503d6e5f47be"/>
-    </pluginProperty>
-    <property name="tokenAssignmentColAdditionalInformation">ta_additional_information</property>
-    <property name="tokenAssignmentColAssignmentDate">ta_assignment_date</property>
-    <property name="tokenAssignmentColAssignmentUser">ta_assignment_user</property>
-    <property name="tokenAssignmentColComment">ta_comment</property>
-    <property name="tokenAssignmentColOrderNew">ta_order_new</property>
-    <property name="tokenAssignmentColOrderNewDate">ta_order_new_date</property>
-    <property name="tokenAssignmentColOrderNewUser">ta_order_new_user</property>
-    <property name="tokenAssignmentColOrderOptions">ta_order_options</property>
-    <property name="tokenAssignmentColTokenId">ta_token_id</property>
-    <property name="tokenAssignmentColUser">ta_user</property>
-    <property name="tokenAssignmentTable">token_assignment</property>
-    <property name="tokenColActivatesTokenId">activates_token_id</property>
-    <property name="tokenColActivationDate">activation_date</property>
-    <property name="tokenColActive">active</property>
-    <property name="tokenColFirstUsageDate">first_usage_date</property>
-    <property name="tokenColGenerationDate">generation_date</property>
-    <property name="tokenColGenericDataElement1">generic_data_element_1</property>
-    <property name="tokenColGenericDataElement10">generic_data_element_10</property>
-    <property name="tokenColGenericDataElement11">generic_data_element_11</property>
-    <property name="tokenColGenericDataElement12">generic_data_element_12</property>
-    <property name="tokenColGenericDataElement2">generic_data_element_2</property>
-    <property name="tokenColGenericDataElement3">generic_data_element_3</property>
-    <property name="tokenColGenericDataElement4">generic_data_element_4</property>
-    <property name="tokenColGenericDataElement5">generic_data_element_5</property>
-    <property name="tokenColGenericDataElement6">generic_data_element_6</property>
-    <property name="tokenColGenericDataElement7">generic_data_element_7</property>
-    <property name="tokenColGenericDataElement8">generic_data_element_8</property>
-    <property name="tokenColGenericDataElement9">generic_data_element_9</property>
-    <property name="tokenColLatestUsageDate">latest_usage_date</property>
-    <property name="tokenColObsoletesTokenId">obsoletes_token_id</property>
-    <property name="tokenColSerialId">serial_id</property>
-    <property name="tokenColTokenData">token_data</property>
-    <property name="tokenColTokenId">token_id</property>
-    <property name="tokenColTotalUsages">total_usages</property>
-    <property name="tokenColTrackingId">tracking_id</property>
-    <property name="tokenColType">type</property>
-    <property name="tokenColValidityRangeLower">validity_range_lower</property>
-    <property name="tokenColValidityRangeUpper">validity_range_upper</property>
-    <property name="tokenTable">token</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.persistency.token.DefaultTokenDataProvider" id="Token Data Provider" uuid="885d411d-aabe-4bef-a4b9-6d63b3e59556">
-    <pluginProperty name="tokenPersister">
-      <plugin uuidref="b8a6410c-97e5-48a8-9f52-341290758225"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.persistency.usereventbus.TokenConsistencyUserChangeListener" id="Default Token Consistency User Change Listener" uuid="1359147a-0f95-4e81-b566-57ec07ab89db">
-    <pluginProperty name="tokenDataProvider"/>
-    <pluginList name="tokenServices">
-      <plugin uuidref="247d96f8-d159-4b97-9b1c-d92aa12d10f3"/>
-      <plugin uuidref="b5879b6d-3230-4672-b49f-82b4a316a5ac"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.renderer.WordToPdfTokenListRenderer" id="Matrixcard Word Template" uuid="fac6970e-bb11-4b34-bb78-ce70ab825ad6">
-    <property name="defaultTemplate">instances/common/report-templates/matrix-card-de.docx</property>
-    <property name="fontsPath">instances/common/report-templates</property>
-    <pluginList name="template">
-      <plugin uuidref="bd4ffe6c-3f3a-4c73-b19a-0db5680fffc4"/>
-    </pluginList>
-  </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.sms.DummySmsGateway" uuid="955bb007-fd7b-45eb-b16b-6d1ead9c4b29"/>
   <plugin class="com.airlock.iam.core.misc.impl.sso.CookieTicketIdentityPropagator" id="REST Cookie Ticket Identity Propagator" uuid="3d37bb44-e93b-48e0-b9b7-18104b23885f">
     <property name="cookieName">AUTH_TICKET</property>
@@ -2210,61 +1224,6 @@
     </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.sso.NoIdentityPropagator" id="No ID Propagation" uuid="7714e0f8-4ef2-4df7-9e43-c697ee65966a"/>
-  <plugin class="com.airlock.iam.core.misc.impl.sso.onbehalflogin.CookieMapping" id="Adminer - adminer_key cookie" uuid="c3ed9257-3ce1-4841-beb1-c8df301a8cf0">
-    <property name="sourceAccessCookieName">adminer_key</property>
-    <property name="targetAccessCookieDomain">@adminer:8080</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.sso.onbehalflogin.CookieMapping" id="Adminer - adminer_sid cookie" uuid="f2913268-111e-4b75-b238-d1e9620518b0">
-    <property name="sourceAccessCookieName">adminer_sid</property>
-    <property name="targetAccessCookieDomain">@adminer:8080</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.sso.onbehalflogin.HttpGetOnBehalfLoginStep" id="Adminer - Get Login Form" uuid="8c6be608-f367-4ecf-96eb-7d518b33a35f">
-    <property name="targetApplicationLoginPageUrl">http://adminer:8080/adminer</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.sso.onbehalflogin.HttpPostOnBehalfLoginStep" id="Adminer - Sign-in" uuid="55dd5e34-1955-4bb7-ae45-2aba658a44a5">
-    <pluginList name="httpParams">
-      <plugin uuidref="5dc04961-5e6b-4aeb-9990-64c7a2381028"/>
-      <plugin uuidref="87e8b065-61d5-4374-a0f0-9b79bb9cfcb8"/>
-      <plugin uuidref="e8998c8f-7572-459b-9ef1-259492d3438d"/>
-      <plugin uuidref="baa67ed2-d9ac-4c36-90b8-547e6a2e713c"/>
-      <plugin uuidref="507b0649-2545-4dd7-a33a-b7065e3c573a"/>
-    </pluginList>
-    <property name="targetUrl">http://adminer:8080/adminer</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.sso.onbehalflogin.OnBehalfLoginIdentityPropagator" uuid="0ac6dc14-d423-429c-85a9-5e55783348a3">
-    <pluginList name="cookies">
-      <plugin uuidref="f2913268-111e-4b75-b238-d1e9620518b0"/>
-      <plugin uuidref="c3ed9257-3ce1-4841-beb1-c8df301a8cf0"/>
-    </pluginList>
-    <pluginProperty name="httpClientConfig">
-      <plugin uuidref="5ef69e7e-a2f6-474e-9f65-3f6611e85ed2"/>
-    </pluginProperty>
-    <pluginList name="onBehalfLoginSteps">
-      <plugin uuidref="8c6be608-f367-4ecf-96eb-7d518b33a35f"/>
-      <plugin uuidref="55dd5e34-1955-4bb7-ae45-2aba658a44a5"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.tanserver.DefaultTanService" uuid="76297c4d-fdae-45d8-afa8-d4198cd93cc5">
-    <property name="activateNewListWithFirstUsage">true</property>
-    <pluginProperty name="hashFunction">
-      <plugin uuidref="b5cf40ae-5fbc-469d-adb7-be3de8c195ce"/>
-    </pluginProperty>
-    <property name="indexPositionsPerChallenge">1</property>
-    <property name="lowOnTokensThreshold">20</property>
-    <property name="maxListValidity">365</property>
-    <property name="tokenAlphabet">DIGITS_LETTERS</property>
-    <property name="tokenLength">3</property>
-    <pluginProperty name="tokenListPersister">
-      <plugin uuidref="8f81e48e-89fb-409b-9671-a50903b53100"/>
-    </pluginProperty>
-    <property name="tokensPerList">130</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.tokenverifier.oathotp.OathOtpSettings" id="OATH OTP Settings" uuid="2bfe67a1-e5e6-4384-89fb-6329b50071b1">
-    <pluginProperty name="credentialPersister">
-      <plugin uuidref="160ae604-2afa-4fec-85e9-ed9cc8b8e9aa"/>
-    </pluginProperty>
-    <property name="password">[ENC]W0dDTV2xiR8bVkDigwcJFzyFLfHUqeMTw5WhB91/NBo+gcdNqhlglSBN7ntKA0dZMBC98aZr6BX1</property>
-  </plugin>
   <plugin class="com.airlock.iam.core.misc.plugin.config.GlobalConfiguration" id="globalConfig" uuid="f3c6861b-3916-4f03-ac5d-66e06acd0b7f">
     <pluginProperty name="applicationSettings">
       <plugin uuidref="602eb2b1-5bcf-4e79-9d50-540610763537"/>
@@ -2280,94 +1239,21 @@
     </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.plugin.config.GlobalConfiguration$AuthenticationSettings" id="Main Authentication Settings" uuid="e41183de-281e-4aa0-9234-a71ce8e56cfb">
-    <pluginProperty name="airlock2FASettings">
-      <plugin uuidref="9a42d34c-45f4-4e3f-ab0b-5d509937c8e0"/>
-    </pluginProperty>
     <pluginProperty name="authenticator">
       <plugin uuidref="3905a5aa-114e-4123-99b5-5b5c33f9b466"/>
     </pluginProperty>
-    <pluginProperty name="crontoSignSettings">
-      <plugin uuidref="b1a1a90b-0c01-4a96-bf83-cde263dbd98f"/>
-    </pluginProperty>
-    <pluginProperty name="mtanSettings">
-      <plugin uuidref="423982e2-f907-4cb9-91e3-c58b2731567c"/>
-    </pluginProperty>
-    <pluginProperty name="oathOtpSettings">
-      <plugin uuidref="2bfe67a1-e5e6-4384-89fb-6329b50071b1"/>
-    </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.plugin.config.GlobalConfiguration$PersisterSettings" id="Data sources" uuid="d0064eff-e40b-496d-8dca-6eec870a96ad">
-    <pluginProperty name="tokenDataSource">
-      <plugin uuidref="885d411d-aabe-4bef-a4b9-6d63b3e59556"/>
-    </pluginProperty>
     <pluginProperty name="userDataSource">
       <plugin uuidref="2c2fe396-d7c4-45ab-b7d2-1fab5ecee047"/>
     </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.renderer.LanguageSpecificTemplate" id="English Airlock 2FA Shipment Letter Template" uuid="8c7f2209-3824-4860-820c-6a13bf69450b">
-    <property name="language">en</property>
-    <property name="template">instances/common/report-templates/airlock-2fa-shipment-letter-en.docx</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.renderer.LanguageSpecificTemplate" id="English Airlock 2FA Activation Letter Template" uuid="b3828959-16f6-4458-8e0b-8caf15ea2600">
-    <property name="language">en</property>
-    <property name="template">instances/common/report-templates/airlock-2fa-letter-en.docx</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.renderer.LanguageSpecificTemplate" id="Matrixcard English Template" uuid="bd4ffe6c-3f3a-4c73-b19a-0db5680fffc4">
-    <property name="language">en</property>
-    <property name="template">instances/common/report-templates/matrix-card-en.docx</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.tokenservice.CrontoTokenService" id="Cronto Token Service" uuid="247d96f8-d159-4b97-9b1c-d92aa12d10f3"/>
-  <plugin class="com.airlock.iam.core.misc.tokenservice.GenericTokenService" id="Generic Token Service" uuid="b5879b6d-3230-4672-b49f-82b4a316a5ac">
-    <pluginProperty name="tokenDataProvider"/>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.util.crypto.PasswordBasedEncryption" uuid="9c0ed6c9-1d78-44b7-85f3-353bca5d4c15">
-    <property name="encryptionPassphrase">changeme</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.util.httpclient.HttpClientConfig" uuid="5ef69e7e-a2f6-474e-9f65-3f6611e85ed2">
-    <property name="userAgent">Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko</property>
-    <property name="verifyServerHostname">false</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.util.httpclient.HttpParameter" id="Adminer param -  auth[db]" uuid="507b0649-2545-4dd7-a33a-b7065e3c573a">
-    <property name="name">auth[db]</property>
-    <property name="value">@@DB_IAM@@</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.util.httpclient.HttpParameter" id="Adminer param - auth[driver]" uuid="5dc04961-5e6b-4aeb-9990-64c7a2381028">
-    <property name="name">auth[driver]</property>
-    <property name="value">server</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.util.httpclient.HttpParameter" id="Adminer param - auth[server]" uuid="87e8b065-61d5-4374-a0f0-9b79bb9cfcb8">
-    <property name="name">auth[server]</property>
-    <property name="value">@@DB_SERVICE@@</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.util.httpclient.HttpParameter" id="Adminer param -  auth[password]" uuid="baa67ed2-d9ac-4c36-90b8-547e6a2e713c">
-    <property name="name">auth[password]</property>
-    <property name="value">@@DB_PASSWORD@@</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.util.httpclient.HttpParameter" id="Adminer param -  auth[username]" uuid="e8998c8f-7572-459b-9ef1-259492d3438d">
-    <property name="name">auth[username]</property>
-    <property name="value">@@DB_USER@@</property>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.util.password.hash.PasswordHistoryHash" id="History Password Hash" uuid="aaf43cff-19bc-4a28-abbb-c8de7970e348">
     <pluginProperty name="passwordHash">
       <plugin uuidref="719f06f4-2262-4e79-ace1-d65254c2ea84"/>
     </pluginProperty>
   </plugin>
-  <plugin class="com.airlock.iam.core.misc.util.password.hash.SHA256PasswordHash" uuid="b5cf40ae-5fbc-469d-adb7-be3de8c195ce"/>
   <plugin class="com.airlock.iam.core.misc.util.password.hash.ScryptPasswordHash" uuid="719f06f4-2262-4e79-ace1-d65254c2ea84"/>
-  <plugin class="com.airlock.iam.core.misc.util.report.WordToPdfReportRenderer" id="Airlock 2FA Shipment Letter Renderer" uuid="38d5d538-d77f-4850-a3fb-405d5df49bcf">
-    <property name="defaultTemplate">instances/common/report-templates/airlock-2fa-shipment-letter-de.docx</property>
-    <property name="fontsPath">instances/common/report-templates</property>
-    <pluginList name="template">
-      <plugin uuidref="8c7f2209-3824-4860-820c-6a13bf69450b"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.util.report.WordToPdfReportRenderer" id="Airlock 2FA Activation Letter Renderer" uuid="c772477a-b2be-48bd-88e4-e2521de7b236">
-    <property name="defaultTemplate">instances/common/report-templates/airlock-2fa-letter-de.docx</property>
-    <property name="fontsPath">instances/common/report-templates</property>
-    <pluginList name="template">
-      <plugin uuidref="b3828959-16f6-4458-8e0b-8caf15ea2600"/>
-    </pluginList>
-  </plugin>
   <plugin class="com.airlock.iam.core.misc.util.ticket.service.MappedTicketElement" id="Username Ticket Element" uuid="2f433b9b-6f5f-4634-9d22-6eb5ee3873aa">
     <property name="mandatory">true</property>
     <property name="ticketKey">username</property>
@@ -2390,395 +1276,11 @@
       <plugin uuidref="a634ae0c-c83d-4d1f-8470-a30fd17eb5ba"/>
     </pluginList>
   </plugin>
-  <plugin class="com.airlock.iam.core.misc.util.vasco.DummyVascoHandler" id="Dummy Vasco Handler" uuid="0310e726-b974-403b-a190-430c21072842">
-    <property name="authMode">RESPONSE_ONLY</property>
-    <property name="tokenType">DUMMY</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.api.application.configuration.MaintenanceMessageUiSettings" id="Maintenance Message Flow Settings" uuid="7abc2f86-b438-42d4-8a85-1bf3c952ea30"/>
-  <plugin class="com.airlock.iam.flow.api.application.configuration.step.StepIdConfig" id="User Data Edit Step &quot;edit-address&quot;" uuid="06e3bc37-49d5-45ac-88f0-11bff0d7da51">
-    <property name="id">edit-address</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.api.application.configuration.step.StepIdConfig" id="mTAN Number Registration Step ID &quot;register-mtan-number&quot;" uuid="344dca26-2290-4040-a9d5-a8a97a4d9dcf">
-    <property name="id">register-mtan-number</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.api.application.configuration.step.StepIdConfig" id="Migration Step ID &quot;migration&quot;" uuid="521c5404-35b1-428b-aae9-01887520d51a">
-    <property name="id">migration</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.api.application.configuration.step.StepIdConfig" id="Password Reset Selection Step ID &quot;factor-selection&quot;" uuid="7eb8c8ed-77b3-4409-8db4-af86fa37d323">
-    <property name="id">factor-selection</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.api.application.configuration.step.StepIdConfig" id="E-Mail Address Change Step ID &apos;edit-email&apos;" uuid="9f10dc4e-2ecc-4062-95ae-fe4e036b4e35">
-    <property name="id">edit-email</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.api.application.configuration.step.StepIdConfig" id="Email Authentication Step ID &quot;emailotp&quot;" uuid="a15010c0-fd29-4ea6-8da8-4872800eac6c">
-    <property name="id">emailotp</property>
-  </plugin>
   <plugin class="com.airlock.iam.flow.api.application.configuration.step.StepIdConfig" id="Password Authentication Step ID &quot;pwcheck&quot;" uuid="a29f520f-a7f0-48bc-8efd-a4bdbc5cada3">
     <property name="id">pwcheck</property>
   </plugin>
-  <plugin class="com.airlock.iam.flow.api.application.configuration.step.StepIdConfig" id="User Password Registration Step ID &quot;password&quot;" uuid="f4850c82-3998-462c-8c9f-55f4eafaaa36">
-    <property name="id">password</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.api.application.configuration.step.StepIdConfig" id="User Data Registration Step ID &quot;userdata&quot;" uuid="f78769a3-7d08-4a2f-9368-c13b374df892">
-    <property name="id">userdata</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.flow.FlowIdConfig" id="Flow ID &quot;default&quot;" uuid="0a00e7ac-03c8-4805-9f25-5e9beb0a7267">
-    <property name="flowId">default</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.flow.FlowIdConfig" id="Flow ID &quot;device-delete&quot;" uuid="27997ad3-b54d-4d3b-9749-8da30a26f694">
-    <property name="flowId">device-delete</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.flow.FlowIdConfig" id="Flow ID &quot;email-change&quot;" uuid="4de73a46-ad86-4ecd-b609-5d1cf1788fdf">
-    <property name="flowId">email-change</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.flow.FlowIdConfig" id="Flow ID &quot;address-change&quot;" uuid="90bfe588-0531-4931-92ac-041bfedc93a8">
-    <property name="flowId">address-change</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.flow.FlowIdConfig" id="Flow ID &quot;activate-app-device&quot;" uuid="99ab3df5-e6b7-4070-84b4-757f690c7dac">
-    <property name="flowId">activate-app-device</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.flow.FlowIdConfig" id="Flow ID &quot;mtan-registration&quot;" uuid="a171af30-9d1e-4c89-b7b2-162c09d84c8b">
-    <property name="flowId">mtan-registration</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.flow.FlowIdConfig" id="Flow ID &quot;device-rename&quot;" uuid="cc4c8ef5-b318-46a9-a1e9-93ade822d171">
-    <property name="flowId">device-rename</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.condition.LogicalAndFlowConditionConfig" id="mTAN Registration Condition" uuid="030e3c89-3c16-46f1-acbd-28b04b1e32bb">
-    <pluginList name="conditions">
-      <plugin uuidref="1e48526d-5d4e-441a-bcf7-aa99ae5b2ae8"/>
-      <plugin uuidref="948dbaea-899e-4d87-bda8-8a36009ac641"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.condition.LogicalAndFlowConditionConfig" id="Activate Cronto Condition" uuid="1f858a00-e2fc-4925-9317-0b0411b7472b">
-    <pluginList name="conditions">
-      <plugin uuidref="7da2604f-5fd0-4449-a926-2984781edc67"/>
-      <plugin uuidref="0b49d647-095a-4ecb-b4bb-7f7827f609a5"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.condition.LogicalAndFlowConditionConfig" id="Cronto Authentication Condition" uuid="49629d9f-7af7-46e4-a196-b017c928a71d">
-    <pluginList name="conditions">
-      <plugin uuidref="7da2604f-5fd0-4449-a926-2984781edc67"/>
-      <plugin uuidref="56e0ccba-8205-4816-8c31-cd017ca6c6bd"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.condition.LogicalNotFlowConditionConfig" id="Auth Method not Cronto or mTAN" uuid="54dd6db4-ed5d-4929-b473-96d83fbe8f05">
-    <pluginProperty name="condition">
-      <plugin uuidref="f1b87631-340d-4913-bbfe-a5fc75316689"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.condition.LogicalNotFlowConditionConfig" id="No Cronto Activation Required Condition" uuid="56e0ccba-8205-4816-8c31-cd017ca6c6bd">
-    <pluginProperty name="condition">
-      <plugin uuidref="0b49d647-095a-4ecb-b4bb-7f7827f609a5"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.condition.LogicalNotFlowConditionConfig" id="No mTAN Token Condition" uuid="948dbaea-899e-4d87-bda8-8a36009ac641">
-    <pluginProperty name="condition">
-      <plugin uuidref="15e6f21b-9d4b-42ee-a3ee-a7e1e7a33be1"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.condition.LogicalOrFlowConditionConfig" id="Auth Method Cronto Or mTAN" uuid="f1b87631-340d-4913-bbfe-a5fc75316689">
-    <pluginList name="conditions">
-      <plugin uuidref="7da2604f-5fd0-4449-a926-2984781edc67"/>
-      <plugin uuidref="1e48526d-5d4e-441a-bcf7-aa99ae5b2ae8"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.step.SelectionOptionConfig" id="mTAN Selection Option" uuid="08d0ed63-bf2f-45a1-a0ab-fd9419843595">
-    <pluginProperty name="condition">
-      <plugin uuidref="1e48526d-5d4e-441a-bcf7-aa99ae5b2ae8"/>
-    </pluginProperty>
-    <property name="name">MTAN</property>
-    <pluginList name="steps">
-      <plugin uuidref="97baf5a1-3904-4a35-8709-fdc7d5d8d6ff"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.step.SelectionOptionConfig" id="Email OTP Selection Option" uuid="3c152dca-4880-4e7c-ba80-8472f080fb01">
-    <pluginProperty name="condition">
-      <plugin uuidref="ded799f2-b5fc-4a4e-bd55-8383a26583da"/>
-    </pluginProperty>
-    <property name="name">EMAIL_OTP</property>
-    <pluginList name="steps">
-      <plugin uuidref="3ae72293-53fd-4d7c-9d73-b2f9faa63882"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.step.SelectionOptionConfig" id="Device Token Selection" uuid="70750ad9-c656-49ec-babb-a49c6913514c">
-    <pluginProperty name="condition">
-      <plugin uuidref="7198368c-5c96-4270-8e0a-b11ceda2cab4"/>
-    </pluginProperty>
-    <property name="name">DEVICE_TOKEN</property>
-    <pluginList name="steps">
-      <plugin uuidref="307be227-003b-4c9e-9c03-e6a3e486124c"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.step.SelectionOptionConfig" id="Cronto Selection Option" uuid="77fe092e-7b2f-4f23-a17f-5f281b2ce4b9">
-    <pluginProperty name="condition">
-      <plugin uuidref="49629d9f-7af7-46e4-a196-b017c928a71d"/>
-    </pluginProperty>
-    <property name="name">CRONTO</property>
-    <pluginList name="steps">
-      <plugin uuidref="65eb55eb-88b1-482e-ba6e-dd920125c98d"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.step.SelectionOptionConfig" id="Cronto Activation Selection Option" uuid="ade3725c-4692-438e-bd9b-c354eecd2c49">
-    <pluginProperty name="condition">
-      <plugin uuidref="1f858a00-e2fc-4925-9317-0b0411b7472b"/>
-    </pluginProperty>
-    <property name="name">CRONTO_ACTIVATION</property>
-    <pluginList name="steps">
-      <plugin uuidref="ab299174-b56a-4176-944e-52f63a462957"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.step.SelectionOptionConfig" id="OATH OTP Selection Option" uuid="b1931d28-d7d8-4ad2-98f0-1a8217795d4a">
-    <pluginProperty name="condition">
-      <plugin uuidref="840994cb-45e5-4365-83ee-b19cdb8ebaa0"/>
-    </pluginProperty>
-    <property name="name">OATH_OTP</property>
-    <pluginList name="steps">
-      <plugin uuidref="6496b74a-265f-4ebc-9003-67c6813d5549"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.step.SelectionOptionConfig" id="Password Only Selection Option" uuid="b2b10fd3-1f2a-46c4-acc6-df56524b16fc">
-    <pluginProperty name="condition">
-      <plugin uuidref="f8f0215e-745b-4cab-929b-d76df86c7a1a"/>
-    </pluginProperty>
-    <property name="name">PASSWORD</property>
-    <pluginList name="steps">
-      <plugin uuidref="d523cd17-0234-4426-a667-d480f97d8eb5"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.step.SelectionOptionConfig" id="Matrix Selection Option" uuid="e46cb29d-571b-4a5d-bdc7-3f41a55c7d88">
-    <pluginProperty name="condition">
-      <plugin uuidref="9df2eb23-c5a4-4258-bb54-0ed0b037450e"/>
-    </pluginProperty>
-    <property name="name">MATRIX</property>
-    <pluginList name="steps">
-      <plugin uuidref="639c9d95-8987-4ca9-acb6-0772b530d658"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.step.SelectionOptionConfig" id="mTAN Registration Option" uuid="e6fb922d-50e8-4dd8-98a4-d75133e7de4e">
-    <pluginProperty name="condition">
-      <plugin uuidref="030e3c89-3c16-46f1-acbd-28b04b1e32bb"/>
-    </pluginProperty>
-    <property name="name">MTAN_REGISTRATION</property>
-    <pluginList name="steps">
-      <plugin uuidref="e6da0ebd-707f-4598-ae65-3e92c5ea149f"/>
-      <plugin uuidref="12e5c44b-dbb0-4f85-b6ba-7b3697804432"/>
-      <plugin uuidref="7f9334a2-c7d4-4c85-8afd-ec6f1f3a0705"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.step.SelectionOptionConfig" id="Vasco OTP Selection Option" uuid="f3d3b5db-aac8-4853-8c4f-a0ff6ef2a310">
-    <pluginProperty name="condition">
-      <plugin uuidref="37e704ec-2e68-496d-8909-3f8b7150732b"/>
-    </pluginProperty>
-    <property name="name">VASCO_OTP</property>
-    <pluginList name="steps">
-      <plugin uuidref="bc6bf91a-c933-4cdb-ab88-75dc0520b0f6"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.step.SelectionOptionConfig" id="Airlock 2FA Selection Option" uuid="fa2481fa-7519-4946-a238-35e17bc97938">
-    <pluginProperty name="condition">
-      <plugin uuidref="39ddc138-dede-41c0-8a9a-95867e6a5aea"/>
-    </pluginProperty>
-    <property name="name">AIRLOCK_2FA</property>
-    <pluginList name="steps">
-      <plugin uuidref="4803fcdd-f5c2-46c1-b3d6-313eae980f1e"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.step.SelectionStepConfig" id="Demo Selection" uuid="1bc0ce3e-dd95-45a6-84c3-a04a46f55c7b">
-    <pluginList name="availableOptions">
-      <plugin uuidref="fa2481fa-7519-4946-a238-35e17bc97938"/>
-      <plugin uuidref="08d0ed63-bf2f-45a1-a0ab-fd9419843595"/>
-      <plugin uuidref="77fe092e-7b2f-4f23-a17f-5f281b2ce4b9"/>
-      <plugin uuidref="ade3725c-4692-438e-bd9b-c354eecd2c49"/>
-      <plugin uuidref="b2b10fd3-1f2a-46c4-acc6-df56524b16fc"/>
-      <plugin uuidref="f3d3b5db-aac8-4853-8c4f-a0ff6ef2a310"/>
-      <plugin uuidref="3c152dca-4880-4e7c-ba80-8472f080fb01"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.step.SelectionStepConfig" id="Auth Method-Based Subflow Selection" uuid="6b9c86e1-4e70-419e-8278-afdd1806ee4e">
-    <pluginList name="availableOptions">
-      <plugin uuidref="fa2481fa-7519-4946-a238-35e17bc97938"/>
-      <plugin uuidref="08d0ed63-bf2f-45a1-a0ab-fd9419843595"/>
-      <plugin uuidref="77fe092e-7b2f-4f23-a17f-5f281b2ce4b9"/>
-      <plugin uuidref="b1931d28-d7d8-4ad2-98f0-1a8217795d4a"/>
-      <plugin uuidref="f3d3b5db-aac8-4853-8c4f-a0ff6ef2a310"/>
-      <plugin uuidref="b2b10fd3-1f2a-46c4-acc6-df56524b16fc"/>
-      <plugin uuidref="3c152dca-4880-4e7c-ba80-8472f080fb01"/>
-      <plugin uuidref="70750ad9-c656-49ec-babb-a49c6913514c"/>
-      <plugin uuidref="e46cb29d-571b-4a5d-bdc7-3f41a55c7d88"/>
-      <plugin uuidref="ade3725c-4692-438e-bd9b-c354eecd2c49"/>
-      <plugin uuidref="e6fb922d-50e8-4dd8-98a4-d75133e7de4e"/>
-    </pluginList>
-    <pluginList name="preConditionTags">
-      <plugin uuidref="8a3cae4d-85fa-471a-b933-00d948455da8"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.step.NoOperationStepConfig" uuid="d523cd17-0234-4426-a667-d480f97d8eb5"/>
-  <plugin class="com.airlock.iam.flow.application.configuration.tag.TagConfigImpl" id="Cronto Verified Tag" uuid="1e2eeeea-54ad-4e3e-9574-118a63564402">
-    <property name="name">CRONTO_OTP_VERIFIED</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.tag.TagConfigImpl" id="Vasco OTP Verified Tag" uuid="20581512-2d32-4408-9393-319af777547a">
-    <property name="name">VASCO_OTP_VERIFIED</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.tag.TagConfigImpl" id="Device Token Verified Tag" uuid="20b78041-8bc8-4d87-84ba-02c6de092d12">
-    <property name="name">DEVICE_TOKEN_VERIFIED</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.tag.TagConfigImpl" id="E-Mail Verified Tag" uuid="2f3f6f08-fc77-4d51-ae45-701feddca52d">
-    <property name="name">EMAIL_VERIFIED</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.tag.TagConfigImpl" id="Airlock 2FA Verified Tag" uuid="31dd1f6e-6a0f-472d-afdd-cc95d3b548b2">
-    <property name="name">AIRLOCK2FA_VERIFIED</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.tag.TagConfigImpl" id="OATH OTP Verified Tag" uuid="67b7062a-cda4-4aa5-a6b3-b48d1b529bad">
-    <property name="name">OATH_OTP_VERIFIED</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.tag.TagConfigImpl" id="Matrix Verified Flag" uuid="6fb60618-30d4-4abd-bd82-41e25c552c90">
-    <property name="name">MATRIX_VERIFIED</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.tag.TagConfigImpl" id="mTAN Verified Tag" uuid="707d6162-09a6-4ac4-82c2-a87c87790ae7">
-    <property name="name">MTAN_OTP_VERIFIED</property>
-  </plugin>
   <plugin class="com.airlock.iam.flow.application.configuration.tag.TagConfigImpl" id="Password Verified Tag" uuid="8a3cae4d-85fa-471a-b933-00d948455da8">
     <property name="name">PASSWORD_VERIFIED</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.tag.TagConfigImpl" id="mTAN Registered Tag" uuid="9478b495-a157-4bd0-8d8a-ce90b41d023d">
-    <property name="name">MTAN_REGISTERED</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.tag.TagConfigImpl" id="Email OTP Verified Tag" uuid="d93e5b86-cac4-4145-a8c1-1a5a3c8ae3ff">
-    <property name="name">EMAIL_OTP_VERIFIED</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.item.DateContextDataItemDefinitionConfig" id="Birthdate Date Item" uuid="9c1a03c8-f6d6-46a8-bf70-c64a313bdef8">
-    <pluginProperty name="contextDataName">
-      <plugin uuidref="5c1c2148-b9a3-4dc4-90b1-09d1a44f6dc7"/>
-    </pluginProperty>
-    <property name="required">false</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.item.EmailItemDefinitionConfig" id="E-Mail Address" uuid="0647c5c4-1ac7-409c-b26f-e6cec018c707">
-    <pluginProperty name="initialValueProvider">
-      <plugin uuidref="eb5ab811-5265-40e1-b65d-f77a8f7867fa"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.item.StringContextDataItemDefinitionConfig" id="Street Data Item" uuid="1c0b7c64-d4fc-4c6a-9da1-a2ae882efc94">
-    <pluginProperty name="contextDataName">
-      <plugin uuidref="4ed0fdab-e459-43a4-86ea-be9b966fbb63"/>
-    </pluginProperty>
-    <property name="required">false</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.item.StringContextDataItemDefinitionConfig" id="Given Name Data Item" uuid="4ccb0ef6-01c8-40bd-a51e-cb8208bae01d">
-    <pluginProperty name="contextDataName">
-      <plugin uuidref="5f75f26f-cef2-4637-b021-b80c6663e39f"/>
-    </pluginProperty>
-    <property name="required">true</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.item.StringContextDataItemDefinitionConfig" id="Surname Data Item" uuid="6a15c3bb-5027-4cfb-982a-7002949805aa">
-    <pluginProperty name="contextDataName">
-      <plugin uuidref="fd06a297-7188-4f3d-be1e-523c510570aa"/>
-    </pluginProperty>
-    <property name="required">true</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.item.StringContextDataItemDefinitionConfig" id="Street Number Data Item" uuid="87474d6f-378f-4c7a-a59a-8b5e9c4f1a5a">
-    <pluginProperty name="contextDataName">
-      <plugin uuidref="8c4148a4-b738-4e10-ad52-79f9c77d448c"/>
-    </pluginProperty>
-    <property name="required">false</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.item.StringContextDataItemDefinitionConfig" id="Town Data Item" uuid="8b35f027-d7c8-4a42-9b84-f3c600700284">
-    <pluginProperty name="contextDataName">
-      <plugin uuidref="1c6baeec-0732-411d-a2a9-58795f901833"/>
-    </pluginProperty>
-    <property name="required">false</property>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.item.StringContextDataItemDefinitionConfig" id="Zip Code Data Item" uuid="b30cfa29-cd85-47c4-ad92-c81a86875c13">
-    <pluginProperty name="contextDataName">
-      <plugin uuidref="9cf2d99f-c519-493a-94f9-d20234160665"/>
-    </pluginProperty>
-    <property name="required">false</property>
-    <pluginList name="validators">
-      <plugin uuidref="2c714485-0a49-4693-bac6-aa03b5077095"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.item.mtan.MtanLabelItemDefinitionConfig" id="mTAN Label" uuid="fb2827c9-724d-4315-8c9f-f537cd68e8e0">
-    <property name="key">mtanLabel</property>
-    <pluginList name="validators">
-      <plugin uuidref="61539210-29cb-4906-847f-6d363225b0a2"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.item.mtan.MtanNumberItemDefinitionConfig" id="mTAN Number" uuid="2a68892a-d0d8-4fb2-9059-7668218a4cc2">
-    <property name="key">mtanNumber</property>
-    <pluginProperty name="mtanSettings">
-      <plugin uuidref="ac9b4cfb-db19-458a-873b-4febf6646149"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.message.GenericCrontoMessageProviderConfig" id="Cronto Message for Password Reset" uuid="2a1c6127-4330-46e1-b36e-6037c1d2aaf4">
-    <property name="resourceKey">password-reset.factors.cronto.message</property>
-    <pluginList name="valueProviders">
-      <plugin uuidref="82ca4aca-69df-4e08-9cf2-3f319851b04f"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.message.GenericCrontoMessageProviderConfig" uuid="854e8e11-c9fd-40b1-9acf-a2d21cf6acf0">
-    <property name="omitEmptyValueLines">true</property>
-    <property name="resourceKey">self-service.user-data-edit.approval.cronto</property>
-    <pluginList name="valueProviders">
-      <plugin uuidref="82ca4aca-69df-4e08-9cf2-3f319851b04f"/>
-      <plugin uuidref="618e5ab6-f5f1-4e35-bf69-48e8d5ab6b91"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.message.GenericEmailMessageProviderConfig" id="User Self-Registration E-Mail Message Provider" uuid="907831f1-66e4-4c92-b84c-af10c19e473a">
-    <property name="bodyResourceKey">user-self-reg.email.verification.body-with-otp</property>
-    <property name="subjectResourceKey">user-self-reg.email.verification.subject</property>
-    <pluginList name="valueProviders">
-      <plugin uuidref="82ca4aca-69df-4e08-9cf2-3f319851b04f"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.message.GenericEmailMessageProviderConfig" id="E-Mail Change Message Provider" uuid="d98388fe-e898-475e-9e86-745e23dbb794">
-    <property name="bodyResourceKey">email-change.verification.body-with-otp</property>
-    <property name="subjectResourceKey">email-change.verification.subject</property>
-    <pluginList name="valueProviders">
-      <plugin uuidref="82ca4aca-69df-4e08-9cf2-3f319851b04f"/>
-      <plugin uuidref="65bed2d3-e536-4fbb-9c69-8fc4d1ff22f3"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.message.GenericMtanMessageProviderConfig" id="mTAN Message for Data Edit" uuid="b1d18a0f-f192-4261-afe2-6e74ea2036ee">
-    <property name="resourceKey">self-service.user-data-edit.approval.mtan</property>
-    <pluginList name="valueProviders">
-      <plugin uuidref="82ca4aca-69df-4e08-9cf2-3f319851b04f"/>
-      <plugin uuidref="618e5ab6-f5f1-4e35-bf69-48e8d5ab6b91"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.message.GenericMtanMessageProviderConfig" id="mTAN Message for Password Reset" uuid="b7f71a71-cab9-489a-ac08-1f30df8943ab">
-    <property name="resourceKey">password-reset.factors.mtan.message</property>
-    <pluginList name="valueProviders">
-      <plugin uuidref="82ca4aca-69df-4e08-9cf2-3f319851b04f"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.message.GenericMtanMessageProviderConfig" id="mTAN Message for Registration" uuid="e92a33fa-32a2-47aa-8a3f-90367d7fac65">
-    <property name="resourceKey">mtan-registration.verification.message</property>
-    <pluginList name="valueProviders">
-      <plugin uuidref="82ca4aca-69df-4e08-9cf2-3f319851b04f"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.step.apply.ApplyEmailChangeConfig" uuid="80fccdb8-a2f1-4b3e-9f05-ab23c6e60921">
-    <pluginProperty name="contextDataName">
-      <plugin uuidref="288c3d36-f456-4b98-bd1a-9e574dc43f42"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.step.apply.ApplyMtanRegistrationChangeConfig" uuid="61cd1d42-a402-41bd-928b-04c221b2cd8c">
-    <pluginProperty name="mtanSettings">
-      <plugin uuidref="ac9b4cfb-db19-458a-873b-4febf6646149"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.valueprovider.ChangedEmailProviderConfig" uuid="2f569f7b-e318-4d18-b8cd-20a57f16e9a0"/>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.valueprovider.ContextDataValueMapProviderConfig" uuid="82ca4aca-69df-4e08-9cf2-3f319851b04f"/>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.valueprovider.MtanRegistrationNumberProviderConfig" uuid="6f0fcfb2-10b0-49d3-82cb-7c632d509d86"/>
-  <plugin class="com.airlock.iam.flow.shared.application.configuration.valueprovider.ValueProviderMapProviderConfig" uuid="65bed2d3-e536-4fbb-9c69-8fc4d1ff22f3">
-    <pluginMap name="valueProviders">
-      <plugin uuidref="2f569f7b-e318-4d18-b8cd-20a57f16e9a0" key="new_email"/>
-    </pluginMap>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.ui.application.configuration.PasswordResetFlowLinkConfig" uuid="bfd53624-c46e-4e46-b63d-fa50312cee52"/>
-  <plugin class="com.airlock.iam.flow.ui.application.configuration.UserSelfRegFlowLinkConfig" uuid="47a31611-be16-4336-b144-9fdea6623ab5">
-    <pluginProperty name="flowId">
-      <plugin uuidref="0a00e7ac-03c8-4805-9f25-5e9beb0a7267"/>
-    </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.login.app.misc.configuration.AuthenticationConfig" uuid="1a1d8ec5-6d95-4155-b8e9-252044e2def2">
     <pluginProperty name="authenticator"/>
@@ -2803,9 +1305,6 @@
     <pluginProperty name="securitySettings">
       <plugin uuidref="6c87b73b-e06d-4835-9fd1-4f5b39e48e49"/>
     </pluginProperty>
-    <pluginProperty name="selfServiceSettings">
-      <plugin uuidref="8fb542e5-8ba3-4df1-b6ec-6599fe39d929"/>
-    </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.login.app.misc.configuration.security.ContentSecurityPolicyConfig" uuid="85337d01-b570-44a7-94a4-27297b09d4f7"/>
   <plugin class="com.airlock.iam.login.app.misc.configuration.security.SecurityConfig" uuid="6c87b73b-e06d-4835-9fd1-4f5b39e48e49" comment="">
@@ -2818,34 +1317,6 @@
     </pluginProperty>
     <property name="sessionTicketEncryptionPassphrase">LKKC6QYGgFMZucOWtZ5+W4gO0KZBjRzbzG6RKQmeEwJD01NhaD2NrF9jg9rQAZ1aTAJTmFkcm8sEIaFb2FsRV8O0PmY9lxwNvifnSDL1VSPhmNQZulbrrND/vFLB6mGR</property>
   </plugin>
-  <plugin class="com.airlock.iam.login.app.misc.configuration.selfservice.CrontoSelfServiceConfig" id="Cronto Self Service" uuid="b92a5641-f67d-4c5b-b376-583792561c99">
-    <pluginProperty name="crontoHandler"/>
-    <property name="enableDeviceManagement">true</property>
-    <property name="enableExtraRegistrationAtLogin">true</property>
-    <property name="userCanOrderAdditionalLetter">true</property>
-    <property name="userCanOrderInitialLetter">true</property>
-  </plugin>
-  <plugin class="com.airlock.iam.login.app.misc.configuration.selfservice.MatrixCardSelfServiceConfig" id="Matrix Card Self Service" uuid="b3ffaba0-2da8-4a56-8123-66e936d62c88">
-    <property name="authMethodIdentifier">MATRIX</property>
-    <pluginProperty name="tanChallengeAuthenticator">
-      <plugin uuidref="d77452cc-9768-47fa-8a25-14d18468d9a6"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.login.app.misc.configuration.selfservice.MtanSelfServiceConfig" id="MTAN Self Service" uuid="263499a6-c1b5-4bc2-8852-0f9e98902170">
-    <pluginProperty name="mtanSettings"/>
-  </plugin>
-  <plugin class="com.airlock.iam.login.app.misc.configuration.selfservice.SelfServiceConfig" id="Self Service Settings" uuid="8fb542e5-8ba3-4df1-b6ec-6599fe39d929">
-    <property name="credentialSelectionMethod">AUTHENTICATORBASED</property>
-    <pluginProperty name="crontoSelfService">
-      <plugin uuidref="b92a5641-f67d-4c5b-b376-583792561c99"/>
-    </pluginProperty>
-    <pluginProperty name="matrixCardSelfService">
-      <plugin uuidref="b3ffaba0-2da8-4a56-8123-66e936d62c88"/>
-    </pluginProperty>
-    <pluginProperty name="mtanSelfService">
-      <plugin uuidref="263499a6-c1b5-4bc2-8852-0f9e98902170"/>
-    </pluginProperty>
-  </plugin>
   <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.ApplicationConfig" uuid="602eb2b1-5bcf-4e79-9d50-540610763537">
     <pluginProperty name="defaultTargetApplication">
       <plugin uuidref="215d7b35-8b34-404c-a179-6fad4b8701cc"/>
@@ -2855,7 +1326,6 @@
     </pluginProperty>
     <pluginList name="targetApplications">
       <plugin uuidref="e7290557-8e74-474f-b4ab-70195720a1c3"/>
-      <plugin uuidref="66ed2a71-8e7c-4b69-9f69-1c1393d24fcc"/>
       <plugin uuidref="b2b20084-f71e-4329-9100-b9ea53046065"/>
     </pluginList>
   </plugin>
@@ -2869,22 +1339,6 @@
     </pluginProperty>
     <property name="showInPortal">false</property>
     <property name="urlPattern">^portal$</property>
-  </plugin>
-  <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.IdPropagatorTargetApplication" id="Adminer" uuid="66ed2a71-8e7c-4b69-9f69-1c1393d24fcc">
-    <propertyList name="airlockCredentials">
-      <propertyValue>authenticated</propertyValue>
-    </propertyList>
-    <propertyList name="allowedUrls">
-      <propertyValue>/adminer/.*</propertyValue>
-    </propertyList>
-    <property name="defaultUrl">/adminer/?server=@@DB_SERVICE@@&amp;username=@@DB_USER@@&amp;db=@@DB_IAM@@&amp;lang=en</property>
-    <pluginProperty name="identityPropagator">
-      <plugin uuidref="0ac6dc14-d423-429c-85a9-5e55783348a3"/>
-    </pluginProperty>
-    <property name="labelKeyInPortal">portal.app.adminer.label</property>
-    <property name="openInNewWindow">true</property>
-    <property name="portalApplicationGroupId">admintools</property>
-    <property name="urlPattern">/adminer/.*</property>
   </plugin>
   <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.IdPropagatorTargetApplication" id="echo" uuid="b2b20084-f71e-4329-9100-b9ea53046065">
     <propertyList name="allowedUrls">
@@ -2930,61 +1384,11 @@
     <property name="id">admintools</property>
     <property name="titleKey">portal.group.admintools.label</property>
   </plugin>
-  <plugin class="com.airlock.iam.login.application.configuration.EmailChangeVerificationStepConfig" id="E-Mail Verification Step" uuid="d370c25e-5019-4cc3-8491-4b095f1bb110">
-    <pluginProperty name="emailItemDefinition">
-      <plugin uuidref="0647c5c4-1ac7-409c-b26f-e6cec018c707"/>
-    </pluginProperty>
-    <pluginProperty name="emailMessageProvider">
-      <plugin uuidref="d98388fe-e898-475e-9e86-745e23dbb794"/>
-    </pluginProperty>
-    <pluginProperty name="emailProvider">
-      <plugin uuidref="2f569f7b-e318-4d18-b8cd-20a57f16e9a0"/>
-    </pluginProperty>
-    <pluginProperty name="emailService">
-      <plugin uuidref="93988d14-184f-45d4-aaa4-5c2c1af00b5b"/>
-    </pluginProperty>
-    <pluginProperty name="otpGenerator">
-      <plugin uuidref="64872333-15a8-4d6a-8e27-7fea75415e80"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.login.application.configuration.TermsOfServiceStepConfig" id="Terms of Service" uuid="2924df76-538c-4ee1-b3b4-22e84a91d55e">
-    <pluginList name="termsOfServices">
-      <plugin uuidref="d8bd4b6b-6d77-45c8-9d1d-8769441b138c"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.login.application.configuration.devicetoken.DeviceTokenSettings" uuid="f25962c3-c6f1-4656-8473-7dcd08d18503"/>
   <plugin class="com.airlock.iam.login.application.configuration.location.propagate.TargetURIResolverConfig" uuid="ba7862d4-22db-4405-b6d9-bf55f9912fc0">
     <propertyList name="allowedURIs">
       <propertyValue>(^/[^/].*|/)</propertyValue>
     </propertyList>
     <property name="defaultValue">/auth/portal</property>
-  </plugin>
-  <plugin class="com.airlock.iam.login.application.configuration.mtan.BasicMtanSettings" uuid="9f52f8bd-5b52-4b68-8b4d-3102ff0e706e">
-    <pluginProperty name="mtanHandler">
-      <plugin uuidref="f66285e5-7893-48cb-bc91-b944ce52654c"/>
-    </pluginProperty>
-    <property name="originatorName">Airlock</property>
-    <pluginProperty name="smsGateway">
-      <plugin uuidref="955bb007-fd7b-45eb-b16b-6d1ead9c4b29"/>
-    </pluginProperty>
-    <pluginProperty name="tokenGenerator">
-      <plugin uuidref="513bbbde-0df3-47d4-b640-4b5320556512"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.login.application.configuration.mtan.RestMtanSelfManagementConfig" id="mTAN Management" uuid="893097ff-cef2-423b-bb09-886f5331f27b">
-    <property name="allowPhoneNumberChange">true</property>
-    <pluginProperty name="basicSettings">
-      <plugin uuidref="9f52f8bd-5b52-4b68-8b4d-3102ff0e706e"/>
-    </pluginProperty>
-    <property name="visiblePhoneNumberDigits">5</property>
-  </plugin>
-  <plugin class="com.airlock.iam.login.application.configuration.secretquestions.BasicSecretQuestionSettings" uuid="e09ee155-5d3d-473c-932a-6f824f76ee7e">
-    <propertyList name="questionResourceKeys">
-      <propertyValue>secretquestion.pet</propertyValue>
-      <propertyValue>secretquestion.mother</propertyValue>
-      <propertyValue>secretquestion.teacher</propertyValue>
-      <propertyValue>secretquestion.friend</propertyValue>
-    </propertyList>
   </plugin>
   <plugin class="com.airlock.iam.login.application.configuration.targetapp.ApplicationConfig" id="Extended Application" uuid="7557eec6-6c36-4769-9f6d-bbc8e093b377">
     <pluginProperty name="authenticationFlow">
@@ -3038,14 +1442,6 @@
   </plugin>
   <plugin class="com.airlock.iam.login.application.configuration.targetapp.UserRolesProviderConfig" uuid="6af9773c-1081-4754-a038-390dbb5c2189"/>
   <plugin class="com.airlock.iam.login.misc.oneshot.SSOCredentialAuthenticator" id="Cookie Ticket Authenticator" uuid="090acc94-84af-4f41-b768-04ca5cc22055"/>
-  <plugin class="com.airlock.iam.login.misc.plugin.MaintenanceMessageConfig" id="Maintenance Message Settings" uuid="b90dcee8-e3dc-4319-b3bc-1fb5a85ae62f">
-    <pluginProperty name="messageService">
-      <plugin uuidref="be477dab-0781-44fb-89b8-9da5a66f99aa"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.login.rest.application.configuration.CrontoSelfServiceRestConfig" id="REST Cronto Self Service" uuid="ae9e3231-510f-4713-af3e-88b15836dae6">
-    <property name="userCanOrderAdditionalLetter">true</property>
-  </plugin>
   <plugin class="com.airlock.iam.login.rest.application.configuration.LoginappRestConfig" id="Loginapp REST API" uuid="b969c373-e53f-4234-93e2-1c52b0acc6c5">
     <pluginProperty name="accessController">
       <plugin uuidref="2c18bfa0-a066-42c0-8a0c-7a9b6347dcb5"/>
@@ -3061,83 +1457,17 @@
       <plugin uuidref="5e478f8a-d129-4b58-9487-cd940bd98dc6"/>
     </pluginProperty>
     <property name="hmacKey">J1P1j8VWpVA5/x+W00OU/Bw3ARUg1nSp639EREr2nbsYD5Rxzwu8lXuxjfhiRUuMbAuo5ox950ZIBlMe6ycqmw==</property>
-    <pluginProperty name="maintenanceMessageConfig">
-      <plugin uuidref="b90dcee8-e3dc-4319-b3bc-1fb5a85ae62f"/>
-    </pluginProperty>
     <pluginProperty name="requestCredentialPolicy">
       <plugin uuidref="025ab856-5262-4163-9e4b-cf325a1bdad0"/>
-    </pluginProperty>
-    <pluginProperty name="techClientRegistration">
-      <plugin uuidref="db4ef744-a313-4fa9-a1c5-8fe1701e6151"/>
     </pluginProperty>
     <pluginProperty name="ui">
       <plugin uuidref="20905f4b-85aa-445b-a7ca-5f7eea1875ac"/>
     </pluginProperty>
-    <pluginProperty name="userProvisioningConfig">
-      <plugin uuidref="684f63fb-c606-4892-a355-42e552c5947b"/>
-    </pluginProperty>
     <pluginProperty name="userStoreProvider">
       <plugin uuidref="6a76be1e-94af-4a57-9837-ef7e4e15b7af"/>
     </pluginProperty>
-    <pluginProperty name="userTokenConfig">
-      <plugin uuidref="a815a26e-149a-4e21-9885-f402c20a1604"/>
-    </pluginProperty>
     <pluginProperty name="wafConfig">
       <plugin uuidref="96252446-240e-4321-afc7-53796b0ed76d"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.login.rest.application.configuration.UserProvisioningConfig" id="Loginapp REST User Provisioning" uuid="684f63fb-c606-4892-a355-42e552c5947b">
-    <pluginProperty name="airlock2FADeviceListSelfService">
-      <plugin uuidref="2ccdc80a-b409-491e-813f-f83ae05de33c"/>
-    </pluginProperty>
-    <pluginProperty name="crontoSelfServiceConfig">
-      <plugin uuidref="ae9e3231-510f-4713-af3e-88b15836dae6"/>
-    </pluginProperty>
-    <pluginProperty name="flowBasedUserSelfRegConfig">
-      <plugin uuidref="0e714f01-b683-46c2-a635-1568b0f0e7df"/>
-    </pluginProperty>
-    <pluginProperty name="mtanSelfManagementConfig">
-      <plugin uuidref="893097ff-cef2-423b-bb09-886f5331f27b"/>
-    </pluginProperty>
-    <pluginProperty name="passwordResetConfig">
-      <plugin uuidref="2f4b92c1-1465-47d6-a983-8d1b2d558c42"/>
-    </pluginProperty>
-    <pluginProperty name="passwordSettings">
-      <plugin uuidref="2c362f77-b400-4367-bf89-2d5d571b00d1"/>
-    </pluginProperty>
-    <pluginProperty name="selfServiceFlows">
-      <plugin uuidref="f99485f5-53fa-46aa-ad57-e0013aa5a3a8"/>
-    </pluginProperty>
-    <pluginProperty name="userSelfInformationConfig">
-      <plugin uuidref="30e75040-58ae-481a-88b6-f17e62e1fdf5"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.login.rest.application.configuration.UserSelfInformationConfig" uuid="30e75040-58ae-481a-88b6-f17e62e1fdf5">
-    <pluginList name="defaultContextData">
-      <plugin uuidref="25e7a7ad-f996-4bf3-9d7a-e38d295c01dd"/>
-      <plugin uuidref="288c3d36-f456-4b98-bd1a-9e574dc43f42"/>
-      <plugin uuidref="cfd6b0b2-728f-4558-a7ee-9d926c54b8b8"/>
-      <plugin uuidref="5f75f26f-cef2-4637-b021-b80c6663e39f"/>
-      <plugin uuidref="fd06a297-7188-4f3d-be1e-523c510570aa"/>
-      <plugin uuidref="4ed0fdab-e459-43a4-86ea-be9b966fbb63"/>
-      <plugin uuidref="8c4148a4-b738-4e10-ad52-79f9c77d448c"/>
-      <plugin uuidref="628ae655-c643-4207-9a75-e315bc53abca"/>
-      <plugin uuidref="9cf2d99f-c519-493a-94f9-d20234160665"/>
-      <plugin uuidref="1c6baeec-0732-411d-a2a9-58795f901833"/>
-      <plugin uuidref="1e6030ee-06f2-4a01-9b5c-dc9560cd8b58"/>
-      <plugin uuidref="8ee5e32b-6626-45f4-b1fe-9b080401db81"/>
-      <plugin uuidref="3873a70d-2791-4980-8053-12b11c141d96"/>
-      <plugin uuidref="cd479cfa-5b62-427c-a97c-22ae37ae9773"/>
-      <plugin uuidref="62212726-0397-4132-9aae-9940a59b0323"/>
-      <plugin uuidref="96a79cc2-4826-491a-b454-0e07bf4b5510"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.login.rest.application.configuration.UserTokenConfig" id="User Token Settings" uuid="a815a26e-149a-4e21-9885-f402c20a1604">
-    <pluginProperty name="deviceRegistrationSettings">
-      <plugin uuidref="f25962c3-c6f1-4656-8473-7dcd08d18503"/>
-    </pluginProperty>
-    <pluginProperty name="secretQuestionsSettings">
-      <plugin uuidref="612bf9ee-b52a-4495-97e6-7f73135c5a4f"/>
     </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.login.rest.application.configuration.auth.RestAuthenticationConfig" uuid="5e478f8a-d129-4b58-9487-cd940bd98dc6">
@@ -3155,14 +1485,8 @@
     <pluginProperty name="authenticationUi">
       <plugin uuidref="8adb552d-04bc-43bd-9efd-da2053e8ad69"/>
     </pluginProperty>
-    <pluginProperty name="passwordResetUi">
-      <plugin uuidref="f5df779e-22ed-48a6-b262-01bb88571f84"/>
-    </pluginProperty>
     <pluginProperty name="selfServiceUi">
       <plugin uuidref="50452fff-b076-4ef4-9cf0-787e24401b25"/>
-    </pluginProperty>
-    <pluginProperty name="userSelfRegUi">
-      <plugin uuidref="8d85b3cc-5eed-4763-8ea7-aa01f0579a6b"/>
     </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.login.rest.application.configuration.ui.authentication.AuthenticationUiConfig" id="Demo Authentication Flow UI" uuid="e4d340ab-bc10-4a2b-8376-bbbfaea64561">
@@ -3182,556 +1506,11 @@
     </pluginList>
   </plugin>
   <plugin class="com.airlock.iam.login.rest.application.configuration.ui.authentication.PasswordAuthenticationStepUiConfig" id="Password Page with Links" uuid="7358849e-c98d-4609-a8a6-9cfca00a9baf">
-    <pluginProperty name="passwordResetLink">
-      <plugin uuidref="bfd53624-c46e-4e46-b63d-fa50312cee52"/>
-    </pluginProperty>
     <pluginProperty name="stepId">
       <plugin uuidref="a29f520f-a7f0-48bc-8efd-a4bdbc5cada3"/>
     </pluginProperty>
-    <pluginProperty name="userSelfRegistrationLink">
-      <plugin uuidref="47a31611-be16-4336-b144-9fdea6623ab5"/>
-    </pluginProperty>
   </plugin>
-  <plugin class="com.airlock.iam.login.rest.application.configuration.ui.authentication.logout.AuthFlowRedirectTargetConfig" id="Redirect to &quot;Demo&quot; Auth Flow" uuid="ea59c28d-ea4b-413c-b27f-86a579a1a5bf">
-    <pluginProperty name="applicationId">
-      <plugin uuidref="fa470fb6-e80a-479d-b5c1-71a96764921d"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.passwordreset.application.configuration.flow.PasswordResetFlowConfig" uuid="dbfe410c-1f78-41f2-9de4-f45a1fa41bb2">
-    <pluginList name="steps">
-      <plugin uuidref="6e7303e0-8fa9-4109-a6e5-226961cb60c9"/>
-      <plugin uuidref="25c7660b-f340-4a90-937e-23975c5cdd46"/>
-      <plugin uuidref="94fcf754-a053-42af-943a-37d4c87af0ac"/>
-      <plugin uuidref="dc56c438-e7c7-4464-b790-6ef748889536"/>
-    </pluginList>
-    <pluginList name="usernameTransformers">
-      <plugin uuidref="a5d35098-3d3f-43eb-9394-142ec4692598"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.passwordreset.application.configuration.selection.SelectionOptionConfigForPasswordResetFlows" id="Factor &quot;mTAN&quot;" uuid="85cf242b-8cef-4f86-ac57-9777cd748eaa">
-    <pluginProperty name="condition">
-      <plugin uuidref="1e48526d-5d4e-441a-bcf7-aa99ae5b2ae8"/>
-    </pluginProperty>
-    <property name="name">MTAN</property>
-    <pluginList name="steps">
-      <plugin uuidref="99359e5b-89f3-4955-8cac-a9c4e60a9f5e"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.passwordreset.application.configuration.selection.SelectionOptionConfigForPasswordResetFlows" id="Factor &quot;Cronto&quot;" uuid="9d5e9980-f399-4300-a326-7394a862c27c">
-    <pluginProperty name="condition">
-      <plugin uuidref="7da2604f-5fd0-4449-a926-2984781edc67"/>
-    </pluginProperty>
-    <property name="name">CRONTO</property>
-    <pluginList name="steps">
-      <plugin uuidref="347634db-52ab-450f-a5eb-4f8722137475"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.passwordreset.application.configuration.steps.EmailIdentityVerificationStepConfig" id="E-Mail Identity VerificationStep" uuid="25c7660b-f340-4a90-937e-23975c5cdd46">
-    <pluginProperty name="emailContextData">
-      <plugin uuidref="288c3d36-f456-4b98-bd1a-9e574dc43f42"/>
-    </pluginProperty>
-    <pluginProperty name="emailService">
-      <plugin uuidref="93988d14-184f-45d4-aaa4-5c2c1af00b5b"/>
-    </pluginProperty>
-    <pluginProperty name="otpGenerator">
-      <plugin uuidref="64872333-15a8-4d6a-8e27-7fea75415e80"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.passwordreset.application.configuration.steps.PasswordResetCrontoFactorStepConfig" uuid="347634db-52ab-450f-a5eb-4f8722137475">
-    <pluginProperty name="messageProvider">
-      <plugin uuidref="2a1c6127-4330-46e1-b36e-6037c1d2aaf4"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.passwordreset.application.configuration.steps.PasswordResetMtanFactorStepConfig" uuid="99359e5b-89f3-4955-8cac-a9c4e60a9f5e">
-    <pluginProperty name="messageProvider">
-      <plugin uuidref="b7f71a71-cab9-489a-ac08-1f30df8943ab"/>
-    </pluginProperty>
-    <pluginProperty name="mtanAuthenticationConfig">
-      <plugin uuidref="ac9b4cfb-db19-458a-873b-4febf6646149"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.passwordreset.application.configuration.steps.PasswordResetSetPasswordStepConfig" id="Password Reset Set Password Step" uuid="dc56c438-e7c7-4464-b790-6ef748889536">
-    <pluginProperty name="passwordPolicy">
-      <plugin uuidref="658b3b83-f638-45ff-a433-1e130c847e0c"/>
-    </pluginProperty>
-    <pluginProperty name="passwordRepository">
-      <plugin uuidref="5c54b2e6-287c-4118-a5b6-d64e8d4caf36"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.passwordreset.application.configuration.steps.PasswordResetUserIdentifyingStepConfig" id="Password Reset User Identification Step" uuid="6e7303e0-8fa9-4109-a6e5-226961cb60c9"/>
-  <plugin class="com.airlock.iam.passwordreset.application.configuration.steps.SelectionStepConfigForPasswordResetFlows" id="Factor Check Selection" uuid="94fcf754-a053-42af-943a-37d4c87af0ac">
-    <pluginList name="availableOptions">
-      <plugin uuidref="9d5e9980-f399-4300-a326-7394a862c27c"/>
-      <plugin uuidref="85cf242b-8cef-4f86-ac57-9777cd748eaa"/>
-    </pluginList>
-    <pluginList name="fallbackFlow">
-      <plugin uuidref="d523cd17-0234-4426-a667-d480f97d8eb5"/>
-    </pluginList>
-    <pluginProperty name="stepId">
-      <plugin uuidref="7eb8c8ed-77b3-4409-8db4-af86fa37d323"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.passwordreset.rest.application.configuration.PasswordResetRestConfig" uuid="2f4b92c1-1465-47d6-a983-8d1b2d558c42">
-    <pluginProperty name="defaultFlow">
-      <plugin uuidref="dbfe410c-1f78-41f2-9de4-f45a1fa41bb2"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.passwordreset.rest.application.configuration.ui.PasswordResetUiConfig" id="Password Reset Flow UI" uuid="f5df779e-22ed-48a6-b262-01bb88571f84">
-    <pluginProperty name="maintenanceMessageUiSettings">
-      <plugin uuidref="7abc2f86-b438-42d4-8a85-1bf3c952ea30"/>
-    </pluginProperty>
-    <pluginProperty name="target">
-      <plugin uuidref="ea59c28d-ea4b-413c-b27f-86a579a1a5bf"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.flow.DefaultMtanRegistrationFlowConfig" id="mTAN Registration Flow" uuid="7081d315-1ea6-41df-b751-3db802277237">
-    <pluginProperty name="id">
-      <plugin uuidref="a171af30-9d1e-4c89-b7b2-162c09d84c8b"/>
-    </pluginProperty>
-    <property name="labelKey">mtanLabel</property>
-    <pluginProperty name="messageProvider">
-      <plugin uuidref="e92a33fa-32a2-47aa-8a3f-90367d7fac65"/>
-    </pluginProperty>
-    <pluginProperty name="mtanSettings">
-      <plugin uuidref="ac9b4cfb-db19-458a-873b-4febf6646149"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.flow.DefaultSelfServiceFlowConfig" id="Address Change Flow" uuid="5bbf92ab-8dfb-463b-8d8a-3d8b483a8e49">
-    <pluginProperty name="id">
-      <plugin uuidref="90bfe588-0531-4931-92ac-041bfedc93a8"/>
-    </pluginProperty>
-    <pluginList name="steps">
-      <plugin uuidref="9402f8f2-a5af-433a-8ae0-e8c13f50bf10"/>
-      <plugin uuidref="189377e8-d913-4fed-a2b7-b78ed5955c30"/>
-      <plugin uuidref="ae8f1e13-7482-4de9-b63d-aeec9743df51"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.flow.DefaultSelfServiceFlowConfig" id="E-Mail Address Change Flow" uuid="86ced454-4e1c-4349-9503-652b188c5a20">
-    <pluginProperty name="id">
-      <plugin uuidref="4de73a46-ad86-4ecd-b609-5d1cf1788fdf"/>
-    </pluginProperty>
-    <pluginList name="steps">
-      <plugin uuidref="d200cb4a-4862-4838-8871-ad3b7ed9ed1e"/>
-      <plugin uuidref="d370c25e-5019-4cc3-8491-4b095f1bb110"/>
-      <plugin uuidref="630eb232-b51e-4432-8db4-d6fb2cde4bf5"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.flow.DefaultSelfServiceFlowConfig" id="Airlock 2FA Change Device Name Flow" uuid="90352a92-4dc4-4c25-99b4-e5a51fd26850">
-    <pluginProperty name="id">
-      <plugin uuidref="cc4c8ef5-b318-46a9-a1e9-93ade822d171"/>
-    </pluginProperty>
-    <pluginList name="steps">
-      <plugin uuidref="988b336e-ae94-4499-8150-00dad213a047"/>
-      <plugin uuidref="dd182e24-1adc-4309-b6fe-d89bc348e79e"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.flow.DefaultSelfServiceFlowConfig" id="Airlock 2FA Activate App Device Flow" uuid="c9e85e19-5cfc-4c80-9e16-b4058c95f8c0">
-    <pluginProperty name="id">
-      <plugin uuidref="99ab3df5-e6b7-4070-84b4-757f690c7dac"/>
-    </pluginProperty>
-    <pluginList name="steps">
-      <plugin uuidref="31adca02-a41e-46b4-8466-7e8be80c8547"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.flow.DefaultSelfServiceFlowConfig" id="Airlock 2FA Delete Device Flow" uuid="d74d324e-3f62-4370-9bc3-702d6a46df58">
-    <pluginProperty name="id">
-      <plugin uuidref="27997ad3-b54d-4d3b-9749-8da30a26f694"/>
-    </pluginProperty>
-    <pluginList name="steps">
-      <plugin uuidref="4b0ccaba-ca52-4fdb-8f9b-45218f720757"/>
-      <plugin uuidref="13911077-5324-40b0-b7fe-c9b44a061ede"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.message.UserDataEditValueMapProviderConfig" uuid="618e5ab6-f5f1-4e35-bf69-48e8d5ab6b91"/>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.selection.SelectionOptionConfigForSelfServiceFlows" id="User Data Edit Approval with mTAN" uuid="03d45b8c-143f-49fb-8ea6-35a06c909624">
-    <pluginProperty name="condition">
-      <plugin uuidref="1e48526d-5d4e-441a-bcf7-aa99ae5b2ae8"/>
-    </pluginProperty>
-    <property name="name">MTAN</property>
-    <pluginList name="steps">
-      <plugin uuidref="f2fb05f3-5720-47ae-8bf7-caac7e62d11f"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.selection.SelectionOptionConfigForSelfServiceFlows" id="User Data Edit Approval with Cronto" uuid="40d28eb2-1c28-4726-9669-e2e91e21b89c">
-    <pluginProperty name="condition">
-      <plugin uuidref="7da2604f-5fd0-4449-a926-2984781edc67"/>
-    </pluginProperty>
-    <property name="name">CRONTO</property>
-    <pluginList name="steps">
-      <plugin uuidref="5ca02e2a-75f7-4937-9f4e-1fe7826a00a8"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.selection.SelectionOptionConfigForSelfServiceFlows" id="User Data Edit Approval with Other Auth Methods" uuid="7682644e-1dc1-4f0c-a4e2-c07ce4ebaea0">
-    <pluginProperty name="condition">
-      <plugin uuidref="54dd6db4-ed5d-4929-b473-96d83fbe8f05"/>
-    </pluginProperty>
-    <property name="name">OTHER</property>
-    <pluginList name="steps">
-      <plugin uuidref="d523cd17-0234-4426-a667-d480f97d8eb5"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.step.CrontoSelfServiceApprovalStepConfig" uuid="5ca02e2a-75f7-4937-9f4e-1fe7826a00a8">
-    <pluginProperty name="messageProvider">
-      <plugin uuidref="854e8e11-c9fd-40b1-9acf-a2d21cf6acf0"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.step.MtanSelfServiceApprovalStepConfig" uuid="f2fb05f3-5720-47ae-8bf7-caac7e62d11f">
-    <pluginProperty name="messageProvider">
-      <plugin uuidref="b1d18a0f-f192-4261-afe2-6e74ea2036ee"/>
-    </pluginProperty>
-    <pluginProperty name="mtanAuthenticationConfig">
-      <plugin uuidref="ac9b4cfb-db19-458a-873b-4febf6646149"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.step.MtanVerificationStepConfig" id="mTAN Verification with IAK Step" uuid="12e5c44b-dbb0-4f85-b6ba-7b3697804432">
-    <pluginProperty name="messageProvider">
-      <plugin uuidref="e92a33fa-32a2-47aa-8a3f-90367d7fac65"/>
-    </pluginProperty>
-    <pluginProperty name="mtanSettings">
-      <plugin uuidref="ac9b4cfb-db19-458a-873b-4febf6646149"/>
-    </pluginProperty>
-    <pluginProperty name="phoneNumberProvider">
-      <plugin uuidref="6f0fcfb2-10b0-49d3-82cb-7c632d509d86"/>
-    </pluginProperty>
-    <pluginList name="tagsOnSuccess">
-      <plugin uuidref="9478b495-a157-4bd0-8d8a-ce90b41d023d"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.step.MtanVerificationStepConfig" id="mTAN Verification Step" uuid="c3b17163-518e-442b-9665-4c475991a3f1">
-    <property name="iakVerificationRequired">false</property>
-    <pluginProperty name="messageProvider">
-      <plugin uuidref="e92a33fa-32a2-47aa-8a3f-90367d7fac65"/>
-    </pluginProperty>
-    <pluginProperty name="mtanSettings">
-      <plugin uuidref="ac9b4cfb-db19-458a-873b-4febf6646149"/>
-    </pluginProperty>
-    <pluginProperty name="phoneNumberProvider">
-      <plugin uuidref="6f0fcfb2-10b0-49d3-82cb-7c632d509d86"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.step.SelectionStepConfigForSelfServiceFlows" id="Selection for User Data Edit Approval" uuid="189377e8-d913-4fed-a2b7-b78ed5955c30">
-    <pluginList name="availableOptions">
-      <plugin uuidref="40d28eb2-1c28-4726-9669-e2e91e21b89c"/>
-      <plugin uuidref="03d45b8c-143f-49fb-8ea6-35a06c909624"/>
-      <plugin uuidref="7682644e-1dc1-4f0c-a4e2-c07ce4ebaea0"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.step.UserDataEditStepConfig" id="Edit Address Step" uuid="9402f8f2-a5af-433a-8ae0-e8c13f50bf10">
-    <pluginProperty name="stepId">
-      <plugin uuidref="06e3bc37-49d5-45ac-88f0-11bff0d7da51"/>
-    </pluginProperty>
-    <pluginList name="userDataItems">
-      <plugin uuidref="1c0b7c64-d4fc-4c6a-9da1-a2ae882efc94"/>
-      <plugin uuidref="87474d6f-378f-4c7a-a59a-8b5e9c4f1a5a"/>
-      <plugin uuidref="b30cfa29-cd85-47c4-ad92-c81a86875c13"/>
-      <plugin uuidref="8b35f027-d7c8-4a42-9b84-f3c600700284"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.step.UserDataEditStepConfig" id="Edit E-Mail Address Step" uuid="d200cb4a-4862-4838-8871-ad3b7ed9ed1e">
-    <pluginProperty name="stepId">
-      <plugin uuidref="9f10dc4e-2ecc-4062-95ae-fe4e036b4e35"/>
-    </pluginProperty>
-    <pluginList name="userDataItems">
-      <plugin uuidref="0647c5c4-1ac7-409c-b26f-e6cec018c707"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.step.UserDataEditStepConfig" id="mTAN Number Registration Step" uuid="e6da0ebd-707f-4598-ae65-3e92c5ea149f">
-    <pluginProperty name="stepId">
-      <plugin uuidref="344dca26-2290-4040-a9d5-a8a97a4d9dcf"/>
-    </pluginProperty>
-    <pluginList name="userDataItems">
-      <plugin uuidref="2a68892a-d0d8-4fb2-9059-7668218a4cc2"/>
-      <plugin uuidref="fb2827c9-724d-4315-8c9f-f537cd68e8e0"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.step.apply.ApplyChangesStepConfig" id="Persist Airlock 2FA Delete Device Initiation Step" uuid="13911077-5324-40b0-b7fe-c9b44a061ede">
-    <pluginList name="handlers">
-      <plugin uuidref="11467ba9-c787-4045-94c1-0d2ed457ce8d"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.step.apply.ApplyChangesStepConfig" id="Persist E-Mail Address Step" uuid="630eb232-b51e-4432-8db4-d6fb2cde4bf5">
-    <pluginList name="handlers">
-      <plugin uuidref="80fccdb8-a2f1-4b3e-9f05-ab23c6e60921"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.step.apply.ApplyChangesStepConfig" id="Persist mTAN Number Step" uuid="7f9334a2-c7d4-4c85-8afd-ec6f1f3a0705">
-    <pluginList name="handlers">
-      <plugin uuidref="61cd1d42-a402-41bd-928b-04c221b2cd8c"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.step.apply.ApplyChangesStepConfig" id="Persist Address Change Step" uuid="ae8f1e13-7482-4de9-b63d-aeec9743df51">
-    <pluginList name="handlers">
-      <plugin uuidref="1974b45c-6491-4bc4-a486-0184bbc7d09b"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.step.apply.ApplyChangesStepConfig" id="Persist Airlock 2FA Device Edit Initiation Step" uuid="dd182e24-1adc-4309-b6fe-d89bc348e79e">
-    <pluginList name="handlers">
-      <plugin uuidref="ebff4ff1-3621-4069-ba05-c81e0fbaf306"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.application.configuration.step.apply.ApplyUserDataEditChangeConfig" uuid="1974b45c-6491-4bc4-a486-0184bbc7d09b"/>
-  <plugin class="com.airlock.iam.selfservice.rest.application.configuration.SelfServiceRestConfig" uuid="f99485f5-53fa-46aa-ad57-e0013aa5a3a8">
-    <pluginList name="flows">
-      <plugin uuidref="c9e85e19-5cfc-4c80-9e16-b4058c95f8c0"/>
-      <plugin uuidref="90352a92-4dc4-4c25-99b4-e5a51fd26850"/>
-      <plugin uuidref="d74d324e-3f62-4370-9bc3-702d6a46df58"/>
-      <plugin uuidref="5bbf92ab-8dfb-463b-8d8a-3d8b483a8e49"/>
-      <plugin uuidref="86ced454-4e1c-4349-9503-652b188c5a20"/>
-      <plugin uuidref="7081d315-1ea6-41df-b751-3db802277237"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.rest.application.configuration.ui.SelfServiceUiConfig" id="mTAN Registration Flow UI" uuid="122bda92-1deb-43dc-ad84-83ac8267c42b">
-    <pluginProperty name="cancellationTarget">
-      <plugin uuidref="ea59c28d-ea4b-413c-b27f-86a579a1a5bf"/>
-    </pluginProperty>
-    <pluginProperty name="completionTarget">
-      <plugin uuidref="ea59c28d-ea4b-413c-b27f-86a579a1a5bf"/>
-    </pluginProperty>
-    <pluginProperty name="flowId">
-      <plugin uuidref="a171af30-9d1e-4c89-b7b2-162c09d84c8b"/>
-    </pluginProperty>
-    <pluginProperty name="maintenanceMessageUiSettings">
-      <plugin uuidref="7abc2f86-b438-42d4-8a85-1bf3c952ea30"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.rest.application.configuration.ui.SelfServiceUiConfig" id="E-Mail Address Change Flow UI" uuid="69eefee7-cb5c-4aad-99d4-e1ffeaebf477">
-    <pluginProperty name="cancellationTarget">
-      <plugin uuidref="ea59c28d-ea4b-413c-b27f-86a579a1a5bf"/>
-    </pluginProperty>
-    <pluginProperty name="completionTarget">
-      <plugin uuidref="ea59c28d-ea4b-413c-b27f-86a579a1a5bf"/>
-    </pluginProperty>
-    <pluginProperty name="flowId">
-      <plugin uuidref="4de73a46-ad86-4ecd-b609-5d1cf1788fdf"/>
-    </pluginProperty>
-    <pluginProperty name="maintenanceMessageUiSettings">
-      <plugin uuidref="7abc2f86-b438-42d4-8a85-1bf3c952ea30"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.rest.application.configuration.ui.SelfServiceUiConfig" id="Address Change Flow UI" uuid="80b87781-3441-49a6-89bd-52fb9d372546">
-    <pluginProperty name="cancellationTarget">
-      <plugin uuidref="ea59c28d-ea4b-413c-b27f-86a579a1a5bf"/>
-    </pluginProperty>
-    <pluginProperty name="completionTarget">
-      <plugin uuidref="ea59c28d-ea4b-413c-b27f-86a579a1a5bf"/>
-    </pluginProperty>
-    <pluginProperty name="flowId">
-      <plugin uuidref="90bfe588-0531-4931-92ac-041bfedc93a8"/>
-    </pluginProperty>
-    <pluginProperty name="maintenanceMessageUiSettings">
-      <plugin uuidref="7abc2f86-b438-42d4-8a85-1bf3c952ea30"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.rest.application.configuration.ui.SelfServiceUiConfig" id="Airlock 2FA Delete Device Flow UI" uuid="a476cf57-649b-40fc-a933-4d5462b4bb87">
-    <pluginProperty name="cancellationTarget">
-      <plugin uuidref="081be6c4-cdc5-4802-8d6e-0800d4c01545"/>
-    </pluginProperty>
-    <pluginProperty name="completionTarget">
-      <plugin uuidref="081be6c4-cdc5-4802-8d6e-0800d4c01545"/>
-    </pluginProperty>
-    <pluginProperty name="flowId">
-      <plugin uuidref="27997ad3-b54d-4d3b-9749-8da30a26f694"/>
-    </pluginProperty>
-    <pluginProperty name="maintenanceMessageUiSettings">
-      <plugin uuidref="7abc2f86-b438-42d4-8a85-1bf3c952ea30"/>
-    </pluginProperty>
-    <pluginProperty name="target">
-      <plugin uuidref="081be6c4-cdc5-4802-8d6e-0800d4c01545"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.rest.application.configuration.ui.SelfServiceUiConfig" id="Airlock 2FA Change Device Name Flow UI" uuid="a7e16609-b10b-4033-a187-9e95c8a0a4dd">
-    <pluginProperty name="cancellationTarget">
-      <plugin uuidref="081be6c4-cdc5-4802-8d6e-0800d4c01545"/>
-    </pluginProperty>
-    <pluginProperty name="completionTarget">
-      <plugin uuidref="081be6c4-cdc5-4802-8d6e-0800d4c01545"/>
-    </pluginProperty>
-    <pluginProperty name="flowId">
-      <plugin uuidref="cc4c8ef5-b318-46a9-a1e9-93ade822d171"/>
-    </pluginProperty>
-    <pluginProperty name="maintenanceMessageUiSettings">
-      <plugin uuidref="7abc2f86-b438-42d4-8a85-1bf3c952ea30"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.rest.application.configuration.ui.SelfServiceUiConfig" id="Airlock 2FA Activate App Device Flow UI" uuid="cb803b29-d0c0-4062-88e7-9c5a10e29ab9">
-    <pluginProperty name="cancellationTarget">
-      <plugin uuidref="081be6c4-cdc5-4802-8d6e-0800d4c01545"/>
-    </pluginProperty>
-    <pluginProperty name="completionTarget">
-      <plugin uuidref="081be6c4-cdc5-4802-8d6e-0800d4c01545"/>
-    </pluginProperty>
-    <pluginProperty name="flowId">
-      <plugin uuidref="99ab3df5-e6b7-4070-84b4-757f690c7dac"/>
-    </pluginProperty>
-    <pluginProperty name="maintenanceMessageUiSettings">
-      <plugin uuidref="7abc2f86-b438-42d4-8a85-1bf3c952ea30"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.rest.application.configuration.ui.SelfServiceUiConfigs" id="Protected Self-Service Flow UIs" uuid="50452fff-b076-4ef4-9cf0-787e24401b25">
-    <pluginProperty name="airlock2Fa">
-      <plugin uuidref="ee240217-8310-4f6e-a06f-9bcf9fac0a11"/>
-    </pluginProperty>
-    <pluginList name="flowUis">
-      <plugin uuidref="cb803b29-d0c0-4062-88e7-9c5a10e29ab9"/>
-      <plugin uuidref="a7e16609-b10b-4033-a187-9e95c8a0a4dd"/>
-      <plugin uuidref="a476cf57-649b-40fc-a933-4d5462b4bb87"/>
-      <plugin uuidref="80b87781-3441-49a6-89bd-52fb9d372546"/>
-      <plugin uuidref="69eefee7-cb5c-4aad-99d4-e1ffeaebf477"/>
-      <plugin uuidref="122bda92-1deb-43dc-ad84-83ac8267c42b"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.selfservice.rest.application.configuration.ui.tokens.Airlock2FADeviceManagementFlowRedirectTargetConfig" uuid="081be6c4-cdc5-4802-8d6e-0800d4c01545"/>
-  <plugin class="com.airlock.iam.selfservice.rest.application.configuration.ui.tokens.Airlock2FADeviceManagementUiConfig" uuid="ee240217-8310-4f6e-a06f-9bcf9fac0a11">
-    <pluginProperty name="flowToActivateAppDevice">
-      <plugin uuidref="99ab3df5-e6b7-4070-84b4-757f690c7dac"/>
-    </pluginProperty>
-    <pluginProperty name="flowToChangeDisplayName">
-      <plugin uuidref="cc4c8ef5-b318-46a9-a1e9-93ade822d171"/>
-    </pluginProperty>
-    <pluginProperty name="flowToDeleteDevice">
-      <plugin uuidref="27997ad3-b54d-4d3b-9749-8da30a26f694"/>
-    </pluginProperty>
-    <pluginProperty name="targetOnExitPage">
-      <plugin uuidref="ea59c28d-ea4b-413c-b27f-86a579a1a5bf"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.techclient.application.configuration.TechClientRepositoryConfig" uuid="2191ce54-e785-40c3-9683-38cd29b9d14d">
-    <pluginProperty name="cipher">
-      <plugin uuidref="9c0ed6c9-1d78-44b7-85f3-353bca5d4c15"/>
-    </pluginProperty>
-    <pluginProperty name="sqlDataSource">
-      <plugin uuidref="f0d2a309-8eb4-4574-a622-503d6e5f47be"/>
-    </pluginProperty>
-    <pluginProperty name="storageEncryptionConfig">
-      <plugin uuidref="37819d39-c997-4f2d-8883-d0684d75ad86"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.techclientreg.application.configuration.TechClientRegFlowConfig" uuid="1db9e3c7-0fc6-4de6-9ac5-07cf12733cf8">
-    <pluginList name="steps">
-      <plugin uuidref="f068b328-b5d7-4abf-a30e-759211599ea4"/>
-      <plugin uuidref="ad1dca91-31bd-49ec-860d-3ad2efc0cbe5"/>
-      <plugin uuidref="951ee8a0-051d-403f-a15c-e581fde7c2ba"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.techclientreg.application.configuration.step.CertificateCredentialExtractionStepConfig" uuid="f068b328-b5d7-4abf-a30e-759211599ea4">
-    <property name="certificateRequired">false</property>
-  </plugin>
-  <plugin class="com.airlock.iam.techclientreg.application.configuration.step.OAuth2ClientPersistingStepConfig" uuid="951ee8a0-051d-403f-a15c-e581fde7c2ba"/>
-  <plugin class="com.airlock.iam.techclientreg.application.configuration.step.OAuth2ClientRegistrationStepConfig" uuid="ad1dca91-31bd-49ec-860d-3ad2efc0cbe5"/>
-  <plugin class="com.airlock.iam.techclientreg.rest.application.configuration.TechClientRegistrationRestConfig" uuid="db4ef744-a313-4fa9-a1c5-8fe1701e6151">
-    <pluginProperty name="defaultFlow">
-      <plugin uuidref="1db9e3c7-0fc6-4de6-9ac5-07cf12733cf8"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.userselfreg.application.configuration.definition.AliasDefinitionConfig" id="E-Mail Alias Data Item" uuid="a87932f8-233e-4e94-bf97-a173ebab4601">
-    <pluginProperty name="contextDataName">
-      <plugin uuidref="288c3d36-f456-4b98-bd1a-9e574dc43f42"/>
-    </pluginProperty>
-    <pluginList name="validators">
-      <plugin uuidref="30907bb0-0984-404d-a5be-8d6f380fed15"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.userselfreg.application.configuration.definition.PasswordDefinitionConfig" id="Password Data Item" uuid="8dd17571-d820-4909-8f5b-7bd9fe9dd2b7">
-    <pluginProperty name="passwordPolicy">
-      <plugin uuidref="658b3b83-f638-45ff-a433-1e130c847e0c"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.userselfreg.application.configuration.definition.UsernameDefinitionConfig" id="Username Data Item" uuid="d2c53e5d-f7e1-48bb-a71f-e574ac488b35">
-    <pluginList name="validators">
-      <plugin uuidref="41102864-0f80-4018-9c1f-15a52788baeb"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.userselfreg.application.configuration.flow.UserSelfRegFlowConfig" id="User Self-Registration Flow" uuid="fb1d639e-829c-432a-a654-fdf785959a36">
-    <property name="enableStealthMode">true</property>
-    <pluginProperty name="id">
-      <plugin uuidref="0a00e7ac-03c8-4805-9f25-5e9beb0a7267"/>
-    </pluginProperty>
-    <pluginProperty name="passwordRepository">
-      <plugin uuidref="45286efc-2e24-40e8-9d8f-dca04474d7a9"/>
-    </pluginProperty>
-    <pluginList name="steps">
-      <plugin uuidref="ad1e6456-5c2d-4cc7-ad9c-d02f1929644c"/>
-      <plugin uuidref="2924df76-538c-4ee1-b3b4-22e84a91d55e"/>
-      <plugin uuidref="f99c84c0-ff2c-462f-98ba-bfdc07162310"/>
-      <plugin uuidref="1fe6670c-349c-413c-8905-c10e6ee94e30"/>
-      <plugin uuidref="49311110-5ee4-4af5-b7ff-3ef74d72b38a"/>
-      <plugin uuidref="5e76da78-84da-44c6-a495-ef3ea2c5b6d0"/>
-      <plugin uuidref="755275f7-8652-427f-9752-c6941f2ee701"/>
-    </pluginList>
-    <property name="userInitiallyLocked">false</property>
-  </plugin>
-  <plugin class="com.airlock.iam.userselfreg.application.configuration.step.EmailRegistrationVerificationStepConfig" id="Email Verification" uuid="f99c84c0-ff2c-462f-98ba-bfdc07162310">
-    <pluginProperty name="emailItemDefinition">
-      <plugin uuidref="a87932f8-233e-4e94-bf97-a173ebab4601"/>
-    </pluginProperty>
-    <pluginProperty name="emailMessageProvider">
-      <plugin uuidref="907831f1-66e4-4c92-b84c-af10c19e473a"/>
-    </pluginProperty>
-    <pluginProperty name="emailService">
-      <plugin uuidref="93988d14-184f-45d4-aaa4-5c2c1af00b5b"/>
-    </pluginProperty>
-    <pluginProperty name="otpGenerator">
-      <plugin uuidref="64872333-15a8-4d6a-8e27-7fea75415e80"/>
-    </pluginProperty>
-    <pluginList name="tagsOnSuccess">
-      <plugin uuidref="2f3f6f08-fc77-4d51-ae45-701feddca52d"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.userselfreg.application.configuration.step.NonInteractiveSetAuthMethodStepConfig" id="Set Auth Method &quot;PASSWORD&quot;" uuid="5e76da78-84da-44c6-a495-ef3ea2c5b6d0">
-    <property name="userAuthMethod">PASSWORD</property>
-  </plugin>
-  <plugin class="com.airlock.iam.userselfreg.application.configuration.step.UserDataRegistrationStepConfig" id="Password Registration" uuid="1fe6670c-349c-413c-8905-c10e6ee94e30">
-    <pluginProperty name="stepId">
-      <plugin uuidref="f4850c82-3998-462c-8c9f-55f4eafaaa36"/>
-    </pluginProperty>
-    <pluginList name="userDataItems">
-      <plugin uuidref="8dd17571-d820-4909-8f5b-7bd9fe9dd2b7"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.userselfreg.application.configuration.step.UserDataRegistrationStepConfig" id="E-Mail Alias and Context Data Registration" uuid="ad1e6456-5c2d-4cc7-ad9c-d02f1929644c">
-    <pluginProperty name="stepId">
-      <plugin uuidref="f78769a3-7d08-4a2f-9368-c13b374df892"/>
-    </pluginProperty>
-    <pluginList name="userDataItems">
-      <plugin uuidref="d2c53e5d-f7e1-48bb-a71f-e574ac488b35"/>
-      <plugin uuidref="a87932f8-233e-4e94-bf97-a173ebab4601"/>
-      <plugin uuidref="4ccb0ef6-01c8-40bd-a51e-cb8208bae01d"/>
-      <plugin uuidref="6a15c3bb-5027-4cfb-982a-7002949805aa"/>
-      <plugin uuidref="8b35f027-d7c8-4a42-9b84-f3c600700284"/>
-      <plugin uuidref="9c1a03c8-f6d6-46a8-bf70-c64a313bdef8"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.userselfreg.application.configuration.step.UserPersistingStepConfig" id="User Persistence" uuid="755275f7-8652-427f-9752-c6941f2ee701">
-    <pluginList name="preConditionTags">
-      <plugin uuidref="2f3f6f08-fc77-4d51-ae45-701feddca52d"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.userselfreg.application.configuration.step.UserRoleAssignmentStepConfig" id="Role Assignment" uuid="49311110-5ee4-4af5-b7ff-3ef74d72b38a">
-    <propertyList name="roles">
-      <propertyValue>self-registered</propertyValue>
-    </propertyList>
-  </plugin>
-  <plugin class="com.airlock.iam.userselfreg.rest.application.configuration.FlowBasedUserSelfRegRestConfig" id="REST User Self-Registration " uuid="0e714f01-b683-46c2-a635-1568b0f0e7df">
-    <pluginProperty name="defaultFlow">
-      <plugin uuidref="fb1d639e-829c-432a-a654-fdf785959a36"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.userselfreg.rest.application.configuration.ui.UserSelfRegUiConfig" id="User-Self-Registration Flow UI" uuid="ce808be8-13d8-47f5-802a-896c6d1f1ed8">
-    <pluginProperty name="flowId">
-      <plugin uuidref="0a00e7ac-03c8-4805-9f25-5e9beb0a7267"/>
-    </pluginProperty>
-    <pluginProperty name="maintenanceMessageUiSettings">
-      <plugin uuidref="7abc2f86-b438-42d4-8a85-1bf3c952ea30"/>
-    </pluginProperty>
-    <pluginProperty name="target">
-      <plugin uuidref="ea59c28d-ea4b-413c-b27f-86a579a1a5bf"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.userselfreg.rest.application.configuration.ui.UserSelfRegUiConfigs" id="User Self-Registration Flow UIs" uuid="8d85b3cc-5eed-4763-8ea7-aa01f0579a6b">
-    <pluginList name="userInterfaces">
-      <plugin uuidref="ce808be8-13d8-47f5-802a-896c6d1f1ed8"/>
-    </pluginList>
-  </plugin>
+  <plugin class="com.airlock.iam.selfservice.rest.application.configuration.ui.SelfServiceUiConfigs" id="Protected Self-Service Flow UIs" uuid="50452fff-b076-4ef4-9cf0-787e24401b25"/>
   <configHistoryMetaData>
   </configHistoryMetaData>
 </medusaConfiguration>
