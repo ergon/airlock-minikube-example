@@ -27,7 +27,7 @@ spec:
                 configMapKeyRef:
                   name: generic-parameters
                   key: TZ
-            - name: ALG_CFG_OPERATIONAL_MODE
+            - name: OPERATIONAL_MODE
               value: production
           volumeMounts:
             - name: config
@@ -59,17 +59,32 @@ spec:
             - name: config-files
               mountPath: /config/
           livenessProbe:
+            failureThreshold: 9
+            timeoutSeconds: 5
             httpGet:
               path: /healthz
               port: https
               scheme: HTTPS
             initialDelaySeconds: 90
           readinessProbe:
+            failureThreshold: 3
             httpGet:
               path: /healthz
               port: https
               scheme: HTTPS
-            initialDelaySeconds: 30
+            initialDelaySeconds: 10
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - /usr/bin/sleep
+                  - "10"
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 30m
+            limits:
+              memory: 4048Mi
       volumes:
         - name: data
           persistentVolumeClaim:
@@ -140,10 +155,11 @@ data:
       mappings:
       - name: iam-loginapp
         mapping_template_file: /config/templates/loginapp-7.3.xml
-        entry_path: /auth/
+        entry_path:
+          value: /auth/
         backend_path: /auth-login/
         session_handling: enforce_session
-        operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
+        operational_mode: ${OPERATIONAL_MODE:-production}
         expert_settings:
           security_gate: |
             # TODO:
@@ -159,13 +175,14 @@ data:
             port: 8443
       - name: iam-loginapp-rest-public
         mapping_template_file: /config/templates/loginapp-7.3-REST-public.xml
-        entry_path: /auth/rest/public
+        entry_path:
+          value: /auth/rest/public
         backend_path: /auth-login/rest/public
         session_handling: enforce_session
         api_security:
           openapi:
             spec_file: /config/templates/login-rest-openapi.json
-        operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
+        operational_mode: ${OPERATIONAL_MODE:-production}
         expert_settings:
           security_gate: |
             RedirectForErrorPage "FALSE"
@@ -177,13 +194,14 @@ data:
             port: 8443
       - name: iam-loginapp-rest-protected
         mapping_template_file: /config/templates/loginapp-7.3-REST-protected.xml
-        entry_path: /auth/rest/protected
+        entry_path:
+          value: /auth/rest/protected
         backend_path: /auth-login/rest/protected
         session_handling: enforce_session
         api_security:
           openapi:
             spec_file: /config/templates/login-rest-openapi.json
-        operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
+        operational_mode: ${OPERATIONAL_MODE:-production}
         expert_settings:
           security_gate: |
             RedirectForErrorPage "FALSE"
@@ -195,9 +213,10 @@ data:
             port: 8443
       - name: admin
         mapping_template_file: /config/templates/adminapp-7.3.xml
-        entry_path: /auth-admin/
+        entry_path:
+          value: /auth-admin/
         session_handling: enforce_session
-        operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
+        operational_mode: ${OPERATIONAL_MODE:-production}
         expert_settings:
           security_gate: |
             RedirectForErrorPage "FALSE"

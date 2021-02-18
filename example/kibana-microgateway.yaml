@@ -27,7 +27,7 @@ spec:
                 configMapKeyRef:
                   name: generic-parameters
                   key: TZ
-            - name: ALG_CFG_OPERATIONAL_MODE
+            - name: OPERATIONAL_MODE
               value: integration
           volumeMounts:
             - name: config
@@ -56,17 +56,32 @@ spec:
             - name: config-files
               mountPath: /config/
           livenessProbe:
+            failureThreshold: 9
+            timeoutSeconds: 5
             httpGet:
               path: /healthz
               port: https
               scheme: HTTPS
             initialDelaySeconds: 90
           readinessProbe:
+            failureThreshold: 3
             httpGet:
               path: /healthz
               port: https
               scheme: HTTPS
-            initialDelaySeconds: 30
+            initialDelaySeconds: 10
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - /usr/bin/sleep
+                  - "10"
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 30m
+            limits:
+              memory: 4048Mi
       volumes:
         - name: config
           configMap:
@@ -128,9 +143,10 @@ data:
         name: vh-kibana
       mappings:
       - name: kibana
-        entry_path: /
+        entry_path:
+          value: /
         session_handling: enforce_session
-        operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
+        operational_mode: ${OPERATIONAL_MODE:-production}
         deny_rule_groups:
         - level: basic
         limits:
