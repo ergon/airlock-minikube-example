@@ -133,7 +133,6 @@ Open a browser to navigate to the different web applications. Use `2fa` as the u
 
 * Kibana URL: `https://<MINIKUBE_IP>/kibana`
 * Echoserver URL: `https://<MINIKUBE_IP>/echo`
-* Adminer URL:  `https://<MINIKUBE_IP>/adminer`
 
 Use the Airlock IAM Adminapp to administer users and their login factors.
 
