@@ -10,13 +10,9 @@
     <pluginProperty name="logViewer">
       <plugin uuidref="49943ced-e9c0-4072-b6a5-c8136f858981"/>
     </pluginProperty>
-    <pluginProperty name="maintenanceMessages">
-      <plugin uuidref="ed4aeed8-0079-42cd-acbe-a2d8e41bd7c8"/>
-    </pluginProperty>
     <pluginProperty name="rest">
       <plugin uuidref="0948ff8a-b017-443a-b293-6733b140ed2e"/>
     </pluginProperty>
-    <property name="serviceContainerSharedSecret">vpznbLDE5S37YTWy7LAZ</property>
     <pluginProperty name="users">
       <plugin uuidref="f5036cef-b96b-4fd3-aa39-1ec447265e03"/>
     </pluginProperty>
@@ -189,23 +185,7 @@
       <plugin uuidref="c54c30b8-2813-404c-81e9-fde1ccfd8567"/>
     </pluginList>
   </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.maintenancemessages.MaintenanceMessageConfiguration" id="Manage Maintenance Messages" uuid="ed4aeed8-0079-42cd-acbe-a2d8e41bd7c8">
-    <property name="enableMenuItem">true</property>
-    <propertyList name="languages">
-      <propertyValue>de</propertyValue>
-      <propertyValue>en</propertyValue>
-      <propertyValue>fr</propertyValue>
-      <propertyValue>it</propertyValue>
-    </propertyList>
-    <property name="messagesPerPage">25</property>
-    <pluginProperty name="persister">
-      <plugin uuidref="be477dab-0781-44fb-89b8-9da5a66f99aa"/>
-    </pluginProperty>
-  </plugin>
   <plugin class="com.airlock.iam.admin.application.configuration.password.PasswordTokenController" id="Manage User Passwords" uuid="99ba4711-01cf-462b-9da1-b5615e7f1f80">
-    <pluginProperty name="passwordGenerator">
-      <plugin uuidref="ad730d56-24f9-48cb-a4f9-784584b5a215"/>
-    </pluginProperty>
     <pluginProperty name="passwordSettings"/>
     <pluginProperty name="userPersister"/>
   </plugin>
@@ -229,26 +209,6 @@
     <pluginProperty name="temporaryLockingSettings">
       <plugin uuidref="8052e2ea-20ef-48e6-a0ee-26c17a2f0b71"/>
     </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.users.UserDataDownload" id="User Data Download" uuid="bccd4395-793f-4fda-86db-ddde779ab5f4">
-    <propertyList name="contextKeys">
-      <propertyValue>salutation</propertyValue>
-      <propertyValue>givenname</propertyValue>
-      <propertyValue>surname</propertyValue>
-      <propertyValue>street</propertyValue>
-      <propertyValue>streetNumber</propertyValue>
-      <propertyValue>address2</propertyValue>
-      <propertyValue>zipcode</propertyValue>
-      <propertyValue>town</propertyValue>
-      <propertyValue>state</propertyValue>
-      <propertyValue>country</propertyValue>
-      <propertyValue>company</propertyValue>
-      <propertyValue>email</propertyValue>
-      <propertyValue>language</propertyValue>
-      <propertyValue>disclaimer_tag</propertyValue>
-      <propertyValue>auth_method</propertyValue>
-    </propertyList>
-    <property name="type">FULL</property>
   </plugin>
   <plugin class="com.airlock.iam.admin.application.configuration.users.UserStoreConfiguration" uuid="3decdcf5-4816-40a8-ac9d-7555360ef14e">
     <pluginProperty name="userStore">
@@ -274,9 +234,6 @@
     <pluginList name="credentials">
       <plugin uuidref="99ba4711-01cf-462b-9da1-b5615e7f1f80"/>
     </pluginList>
-    <pluginProperty name="dataDownload">
-      <plugin uuidref="bccd4395-793f-4fda-86db-ddde779ab5f4"/>
-    </pluginProperty>
     <property name="defaultSortColumn">username</property>
     <property name="languageContextKey">language</property>
     <pluginProperty name="lockingSettings">
@@ -377,9 +334,7 @@
   <plugin class="com.airlock.iam.authentication.application.configuration.AuthenticationFlowConfig" id="Demo Authentication Flow" uuid="34211583-f239-4521-9526-9ca329da4b6c">
     <pluginList name="steps">
       <plugin uuidref="51341853-0480-4290-96e2-cd8313b13b6c"/>
-      <plugin uuidref="1bc0ce3e-dd95-45a6-84c3-a04a46f55c7b"/>
       <plugin uuidref="e068e9b4-d751-4e8c-b6ae-c09255656f0a"/>
-      <plugin uuidref="b996cd2d-3ec3-482c-b7f8-68f957c19cf0"/>
     </pluginList>
     <pluginList name="usernameTransformers">
       <plugin uuidref="a5d35098-3d3f-43eb-9394-142ec4692598"/>
@@ -427,14 +382,6 @@
       <plugin uuidref="aaf43cff-19bc-4a28-abbb-c8de7970e348"/>
     </pluginProperty>
   </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.secretquestions.SecretQuestionsProvisioningStepConfig" id="SQ" uuid="b996cd2d-3ec3-482c-b7f8-68f957c19cf0">
-    <pluginProperty name="secretQuestionsSettings">
-      <plugin uuidref="e09ee155-5d3d-473c-932a-6f824f76ee7e"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.selection.condition.AuthMethodBasedConditionConfig" id="Authentication Method PASSWORD" uuid="f8f0215e-745b-4cab-929b-d76df86c7a1a">
-    <property name="authMethod">PASSWORD</property>
-  </plugin>
   <plugin class="com.airlock.iam.common.application.configuration.jwt.JwtTicketDecoderSettings" id="REST JWT Ticket Decoder" uuid="a893dab4-bc32-4c9b-8b5c-596b24fd9801">
     <pluginProperty name="decrypter">
       <plugin uuidref="05009e0f-7a37-4c0d-a2f4-898f40051156"/>
@@ -459,25 +406,6 @@
   </plugin>
   <plugin class="com.airlock.iam.common.application.configuration.jwt.signature.JwtTicketHmacSettings" id="REST JWT Ticket Signer" uuid="3bcae214-793d-403b-a0a4-3799843e7b35">
     <property name="hmacKey">[ENC]RegOpNNTzN7kVOGvGBCn5B51cHIPwyQ8NQIT8rGgiIctf4epOgFmuEJpg4+l8Po/T5TgczMFh41KljJl6UPdC5g6oaC0Bx14kiacRMEUlck9G9Wb5eUjbGDN+MOAIZO2YGRuYwEky3QEH/6vga5zeQ==</property>
-  </plugin>
-  <plugin class="com.airlock.iam.common.application.configuration.loginhistory.DatabaseLoginHistoryRepositoryConfig" id="Login History Respository" uuid="6a2f828f-d67a-4160-864f-c21b279f1040">
-    <pluginProperty name="sqlDataSource">
-      <plugin uuidref="f0d2a309-8eb4-4574-a622-503d6e5f47be"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.common.application.configuration.loginhistory.LoginHistoryConsistencyUserChangeListener" id="Default Login History Consistency Listener" uuid="4572f2cd-5b46-47fd-9d52-857b8504495a">
-    <pluginProperty name="loginHistoryRepository">
-      <plugin uuidref="6a2f828f-d67a-4160-864f-c21b279f1040"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.common.application.configuration.secretquestion.SecretQuestionsSettings" id="Secret Questions Settings" uuid="612bf9ee-b52a-4495-97e6-7f73135c5a4f">
-    <propertyList name="questionResourceKeys">
-      <propertyValue>secretquestion.pet</propertyValue>
-      <propertyValue>secretquestion.mother</propertyValue>
-      <propertyValue>secretquestion.teacher</propertyValue>
-      <propertyValue>secretquestion.friend</propertyValue>
-    </propertyList>
-    <pluginProperty name="tokenDataProvider"/>
   </plugin>
   <plugin class="com.airlock.iam.common.application.configuration.templock.ExponentialTemporaryLockingStrategyConfig" uuid="9660523f-ed9a-4f62-b32a-e5bd5db8c73b"/>
   <plugin class="com.airlock.iam.common.application.configuration.templock.TemporaryLockingConfig" id="Temporary Locking (REST)" uuid="d15ca80a-96b2-4580-ad24-deedf43af120">
@@ -1091,7 +1019,6 @@
   <plugin class="com.airlock.iam.core.misc.authen.PasswordSettings" id="Password Settings" uuid="2c362f77-b400-4367-bf89-2d5d571b00d1">
     <property name="adminMayGeneratePassword">true</property>
     <property name="adminMaySetPassword">true</property>
-    <property name="mayBeSelectedAsAuthMethod">true</property>
     <property name="passwordChangeWithoutOldPassword">true</property>
     <pluginProperty name="passwordGenerator">
       <plugin uuidref="17b90596-a9b8-415a-9c95-094042be9ff3"/>
@@ -1171,28 +1098,6 @@
     <property name="noPreviouslyUsedPasswords">true</property>
     <property name="requiredCharacters">CHARS_AND_DIGITS</property>
   </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.persistency.db.DatabaseMaintenanceMessagePersister" id="Maintenance Messages on Database" uuid="be477dab-0781-44fb-89b8-9da5a66f99aa">
-    <property name="cacheTimeout">5</property>
-    <property name="messageColActive">active</property>
-    <property name="messageColLocation">location</property>
-    <property name="messageColName">name</property>
-    <property name="messageColRecordInsertionDate">rowInsertDate</property>
-    <property name="messageColRecordInsertionUser">rowInsertUser</property>
-    <property name="messageColRecordModificationDate">rowUpdateDate</property>
-    <property name="messageColRecordModificationUser">rowUpdateUser</property>
-    <property name="messageColSystemAvailable">system_available</property>
-    <property name="messageColValidFrom">valid_from</property>
-    <property name="messageColValidTo">valid_to</property>
-    <property name="messageColVersionId">rowVersionId</property>
-    <property name="messageTable">medusa_maint_msg</property>
-    <pluginProperty name="sqlDataSource">
-      <plugin uuidref="f0d2a309-8eb4-4574-a622-503d6e5f47be"/>
-    </pluginProperty>
-    <property name="translationColLanguage">language</property>
-    <property name="translationColMessage">message</property>
-    <property name="translationColMessageRef">message_ref</property>
-    <property name="translationTable">medusa_maint_msg_tnsl</property>
-  </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.persistency.db.DatabaseUserPersister" id="Users on Database" uuid="2c2fe396-d7c4-45ab-b7d2-1fab5ecee047">
     <property name="colAuthMethod">auth_method</property>
     <property name="colAuthMigrationDate">auth_migration_date</property>
@@ -1261,10 +1166,6 @@
     <pluginProperty name="sqlDataSource">
       <plugin uuidref="f0d2a309-8eb4-4574-a622-503d6e5f47be"/>
     </pluginProperty>
-    <pluginList name="userChangeEventListeners">
-      <plugin uuidref="1359147a-0f95-4e81-b566-57ec07ab89db"/>
-      <plugin uuidref="4572f2cd-5b46-47fd-9d52-857b8504495a"/>
-    </pluginList>
     <property name="userTableName">medusa_user</property>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.persistency.db.DatabaseUserPersister" id="Admins on Database" uuid="6ebce410-5585-44c1-9868-2cc114b304fb">
@@ -1312,61 +1213,6 @@
     <property name="url">jdbc:mariadb://@@DB_SERVICE@@:3306/@@DB_IAM@@</property>
     <property name="user">@@DB_USER@@</property>
   </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.persistency.token.DatabaseTokenPersister" id="Database Token Persister" uuid="b8a6410c-97e5-48a8-9f52-341290758225">
-    <pluginProperty name="sqlDataSource">
-      <plugin uuidref="f0d2a309-8eb4-4574-a622-503d6e5f47be"/>
-    </pluginProperty>
-    <property name="tokenAssignmentColAdditionalInformation">ta_additional_information</property>
-    <property name="tokenAssignmentColAssignmentDate">ta_assignment_date</property>
-    <property name="tokenAssignmentColAssignmentUser">ta_assignment_user</property>
-    <property name="tokenAssignmentColComment">ta_comment</property>
-    <property name="tokenAssignmentColOrderNew">ta_order_new</property>
-    <property name="tokenAssignmentColOrderNewDate">ta_order_new_date</property>
-    <property name="tokenAssignmentColOrderNewUser">ta_order_new_user</property>
-    <property name="tokenAssignmentColOrderOptions">ta_order_options</property>
-    <property name="tokenAssignmentColTokenId">ta_token_id</property>
-    <property name="tokenAssignmentColUser">ta_user</property>
-    <property name="tokenAssignmentTable">token_assignment</property>
-    <property name="tokenColActivatesTokenId">activates_token_id</property>
-    <property name="tokenColActivationDate">activation_date</property>
-    <property name="tokenColActive">active</property>
-    <property name="tokenColFirstUsageDate">first_usage_date</property>
-    <property name="tokenColGenerationDate">generation_date</property>
-    <property name="tokenColGenericDataElement1">generic_data_element_1</property>
-    <property name="tokenColGenericDataElement10">generic_data_element_10</property>
-    <property name="tokenColGenericDataElement11">generic_data_element_11</property>
-    <property name="tokenColGenericDataElement12">generic_data_element_12</property>
-    <property name="tokenColGenericDataElement2">generic_data_element_2</property>
-    <property name="tokenColGenericDataElement3">generic_data_element_3</property>
-    <property name="tokenColGenericDataElement4">generic_data_element_4</property>
-    <property name="tokenColGenericDataElement5">generic_data_element_5</property>
-    <property name="tokenColGenericDataElement6">generic_data_element_6</property>
-    <property name="tokenColGenericDataElement7">generic_data_element_7</property>
-    <property name="tokenColGenericDataElement8">generic_data_element_8</property>
-    <property name="tokenColGenericDataElement9">generic_data_element_9</property>
-    <property name="tokenColLatestUsageDate">latest_usage_date</property>
-    <property name="tokenColObsoletesTokenId">obsoletes_token_id</property>
-    <property name="tokenColSerialId">serial_id</property>
-    <property name="tokenColTokenData">token_data</property>
-    <property name="tokenColTokenId">token_id</property>
-    <property name="tokenColTotalUsages">total_usages</property>
-    <property name="tokenColTrackingId">tracking_id</property>
-    <property name="tokenColType">type</property>
-    <property name="tokenColValidityRangeLower">validity_range_lower</property>
-    <property name="tokenColValidityRangeUpper">validity_range_upper</property>
-    <property name="tokenTable">token</property>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.persistency.token.DefaultTokenDataProvider" id="Token Data Provider" uuid="885d411d-aabe-4bef-a4b9-6d63b3e59556">
-    <pluginProperty name="tokenPersister">
-      <plugin uuidref="b8a6410c-97e5-48a8-9f52-341290758225"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.persistency.usereventbus.TokenConsistencyUserChangeListener" id="Default Token Consistency User Change Listener" uuid="1359147a-0f95-4e81-b566-57ec07ab89db">
-    <pluginProperty name="tokenDataProvider"/>
-    <pluginList name="tokenServices">
-      <plugin uuidref="b5879b6d-3230-4672-b49f-82b4a316a5ac"/>
-    </pluginList>
-  </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.sms.DummySmsGateway" uuid="955bb007-fd7b-45eb-b16b-6d1ead9c4b29"/>
   <plugin class="com.airlock.iam.core.misc.impl.sso.CookieTicketIdentityPropagator" id="REST Cookie Ticket Identity Propagator" uuid="3d37bb44-e93b-48e0-b9b7-18104b23885f">
     <property name="cookieName">AUTH_TICKET</property>
@@ -1398,15 +1244,9 @@
     </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.plugin.config.GlobalConfiguration$PersisterSettings" id="Data sources" uuid="d0064eff-e40b-496d-8dca-6eec870a96ad">
-    <pluginProperty name="tokenDataSource">
-      <plugin uuidref="885d411d-aabe-4bef-a4b9-6d63b3e59556"/>
-    </pluginProperty>
     <pluginProperty name="userDataSource">
       <plugin uuidref="2c2fe396-d7c4-45ab-b7d2-1fab5ecee047"/>
     </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.core.misc.tokenservice.GenericTokenService" id="Generic Token Service" uuid="b5879b6d-3230-4672-b49f-82b4a316a5ac">
-    <pluginProperty name="tokenDataProvider"/>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.util.password.hash.PasswordHistoryHash" id="History Password Hash" uuid="aaf43cff-19bc-4a28-abbb-c8de7970e348">
     <pluginProperty name="passwordHash">
@@ -1439,21 +1279,6 @@
   <plugin class="com.airlock.iam.flow.api.application.configuration.step.StepIdConfig" id="Password Authentication Step ID &quot;pwcheck&quot;" uuid="a29f520f-a7f0-48bc-8efd-a4bdbc5cada3">
     <property name="id">pwcheck</property>
   </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.step.SelectionOptionConfig" id="Password Only Selection Option" uuid="b2b10fd3-1f2a-46c4-acc6-df56524b16fc">
-    <pluginProperty name="condition">
-      <plugin uuidref="f8f0215e-745b-4cab-929b-d76df86c7a1a"/>
-    </pluginProperty>
-    <property name="name">PASSWORD</property>
-    <pluginList name="steps">
-      <plugin uuidref="d523cd17-0234-4426-a667-d480f97d8eb5"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.selection.step.SelectionStepConfig" id="Demo Selection" uuid="1bc0ce3e-dd95-45a6-84c3-a04a46f55c7b">
-    <pluginList name="availableOptions">
-      <plugin uuidref="b2b10fd3-1f2a-46c4-acc6-df56524b16fc"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.flow.application.configuration.step.NoOperationStepConfig" uuid="d523cd17-0234-4426-a667-d480f97d8eb5"/>
   <plugin class="com.airlock.iam.flow.application.configuration.tag.TagConfigImpl" id="Password Verified Tag" uuid="8a3cae4d-85fa-471a-b933-00d948455da8">
     <property name="name">PASSWORD_VERIFIED</property>
   </plugin>
@@ -1565,14 +1390,6 @@
     </propertyList>
     <property name="defaultValue">/auth/portal</property>
   </plugin>
-  <plugin class="com.airlock.iam.login.application.configuration.secretquestions.BasicSecretQuestionSettings" uuid="e09ee155-5d3d-473c-932a-6f824f76ee7e">
-    <propertyList name="questionResourceKeys">
-      <propertyValue>secretquestion.pet</propertyValue>
-      <propertyValue>secretquestion.mother</propertyValue>
-      <propertyValue>secretquestion.teacher</propertyValue>
-      <propertyValue>secretquestion.friend</propertyValue>
-    </propertyList>
-  </plugin>
   <plugin class="com.airlock.iam.login.application.configuration.targetapp.ApplicationConfig" id="Extended Application" uuid="7557eec6-6c36-4769-9f6d-bbc8e093b377">
     <pluginProperty name="authenticationFlow">
       <plugin uuidref="3733b689-2497-4674-8232-3dbaaba36ee2"/>
@@ -1625,11 +1442,6 @@
   </plugin>
   <plugin class="com.airlock.iam.login.application.configuration.targetapp.UserRolesProviderConfig" uuid="6af9773c-1081-4754-a038-390dbb5c2189"/>
   <plugin class="com.airlock.iam.login.misc.oneshot.SSOCredentialAuthenticator" id="Cookie Ticket Authenticator" uuid="090acc94-84af-4f41-b768-04ca5cc22055"/>
-  <plugin class="com.airlock.iam.login.misc.plugin.MaintenanceMessageConfig" id="Maintenance Message Settings" uuid="b90dcee8-e3dc-4319-b3bc-1fb5a85ae62f">
-    <pluginProperty name="messageService">
-      <plugin uuidref="be477dab-0781-44fb-89b8-9da5a66f99aa"/>
-    </pluginProperty>
-  </plugin>
   <plugin class="com.airlock.iam.login.rest.application.configuration.LoginappRestConfig" id="Loginapp REST API" uuid="b969c373-e53f-4234-93e2-1c52b0acc6c5">
     <pluginProperty name="accessController">
       <plugin uuidref="2c18bfa0-a066-42c0-8a0c-7a9b6347dcb5"/>
@@ -1645,59 +1457,17 @@
       <plugin uuidref="5e478f8a-d129-4b58-9487-cd940bd98dc6"/>
     </pluginProperty>
     <property name="hmacKey">J1P1j8VWpVA5/x+W00OU/Bw3ARUg1nSp639EREr2nbsYD5Rxzwu8lXuxjfhiRUuMbAuo5ox950ZIBlMe6ycqmw==</property>
-    <pluginProperty name="maintenanceMessageConfig">
-      <plugin uuidref="b90dcee8-e3dc-4319-b3bc-1fb5a85ae62f"/>
-    </pluginProperty>
     <pluginProperty name="requestCredentialPolicy">
       <plugin uuidref="025ab856-5262-4163-9e4b-cf325a1bdad0"/>
     </pluginProperty>
     <pluginProperty name="ui">
       <plugin uuidref="20905f4b-85aa-445b-a7ca-5f7eea1875ac"/>
     </pluginProperty>
-    <pluginProperty name="userProvisioningConfig">
-      <plugin uuidref="684f63fb-c606-4892-a355-42e552c5947b"/>
-    </pluginProperty>
     <pluginProperty name="userStoreProvider">
       <plugin uuidref="6a76be1e-94af-4a57-9837-ef7e4e15b7af"/>
     </pluginProperty>
-    <pluginProperty name="userTokenConfig">
-      <plugin uuidref="a815a26e-149a-4e21-9885-f402c20a1604"/>
-    </pluginProperty>
     <pluginProperty name="wafConfig">
       <plugin uuidref="96252446-240e-4321-afc7-53796b0ed76d"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.login.rest.application.configuration.UserProvisioningConfig" id="Loginapp REST User Provisioning" uuid="684f63fb-c606-4892-a355-42e552c5947b">
-    <pluginProperty name="passwordSettings">
-      <plugin uuidref="2c362f77-b400-4367-bf89-2d5d571b00d1"/>
-    </pluginProperty>
-    <pluginProperty name="userSelfInformationConfig">
-      <plugin uuidref="30e75040-58ae-481a-88b6-f17e62e1fdf5"/>
-    </pluginProperty>
-  </plugin>
-  <plugin class="com.airlock.iam.login.rest.application.configuration.UserSelfInformationConfig" uuid="30e75040-58ae-481a-88b6-f17e62e1fdf5">
-    <pluginList name="defaultContextData">
-      <plugin uuidref="25e7a7ad-f996-4bf3-9d7a-e38d295c01dd"/>
-      <plugin uuidref="288c3d36-f456-4b98-bd1a-9e574dc43f42"/>
-      <plugin uuidref="cfd6b0b2-728f-4558-a7ee-9d926c54b8b8"/>
-      <plugin uuidref="5f75f26f-cef2-4637-b021-b80c6663e39f"/>
-      <plugin uuidref="fd06a297-7188-4f3d-be1e-523c510570aa"/>
-      <plugin uuidref="4ed0fdab-e459-43a4-86ea-be9b966fbb63"/>
-      <plugin uuidref="8c4148a4-b738-4e10-ad52-79f9c77d448c"/>
-      <plugin uuidref="628ae655-c643-4207-9a75-e315bc53abca"/>
-      <plugin uuidref="9cf2d99f-c519-493a-94f9-d20234160665"/>
-      <plugin uuidref="1c6baeec-0732-411d-a2a9-58795f901833"/>
-      <plugin uuidref="1e6030ee-06f2-4a01-9b5c-dc9560cd8b58"/>
-      <plugin uuidref="8ee5e32b-6626-45f4-b1fe-9b080401db81"/>
-      <plugin uuidref="3873a70d-2791-4980-8053-12b11c141d96"/>
-      <plugin uuidref="cd479cfa-5b62-427c-a97c-22ae37ae9773"/>
-      <plugin uuidref="62212726-0397-4132-9aae-9940a59b0323"/>
-      <plugin uuidref="96a79cc2-4826-491a-b454-0e07bf4b5510"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.login.rest.application.configuration.UserTokenConfig" id="User Token Settings" uuid="a815a26e-149a-4e21-9885-f402c20a1604">
-    <pluginProperty name="secretQuestionsSettings">
-      <plugin uuidref="612bf9ee-b52a-4495-97e6-7f73135c5a4f"/>
     </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.login.rest.application.configuration.auth.RestAuthenticationConfig" uuid="5e478f8a-d129-4b58-9487-cd940bd98dc6">
@@ -1740,9 +1510,7 @@
       <plugin uuidref="a29f520f-a7f0-48bc-8efd-a4bdbc5cada3"/>
     </pluginProperty>
   </plugin>
-  <plugin class="com.airlock.iam.selfservice.rest.application.configuration.ui.SelfServiceUiConfigs" id="Protected Self-Service Flow UIs" uuid="50452fff-b076-4ef4-9cf0-787e24401b25">
-    <pluginList name="flowUis"/>
-  </plugin>
+  <plugin class="com.airlock.iam.selfservice.rest.application.configuration.ui.SelfServiceUiConfigs" id="Protected Self-Service Flow UIs" uuid="50452fff-b076-4ef4-9cf0-787e24401b25"/>
   <configHistoryMetaData>
   </configHistoryMetaData>
 </medusaConfiguration>
