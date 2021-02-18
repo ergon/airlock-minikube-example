@@ -128,7 +128,7 @@ Get the Minikube IP address:
 minikube ip
 ```
 
-Open a browser to navigate to the different web applications. Use `2fa` as the username and `password` as the password to authenticate.
+Open a browser to navigate to the different web applications. Use `user` as the username and `password` as the password to authenticate.
 
 * Kibana URL: `https://<MINIKUBE_IP>/kibana`
 * Echoserver URL: `https://<MINIKUBE_IP>/echo`
