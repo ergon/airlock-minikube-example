@@ -110,6 +110,7 @@ kubectl cp data/ data-pod:/
 kubectl exec data-pod -- sh -c "chown -R 1000:0 /data/iam/"
 kubectl exec data-pod -- sh -c "chown -R 999:999 /data/mariadb/"
 ```
+:exclamation: Run the commands line by line because `kubectl wait` is non-blocking.
 
 ## Start deployment
 
