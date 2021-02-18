@@ -115,7 +115,7 @@ kubectl delete -f data/
 
 ## Start deployment
 
-To deploy the example, run one of the following commands:
+To deploy the example, run the following command:
 
 ```console
 kubectl apply -f example/
@@ -143,7 +143,7 @@ Use the Airlock IAM Adminapp to administer users and their login factors.
 
 ## Cleanup
 
-To delete the deployment example, run one of the following commands:
+To delete the deployment example, run the following command:
 
 ```console
 kubectl delete -f example/
