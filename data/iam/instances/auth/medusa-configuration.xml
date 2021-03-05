@@ -1373,6 +1373,9 @@
     <property name="labelKeyInPortal">portal.app.echo.label</property>
     <property name="openInNewWindow">true</property>
     <property name="portalApplicationGroupId">generalservices</property>
+    <propertyList name="requiredRoles">
+      <propertyValue>customer</propertyValue>
+    </propertyList>
     <property name="urlPattern">/echo/.*</property>
   </plugin>
   <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.IdPropagatorTargetApplication" id="Kibana" uuid="e7290557-8e74-474f-b4ab-70195720a1c3">
