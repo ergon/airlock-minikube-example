@@ -114,7 +114,7 @@ data:
     license_file: /secret/config/license
 
     log:
-      level: info
+      level: trace
 
     session:
       redis_hosts:
@@ -145,11 +145,33 @@ data:
         entry_path:
           value: /echo/
         session_handling: enforce_session
-        operational_mode: ${OPERATIONAL_MODE:-production}
+        operational_mode: integration
         threat_handling: notify
         deny_rule_groups:
         - level: strict
           enabled: true
+        auth:
+          flow: redirect
+          denied_access_url: /auth/check-login
+          access:
+          - roles:
+            - authenticated
+        access_token:
+          mandatory: true
+          token_type: signed
+          expiry_checked: true
+          extraction:
+            mode: cookie
+            cookie: iam_auth
+          signature:
+            method: HS512
+            passphrase: NmIldkG00zjhiuuJmPBz0Guzgmzsz5B5QR+Ifxi6aKfQDtSoq7wvj+cANqrP8D+CWmK0TYmTxVAOHGt42Yb/jg==
+          roles:
+            - claim: roles
+              extraction:
+                regex:
+                  pattern: customer
+                substitution: customer
         expert_settings:
           security_gate: |
             Backend.AddEnvironmentCookies         "TRUE"

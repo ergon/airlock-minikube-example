@@ -401,11 +401,24 @@
     </pluginProperty>
     <property name="usernameTicketKey">username</property>
   </plugin>
+  <plugin class="com.airlock.iam.common.application.configuration.jwt.JwtTicketEncoderSettings" id="echo jwt encoder" uuid="f1e48fb6-e3a4-47f9-947b-54ac46eb06ba">
+    <propertyList name="claimsStoredAsArray">
+      <propertyValue>roles</propertyValue>
+    </propertyList>
+    <property name="issuer">iam</property>
+    <pluginProperty name="signer">
+      <plugin uuidref="f65106a9-4fb3-4d91-a1ab-b3ff72c8b2c4"/>
+    </pluginProperty>
+    <property name="usernameTicketKey">username</property>
+  </plugin>
   <plugin class="com.airlock.iam.common.application.configuration.jwt.encryption.JwtTicketDirectAesEncryptionSettings" id="REST JWT Ticket Encryption" uuid="05009e0f-7a37-4c0d-a2f4-898f40051156">
     <property name="encryptionKey">[ENC]kiSmepzf9J/Ji7K5vZ5piZKKSp9LBG+4QR3P0c9t0LsR086xdOzuEp5JY4hCFQWzoiLotvD/AIFNKQSMD6t1vQ==</property>
   </plugin>
   <plugin class="com.airlock.iam.common.application.configuration.jwt.signature.JwtTicketHmacSettings" id="REST JWT Ticket Signer" uuid="3bcae214-793d-403b-a0a4-3799843e7b35">
     <property name="hmacKey">[ENC]RegOpNNTzN7kVOGvGBCn5B51cHIPwyQ8NQIT8rGgiIctf4epOgFmuEJpg4+l8Po/T5TgczMFh41KljJl6UPdC5g6oaC0Bx14kiacRMEUlck9G9Wb5eUjbGDN+MOAIZO2YGRuYwEky3QEH/6vga5zeQ==</property>
+  </plugin>
+  <plugin class="com.airlock.iam.common.application.configuration.jwt.signature.JwtTicketHmacSettings" id="echo JWT Ticket Signer" uuid="f65106a9-4fb3-4d91-a1ab-b3ff72c8b2c4">
+    <property name="hmacKey">NmIldkG00zjhiuuJmPBz0Guzgmzsz5B5QR+Ifxi6aKfQDtSoq7wvj+cANqrP8D+CWmK0TYmTxVAOHGt42Yb/jg==</property>
   </plugin>
   <plugin class="com.airlock.iam.common.application.configuration.templock.ExponentialTemporaryLockingStrategyConfig" uuid="9660523f-ed9a-4f62-b32a-e5bd5db8c73b"/>
   <plugin class="com.airlock.iam.common.application.configuration.templock.TemporaryLockingConfig" id="Temporary Locking (REST)" uuid="d15ca80a-96b2-4580-ad24-deedf43af120">
@@ -1223,6 +1236,15 @@
       <plugin uuidref="2dd88e77-894f-4df8-b8e3-275b78f03b6c"/>
     </pluginProperty>
   </plugin>
+  <plugin class="com.airlock.iam.core.misc.impl.sso.CookieTicketIdentityPropagator" id="echo jwt identity propagator" uuid="98854ed5-20f3-47cb-ba96-a98ba4b0ffec">
+    <property name="cookieName">iam_auth</property>
+    <pluginProperty name="ticketEncoder">
+      <plugin uuidref="f1e48fb6-e3a4-47f9-947b-54ac46eb06ba"/>
+    </pluginProperty>
+    <pluginProperty name="ticketService">
+      <plugin uuidref="2dd88e77-894f-4df8-b8e3-275b78f03b6c"/>
+    </pluginProperty>
+  </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.sso.NoIdentityPropagator" id="No ID Propagation" uuid="7714e0f8-4ef2-4df7-9e43-c697ee65966a"/>
   <plugin class="com.airlock.iam.core.misc.plugin.config.GlobalConfiguration" id="globalConfig" uuid="f3c6861b-3916-4f03-ac5d-66e06acd0b7f">
     <pluginProperty name="applicationSettings">
@@ -1346,7 +1368,7 @@
     </propertyList>
     <property name="defaultUrl">/echo/</property>
     <pluginProperty name="identityPropagator">
-      <plugin uuidref="7714e0f8-4ef2-4df7-9e43-c697ee65966a"/>
+      <plugin uuidref="98854ed5-20f3-47cb-ba96-a98ba4b0ffec"/>
     </pluginProperty>
     <property name="labelKeyInPortal">portal.app.echo.label</property>
     <property name="openInNewWindow">true</property>
@@ -1512,5 +1534,8 @@
   </plugin>
   <plugin class="com.airlock.iam.selfservice.rest.application.configuration.ui.SelfServiceUiConfigs" id="Protected Self-Service Flow UIs" uuid="50452fff-b076-4ef4-9cf0-787e24401b25"/>
   <configHistoryMetaData>
+    <configHistoryMetaDataItem author="admin" comment="Activated configuration." datetime="2021-03-05 13:20:20"/>
+    <configHistoryMetaDataItem author="admin" comment="Activated configuration." datetime="2021-03-05 14:00:23"/>
+    <configHistoryMetaDataItem author="admin" comment="Activated configuration." datetime="2021-03-05 14:36:57"/>
   </configHistoryMetaData>
 </medusaConfiguration>

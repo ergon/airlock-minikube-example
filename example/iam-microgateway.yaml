@@ -164,6 +164,8 @@ data:
             enabled: true
         expert_settings:
           security_gate: |
+            Cookie.PassthroughSelector.Pattern    "^iam_auth$"
+            Cookie.PassthroughSelector.IgnoreCase "TRUE"
             # TODO:
             # Not required anymore with: ALMICRO-467
             CsrfTokens.Enable    "FALSE"
