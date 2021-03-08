@@ -156,7 +156,26 @@ data:
           denied_access_url: /auth/check-login
           access:
           - roles:
-            - authenticated
+            - customer
+        access_token:
+          mandatory: true
+          token_type: signed_and_encrypted
+          expiry_checked: true
+          extraction:
+            mode: cookie
+            cookie: iam_auth
+          signature:
+            method: HS512
+            passphrase: NmIldkG00zjhiuuJmPBz0Guzgmzsz5B5QR+Ifxi6aKfQDtSoq7wvj+cANqrP8D+CWmK0TYmTxVAOHGt42Yb/jg==
+          encryption:
+            algorithm: A256GCM
+            passphrase: ox77MsKA2Z54qI0dZ34hNuTiAJfDsmpINPycvaAs4vI=
+          roles:
+            - claim: roles
+              extraction:
+                regex:
+                  pattern: customer
+                substitution: customer
         backend:
           name: beg-kibana
           hosts:

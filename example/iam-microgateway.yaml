@@ -143,7 +143,6 @@ data:
         Request.Logging.Headers.IgnoreCase    "TRUE"
         Request.Logging.Headers.InvertPattern "FALSE"
 
-        RolesWhitelist.Pattern                "^authenticated$"
     apps:
     - virtual_host:
         name: vh-iam
