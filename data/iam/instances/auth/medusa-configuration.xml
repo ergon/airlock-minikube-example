@@ -401,10 +401,13 @@
     </pluginProperty>
     <property name="usernameTicketKey">username</property>
   </plugin>
-  <plugin class="com.airlock.iam.common.application.configuration.jwt.JwtTicketEncoderSettings" id="echo jwt encoder" uuid="f1e48fb6-e3a4-47f9-947b-54ac46eb06ba">
+  <plugin class="com.airlock.iam.common.application.configuration.jwt.JwtTicketEncoderSettings" id="jwt encoder" uuid="f1e48fb6-e3a4-47f9-947b-54ac46eb06ba">
     <propertyList name="claimsStoredAsArray">
       <propertyValue>roles</propertyValue>
     </propertyList>
+    <pluginProperty name="encrypter">
+      <plugin uuidref="28e4196f-de4b-4733-8999-d4ec05e72767"/>
+    </pluginProperty>
     <property name="issuer">iam</property>
     <pluginProperty name="signer">
       <plugin uuidref="f65106a9-4fb3-4d91-a1ab-b3ff72c8b2c4"/>
@@ -413,6 +416,9 @@
   </plugin>
   <plugin class="com.airlock.iam.common.application.configuration.jwt.encryption.JwtTicketDirectAesEncryptionSettings" id="REST JWT Ticket Encryption" uuid="05009e0f-7a37-4c0d-a2f4-898f40051156">
     <property name="encryptionKey">[ENC]kiSmepzf9J/Ji7K5vZ5piZKKSp9LBG+4QR3P0c9t0LsR086xdOzuEp5JY4hCFQWzoiLotvD/AIFNKQSMD6t1vQ==</property>
+  </plugin>
+  <plugin class="com.airlock.iam.common.application.configuration.jwt.encryption.JwtTicketDirectAesEncryptionSettings" id="jwt ticket encryption" uuid="28e4196f-de4b-4733-8999-d4ec05e72767">
+    <property name="encryptionKey">ox77MsKA2Z54qI0dZ34hNuTiAJfDsmpINPycvaAs4vI=</property>
   </plugin>
   <plugin class="com.airlock.iam.common.application.configuration.jwt.signature.JwtTicketHmacSettings" id="REST JWT Ticket Signer" uuid="3bcae214-793d-403b-a0a4-3799843e7b35">
     <property name="hmacKey">[ENC]RegOpNNTzN7kVOGvGBCn5B51cHIPwyQ8NQIT8rGgiIctf4epOgFmuEJpg4+l8Po/T5TgczMFh41KljJl6UPdC5g6oaC0Bx14kiacRMEUlck9G9Wb5eUjbGDN+MOAIZO2YGRuYwEky3QEH/6vga5zeQ==</property>
@@ -1236,7 +1242,7 @@
       <plugin uuidref="2dd88e77-894f-4df8-b8e3-275b78f03b6c"/>
     </pluginProperty>
   </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.sso.CookieTicketIdentityPropagator" id="echo jwt identity propagator" uuid="98854ed5-20f3-47cb-ba96-a98ba4b0ffec">
+  <plugin class="com.airlock.iam.core.misc.impl.sso.CookieTicketIdentityPropagator" id="jwt identity propagator" uuid="98854ed5-20f3-47cb-ba96-a98ba4b0ffec">
     <property name="cookieName">iam_auth</property>
     <pluginProperty name="ticketEncoder">
       <plugin uuidref="f1e48fb6-e3a4-47f9-947b-54ac46eb06ba"/>
@@ -1387,7 +1393,7 @@
     </propertyList>
     <property name="defaultUrl">/kibana/</property>
     <pluginProperty name="identityPropagator">
-      <plugin uuidref="7714e0f8-4ef2-4df7-9e43-c697ee65966a"/>
+      <plugin uuidref="98854ed5-20f3-47cb-ba96-a98ba4b0ffec"/>
     </pluginProperty>
     <property name="labelKeyInPortal">portal.app.kibana.label</property>
     <property name="openInNewWindow">true</property>
@@ -1540,5 +1546,9 @@
     <configHistoryMetaDataItem author="admin" comment="Activated configuration." datetime="2021-03-05 13:20:20"/>
     <configHistoryMetaDataItem author="admin" comment="Activated configuration." datetime="2021-03-05 14:00:23"/>
     <configHistoryMetaDataItem author="admin" comment="Activated configuration." datetime="2021-03-05 14:36:57"/>
+    <configHistoryMetaDataItem author="admin" comment="Activated configuration." datetime="2021-03-05 16:06:56"/>
+    <configHistoryMetaDataItem author="admin" comment="Activated configuration." datetime="2021-03-08 09:15:04"/>
+    <configHistoryMetaDataItem author="admin" comment="Activated configuration." datetime="2021-03-08 09:26:04"/>
+    <configHistoryMetaDataItem author="admin" comment="Activated configuration." datetime="2021-03-08 09:32:01"/>
   </configHistoryMetaData>
 </medusaConfiguration>
