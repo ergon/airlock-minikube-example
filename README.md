@@ -3,6 +3,8 @@
 This repository contains deployment examples for [Airlock] on [Minikube]. It shows how to protect a backend application with Airlock Microgateway and how to identify users using Airlock IAM. The
 source code is available under the [MIT license].
 
+![Overview](/.github/images/overview.svg)
+
 ## About Ergon
 
 *Airlock* is a registered trademark of [Ergon]. Ergon is a Swiss leader in leveraging digitalisation to create unique and effective client benefits, from conception to market, the result of which is
