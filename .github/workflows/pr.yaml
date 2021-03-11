@@ -31,5 +31,11 @@ jobs:
           kubectl get pods -n kube-system
           echo "current-context:" $(kubectl config current-context)
           echo "environment-kubeconfig:" ${KUBECONFIG}
-#      - name: init
-#        run: .github/init.sh
+      - name: deploy
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+          DOCKER_EMAIL: ${{ secrets.DOCKER_EMAIL }}
+          IAM_LIC: ${{ secrets.IAM_LIC }}
+          MICROGATEWAY_LIC: ${{ secrets.MICROGATEWAY_LIC }}
+        run: .github/deploy.sh
