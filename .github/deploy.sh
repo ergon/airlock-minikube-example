@@ -29,6 +29,9 @@ kubectl create secret docker-registry dockerregcred \
 
 echo "initializing config data..."
 kubectl apply -f init/
+sleep 30
+kubectl get pods
+
 kubectl wait --for=condition=ready --timeout=300s pod/data-pod
 kubectl cp data/ data-pod:/
 kubectl exec data-pod -- sh -c "chown -R 1000:0 /data/iam/"
