@@ -32,6 +32,7 @@ kubectl apply -f init/
 sleep 30
 echo "showing data-pod status..."
 kubectl get pods
+kubectl describe pod/data-pod
 kubectl logs data-pod
 kubectl logs data-pod -c iam-init
 
