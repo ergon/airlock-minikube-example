@@ -9,4 +9,4 @@ curl --silent --show-error --fail --location --output /tmp/kubeval.tar.gz https:
 tar -xf /tmp/kubeval.tar.gz kubeval
 
 # validate yaml files
-./kubeval --strict --kubernetes-version "${KUBERNETES_VERSION#v}" --schema-location "${SCHEMA_LOCATION}" --directories "init,example"
+./kubeval --strict --ignore-missing-schemas  --kubernetes-version "${KUBERNETES_VERSION#v}" --schema-location "${SCHEMA_LOCATION}" --directories "init,example"
