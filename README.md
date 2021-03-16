@@ -64,6 +64,29 @@ kubectl create secret generic iam-secret \
   -o yaml > init/iam-secret.yaml
 ```
 
+### JSON Web Token
+
+* Generate the two secrets for the JSON Web Token.
+    * `init/jwt.encryption.passphrase`
+    * `init/jwt.signature.passphrase`
+
+```console
+openssl rand -base64 32 | tr -d '\n' > init/jwt.encryption.passphrase
+openssl rand -base64 64 | tr -d '\n' > init/jwt.signature.passphrase
+```
+
+* Create the secret `jwt-secret`:
+
+```console
+kubectl create secret generic jwt-secret \
+  --from-file=JWT_ENCRYPTION_PASSPHRASE=init/jwt.encryption.passphrase \
+  --from-file=JWT_SIGNATURE_PASSPHRASE=init/jwt.signature.passphrase \
+  --from-literal=COOKIE_NAME=iam_auth \
+  --from-literal=JWT_ROLE=customer \
+  --dry-run=client \
+  -o yaml > init/jwt-secret.yaml
+```
+
 ### MariaDB
 
 Airlock IAM uses MariaDB as storage backend.
@@ -128,7 +151,7 @@ Get the Minikube IP address:
 minikube ip
 ```
 
-Open a browser to navigate to the different web applications. Use `2fa` as the username and `password` as the password to authenticate.
+Open a browser to navigate to the different web applications. Use `user` as the username and `password` as the password to authenticate.
 
 * Kibana URL: `https://<MINIKUBE_IP>/kibana`
 * Echoserver URL: `https://<MINIKUBE_IP>/echo`

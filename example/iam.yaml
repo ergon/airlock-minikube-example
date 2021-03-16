@@ -44,15 +44,39 @@ spec:
                 secretKeyRef:
                   name: mariadb-secret
                   key: MYSQL_PASSWORD
+            - name: JWT_ENCRYPTION_PASSPHRASE
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_ENCRYPTION_PASSPHRASE
+            - name: JWT_SIGNATURE_PASSPHRASE
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_SIGNATURE_PASSPHRASE
+            - name: COOKIE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: COOKIE_NAME
+            - name: JWT_ROLE
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_ROLE
           command:
             - sh
             - "-c"
             - |
               echo "- Replacing the placeholders in the IAM configuration"
               sed -i "s,@@DB_SERVICE@@,${MARIADB_SERVICE},;\
-                s,@@DB_IAM@@,${MYSQL_DATABASE},; \
+                s,@@DB_IAM@@,${MYSQL_DATABASE},;\
                 s,@@DB_USER@@,${MYSQL_USER},;\
-                s,@@DB_PASSWORD@@,${MYSQL_PASSWORD}," \
+                s,@@DB_PASSWORD@@,${MYSQL_PASSWORD},;\
+                s,@@JWT_ENCRYPTION_PASSPHRASE@@,${JWT_ENCRYPTION_PASSPHRASE},;\
+                s,@@JWT_SIGNATURE_PASSPHRASE@@,${JWT_SIGNATURE_PASSPHRASE},;\
+                s,@@COOKIE_NAME@@,${COOKIE_NAME},;\
+                s,@@JWT_ROLE@@,${JWT_ROLE}," \
                 /home/airlock/iam/instances/auth/medusa-configuration.xml
           volumeMounts:
             - name: data

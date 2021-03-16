@@ -418,13 +418,13 @@
     <property name="encryptionKey">[ENC]kiSmepzf9J/Ji7K5vZ5piZKKSp9LBG+4QR3P0c9t0LsR086xdOzuEp5JY4hCFQWzoiLotvD/AIFNKQSMD6t1vQ==</property>
   </plugin>
   <plugin class="com.airlock.iam.common.application.configuration.jwt.encryption.JwtTicketDirectAesEncryptionSettings" id="jwt ticket encryption" uuid="28e4196f-de4b-4733-8999-d4ec05e72767">
-    <property name="encryptionKey">ox77MsKA2Z54qI0dZ34hNuTiAJfDsmpINPycvaAs4vI=</property>
+    <property name="encryptionKey">@@JWT_ENCRYPTION_PASSPHRASE@@</property>
   </plugin>
   <plugin class="com.airlock.iam.common.application.configuration.jwt.signature.JwtTicketHmacSettings" id="REST JWT Ticket Signer" uuid="3bcae214-793d-403b-a0a4-3799843e7b35">
     <property name="hmacKey">[ENC]RegOpNNTzN7kVOGvGBCn5B51cHIPwyQ8NQIT8rGgiIctf4epOgFmuEJpg4+l8Po/T5TgczMFh41KljJl6UPdC5g6oaC0Bx14kiacRMEUlck9G9Wb5eUjbGDN+MOAIZO2YGRuYwEky3QEH/6vga5zeQ==</property>
   </plugin>
   <plugin class="com.airlock.iam.common.application.configuration.jwt.signature.JwtTicketHmacSettings" id="echo JWT Ticket Signer" uuid="f65106a9-4fb3-4d91-a1ab-b3ff72c8b2c4">
-    <property name="hmacKey">NmIldkG00zjhiuuJmPBz0Guzgmzsz5B5QR+Ifxi6aKfQDtSoq7wvj+cANqrP8D+CWmK0TYmTxVAOHGt42Yb/jg==</property>
+    <property name="hmacKey">@@JWT_SIGNATURE_PASSPHRASE@@</property>
   </plugin>
   <plugin class="com.airlock.iam.common.application.configuration.templock.ExponentialTemporaryLockingStrategyConfig" uuid="9660523f-ed9a-4f62-b32a-e5bd5db8c73b"/>
   <plugin class="com.airlock.iam.common.application.configuration.templock.TemporaryLockingConfig" id="Temporary Locking (REST)" uuid="d15ca80a-96b2-4580-ad24-deedf43af120">
@@ -1243,7 +1243,7 @@
     </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.sso.CookieTicketIdentityPropagator" id="jwt identity propagator" uuid="98854ed5-20f3-47cb-ba96-a98ba4b0ffec">
-    <property name="cookieName">iam_auth</property>
+    <property name="cookieName">@@COOKIE_NAME@@</property>
     <pluginProperty name="ticketEncoder">
       <plugin uuidref="f1e48fb6-e3a4-47f9-947b-54ac46eb06ba"/>
     </pluginProperty>
@@ -1380,7 +1380,7 @@
     <property name="openInNewWindow">true</property>
     <property name="portalApplicationGroupId">generalservices</property>
     <propertyList name="requiredRoles">
-      <propertyValue>customer</propertyValue>
+      <propertyValue>@@JWT_ROLE@@</propertyValue>
     </propertyList>
     <property name="urlPattern">/echo/.*</property>
   </plugin>
@@ -1543,12 +1543,5 @@
   </plugin>
   <plugin class="com.airlock.iam.selfservice.rest.application.configuration.ui.SelfServiceUiConfigs" id="Protected Self-Service Flow UIs" uuid="50452fff-b076-4ef4-9cf0-787e24401b25"/>
   <configHistoryMetaData>
-    <configHistoryMetaDataItem author="admin" comment="Activated configuration." datetime="2021-03-05 13:20:20"/>
-    <configHistoryMetaDataItem author="admin" comment="Activated configuration." datetime="2021-03-05 14:00:23"/>
-    <configHistoryMetaDataItem author="admin" comment="Activated configuration." datetime="2021-03-05 14:36:57"/>
-    <configHistoryMetaDataItem author="admin" comment="Activated configuration." datetime="2021-03-05 16:06:56"/>
-    <configHistoryMetaDataItem author="admin" comment="Activated configuration." datetime="2021-03-08 09:15:04"/>
-    <configHistoryMetaDataItem author="admin" comment="Activated configuration." datetime="2021-03-08 09:26:04"/>
-    <configHistoryMetaDataItem author="admin" comment="Activated configuration." datetime="2021-03-08 09:32:01"/>
   </configHistoryMetaData>
 </medusaConfiguration>

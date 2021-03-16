@@ -29,6 +29,26 @@ spec:
                   key: TZ
             - name: OPERATIONAL_MODE
               value: integration
+            - name: JWT_ENCRYPTION_PASSPHRASE
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_ENCRYPTION_PASSPHRASE
+            - name: JWT_SIGNATURE_PASSPHRASE
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_SIGNATURE_PASSPHRASE
+            - name: COOKIE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: COOKIE_NAME
+            - name: JWT_ROLE
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_ROLE
           volumeMounts:
             - name: config
               mountPath: /config/config.yaml
@@ -114,11 +134,9 @@ data:
     license_file: /secret/config/license
 
     log:
-      level: trace
+      level: info
 
     session:
-      redis_hosts:
-      - 'redis:6379'
       encryption_passphrase_file: /secret/config/passphrase
 
     expert_settings:
@@ -144,8 +162,8 @@ data:
       - name: echoserver
         entry_path:
           value: /echo/
-        session_handling: enforce_session
-        operational_mode: integration
+        session_handling: ignore_session
+        operational_mode: ${OPERATIONAL_MODE:-production}
         threat_handling: notify
         deny_rule_groups:
         - level: strict
@@ -155,26 +173,26 @@ data:
           denied_access_url: /auth/check-login
           access:
           - roles:
-            - customer
+            - echo-user
         access_token:
           mandatory: true
           token_type: signed_and_encrypted
           expiry_checked: true
           extraction:
             mode: cookie
-            cookie: iam_auth
+            cookie: ${COOKIE_NAME}
           signature:
             method: HS512
-            passphrase: NmIldkG00zjhiuuJmPBz0Guzgmzsz5B5QR+Ifxi6aKfQDtSoq7wvj+cANqrP8D+CWmK0TYmTxVAOHGt42Yb/jg==
+            passphrase: ${JWT_SIGNATURE_PASSPHRASE}
           encryption:
             algorithm: A256GCM
-            passphrase: ox77MsKA2Z54qI0dZ34hNuTiAJfDsmpINPycvaAs4vI=
+            passphrase: ${JWT_ENCRYPTION_PASSPHRASE}
           roles:
             - claim: roles
               extraction:
                 regex:
-                  pattern: customer
-                substitution: customer
+                  pattern: ${JWT_ROLE}
+                substitution: echo-user
         expert_settings:
           security_gate: |
             Backend.AddEnvironmentCookies         "TRUE"

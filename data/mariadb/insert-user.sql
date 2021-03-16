@@ -19,6 +19,6 @@ VALUES ('user',
         1,
         '{}',
         'MedusaPwdHistoryAAAARjE2Mzg0fEk61Xwi7Q16p0tt9fakb+j9EcLtch4QXhWuGnQzczaRue8NSY6TZIgCGll6+x7ZwT4ujRO3dNvAxBNRM6dZbNY=',
-        0,
-        'customer' /* Enforced password change is disabled */
+        0, /* Enforced password change is disabled */
+        'customer'
        ) ON DUPLICATE KEY UPDATE username=username;
