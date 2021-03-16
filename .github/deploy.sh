@@ -35,7 +35,7 @@ kubectl create secret docker-registry dockerregcred \
   --docker-email=${DOCKER_EMAIL}
 
 echo "initializing config data..."
-cp ./github/kind/kust-base.yaml init/kustomization.yaml
+cp ./.github/kind/kust-base.yaml init/kustomization.yaml
 kubectl apply -k ./.github/kind
 sleep 30
 echo "showing data-pod status..."
