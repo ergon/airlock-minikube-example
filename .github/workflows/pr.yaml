@@ -41,3 +41,5 @@ jobs:
           IAM_LIC: ${{ secrets.IAM_LIC }}
           MICROGATEWAY_LIC: ${{ secrets.MICROGATEWAY_LIC }}
         run: .github/deploy.sh
+      - name: Testing deployment
+        run: .github/run-cypress.sh   
