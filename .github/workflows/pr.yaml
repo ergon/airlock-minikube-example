@@ -14,7 +14,7 @@ jobs:
         env:
           KUBERNETES_VERSION: 1.18.1
         run: .github/kubeval.sh
-  deploy:
+  test:
     runs-on: ubuntu-latest
     needs:
       - kubeval
@@ -28,6 +28,7 @@ jobs:
           version: v0.10.0
       - name: Testing Cluster
         run: |
+          docker version
           kind version
           kubectl cluster-info
           kubectl get pods -n kube-system
@@ -42,4 +43,4 @@ jobs:
           MICROGATEWAY_LIC: ${{ secrets.MICROGATEWAY_LIC }}
         run: .github/deploy.sh
       - name: Testing deployment
-        run: .github/run-cypress.sh   
+        run: .github/run-cypress.sh
