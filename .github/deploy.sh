@@ -1,6 +1,13 @@
 #!/bin/bash
 set -euox pipefail
 
+echo "installing ingress"
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
+kubectl wait --namespace ingress-nginx \
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=90s
+
 echo "creating microgateway secrets..."
 openssl rand -base64 102 | tr -d '\n' > init/microgateway.passphrase
 echo ${MICROGATEWAY_LIC} > init/microgateway.lic
@@ -28,8 +35,8 @@ kubectl create secret docker-registry dockerregcred \
   --docker-email=${DOCKER_EMAIL}
 
 echo "initializing config data..."
-cp kind/kust-base.yaml init/kustomization.yaml
-kubectl apply -k kind
+cp ./github/kind/kust-base.yaml init/kustomization.yaml
+kubectl apply -k ./.github/kind
 sleep 30
 echo "showing data-pod status..."
 kubectl get pods
