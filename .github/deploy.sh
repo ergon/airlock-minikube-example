@@ -65,5 +65,5 @@ kubectl rollout status deployment microgateway-iam --timeout 30s
 kubectl rollout status deployment microgateway-kibana --timeout 30s
 kubectl rollout status deployment kibana --timeout 100s
 kubectl rollout status deployment elasticsearch --timeout 100s
-kubectl rollout status deployment iam --timeout 100s
+kubectl rollout status deployment iam --timeout 200s
 kubectl get all
