@@ -24,8 +24,8 @@ jobs:
       - name: Create kind cluster
         uses: engineerd/setup-kind@v0.5.0
         with:
-          - config: ./github/kind/cluster.yaml
-          - version: 0.10.0
+          config: ./github/kind/cluster.yaml
+          version: 0.10.0
       - name: Testing Cluster
         run: |
           kind version
