@@ -1,0 +1,7 @@
+{
+  "pluginsFile": false,
+  "supportFile": false,
+  "video": false,
+  "screenshotOnRunFailure": false,
+  "baseUrl": "https://host.docker.internal"
+}
