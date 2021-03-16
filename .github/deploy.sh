@@ -34,6 +34,8 @@ kubectl create secret docker-registry dockerregcred \
   --docker-password=${DOCKER_TOKEN} \
   --docker-email=${DOCKER_EMAIL}
 
+kubectl describe secret dockerregcred
+
 echo "initializing config data..."
 cp ./.github/kind/kust-base.yaml init/kustomization.yaml
 kubectl apply -k ./.github/kind
