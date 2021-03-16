@@ -52,6 +52,11 @@ spec:
                 configMapKeyRef:
                   name: generic-parameters
                   key: TZ
+            - name: COOKIE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: COOKIE_NAME
           ports:
             - name: https
               containerPort: 8443
@@ -143,7 +148,7 @@ data:
         Request.Logging.Headers.IgnoreCase    "TRUE"
         Request.Logging.Headers.InvertPattern "FALSE"
 
-        RolesWhitelist.Pattern "^authenticated$"
+        RolesWhitelist.Pattern                "^authenticated$"
     apps:
     - virtual_host:
         name: vh-iam
@@ -164,7 +169,7 @@ data:
             enabled: true
         expert_settings:
           security_gate: |
-            Cookie.PassthroughSelector.Pattern    "^iam_auth$"
+            Cookie.PassthroughSelector.Pattern    "^${COOKIE_NAME}$"
             Cookie.PassthroughSelector.IgnoreCase "TRUE"
             # TODO:
             # Not required anymore with: ALMICRO-467
