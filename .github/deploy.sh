@@ -39,7 +39,7 @@ kubectl describe secret dockerregcred
 echo "initializing config data..."
 cp ./.github/kind/kust-base.yaml init/kustomization.yaml
 kubectl apply -k ./.github/kind
-sleep 30
+sleep 60
 echo "showing data-pod status..."
 kubectl get pods
 kubectl describe pod/data-pod
@@ -56,5 +56,12 @@ echo "deploying example..."
 kubectl apply -f example/
 
 echo "wait and display status of resources"
-sleep 300
+kubectl rollout status deployment redis --timeout 60s
+kubectl rollout status deployment echoserver --timeout 60s
+kubectl rollout status deployment microgateway-echoserver --timeout 120s
+kubectl rollout status deployment microgateway-iam --timeout 30s
+kubectl rollout status deployment microgateway-kibana --timeout 30s
+kubectl rollout status deployment kibana --timeout 100s
+kubectl rollout status deployment elasticsearch --timeout 100s
+kubectl rollout status deployment iam --timeout 100s
 kubectl get all
