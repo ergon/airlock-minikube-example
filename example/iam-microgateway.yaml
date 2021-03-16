@@ -29,6 +29,11 @@ spec:
                   key: TZ
             - name: OPERATIONAL_MODE
               value: production
+            - name: COOKIE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: COOKIE_NAME
           volumeMounts:
             - name: config
               mountPath: /config/config.yaml
@@ -52,11 +57,6 @@ spec:
                 configMapKeyRef:
                   name: generic-parameters
                   key: TZ
-            - name: COOKIE_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: jwt-secret
-                  key: COOKIE_NAME
           ports:
             - name: https
               containerPort: 8443
