@@ -96,6 +96,8 @@ spec:
               value: INFO
             - name: IAM_HEALTH_ADDRESS
               value: .*
+            - name: IAM_MODULES
+              value: adminapp,loginapp
           ports:
             - name: https
               containerPort: 8443
