@@ -60,7 +60,9 @@ sleep 60
 kubectl get all
 kubectl rollout status deployment redis --timeout 60s
 kubectl rollout status deployment echoserver --timeout 60s
-kubectl rollout status deployment microgateway-echoserver --timeout 180s
+sleep 90
+kubectl get all
+kubectl rollout status deployment microgateway-echoserver --timeout 120s
 kubectl rollout status deployment microgateway-iam --timeout 30s
 kubectl rollout status deployment microgateway-kibana --timeout 30s
 kubectl rollout status deployment kibana --timeout 100s
