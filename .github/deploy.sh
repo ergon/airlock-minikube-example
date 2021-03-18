@@ -93,7 +93,7 @@ if [ $? -ne 0 ] ; then
   kubectl describe pod/$POD
   kubectl logs $POD -c config-builder
   kubectl logs $POD
-  exit $?
+  exit 1
 fi
 
 kubectl rollout status deployment microgateway-iam --timeout 30s
