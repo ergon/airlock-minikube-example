@@ -3,6 +3,15 @@
 This repository contains deployment examples for [Airlock] on [Minikube]. It shows how to protect a backend application with Airlock Microgateway and how to identify users using Airlock IAM. The
 source code is available under the [MIT license].
 
+## Overview
+
+![Overview](/.github/images/overview.svg)
+
+The example demonstrates 2 different integration modes of the [Airlock] components Microgateway and IAM. They differ in the way information about users is shared between between IAM and the Microgateway instances protecting the respective service.
+* Echo Server: User information is shared between IAM and the Microgateway protecting the Echo Server using a JWT token transported in a cookie.
+* Kibana: User information is shared in Redis as Microgateway session data.
+
+
 ## About Ergon
 
 *Airlock* is a registered trademark of [Ergon]. Ergon is a Swiss leader in leveraging digitalisation to create unique and effective client benefits, from conception to market, the result of which is
