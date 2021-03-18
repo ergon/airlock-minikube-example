@@ -7,6 +7,17 @@ source code is available under the [MIT license].
 
 ![Overview](/.github/images/overview.svg)
 
+
+The different components in the example are described below:
+* The Ingress controller is accepting the external traffic and forwards it to the designated Microgateway service.
+* A specific Airlock Microgateway protects each of the following services:
+  * Airlock IAM, which is accessible for unauthenticated users. Filters, OpenAPI specifications and other security features protects IAM against attacks.
+  * Kibana, which is only accessible for authenticated users.
+  * Echo Server, which is only accessible for authenticated users.
+* Airlock IAM authenticates users for services with authentication enforcement configured in the Microgateway. 
+  * For the Echo Server, the authenticated user is federated through a JWT token in a cookie.
+  * For Kibana, the IAM and Kibana Microgateway share the same Redis instance and therefore hold the same session data.
+
 ## About Ergon
 
 *Airlock* is a registered trademark of [Ergon]. Ergon is a Swiss leader in leveraging digitalisation to create unique and effective client benefits, from conception to market, the result of which is
@@ -66,6 +77,29 @@ kubectl create secret generic iam-secret \
   --from-file=license.txt=init/iam.lic \
   --dry-run=client \
   -o yaml > init/iam-secret.yaml
+```
+
+### JSON Web Token
+
+* Generate the two secrets for the JSON Web Token.
+    * `init/jwt.encryption.passphrase`
+    * `init/jwt.signature.passphrase`
+
+```console
+openssl rand -base64 32 | tr -d '\n' > init/jwt.encryption.passphrase
+openssl rand -base64 64 | tr -d '\n' > init/jwt.signature.passphrase
+```
+
+* Create the secret `jwt-secret`:
+
+```console
+kubectl create secret generic jwt-secret \
+  --from-file=JWT_ENCRYPTION_PASSPHRASE=init/jwt.encryption.passphrase \
+  --from-file=JWT_SIGNATURE_PASSPHRASE=init/jwt.signature.passphrase \
+  --from-literal=COOKIE_NAME=iam_auth \
+  --from-literal=JWT_ROLE=customer \
+  --dry-run=client \
+  -o yaml > init/jwt-secret.yaml
 ```
 
 ### MariaDB
