@@ -1,5 +1,5 @@
 /.idea/
-/init/microgateway.passphrase
+/init/*.passphrase
 /init/*.lic
 /init/*-secret.yaml
 
