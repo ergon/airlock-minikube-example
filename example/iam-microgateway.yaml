@@ -29,6 +29,11 @@ spec:
                   key: TZ
             - name: OPERATIONAL_MODE
               value: production
+            - name: COOKIE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: COOKIE_NAME
           volumeMounts:
             - name: config
               mountPath: /config/config.yaml
@@ -162,6 +167,8 @@ data:
             enabled: true
         expert_settings:
           security_gate: |
+            Cookie.PassthroughSelector.Pattern    "^${COOKIE_NAME}$"
+            Cookie.PassthroughSelector.IgnoreCase "TRUE"
             # TODO:
             # Not required anymore with: ALMICRO-467
             CsrfTokens.Enable    "FALSE"
