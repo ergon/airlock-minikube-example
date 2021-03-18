@@ -19,7 +19,7 @@ spec:
         - name: dockerregcred
       initContainers:
         - name: configbuilder
-          image: ergon/airlock-microgateway-configbuilder-nightly:2.0.sprint8_Build005
+          image: docker.ergon.ch/airlock-pd-waf/airlock-microgateway-configbuilder:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -61,7 +61,7 @@ spec:
               mountPath: /resources-gen
       containers:
         - name: microgateway-echoserver
-          image: ergon/airlock-microgateway-nightly:2.0.sprint8_Build005
+          image: docker.ergon.ch/airlock-pd-waf/airlock-microgateway:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -72,6 +72,8 @@ spec:
           ports:
             - name: https
               containerPort: 8443
+            - name: probes
+              containerPort: 9090
           volumeMounts:
             - name: config-files
               mountPath: /config/
@@ -79,16 +81,14 @@ spec:
             failureThreshold: 9
             timeoutSeconds: 5
             httpGet:
-              path: /healthz
-              port: https
-              scheme: HTTPS
+              path: /alive
+              port: probes
             initialDelaySeconds: 90
           readinessProbe:
             failureThreshold: 3
             httpGet:
-              path: /healthz
-              port: https
-              scheme: HTTPS
+              path: /healthy
+              port: probes
             initialDelaySeconds: 10
           lifecycle:
             preStop:
