@@ -19,12 +19,16 @@ describe('Minikube Example Tests', () => {
     // verify that we are on the portal
     cy.contains('[class="page-title"]', 'Portal');
 
-    //find the Kibana icon and navigate to it
+    //find the Kibana icon, navigate to it and check a kibana specific header
     cy.contains('Kibana');
-    cy.visit('/kibana/')
-    //cy.contains('body#kibana-app')
-
-    // we have to logout here
+    cy.request('/kibana/')
+      .its('headers')
+      .then((responseHeaders) => {
+        expect(responseHeaders).to.have.property(
+          'kbn-name',
+          'kibana',
+      )
+    })
   })
 
   it('Access Echo Service', () => {
