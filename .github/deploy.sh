@@ -20,6 +20,15 @@ echo ${IAM_LIC} > init/iam.lic
 kubectl create secret generic iam-secret \
   --from-file=license.txt=init/iam.lic
 
+echo "creating secrets for JWT"
+openssl rand -base64 32 | tr -d '\n' > init/jwt.encryption.passphrase
+openssl rand -base64 64 | tr -d '\n' > init/jwt.signature.passphrase
+kubectl create secret generic jwt-secret \
+   --from-file=JWT_ENCRYPTION_PASSPHRASE=init/jwt.encryption.passphrase \
+   --from-file=JWT_SIGNATURE_PASSPHRASE=init/jwt.signature.passphrase \
+   --from-literal=COOKIE_NAME=iam_auth \
+   --from-literal=JWT_ROLE=customer
+
 echo "creating mariadb secrets..."
 kubectl create secret generic mariadb-secret \
   --from-literal=MYSQL_DATABASE=iamdb \
