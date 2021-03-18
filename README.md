@@ -7,6 +7,7 @@ source code is available under the [MIT license].
 
 ![Overview](/.github/images/overview.svg)
 
+
 The different components in the example are described below:
 * The Ingress controller is accepting the external traffic and forwards it to the designated Microgateway service.
 * A specific Airlock Microgateway protects each of the following services:
@@ -16,7 +17,6 @@ The different components in the example are described below:
 * Airlock IAM authenticates users for services with authentication enforcement configured in the Microgateway. 
   * For the Echo Server, the authenticated user is federated through a JWT token in a cookie.
   * For Kibana, the IAM and Kibana Microgateway share the same Redis instance and therefore hold the same session data.
-
 
 ## About Ergon
 
