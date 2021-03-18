@@ -65,7 +65,7 @@ if [ $? -ne 0 ] ; then
   kubectl describe pod/data-pod
   kubectl logs data-pod -c iam-init
   kubectl logs data-pod
-  exit $?
+  exit 1
 fi
 
 kubectl cp data/ data-pod:/
