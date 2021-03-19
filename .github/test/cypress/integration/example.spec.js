@@ -63,8 +63,14 @@ describe('Minikube Example Tests', () => {
     cy.get('button[type="submit"]')
       .should('be.visible')
       .click()
-    cy.contains('body#kibana-app')
 
+    // verify the url
+    cy.location().should((loc) => {
+      expect(loc.hostname).to.eq('host.docker.internal')
+      expect(loc.pathname).to.contain('/kibana/')
+      expect(loc.protocol).to.eq('https:')
+      expect(loc.toString()).to.contain('https://host.docker.internal/kibana/')
+    })
   })
 
   it('Access Echo Service', () => {
@@ -84,12 +90,18 @@ describe('Minikube Example Tests', () => {
       .should('be.visible')
       .click()
 
-    //access the echo service and verify that it went through the microgateway
+    // verify the url
+    cy.location().should((loc) => {
+      expect(loc.hostname).to.eq('host.docker.internal')
+      expect(loc.pathname).to.contain('/echo/')
+      expect(loc.protocol).to.eq('https:')
+      expect(loc.toString()).to.contain('https://host.docker.internal/echo/')
+    })
+
+    cy.document().its('contentType').should('eq', 'text/plain')
+
     // by looking for env cookie content
     cy.getCookie('iam_auth').should('exist');
-    //verify echo service response
-    cy.request('/echo/').its('body').should('include', 'GET /echo/ HTTP/1.1').
-      should('include', 'AL_ENV_REQUEST_ID');
   })
 
 })
