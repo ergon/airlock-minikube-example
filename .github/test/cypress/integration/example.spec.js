@@ -27,8 +27,8 @@ describe('Minikube Example Tests', () => {
         expect(responseHeaders).to.have.property(
           'kbn-name',
           'kibana',
-      )
-    })
+        )
+      })
   })
 
   it('Access Echo Service', () => {
@@ -47,6 +47,9 @@ describe('Minikube Example Tests', () => {
     cy.get('button[type="submit"]')
       .should('be.visible')
       .click()
+
+    // verify the iam_auth cookie with the jwt exists
+    cy.getCookie('iam_auth').should('exist')
 
     // verify that we are on the portal
     cy.contains('[class="page-title"]', 'Portal');
