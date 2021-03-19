@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Run kubeval
         env:
           KUBERNETES_VERSION: 1.18.1
@@ -20,7 +20,7 @@ jobs:
       - kubeval
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Create kind cluster
         uses: engineerd/setup-kind@v0.5.0
         with:
@@ -46,4 +46,4 @@ jobs:
         run: .github/run-cypress.sh
       - name: Collect logs
         if: ${{ failure() }}
-        run: .github/collect-logs.sh        
+        run: .github/collect-logs.sh
