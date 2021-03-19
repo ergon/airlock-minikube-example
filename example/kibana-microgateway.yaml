@@ -153,7 +153,7 @@ data:
             max_value_length: 819200
         auth:
           flow: redirect
-          denied_access_url: /auth/check-login
+          denied_access_url: /auth/ui/app/auth/application/access
           access:
           - roles:
             - authenticated

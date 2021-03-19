@@ -170,7 +170,7 @@ data:
           enabled: true
         auth:
           flow: redirect
-          denied_access_url: /auth/check-login
+          denied_access_url: /auth/ui/app/auth/application/access
           access:
           - roles:
             - echo-user
@@ -196,7 +196,7 @@ data:
         expert_settings:
           security_gate: |
             Backend.AddEnvironmentCookies         "TRUE"
-            Cookie.PassthroughSelector.Pattern    "^.*$"
+            Cookie.PassthroughSelector.Pattern    "^${COOKIE_NAME}$"
             Cookie.PassthroughSelector.IgnoreCase "TRUE"
         backend:
           name: beg-echoserver

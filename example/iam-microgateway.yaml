@@ -186,6 +186,10 @@ data:
         api_security:
           openapi:
             spec_file: /config/templates/login-rest-openapi.json
+        expert_settings:
+          security_gate: |
+            Cookie.PassthroughSelector.Pattern    "^${COOKIE_NAME}$"
+            Cookie.PassthroughSelector.IgnoreCase "TRUE"
         backend:
           name: beg-iam
           hosts:
@@ -200,6 +204,10 @@ data:
           openapi:
             spec_file: /config/templates/login-rest-openapi.json
         operational_mode: ${OPERATIONAL_MODE:-production}
+        expert_settings:
+          security_gate: |
+            Cookie.PassthroughSelector.Pattern    "^${COOKIE_NAME}$"
+            Cookie.PassthroughSelector.IgnoreCase "TRUE"
         backend:
           name: beg-iam
           hosts:
