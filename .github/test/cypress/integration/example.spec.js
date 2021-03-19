@@ -48,14 +48,10 @@ describe('Minikube Example Tests', () => {
       .should('be.visible')
       .click()
 
-    // verify that we are on the portal
-    cy.contains('[class="page-title"]', 'Portal');
-
-    //find the Echo icon,
-    cy.contains('Echo');
-
     //access the echo service and verify that it went through the microgateway
     // by looking for env cookie content
+    cy.getCookie('iam_auth').should('exist');
+    //verify echo service response
     cy.request('/echo/').its('body').should('include', 'GET /echo/ HTTP/1.1').
       should('include', 'AL_ENV_REQUEST_ID');
   })

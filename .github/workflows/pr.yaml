@@ -44,3 +44,6 @@ jobs:
         run: .github/deploy.sh
       - name: Testing deployment
         run: .github/run-cypress.sh
+      - name: Collect logs
+        if: ${{ failure() }}
+        run: .github/collect-logs.sh        
