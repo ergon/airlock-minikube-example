@@ -189,15 +189,6 @@
     <pluginProperty name="passwordSettings"/>
     <pluginProperty name="userPersister"/>
   </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.password.PasswordTokenController$PasswordGeneratorConfig" id="User Password Generation" uuid="ad730d56-24f9-48cb-a4f9-784584b5a215">
-    <property name="fileNamePrefix">password</property>
-    <property name="fileNameSuffix">.pdf</property>
-    <pluginProperty name="generator">
-      <plugin uuidref="17b90596-a9b8-415a-9c95-094042be9ff3"/>
-    </pluginProperty>
-    <property name="outputDirectory">instances/auth/pdfs</property>
-    <property name="workingDirectory">instances/auth/pdfs/inwork</property>
-  </plugin>
   <plugin class="com.airlock.iam.admin.application.configuration.users.LockingSettings" uuid="27390339-f0a6-480c-a629-eb84d9680ec1">
     <propertyList name="lockReasons">
       <propertyValue>LockReason.InitiatedByUser</propertyValue>
@@ -1382,7 +1373,7 @@
     <propertyList name="requiredRoles">
       <propertyValue>@@JWT_ROLE@@</propertyValue>
     </propertyList>
-    <property name="urlPattern">/echo/.*</property>
+    <property name="urlPattern"> https?://[^/]+/echo/.*</property>
   </plugin>
   <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.IdPropagatorTargetApplication" id="Kibana" uuid="e7290557-8e74-474f-b4ab-70195720a1c3">
     <propertyList name="airlockCredentials">
@@ -1398,7 +1389,7 @@
     <property name="labelKeyInPortal">portal.app.kibana.label</property>
     <property name="openInNewWindow">true</property>
     <property name="portalApplicationGroupId">admintools</property>
-    <property name="urlPattern">/kibana/.*</property>
+    <property name="urlPattern"> https?://[^/]+/kibana/.*</property>
   </plugin>
   <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.PortalApplicationConfig" uuid="54fcd1f1-cada-4b74-823a-1dd8afe51f3c">
     <pluginList name="applicationGroups">
