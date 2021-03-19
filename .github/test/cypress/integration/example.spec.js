@@ -1,6 +1,6 @@
 describe('Minikube Example Tests', () => {
-  it('Access Kibana Service', () => {
-    cy.visit('/kibana/')
+  it('Access IAM portal', () => {
+    cy.visit('/')
     //we are now on the iam login page
     cy.contains('[class="iam-card-header"]', 'Login');
 
@@ -19,16 +19,52 @@ describe('Minikube Example Tests', () => {
     // verify that we are on the portal
     cy.contains('[class="page-title"]', 'Portal');
 
-    //find the Kibana icon, navigate to it and check a kibana specific header
-    cy.contains('Kibana');
-    cy.request('/kibana/')
-      .its('headers')
-      .then((responseHeaders) => {
-        expect(responseHeaders).to.have.property(
-          'kbn-name',
-          'kibana',
-      )
-    })
+    //verify that both kibana and echo service are there
+    cy.contains('Kibana')
+      .should('be.visible')
+    cy.contains('Echo')
+      .should('be.visible')
+  })
+
+  it('Access IAM admin app', () => {
+    cy.visit('/auth-admin')
+    //we are now on the iam login page
+    cy.contains('iam-authentication-page', 'Airlock IAM');
+
+    //login
+    cy.get('#username')
+      .should('be.visible')
+      .type('admin')
+    cy.get('#password')
+      .should('be.visible')
+      .type('password')
+
+    cy.get('button[type="submit"]#loginButton')
+      .should('be.visible')
+      .click()
+
+    // verify that we are in the admin app (check logs link)
+    cy.contains('a#menuLogs', 'Logs');
+  })
+
+  it('Access Kibana Service', () => {
+    cy.visit('/kibana/')
+    //we are now on the iam login page
+    cy.contains('[class="iam-card-header"]', 'Login');
+
+    //login
+    cy.get('#username')
+      .should('be.visible')
+      .type('user')
+    cy.get('#password')
+      .should('be.visible')
+      .type('password')
+
+    cy.get('button[type="submit"]')
+      .should('be.visible')
+      .click()
+    cy.contains('body#kibana-app')
+
   })
 
   it('Access Echo Service', () => {
