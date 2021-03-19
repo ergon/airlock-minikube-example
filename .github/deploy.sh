@@ -57,11 +57,4 @@ echo "deploying example..."
 kubectl apply -f example/
 
 echo "wait and display status of resources"
-kubectl rollout status deployment redis --timeout 120s
-kubectl rollout status deployment echoserver --timeout 60s
-kubectl rollout status deployment microgateway-echoserver --timeout 120s
-kubectl rollout status deployment microgateway-iam --timeout 30s
-kubectl rollout status deployment microgateway-kibana --timeout 30s
-kubectl rollout status deployment kibana --timeout 100s
-kubectl rollout status deployment elasticsearch --timeout 100s
-kubectl rollout status deployment iam --timeout 200s
+kubectl wait --for=condition=ready  --timeout=420s pod --all
