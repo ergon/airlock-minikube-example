@@ -2,7 +2,7 @@
   "pluginsFile": false,
   "supportFile": false,
   "video": false,
-  "screenshotOnRunFailure": true,
+  "screenshotOnRunFailure": false,
   "chromeWebSecurity": false,
   "baseUrl": "https://host.docker.internal"
 }
