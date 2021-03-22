@@ -66,10 +66,9 @@ describe('Minikube Example Tests', () => {
 
     // verify the url
     cy.location().should((loc) => {
-      expect(loc.hostname).to.eq('host.docker.internal')
       expect(loc.pathname).to.contain('/kibana/')
       expect(loc.protocol).to.eq('https:')
-      expect(loc.toString()).to.contain('https://host.docker.internal/kibana/')
+      expect(loc.toString()).to.contain(Cypress.config('baseUrl') +'kibana/')
     })
   })
 
@@ -92,14 +91,10 @@ describe('Minikube Example Tests', () => {
 
     // verify the url
     cy.location().should((loc) => {
-      expect(loc.hostname).to.eq('host.docker.internal')
       expect(loc.pathname).to.contain('/echo/')
       expect(loc.protocol).to.eq('https:')
-      expect(loc.toString()).to.contain('https://host.docker.internal/echo/')
+      expect(loc.toString()).to.contain(Cypress.config('baseUrl') +'echo/')
     })
-
-    cy.document().its('contentType').should('eq', 'text/plain')
-
     // by looking for env cookie content
     cy.getCookie('iam_auth').should('exist');
   })
