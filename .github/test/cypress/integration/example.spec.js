@@ -73,7 +73,7 @@ describe('Minikube Example Tests', () => {
     })
   })
 
-  it('Access Echo Service', () => {
+  it.skip('Access Echo Service', () => {
     cy.visit('/echo/')
     //we are now on the iam login page
     cy.contains('[class="iam-card-header"]', 'Login');
