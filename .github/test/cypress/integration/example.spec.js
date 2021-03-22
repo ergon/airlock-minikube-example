@@ -65,7 +65,7 @@ describe('Minikube Example Tests', () => {
       .click()
 
     // verify the url
-    cy.location().should((loc) => {
+    cy.location({ timeout: 8000 }).should((loc) => {
       expect(loc.hostname).to.eq('host.docker.internal')
       expect(loc.pathname).to.contain('/kibana/')
       expect(loc.protocol).to.eq('https:')
@@ -91,7 +91,7 @@ describe('Minikube Example Tests', () => {
       .click()
 
     // verify the url
-    cy.location().should((loc) => {
+    cy.location({ timeout: 8000 }).should((loc) => {
       expect(loc.hostname).to.eq('host.docker.internal')
       expect(loc.pathname).to.contain('/echo/')
       expect(loc.protocol).to.eq('https:')
