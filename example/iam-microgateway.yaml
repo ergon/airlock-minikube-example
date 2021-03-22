@@ -19,7 +19,7 @@ spec:
         - name: dockerregcred
       initContainers:
         - name: configbuilder
-          image: docker.ergon.ch/airlock-pd-waf/airlock-microgateway-configbuilder:latest
+          image: ergon/airlock-microgateway-configbuilder-nightly:2.0.sprint9_Build006
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -49,7 +49,7 @@ spec:
               mountPath: /resources-gen
       containers:
         - name: microgateway-iam
-          image: docker.ergon.ch/airlock-pd-waf/airlock-microgateway:latest
+          image: ergon/airlock-microgateway-nightly:2.0.sprint9_Build006
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -186,6 +186,10 @@ data:
         api_security:
           openapi:
             spec_file: /config/templates/login-rest-openapi.json
+        expert_settings:
+          security_gate: |
+            Cookie.PassthroughSelector.Pattern    "^${COOKIE_NAME}$"
+            Cookie.PassthroughSelector.IgnoreCase "TRUE"
         backend:
           name: beg-iam
           hosts:
@@ -200,6 +204,10 @@ data:
           openapi:
             spec_file: /config/templates/login-rest-openapi.json
         operational_mode: ${OPERATIONAL_MODE:-production}
+        expert_settings:
+          security_gate: |
+            Cookie.PassthroughSelector.Pattern    "^${COOKIE_NAME}$"
+            Cookie.PassthroughSelector.IgnoreCase "TRUE"
         backend:
           name: beg-iam
           hosts:

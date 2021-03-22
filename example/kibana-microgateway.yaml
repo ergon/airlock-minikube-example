@@ -19,7 +19,7 @@ spec:
         - name: dockerregcred
       initContainers:
         - name: configbuilder
-          image: docker.ergon.ch/airlock-pd-waf/airlock-microgateway-configbuilder:latest
+          image: ergon/airlock-microgateway-configbuilder-nightly:2.0.sprint9_Build006
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -41,7 +41,7 @@ spec:
               mountPath: /resources-gen
       containers:
         - name: microgateway-kibana
-          image: docker.ergon.ch/airlock-pd-waf/airlock-microgateway:latest
+          image: ergon/airlock-microgateway-nightly:2.0.sprint9_Build006
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -153,7 +153,7 @@ data:
             max_value_length: 819200
         auth:
           flow: redirect
-          denied_access_url: /auth/check-login
+          denied_access_url: /auth/ui/app/auth/application/access
           access:
           - roles:
             - authenticated

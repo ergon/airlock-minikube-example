@@ -189,15 +189,6 @@
     <pluginProperty name="passwordSettings"/>
     <pluginProperty name="userPersister"/>
   </plugin>
-  <plugin class="com.airlock.iam.admin.application.configuration.password.PasswordTokenController$PasswordGeneratorConfig" id="User Password Generation" uuid="ad730d56-24f9-48cb-a4f9-784584b5a215">
-    <property name="fileNamePrefix">password</property>
-    <property name="fileNameSuffix">.pdf</property>
-    <pluginProperty name="generator">
-      <plugin uuidref="17b90596-a9b8-415a-9c95-094042be9ff3"/>
-    </pluginProperty>
-    <property name="outputDirectory">instances/auth/pdfs</property>
-    <property name="workingDirectory">instances/auth/pdfs/inwork</property>
-  </plugin>
   <plugin class="com.airlock.iam.admin.application.configuration.users.LockingSettings" uuid="27390339-f0a6-480c-a629-eb84d9680ec1">
     <propertyList name="lockReasons">
       <propertyValue>LockReason.InitiatedByUser</propertyValue>
@@ -331,16 +322,7 @@
     <property name="viewToken">tokenadmin,helpdesk,superadmin</property>
     <property name="viewUser">useradmin,tokenadmin,helpdesk,superadmin</property>
   </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.AuthenticationFlowConfig" id="Demo Authentication Flow" uuid="34211583-f239-4521-9526-9ca329da4b6c">
-    <pluginList name="steps">
-      <plugin uuidref="51341853-0480-4290-96e2-cd8313b13b6c"/>
-      <plugin uuidref="e068e9b4-d751-4e8c-b6ae-c09255656f0a"/>
-    </pluginList>
-    <pluginList name="usernameTransformers">
-      <plugin uuidref="a5d35098-3d3f-43eb-9394-142ec4692598"/>
-    </pluginList>
-  </plugin>
-  <plugin class="com.airlock.iam.authentication.application.configuration.AuthenticationFlowConfig" id="Extended Authentication Flow" uuid="3733b689-2497-4674-8232-3dbaaba36ee2">
+  <plugin class="com.airlock.iam.authentication.application.configuration.AuthenticationFlowConfig" id="Default Authentication Flow" uuid="34211583-f239-4521-9526-9ca329da4b6c">
     <pluginList name="steps">
       <plugin uuidref="51341853-0480-4290-96e2-cd8313b13b6c"/>
       <plugin uuidref="e068e9b4-d751-4e8c-b6ae-c09255656f0a"/>
@@ -1242,7 +1224,7 @@
       <plugin uuidref="2dd88e77-894f-4df8-b8e3-275b78f03b6c"/>
     </pluginProperty>
   </plugin>
-  <plugin class="com.airlock.iam.core.misc.impl.sso.CookieTicketIdentityPropagator" id="jwt identity propagator" uuid="98854ed5-20f3-47cb-ba96-a98ba4b0ffec">
+  <plugin class="com.airlock.iam.core.misc.impl.sso.CookieTicketIdentityPropagator" id="JWT Cookie Identity Propagator" uuid="98854ed5-20f3-47cb-ba96-a98ba4b0ffec">
     <property name="cookieName">@@COOKIE_NAME@@</property>
     <pluginProperty name="ticketEncoder">
       <plugin uuidref="f1e48fb6-e3a4-47f9-947b-54ac46eb06ba"/>
@@ -1315,7 +1297,9 @@
     <property name="defaultAfterLogoutUrl">ui/app/auth/logout/disclaimer</property>
     <property name="loginPageType">SPA</property>
   </plugin>
-  <plugin class="com.airlock.iam.login.app.misc.configuration.BasicConfig" uuid="c074dafd-a5e3-4b94-9cfd-76e568c430df"/>
+  <plugin class="com.airlock.iam.login.app.misc.configuration.BasicConfig" uuid="c074dafd-a5e3-4b94-9cfd-76e568c430df">
+    <property name="keepLocationParameter">true</property>
+  </plugin>
   <plugin class="com.airlock.iam.login.app.misc.configuration.Loginapp" id="loginapp" uuid="7e19209f-2801-4575-8c71-ad17315f17c5">
     <pluginProperty name="airlockSettings">
       <plugin uuidref="96252446-240e-4321-afc7-53796b0ed76d"/>
@@ -1382,7 +1366,7 @@
     <propertyList name="requiredRoles">
       <propertyValue>@@JWT_ROLE@@</propertyValue>
     </propertyList>
-    <property name="urlPattern">/echo/.*</property>
+    <property name="urlPattern">(https?://[^/]+)?/echo/.*</property>
   </plugin>
   <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.IdPropagatorTargetApplication" id="Kibana" uuid="e7290557-8e74-474f-b4ab-70195720a1c3">
     <propertyList name="airlockCredentials">
@@ -1398,7 +1382,7 @@
     <property name="labelKeyInPortal">portal.app.kibana.label</property>
     <property name="openInNewWindow">true</property>
     <property name="portalApplicationGroupId">admintools</property>
-    <property name="urlPattern">/kibana/.*</property>
+    <property name="urlPattern">(https?://[^/]+)?/kibana/.*</property>
   </plugin>
   <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.PortalApplicationConfig" uuid="54fcd1f1-cada-4b74-823a-1dd8afe51f3c">
     <pluginList name="applicationGroups">
@@ -1415,24 +1399,25 @@
     <property name="id">admintools</property>
     <property name="titleKey">portal.group.admintools.label</property>
   </plugin>
+  <plugin class="com.airlock.iam.login.application.configuration.location.propagate.TargetURIResolverConfig" id="Echo Target URI Resolver" uuid="06c410df-5ff0-4575-84b9-8fbd776a5e2a">
+    <propertyList name="allowedURIs">
+      <propertyValue>(https?://[^/]+)?/echo/.*</propertyValue>
+    </propertyList>
+    <property name="defaultValue">/echo/</property>
+  </plugin>
   <plugin class="com.airlock.iam.login.application.configuration.location.propagate.TargetURIResolverConfig" uuid="ba7862d4-22db-4405-b6d9-bf55f9912fc0">
     <propertyList name="allowedURIs">
       <propertyValue>(^/[^/].*|/)</propertyValue>
     </propertyList>
     <property name="defaultValue">/auth/portal</property>
   </plugin>
-  <plugin class="com.airlock.iam.login.application.configuration.targetapp.ApplicationConfig" id="Extended Application" uuid="7557eec6-6c36-4769-9f6d-bbc8e093b377">
-    <pluginProperty name="authenticationFlow">
-      <plugin uuidref="3733b689-2497-4674-8232-3dbaaba36ee2"/>
-    </pluginProperty>
-    <pluginProperty name="id">
-      <plugin uuidref="23ec41d5-180c-480a-a7e0-79bfe880e01c"/>
-    </pluginProperty>
-    <pluginList name="identityPropagation">
-      <plugin uuidref="03aef40f-c255-436c-a730-749ca91c12c5"/>
-    </pluginList>
+  <plugin class="com.airlock.iam.login.application.configuration.location.propagate.TargetURIResolverConfig" id="Kibana Target URI Resolver" uuid="d9d98d5f-d6d5-4a6b-b76f-b13b4d63a9b8">
+    <propertyList name="allowedURIs">
+      <propertyValue>(https?://[^/]+)?/kibana/.*</propertyValue>
+    </propertyList>
+    <property name="defaultValue">/kibana/</property>
   </plugin>
-  <plugin class="com.airlock.iam.login.application.configuration.targetapp.ApplicationConfig" id="Demo Application" uuid="9c2a40e6-00d2-49ce-8852-39b29ff7f850">
+  <plugin class="com.airlock.iam.login.application.configuration.targetapp.ApplicationConfig" id="Default Application" uuid="9c2a40e6-00d2-49ce-8852-39b29ff7f850">
     <pluginProperty name="authenticationFlow">
       <plugin uuidref="34211583-f239-4521-9526-9ca329da4b6c"/>
     </pluginProperty>
@@ -1447,11 +1432,42 @@
       <plugin uuidref="70559820-d8e5-49ca-aedb-64d51415ecf1"/>
     </pluginList>
   </plugin>
-  <plugin class="com.airlock.iam.login.application.configuration.targetapp.ApplicationIdConfig" id="Application ID &quot;extended&quot;" uuid="23ec41d5-180c-480a-a7e0-79bfe880e01c">
-    <property name="applicationId">extended</property>
+  <plugin class="com.airlock.iam.login.application.configuration.targetapp.ApplicationConfig" id="Kibana Application" uuid="b74202dd-0e61-491e-96fb-46a978182021">
+    <pluginProperty name="applicationSelector">
+      <plugin uuidref="2daffb20-0d8f-4980-b1ba-03c04f9f68e8"/>
+    </pluginProperty>
+    <pluginProperty name="authenticationFlow">
+      <plugin uuidref="34211583-f239-4521-9526-9ca329da4b6c"/>
+    </pluginProperty>
+    <pluginProperty name="id">
+      <plugin uuidref="6ef457c5-906b-4717-ad4d-03bf8871bc42"/>
+    </pluginProperty>
+    <pluginList name="wafCredentials">
+      <plugin uuidref="70559820-d8e5-49ca-aedb-64d51415ecf1"/>
+    </pluginList>
   </plugin>
-  <plugin class="com.airlock.iam.login.application.configuration.targetapp.ApplicationIdConfig" id="Application ID &quot;demo&quot;" uuid="fa470fb6-e80a-479d-b5c1-71a96764921d">
-    <property name="applicationId">demo</property>
+  <plugin class="com.airlock.iam.login.application.configuration.targetapp.ApplicationConfig" id="Echo Application" uuid="de2a1d96-3304-440a-8ff8-c538334c3a09">
+    <pluginProperty name="applicationSelector">
+      <plugin uuidref="6f199580-e3c6-4b38-8d5a-be5963294e0e"/>
+    </pluginProperty>
+    <pluginProperty name="authenticationFlow">
+      <plugin uuidref="34211583-f239-4521-9526-9ca329da4b6c"/>
+    </pluginProperty>
+    <pluginProperty name="id">
+      <plugin uuidref="6946032a-54e8-435a-8731-efeb63c94611"/>
+    </pluginProperty>
+    <pluginList name="identityPropagation">
+      <plugin uuidref="90cf45bb-9a50-49c2-b93f-b86b40c621f8"/>
+    </pluginList>
+  </plugin>
+  <plugin class="com.airlock.iam.login.application.configuration.targetapp.ApplicationIdConfig" id="Application ID &quot;echo&quot;" uuid="6946032a-54e8-435a-8731-efeb63c94611">
+    <property name="applicationId">echo</property>
+  </plugin>
+  <plugin class="com.airlock.iam.login.application.configuration.targetapp.ApplicationIdConfig" id="Application ID &quot;kibana&quot;" uuid="6ef457c5-906b-4717-ad4d-03bf8871bc42">
+    <property name="applicationId">kibana</property>
+  </plugin>
+  <plugin class="com.airlock.iam.login.application.configuration.targetapp.ApplicationIdConfig" id="Application ID &quot;default&quot;" uuid="fa470fb6-e80a-479d-b5c1-71a96764921d">
+    <property name="applicationId">default</property>
   </plugin>
   <plugin class="com.airlock.iam.login.application.configuration.targetapp.LegacyIdPropagatorConfig" id="REST Identity Propagation" uuid="03aef40f-c255-436c-a730-749ca91c12c5">
     <pluginProperty name="identityPropagator">
@@ -1462,13 +1478,28 @@
       <plugin uuidref="f2665bf1-b15f-4164-9728-33f8413e80c5"/>
     </pluginList>
   </plugin>
+  <plugin class="com.airlock.iam.login.application.configuration.targetapp.LegacyIdPropagatorConfig" id="JWT Cookie" uuid="90cf45bb-9a50-49c2-b93f-b86b40c621f8">
+    <pluginProperty name="identityPropagator">
+      <plugin uuidref="98854ed5-20f3-47cb-ba96-a98ba4b0ffec"/>
+    </pluginProperty>
+    <pluginList name="roleProviders">
+      <plugin uuidref="6af9773c-1081-4754-a038-390dbb5c2189"/>
+      <plugin uuidref="f2665bf1-b15f-4164-9728-33f8413e80c5"/>
+    </pluginList>
+  </plugin>
   <plugin class="com.airlock.iam.login.application.configuration.targetapp.LoginappSessionUpdateIdentityPropagatorConfig" id="Update Ticket for HTML Loginapp" uuid="3de214f3-6c9b-4ba7-bc59-88abbbc77de4"/>
+  <plugin class="com.airlock.iam.login.application.configuration.targetapp.RegexApplicationSelectorConfig" id="Kibana Application Selector" uuid="2daffb20-0d8f-4980-b1ba-03c04f9f68e8">
+    <property name="uriPattern">(https?://[^/]+)?/kibana/.*</property>
+  </plugin>
+  <plugin class="com.airlock.iam.login.application.configuration.targetapp.RegexApplicationSelectorConfig" id="Echo Application Selector" uuid="6f199580-e3c6-4b38-8d5a-be5963294e0e">
+    <property name="uriPattern">(https?://[^/]+)?/echo/.*</property>
+  </plugin>
   <plugin class="com.airlock.iam.login.application.configuration.targetapp.StaticRolesProviderConfig" id="User Authenticated Role" uuid="f2665bf1-b15f-4164-9728-33f8413e80c5">
     <propertyList name="roles">
       <propertyValue>authenticated</propertyValue>
     </propertyList>
   </plugin>
-  <plugin class="com.airlock.iam.login.application.configuration.targetapp.StaticWafCredentialProviderConfig" uuid="70559820-d8e5-49ca-aedb-64d51415ecf1">
+  <plugin class="com.airlock.iam.login.application.configuration.targetapp.StaticWafCredentialProviderConfig" id="Static WAF Role &quot;authenticated&quot;" uuid="70559820-d8e5-49ca-aedb-64d51415ecf1">
     <property name="wafCredentialName">authenticated</property>
   </plugin>
   <plugin class="com.airlock.iam.login.application.configuration.targetapp.UserRolesProviderConfig" uuid="6af9773c-1081-4754-a038-390dbb5c2189"/>
@@ -1503,7 +1534,8 @@
   </plugin>
   <plugin class="com.airlock.iam.login.rest.application.configuration.auth.RestAuthenticationConfig" uuid="5e478f8a-d129-4b58-9487-cd940bd98dc6">
     <pluginList name="applications">
-      <plugin uuidref="7557eec6-6c36-4769-9f6d-bbc8e093b377"/>
+      <plugin uuidref="b74202dd-0e61-491e-96fb-46a978182021"/>
+      <plugin uuidref="de2a1d96-3304-440a-8ff8-c538334c3a09"/>
     </pluginList>
     <pluginProperty name="defaultApplication">
       <plugin uuidref="9c2a40e6-00d2-49ce-8852-39b29ff7f850"/>
@@ -1520,7 +1552,18 @@
       <plugin uuidref="50452fff-b076-4ef4-9cf0-787e24401b25"/>
     </pluginProperty>
   </plugin>
-  <plugin class="com.airlock.iam.login.rest.application.configuration.ui.authentication.AuthenticationUiConfig" id="Demo Authentication Flow UI" uuid="e4d340ab-bc10-4a2b-8376-bbbfaea64561">
+  <plugin class="com.airlock.iam.login.rest.application.configuration.ui.authentication.AuthenticationUiConfig" id="Echo Authentication Flow UI" uuid="06b3d8a5-0bba-4d76-8575-62eecf127ce0">
+    <pluginList name="stepUiConfigurations">
+      <plugin uuidref="7358849e-c98d-4609-a8a6-9cfca00a9baf"/>
+    </pluginList>
+    <pluginProperty name="targetApplicationId">
+      <plugin uuidref="6946032a-54e8-435a-8731-efeb63c94611"/>
+    </pluginProperty>
+    <pluginProperty name="targetURIResolver">
+      <plugin uuidref="06c410df-5ff0-4575-84b9-8fbd776a5e2a"/>
+    </pluginProperty>
+  </plugin>
+  <plugin class="com.airlock.iam.login.rest.application.configuration.ui.authentication.AuthenticationUiConfig" id="Default Authentication Flow UI" uuid="e4d340ab-bc10-4a2b-8376-bbbfaea64561">
     <pluginList name="stepUiConfigurations">
       <plugin uuidref="7358849e-c98d-4609-a8a6-9cfca00a9baf"/>
     </pluginList>
@@ -1531,9 +1574,22 @@
       <plugin uuidref="ba7862d4-22db-4405-b6d9-bf55f9912fc0"/>
     </pluginProperty>
   </plugin>
+  <plugin class="com.airlock.iam.login.rest.application.configuration.ui.authentication.AuthenticationUiConfig" id="Kibana Authentication Flow UI" uuid="f7c67bf3-fff9-4d98-8478-9cb4c0b680f7">
+    <pluginList name="stepUiConfigurations">
+      <plugin uuidref="7358849e-c98d-4609-a8a6-9cfca00a9baf"/>
+    </pluginList>
+    <pluginProperty name="targetApplicationId">
+      <plugin uuidref="6ef457c5-906b-4717-ad4d-03bf8871bc42"/>
+    </pluginProperty>
+    <pluginProperty name="targetURIResolver">
+      <plugin uuidref="d9d98d5f-d6d5-4a6b-b76f-b13b4d63a9b8"/>
+    </pluginProperty>
+  </plugin>
   <plugin class="com.airlock.iam.login.rest.application.configuration.ui.authentication.AuthenticationUiConfigs" id="Authentication Flow UIs" uuid="8adb552d-04bc-43bd-9efd-da2053e8ad69">
     <pluginList name="applications">
       <plugin uuidref="e4d340ab-bc10-4a2b-8376-bbbfaea64561"/>
+      <plugin uuidref="06b3d8a5-0bba-4d76-8575-62eecf127ce0"/>
+      <plugin uuidref="f7c67bf3-fff9-4d98-8478-9cb4c0b680f7"/>
     </pluginList>
   </plugin>
   <plugin class="com.airlock.iam.login.rest.application.configuration.ui.authentication.PasswordAuthenticationStepUiConfig" id="Password Page with Links" uuid="7358849e-c98d-4609-a8a6-9cfca00a9baf">
