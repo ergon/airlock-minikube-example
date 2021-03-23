@@ -400,13 +400,13 @@
     <property name="encryptionKey">[ENC]kiSmepzf9J/Ji7K5vZ5piZKKSp9LBG+4QR3P0c9t0LsR086xdOzuEp5JY4hCFQWzoiLotvD/AIFNKQSMD6t1vQ==</property>
   </plugin>
   <plugin class="com.airlock.iam.common.application.configuration.jwt.encryption.JwtTicketDirectAesEncryptionSettings" id="jwt ticket encryption" uuid="28e4196f-de4b-4733-8999-d4ec05e72767">
-    <property name="encryptionKey">@@JWT_ENCRYPTION_PASSPHRASE@@</property>
+    <property name="encryptionKey">[FILE]/home/airlock/iam/instances/auth/values/jwt/JWT_ENCRYPTION_PASSPHRASE</property>
   </plugin>
   <plugin class="com.airlock.iam.common.application.configuration.jwt.signature.JwtTicketHmacSettings" id="REST JWT Ticket Signer" uuid="3bcae214-793d-403b-a0a4-3799843e7b35">
     <property name="hmacKey">[ENC]RegOpNNTzN7kVOGvGBCn5B51cHIPwyQ8NQIT8rGgiIctf4epOgFmuEJpg4+l8Po/T5TgczMFh41KljJl6UPdC5g6oaC0Bx14kiacRMEUlck9G9Wb5eUjbGDN+MOAIZO2YGRuYwEky3QEH/6vga5zeQ==</property>
   </plugin>
   <plugin class="com.airlock.iam.common.application.configuration.jwt.signature.JwtTicketHmacSettings" id="echo JWT Ticket Signer" uuid="f65106a9-4fb3-4d91-a1ab-b3ff72c8b2c4">
-    <property name="hmacKey">@@JWT_SIGNATURE_PASSPHRASE@@</property>
+    <property name="hmacKey">[FILE]/home/airlock/iam/instances/auth/values/jwt/JWT_SIGNATURE_PASSPHRASE</property>
   </plugin>
   <plugin class="com.airlock.iam.common.application.configuration.templock.ExponentialTemporaryLockingStrategyConfig" uuid="9660523f-ed9a-4f62-b32a-e5bd5db8c73b"/>
   <plugin class="com.airlock.iam.common.application.configuration.templock.TemporaryLockingConfig" id="Temporary Locking (REST)" uuid="d15ca80a-96b2-4580-ad24-deedf43af120">
@@ -1210,9 +1210,9 @@
   </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.persistency.db.HikariCpDataSource" id="H2 Database Connection" uuid="f0d2a309-8eb4-4574-a622-503d6e5f47be">
     <property name="driverClass">org.mariadb.jdbc.Driver</property>
-    <property name="password">@@DB_PASSWORD@@</property>
-    <property name="url">jdbc:mariadb://@@DB_SERVICE@@:3306/@@DB_IAM@@</property>
-    <property name="user">@@DB_USER@@</property>
+    <property name="password">[FILE]/home/airlock/iam/instances/auth/values/mariadb/MYSQL_PASSWORD</property>
+    <property name="url">jdbc:mariadb://mariadb:3306/iamdb</property>
+    <property name="user">[FILE]/home/airlock/iam/instances/auth/values/mariadb/MYSQL_USER</property>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.sms.DummySmsGateway" uuid="955bb007-fd7b-45eb-b16b-6d1ead9c4b29"/>
   <plugin class="com.airlock.iam.core.misc.impl.sso.CookieTicketIdentityPropagator" id="REST Cookie Ticket Identity Propagator" uuid="3d37bb44-e93b-48e0-b9b7-18104b23885f">
@@ -1225,7 +1225,7 @@
     </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.sso.CookieTicketIdentityPropagator" id="JWT Cookie Identity Propagator" uuid="98854ed5-20f3-47cb-ba96-a98ba4b0ffec">
-    <property name="cookieName">@@COOKIE_NAME@@</property>
+    <property name="cookieName">[FILE]/home/airlock/iam/instances/auth/values/jwt/COOKIE_NAME</property>
     <pluginProperty name="ticketEncoder">
       <plugin uuidref="f1e48fb6-e3a4-47f9-947b-54ac46eb06ba"/>
     </pluginProperty>
@@ -1364,7 +1364,7 @@
     <property name="openInNewWindow">true</property>
     <property name="portalApplicationGroupId">generalservices</property>
     <propertyList name="requiredRoles">
-      <propertyValue>@@JWT_ROLE@@</propertyValue>
+      <propertyValue>customer</propertyValue>
     </propertyList>
     <property name="urlPattern">(https?://[^/]+)?/echo/.*</property>
   </plugin>
