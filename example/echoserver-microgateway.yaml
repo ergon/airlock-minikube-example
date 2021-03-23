@@ -44,11 +44,6 @@ spec:
                 secretKeyRef:
                   name: jwt-secret
                   key: COOKIE_NAME
-            - name: JWT_ROLE
-              valueFrom:
-                secretKeyRef:
-                  name: jwt-secret
-                  key: JWT_ROLE
           volumeMounts:
             - name: config
               mountPath: /config/config.yaml
@@ -191,7 +186,7 @@ data:
             - claim: roles
               extraction:
                 regex:
-                  pattern: ${JWT_ROLE}
+                  pattern: customer
                 substitution: echo-user
         expert_settings:
           security_gate: |
