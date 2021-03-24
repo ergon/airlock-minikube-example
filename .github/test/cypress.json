@@ -4,5 +4,5 @@
   "video": false,
   "screenshotOnRunFailure": false,
   "chromeWebSecurity": false,
-  "baseUrl": "https://host.docker.internal"
+  "baseUrl": "https://host.docker.internal/"
 }
