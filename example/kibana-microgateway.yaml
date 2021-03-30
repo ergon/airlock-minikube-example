@@ -14,6 +14,9 @@ spec:
     metadata:
       labels:
         app: microgateway-kibana
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9102"
     spec:
       imagePullSecrets:
         - name: dockerregcred
@@ -118,7 +121,7 @@ data:
 
     session:
       redis_hosts:
-      - 'redis:6379'
+        - 'redis:6379'
       encryption_passphrase_file: /secret/config/passphrase
 
     expert_settings:
@@ -138,31 +141,31 @@ data:
         Request.Logging.Headers.InvertPattern "FALSE"
 
     apps:
-    - virtual_host:
-        name: vh-kibana
-      mappings:
-      - name: kibana
-        entry_path:
-          value: /
-        session_handling: enforce_session
-        operational_mode: ${OPERATIONAL_MODE:-production}
-        deny_rule_groups:
-        - level: basic
-        limits:
-          json_limits:
-            max_value_length: 819200
-        auth:
-          flow: redirect
-          denied_access_url: /auth/ui/app/auth/application/access
-          access:
-          - roles:
-            - authenticated
-        backend:
-          name: beg-kibana
-          hosts:
-          - protocol: 'http'
-            name: kibana
-            port: 5601
+      - virtual_host:
+          name: vh-kibana
+        mappings:
+          - name: kibana
+            entry_path:
+              value: /
+            session_handling: enforce_session
+            operational_mode: ${OPERATIONAL_MODE:-production}
+            deny_rule_groups:
+              - level: basic
+            limits:
+              json_limits:
+                max_value_length: 819200
+            auth:
+              flow: redirect
+              denied_access_url: /auth/ui/app/auth/application/access
+              access:
+                - roles:
+                  - authenticated
+            backend:
+              name: beg-kibana
+              hosts:
+                - protocol: 'http'
+                  name: kibana
+                  port: 5601
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -174,7 +177,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: /kibana
+          - path: /kibana/
             pathType: Prefix
             backend:
               service:
