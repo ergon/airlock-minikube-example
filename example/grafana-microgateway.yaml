@@ -2,18 +2,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: microgateway-iam
+  name: microgateway-grafana
   labels:
-    app: microgateway-iam
+    app: microgateway-grafana
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: microgateway-iam
+      app: microgateway-grafana
   template:
     metadata:
       labels:
-        app: microgateway-iam
+        app: microgateway-grafana
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9102"
@@ -31,7 +31,17 @@ spec:
                   name: generic-parameters
                   key: TZ
             - name: OPERATIONAL_MODE
-              value: production
+              value: integration
+            - name: JWT_ENCRYPTION_PASSPHRASE
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_ENCRYPTION_PASSPHRASE
+            - name: JWT_SIGNATURE_PASSPHRASE
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_SIGNATURE_PASSPHRASE
             - name: COOKIE_NAME
               valueFrom:
                 secretKeyRef:
@@ -45,13 +55,10 @@ spec:
             - name: secret
               mountPath: /secret/config/
               readOnly: true
-            - name: data
-              mountPath: /config/templates/
-              subPath: microgateway/mapping-templates
             - name: config-files
               mountPath: /resources-gen
       containers:
-        - name: microgateway-iam
+        - name: microgateway-grafana
           image: ergon/airlock-microgateway-nightly:2.0.sprint9_Build006
           imagePullPolicy: IfNotPresent
           env:
@@ -94,12 +101,9 @@ spec:
             limits:
               memory: 4048Mi
       volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: data-claim
         - name: config
           configMap:
-            name: microgateway-iam-config
+            name: microgateway-grafana-config
         - name: secret
           secret:
             secretName: microgateway-secret
@@ -109,12 +113,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: microgateway-iam
+  name: microgateway-grafana
   labels:
-    app: microgateway-iam
+    app: microgateway-grafana
 spec:
   selector:
-    app: microgateway-iam
+    app: microgateway-grafana
   ports:
     - name: https
       port: 8443
@@ -122,7 +126,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: microgateway-iam-config
+  name: microgateway-grafana-config
 data:
   config.yaml: |
     license_file: /secret/config/license
@@ -151,105 +155,45 @@ data:
         Request.Logging.Headers.IgnoreCase    "TRUE"
         Request.Logging.Headers.InvertPattern "FALSE"
 
-        RolesWhitelist.Pattern                "^authenticated$"
     apps:
       - virtual_host:
-          name: vh-iam
-          expert_settings:
-            apache: |
-              # default redirect
-              RewriteRule ^/$ https://%{ENV:HTTP_HOST_NOPORT}/auth/portal [R=303,NE]
+          name: vh-grafana
         mappings:
-          - mapping_template_file: /config/templates/loginapp-7.3.xml
+          - name: grafana
             entry_path:
-              value: /auth/
-            backend_path: /auth-login/
+              value: /grafana/
+            session_handling: enforce_session
             operational_mode: ${OPERATIONAL_MODE:-production}
-            allow_rules:
-              - name: "Loginapp Single Page Application"
-                enabled: true
-            expert_settings:
-              security_gate: |
-                Cookie.PassthroughSelector.Pattern    "^${COOKIE_NAME}$"
-                Cookie.PassthroughSelector.IgnoreCase "TRUE"
-                # TODO:
-                # Not required anymore with: ALMICRO-467
-                CsrfTokens.Enable    "FALSE"
+            threat_handling: notify
+            deny_rule_groups:
+              - level: basic
+            auth:
+              flow: redirect
+              denied_access_url: /auth/ui/app/auth/application/access
+              access:
+                - roles:
+                    - authenticated
             backend:
-              name: beg-iam
+              name: grafana
               hosts:
-                - protocol: 'https'
-                  name: iam
-                  port: 8443
-          - mapping_template_file: /config/templates/loginapp-7.3-REST-public.xml
-            entry_path:
-              value: /auth/rest/public
-            backend_path: /auth-login/rest/public
-            operational_mode: ${OPERATIONAL_MODE:-production}
-            api_security:
-              openapi:
-                spec_file: /config/templates/login-rest-openapi.json
-            expert_settings:
-              security_gate: |
-                Cookie.PassthroughSelector.Pattern    "^${COOKIE_NAME}$"
-                Cookie.PassthroughSelector.IgnoreCase "TRUE"
-            backend:
-              name: beg-iam
-              hosts:
-                - protocol: 'https'
-                  name: iam
-                  port: 8443
-          - mapping_template_file: /config/templates/loginapp-7.3-REST-protected.xml
-            entry_path:
-              value: /auth/rest/protected
-            backend_path: /auth-login/rest/protected
-            api_security:
-              openapi:
-                spec_file: /config/templates/login-rest-openapi.json
-            operational_mode: ${OPERATIONAL_MODE:-production}
-            expert_settings:
-              security_gate: |
-                Cookie.PassthroughSelector.Pattern    "^${COOKIE_NAME}$"
-                Cookie.PassthroughSelector.IgnoreCase "TRUE"
-            backend:
-              name: beg-iam
-              hosts:
-                - protocol: 'https'
-                  name: iam
-                  port: 8443
-          - mapping_template_file: /config/templates/adminapp-7.3.xml
-            entry_path:
-              value: /auth-admin/
-            operational_mode: ${OPERATIONAL_MODE:-production}
-            backend:
-              name: beg-iam
-              hosts:
-                - protocol: 'https'
-                  name: iam
-                  port: 8443
+                - protocol: http
+                  name: grafana
+                  port: 3000
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-microgateway-iam
+  name: ingress-microgateway-grafana
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: https
-    nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   rules:
     - http:
         paths:
-          - path: /$
+          - path: /grafana/
             pathType: Prefix
             backend:
               service:
-                name: microgateway-iam
-                port:
-                  number: 8443
-          - path: /auth/
-            pathType: Prefix
-            backend:
-              service:
-                name: microgateway-iam
+                name: microgateway-grafana
                 port:
                   number: 8443

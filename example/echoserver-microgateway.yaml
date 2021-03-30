@@ -14,6 +14,9 @@ spec:
     metadata:
       labels:
         app: microgateway-echoserver
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9102"
     spec:
       imagePullSecrets:
         - name: dockerregcred
@@ -151,54 +154,53 @@ data:
         Request.Logging.Headers.InvertPattern "FALSE"
 
     apps:
-    - virtual_host:
-        name: vh-echoserver
-      mappings:
-      - name: echoserver
-        entry_path:
-          value: /echo/
-        session_handling: ignore_session
-        operational_mode: ${OPERATIONAL_MODE:-production}
-        threat_handling: notify
-        deny_rule_groups:
-        - level: strict
-          enabled: true
-        auth:
-          flow: redirect
-          denied_access_url: /auth/ui/app/auth/application/access
-          access:
-          - roles:
-            - echo-user
-        access_token:
-          mandatory: true
-          token_type: signed_and_encrypted
-          expiry_checked: true
-          extraction:
-            mode: cookie
-            cookie: ${COOKIE_NAME}
-          signature:
-            method: HS512
-            passphrase: ${JWT_SIGNATURE_PASSPHRASE}
-          encryption:
-            algorithm: A256GCM
-            passphrase: ${JWT_ENCRYPTION_PASSPHRASE}
-          roles:
-            - claim: roles
+      - virtual_host:
+          name: vh-echoserver
+        mappings:
+          - name: echoserver
+            entry_path:
+              value: /echo/
+            session_handling: ignore_session
+            operational_mode: ${OPERATIONAL_MODE:-production}
+            threat_handling: notify
+            deny_rule_groups:
+              - level: strict
+            auth:
+              flow: redirect
+              denied_access_url: /auth/ui/app/auth/application/access
+              access:
+                - roles:
+                  - echo-user
+            access_token:
+              mandatory: true
+              token_type: signed_and_encrypted
+              expiry_checked: true
               extraction:
-                regex:
-                  pattern: customer
-                substitution: echo-user
-        expert_settings:
-          security_gate: |
-            Backend.AddEnvironmentCookies         "TRUE"
-            Cookie.PassthroughSelector.Pattern    "^${COOKIE_NAME}$"
-            Cookie.PassthroughSelector.IgnoreCase "TRUE"
-        backend:
-          name: beg-echoserver
-          hosts:
-          - protocol: 'http'
-            name: echoserver
-            port: 8080
+                mode: cookie
+                cookie: ${COOKIE_NAME}
+              signature:
+                method: HS512
+                passphrase: ${JWT_SIGNATURE_PASSPHRASE}
+              encryption:
+                algorithm: A256GCM
+                passphrase: ${JWT_ENCRYPTION_PASSPHRASE}
+              roles:
+                - claim: roles
+                  extraction:
+                    regex:
+                      pattern: customer
+                    substitution: echo-user
+            expert_settings:
+              security_gate: |
+                Backend.AddEnvironmentCookies         "TRUE"
+                Cookie.PassthroughSelector.Pattern    "^${COOKIE_NAME}$"
+                Cookie.PassthroughSelector.IgnoreCase "TRUE"
+            backend:
+              name: beg-echoserver
+              hosts:
+                - protocol: 'http'
+                  name: echoserver
+                  port: 8080
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -210,7 +212,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: /echo
+          - path: /echo/
             pathType: Prefix
             backend:
               service:
