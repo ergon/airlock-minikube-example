@@ -253,3 +253,10 @@ spec:
                 name: microgateway-iam
                 port:
                   number: 8443
+          - path: /auth-admin/
+            pathType: Prefix
+            backend:
+              service:
+                name: microgateway-iam
+                port:
+                  number: 8443
