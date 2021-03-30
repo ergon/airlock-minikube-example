@@ -27,7 +27,7 @@ describe('Minikube Example Tests', () => {
   })
 
   it('Access IAM admin app', () => {
-    cy.visit('/auth-admin')
+    cy.visit('/auth-admin/')
     //we are now on the iam login page
     cy.contains('iam-authentication-page', 'Airlock IAM');
 
@@ -68,7 +68,7 @@ describe('Minikube Example Tests', () => {
     cy.location().should((loc) => {
       expect(loc.pathname).to.contain('/kibana/')
       expect(loc.protocol).to.eq('https:')
-      expect(loc.toString()).to.contain(Cypress.config('baseUrl') +'kibana/')
+      expect(loc.toString()).to.contain(Cypress.config('baseUrl') + 'kibana/')
     })
   })
 
@@ -93,7 +93,7 @@ describe('Minikube Example Tests', () => {
     cy.location().should((loc) => {
       expect(loc.pathname).to.contain('/echo/')
       expect(loc.protocol).to.eq('https:')
-      expect(loc.toString()).to.contain(Cypress.config('baseUrl') +'echo/')
+      expect(loc.toString()).to.contain(Cypress.config('baseUrl') + 'echo/')
     })
     // by looking for env cookie content
     cy.getCookie('iam_auth').should('exist');
