@@ -179,7 +179,7 @@ data:
               name: beg-iam
               hosts:
                 - protocol: 'https'
-                  name: iam
+                  name: iam-0.iam
                   port: 8443
           - mapping_template_file: /config/templates/loginapp-7.3-REST-public.xml
             entry_path:
@@ -197,7 +197,7 @@ data:
               name: beg-iam
               hosts:
                 - protocol: 'https'
-                  name: iam
+                  name: iam-0.iam
                   port: 8443
           - mapping_template_file: /config/templates/loginapp-7.3-REST-protected.xml
             entry_path:
@@ -215,7 +215,7 @@ data:
               name: beg-iam
               hosts:
                 - protocol: 'https'
-                  name: iam
+                  name: iam-0.iam
                   port: 8443
           - mapping_template_file: /config/templates/adminapp-7.3.xml
             entry_path:
@@ -225,7 +225,7 @@ data:
               name: beg-iam
               hosts:
                 - protocol: 'https'
-                  name: iam
+                  name: iam-0.iam
                   port: 8443
 ---
 apiVersion: networking.k8s.io/v1
