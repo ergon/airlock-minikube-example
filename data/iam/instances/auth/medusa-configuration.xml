@@ -1211,7 +1211,7 @@
   <plugin class="com.airlock.iam.core.misc.impl.persistency.db.HikariCpDataSource" id="H2 Database Connection" uuid="f0d2a309-8eb4-4574-a622-503d6e5f47be">
     <property name="driverClass">org.mariadb.jdbc.Driver</property>
     <property name="password">[FILE]/home/airlock/iam/instances/auth/values/mariadb/MYSQL_PASSWORD</property>
-    <property name="url">jdbc:mariadb://mariadb:3306/iamdb</property>
+    <property name="url">jdbc:mariadb://mariadb-0.mariadb:3306/iamdb</property>
     <property name="user">[FILE]/home/airlock/iam/instances/auth/values/mariadb/MYSQL_USER</property>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.sms.DummySmsGateway" uuid="955bb007-fd7b-45eb-b16b-6d1ead9c4b29"/>
