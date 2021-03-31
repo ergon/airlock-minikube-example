@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<medusaConfiguration xmlns="http://www.ergon.ch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ergon.ch medusa-config.xsd" medusa-version="7.3">
+<medusaConfiguration xmlns="http://www.ergon.ch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ergon.ch medusa-config.xsd" medusa-version="7.4">
   <plugin class="com.airlock.iam.admin.app.application.configuration.Adminapp" id="adminapp" uuid="a25f0193-6c34-44eb-9708-cf7ac234cca3">
     <pluginProperty name="accessControl">
       <plugin uuidref="2e2e41d5-5bca-450b-bc88-b1c0b273a9ba"/>
@@ -321,6 +321,7 @@
     <property name="viewTechnicalClients">techclientadmin,superadmin</property>
     <property name="viewToken">tokenadmin,helpdesk,superadmin</property>
     <property name="viewUser">useradmin,tokenadmin,helpdesk,superadmin</property>
+    <property name="viewUserLogs">sysadmin,superadmin</property>
   </plugin>
   <plugin class="com.airlock.iam.authentication.application.configuration.AuthenticationFlowConfig" id="Default Authentication Flow" uuid="34211583-f239-4521-9526-9ca329da4b6c">
     <pluginList name="steps">
@@ -683,7 +684,7 @@
   <plugin class="com.airlock.iam.common.application.configuration.userprofile.StringUserProfileItemConfig" id="Email Admintool Label" uuid="08fee59f-4b2d-4edf-8965-be5f6b0d641e">
     <property name="propertyName">email</property>
     <property name="stringResourceKey">userdata.label.email</property>
-    <property name="validationPattern">[A-Za-z0-9_\-.]+@[A-Za-z0-9\-.]+\.[a-z]+</property>
+    <property name="validationPattern">[A-Za-z0-9_\-.]+@[A-Za-z0-9\-.]+\.[A-Za-z]+</property>
   </plugin>
   <plugin class="com.airlock.iam.common.application.configuration.userprofile.StringUserProfileItemConfig" id="Authmethod Admintool Label" uuid="12c47027-04b1-44f7-b963-e2ab88565963">
     <property name="propertyName">auth_method</property>
