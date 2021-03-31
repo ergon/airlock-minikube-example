@@ -57,6 +57,8 @@ spec:
               containerPort: 8443
             - name: probes
               containerPort: 9090
+            - name: metrics
+              containerPort: 9102
           volumeMounts:
             - name: config-files
               mountPath: /config/
