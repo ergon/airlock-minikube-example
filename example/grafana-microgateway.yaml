@@ -2,18 +2,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: microgateway-echoserver
+  name: microgateway-grafana
   labels:
-    app: microgateway-echoserver
+    app: microgateway-grafana
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: microgateway-echoserver
+      app: microgateway-grafana
   template:
     metadata:
       labels:
-        app: microgateway-echoserver
+        app: microgateway-grafana
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9102"
@@ -32,21 +32,6 @@ spec:
                   key: TZ
             - name: OPERATIONAL_MODE
               value: integration
-            - name: JWT_ENCRYPTION_PASSPHRASE
-              valueFrom:
-                secretKeyRef:
-                  name: jwt-secret
-                  key: JWT_ENCRYPTION_PASSPHRASE
-            - name: JWT_SIGNATURE_PASSPHRASE
-              valueFrom:
-                secretKeyRef:
-                  name: jwt-secret
-                  key: JWT_SIGNATURE_PASSPHRASE
-            - name: COOKIE_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: jwt-secret
-                  key: COOKIE_NAME
           volumeMounts:
             - name: config
               mountPath: /config/config.yaml
@@ -58,7 +43,7 @@ spec:
             - name: config-files
               mountPath: /resources-gen
       containers:
-        - name: microgateway-echoserver
+        - name: microgateway-grafana
           image: ergon/airlock-microgateway-nightly:2.0.sprint9_Build006
           imagePullPolicy: IfNotPresent
           env:
@@ -105,7 +90,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: microgateway-echoserver-config
+            name: microgateway-grafana-config
         - name: secret
           secret:
             secretName: microgateway-secret
@@ -115,12 +100,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: microgateway-echoserver
+  name: microgateway-grafana
   labels:
-    app: microgateway-echoserver
+    app: microgateway-grafana
 spec:
   selector:
-    app: microgateway-echoserver
+    app: microgateway-grafana
   ports:
     - name: https
       port: 8443
@@ -128,7 +113,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: microgateway-echoserver-config
+  name: microgateway-grafana-config
 data:
   config.yaml: |
     license_file: /secret/config/license
@@ -137,6 +122,8 @@ data:
       level: info
 
     session:
+      redis_hosts:
+        - 'redis:6379'
       encryption_passphrase_file: /secret/config/passphrase
 
     expert_settings:
@@ -157,67 +144,43 @@ data:
 
     apps:
       - virtual_host:
-          name: vh-echoserver
+          name: vh-grafana
         mappings:
-          - name: echoserver
+          - name: grafana
             entry_path:
-              value: /echo/
-            session_handling: ignore_session
+              value: /grafana/
+            session_handling: enforce_session
             operational_mode: ${OPERATIONAL_MODE:-production}
             threat_handling: notify
             deny_rule_groups:
-              - level: strict
+              - level: basic
             auth:
               flow: redirect
               denied_access_url: /auth/ui/app/auth/application/access
               access:
                 - roles:
-                  - echo-user
-            access_token:
-              mandatory: true
-              token_type: signed_and_encrypted
-              expiry_checked: true
-              extraction:
-                mode: cookie
-                cookie: ${COOKIE_NAME}
-              signature:
-                method: HS512
-                passphrase: ${JWT_SIGNATURE_PASSPHRASE}
-              encryption:
-                algorithm: A256GCM
-                passphrase: ${JWT_ENCRYPTION_PASSPHRASE}
-              roles:
-                - claim: roles
-                  extraction:
-                    regex:
-                      pattern: customer
-                    substitution: echo-user
-            expert_settings:
-              security_gate: |
-                Backend.AddEnvironmentCookies         "TRUE"
-                Cookie.PassthroughSelector.Pattern    "^${COOKIE_NAME}$"
-                Cookie.PassthroughSelector.IgnoreCase "TRUE"
+                    - authenticated
             backend:
-              name: beg-echoserver
+              name: grafana
               hosts:
-                - protocol: 'http'
-                  name: echoserver
-                  port: 8080
+                - protocol: http
+                  name: grafana
+                  port: 3000
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-microgateway-echoserver
+  name: ingress-microgateway-grafana
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: https
 spec:
   rules:
     - http:
         paths:
-          - path: /echo/
+          - path: /grafana/
             pathType: Prefix
             backend:
               service:
-                name: microgateway-echoserver
+                name: microgateway-grafana
                 port:
                   number: 8443

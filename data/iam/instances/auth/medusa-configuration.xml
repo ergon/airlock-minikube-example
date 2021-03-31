@@ -1211,7 +1211,7 @@
   <plugin class="com.airlock.iam.core.misc.impl.persistency.db.HikariCpDataSource" id="H2 Database Connection" uuid="f0d2a309-8eb4-4574-a622-503d6e5f47be">
     <property name="driverClass">org.mariadb.jdbc.Driver</property>
     <property name="password">[FILE]/home/airlock/iam/instances/auth/values/mariadb/MYSQL_PASSWORD</property>
-    <property name="url">jdbc:mariadb://mariadb:3306/iamdb</property>
+    <property name="url">jdbc:mariadb://mariadb-0.mariadb:3306/iamdb</property>
     <property name="user">[FILE]/home/airlock/iam/instances/auth/values/mariadb/MYSQL_USER</property>
   </plugin>
   <plugin class="com.airlock.iam.core.misc.impl.sms.DummySmsGateway" uuid="955bb007-fd7b-45eb-b16b-6d1ead9c4b29"/>
@@ -1338,8 +1338,25 @@
     </pluginProperty>
     <pluginList name="targetApplications">
       <plugin uuidref="e7290557-8e74-474f-b4ab-70195720a1c3"/>
+      <plugin uuidref="205decbc-26ba-47b5-b914-d586839161b2"/>
       <plugin uuidref="b2b20084-f71e-4329-9100-b9ea53046065"/>
     </pluginList>
+  </plugin>
+  <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.IdPropagatorTargetApplication" id="Grafana" uuid="205decbc-26ba-47b5-b914-d586839161b2">
+    <propertyList name="airlockCredentials">
+      <propertyValue>authenticated</propertyValue>
+    </propertyList>
+    <propertyList name="allowedUrls">
+      <propertyValue>/grafana/.*</propertyValue>
+    </propertyList>
+    <property name="defaultUrl">/grafana/d/airlock_microgateway/airlock-microgateway</property>
+    <pluginProperty name="identityPropagator">
+      <plugin uuidref="7714e0f8-4ef2-4df7-9e43-c697ee65966a"/>
+    </pluginProperty>
+    <property name="labelKeyInPortal">portal.app.grafana.label</property>
+    <property name="openInNewWindow">true</property>
+    <property name="portalApplicationGroupId">admintools</property>
+    <property name="urlPattern">(https?://[^/]+)?/grafana/.*</property>
   </plugin>
   <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.IdPropagatorTargetApplication" id="IAM Portal" uuid="215d7b35-8b34-404c-a179-6fad4b8701cc">
     <propertyList name="allowedUrls">
@@ -1352,7 +1369,7 @@
     <property name="showInPortal">false</property>
     <property name="urlPattern">^portal$</property>
   </plugin>
-  <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.IdPropagatorTargetApplication" id="echo" uuid="b2b20084-f71e-4329-9100-b9ea53046065">
+  <plugin class="com.airlock.iam.login.app.misc.configuration.targetapps.IdPropagatorTargetApplication" id="Echo" uuid="b2b20084-f71e-4329-9100-b9ea53046065">
     <propertyList name="allowedUrls">
       <propertyValue>/echo/.*</propertyValue>
     </propertyList>
@@ -1377,7 +1394,7 @@
     </propertyList>
     <property name="defaultUrl">/kibana/</property>
     <pluginProperty name="identityPropagator">
-      <plugin uuidref="98854ed5-20f3-47cb-ba96-a98ba4b0ffec"/>
+      <plugin uuidref="7714e0f8-4ef2-4df7-9e43-c697ee65966a"/>
     </pluginProperty>
     <property name="labelKeyInPortal">portal.app.kibana.label</property>
     <property name="openInNewWindow">true</property>
@@ -1405,6 +1422,12 @@
     </propertyList>
     <property name="defaultValue">/echo/</property>
   </plugin>
+  <plugin class="com.airlock.iam.login.application.configuration.location.propagate.TargetURIResolverConfig" id="Grafana Target URI Resolver" uuid="95fdc610-2f4a-4357-8cd5-2255cd5a4ace">
+    <propertyList name="allowedURIs">
+      <propertyValue>(https?://[^/]+)?/grafana/.*</propertyValue>
+    </propertyList>
+    <property name="defaultValue">/grafana/d/airlock_microgateway/airlock-microgateway</property>
+  </plugin>
   <plugin class="com.airlock.iam.login.application.configuration.location.propagate.TargetURIResolverConfig" uuid="ba7862d4-22db-4405-b6d9-bf55f9912fc0">
     <propertyList name="allowedURIs">
       <propertyValue>(^/[^/].*|/)</propertyValue>
@@ -1416,6 +1439,20 @@
       <propertyValue>(https?://[^/]+)?/kibana/.*</propertyValue>
     </propertyList>
     <property name="defaultValue">/kibana/</property>
+  </plugin>
+  <plugin class="com.airlock.iam.login.application.configuration.targetapp.ApplicationConfig" id="Grafana Application" uuid="19bf0774-34d1-483d-b2f2-ca70bb5fc09b">
+    <pluginProperty name="applicationSelector">
+      <plugin uuidref="eca25855-5f89-44c2-a7cb-a9edaa541214"/>
+    </pluginProperty>
+    <pluginProperty name="authenticationFlow">
+      <plugin uuidref="34211583-f239-4521-9526-9ca329da4b6c"/>
+    </pluginProperty>
+    <pluginProperty name="id">
+      <plugin uuidref="e66bafe1-4246-48ca-845e-628881916ab7"/>
+    </pluginProperty>
+    <pluginList name="wafCredentials">
+      <plugin uuidref="70559820-d8e5-49ca-aedb-64d51415ecf1"/>
+    </pluginList>
   </plugin>
   <plugin class="com.airlock.iam.login.application.configuration.targetapp.ApplicationConfig" id="Default Application" uuid="9c2a40e6-00d2-49ce-8852-39b29ff7f850">
     <pluginProperty name="authenticationFlow">
@@ -1466,6 +1503,9 @@
   <plugin class="com.airlock.iam.login.application.configuration.targetapp.ApplicationIdConfig" id="Application ID &quot;kibana&quot;" uuid="6ef457c5-906b-4717-ad4d-03bf8871bc42">
     <property name="applicationId">kibana</property>
   </plugin>
+  <plugin class="com.airlock.iam.login.application.configuration.targetapp.ApplicationIdConfig" id="Application ID &quot;grafana&quot;" uuid="e66bafe1-4246-48ca-845e-628881916ab7">
+    <property name="applicationId">grafana</property>
+  </plugin>
   <plugin class="com.airlock.iam.login.application.configuration.targetapp.ApplicationIdConfig" id="Application ID &quot;default&quot;" uuid="fa470fb6-e80a-479d-b5c1-71a96764921d">
     <property name="applicationId">default</property>
   </plugin>
@@ -1493,6 +1533,9 @@
   </plugin>
   <plugin class="com.airlock.iam.login.application.configuration.targetapp.RegexApplicationSelectorConfig" id="Echo Application Selector" uuid="6f199580-e3c6-4b38-8d5a-be5963294e0e">
     <property name="uriPattern">(https?://[^/]+)?/echo/.*</property>
+  </plugin>
+  <plugin class="com.airlock.iam.login.application.configuration.targetapp.RegexApplicationSelectorConfig" id="Grafana Application Selector" uuid="eca25855-5f89-44c2-a7cb-a9edaa541214">
+    <property name="uriPattern">(https?://[^/]+)?/grafana/.*</property>
   </plugin>
   <plugin class="com.airlock.iam.login.application.configuration.targetapp.StaticRolesProviderConfig" id="User Authenticated Role" uuid="f2665bf1-b15f-4164-9728-33f8413e80c5">
     <propertyList name="roles">
@@ -1534,8 +1577,9 @@
   </plugin>
   <plugin class="com.airlock.iam.login.rest.application.configuration.auth.RestAuthenticationConfig" uuid="5e478f8a-d129-4b58-9487-cd940bd98dc6">
     <pluginList name="applications">
-      <plugin uuidref="b74202dd-0e61-491e-96fb-46a978182021"/>
       <plugin uuidref="de2a1d96-3304-440a-8ff8-c538334c3a09"/>
+      <plugin uuidref="19bf0774-34d1-483d-b2f2-ca70bb5fc09b"/>
+      <plugin uuidref="b74202dd-0e61-491e-96fb-46a978182021"/>
     </pluginList>
     <pluginProperty name="defaultApplication">
       <plugin uuidref="9c2a40e6-00d2-49ce-8852-39b29ff7f850"/>
@@ -1561,6 +1605,17 @@
     </pluginProperty>
     <pluginProperty name="targetURIResolver">
       <plugin uuidref="06c410df-5ff0-4575-84b9-8fbd776a5e2a"/>
+    </pluginProperty>
+  </plugin>
+  <plugin class="com.airlock.iam.login.rest.application.configuration.ui.authentication.AuthenticationUiConfig" id="Grafana Authentication Flow UI" uuid="92dc3ac1-1295-47ca-8f3c-85b98429eedd">
+    <pluginList name="stepUiConfigurations">
+      <plugin uuidref="7358849e-c98d-4609-a8a6-9cfca00a9baf"/>
+    </pluginList>
+    <pluginProperty name="targetApplicationId">
+      <plugin uuidref="e66bafe1-4246-48ca-845e-628881916ab7"/>
+    </pluginProperty>
+    <pluginProperty name="targetURIResolver">
+      <plugin uuidref="95fdc610-2f4a-4357-8cd5-2255cd5a4ace"/>
     </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.login.rest.application.configuration.ui.authentication.AuthenticationUiConfig" id="Default Authentication Flow UI" uuid="e4d340ab-bc10-4a2b-8376-bbbfaea64561">
@@ -1589,6 +1644,7 @@
     <pluginList name="applications">
       <plugin uuidref="e4d340ab-bc10-4a2b-8376-bbbfaea64561"/>
       <plugin uuidref="06b3d8a5-0bba-4d76-8575-62eecf127ce0"/>
+      <plugin uuidref="92dc3ac1-1295-47ca-8f3c-85b98429eedd"/>
       <plugin uuidref="f7c67bf3-fff9-4d98-8478-9cb4c0b680f7"/>
     </pluginList>
   </plugin>

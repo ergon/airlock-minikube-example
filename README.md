@@ -12,10 +12,12 @@ The different components in the example are described below:
 * The Ingress controller is accepting the external traffic and forwards it to the designated Microgateway service.
 * A specific Airlock Microgateway protects each of the following services:
   * Airlock IAM, which is accessible for unauthenticated users. Filters, OpenAPI specifications and other security features protects IAM against attacks.
+  * Echo Server, which is only accessible for authenticated users and restrictive deny rules are enabled.
+  * Grafana, which is only accessible for authenticated users.
   * Kibana, which is only accessible for authenticated users.
-  * Echo Server, which is only accessible for authenticated users.
 * Airlock IAM authenticates users for services with authentication enforcement configured in the Microgateway. 
   * For the Echo Server, the authenticated user is federated through a JWT token in a cookie.
+  * For Grafana, the IAM and Grafana Microgateway share the same Redis instance and therefore hold the same session data.
   * For Kibana, the IAM and Kibana Microgateway share the same Redis instance and therefore hold the same session data.
 
 ## About Ergon
@@ -167,8 +169,9 @@ minikube ip
 
 Open a browser to navigate to the different web applications. Use `user` as the username and `password` as the password to authenticate.
 
-* Kibana URL: `https://<MINIKUBE_IP>/kibana`
-* Echoserver URL: `https://<MINIKUBE_IP>/echo`
+* Echoserver URL: `https://<MINIKUBE_IP>/echo/`
+* Grafana URL: `https://<MINIKUBE_IP>/grafana/`
+* Kibana URL: `https://<MINIKUBE_IP>/kibana/`
 
 Use the Airlock IAM Adminapp to administer users and their login factors.
 
