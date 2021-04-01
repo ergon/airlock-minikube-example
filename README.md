@@ -175,7 +175,7 @@ Open a browser to navigate to the different web applications. Use `user` as the 
 
 Use the Airlock IAM Adminapp to administer users and their login factors.
 
-* Airlock IAM Adminapp URL: `https://<MINIKUBE_IP>/auth-admin`
+* Airlock IAM Adminapp URL: `https://<MINIKUBE_IP>/auth-admin/`
     * Username: `admin`
     * Password: `password`
 
