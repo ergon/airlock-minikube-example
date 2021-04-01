@@ -133,8 +133,7 @@ data:
       level: info
 
     session:
-      redis_hosts:
-        - 'redis:6379'
+      redis_hosts: [ redis-master ]
       encryption_passphrase_file: /secret/config/passphrase
 
     expert_settings:
