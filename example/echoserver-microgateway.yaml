@@ -164,7 +164,7 @@ data:
               value: /echo/
             session_handling: ignore_session
             operational_mode: ${OPERATIONAL_MODE:-production}
-            threat_handling: notify
+            threat_handling: block
             deny_rule_groups:
               - level: strict
             auth:
