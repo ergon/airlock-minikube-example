@@ -1793,14 +1793,14 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg(rate(http_sessions_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\".+\"}[2m])) by (kubernetes_namespace)",
+              "expr": "http_sessions_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\".+\"}",
               "interval": "",
               "legendFormat": "Concurrent ",
               "queryType": "randomWalk",
               "refId": "A"
             },
             {
-              "expr": "avg(rate(http_sessions_authenticated_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\".+\"}[2m])) by (kubernetes_namespace)",
+              "expr": "http_sessions_authenticated_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\".+\"}",
               "hide": false,
               "interval": "",
               "legendFormat": "Authenticated",
@@ -1910,14 +1910,14 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg(rate(http_sessions_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\"$service_name\"}[2m])) by (kubernetes_service_name)",
+              "expr": "http_sessions_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\"$service_name\"}",
               "interval": "",
               "legendFormat": "Concurrent : {{kubernetes_service_name}}",
               "queryType": "randomWalk",
               "refId": "A"
             },
             {
-              "expr": "avg(rate(http_sessions_authenticated_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\"$service_name\"}[2m])) by (kubernetes_service_name)",
+              "expr": "http_sessions_authenticated_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\"$service_name\"}",
               "hide": false,
               "interval": "",
               "legendFormat": "Authenticated: {{kubernetes_service_name}}",
@@ -2027,14 +2027,14 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg(rate(http_sessions_current{kubernetes_namespace=~\"$namespace\", kubernetes_pod_name=~\"$pod_name\"}[2m])) by (kubernetes_pod_name)",
+              "expr": "http_sessions_current{kubernetes_namespace=~\"$namespace\", kubernetes_pod_name=~\"$pod_name\"}",
               "interval": "",
               "legendFormat": "Concurrent : {{kubernetes_pod_name}}",
               "queryType": "randomWalk",
               "refId": "A"
             },
             {
-              "expr": "avg(rate(http_sessions_authenticated_current{kubernetes_namespace=~\"$namespace\", kubernetes_pod_name=~\"$pod_name\"}[2m])) by (kubernetes_pod_name)",
+              "expr": "http_sessions_authenticated_current{kubernetes_namespace=~\"$namespace\", kubernetes_pod_name=~\"$pod_name\"}",
               "hide": false,
               "interval": "",
               "legendFormat": "Authenticated: {{kubernetes_pod_name}}",
