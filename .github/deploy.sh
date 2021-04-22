@@ -52,7 +52,7 @@ kubectl wait --for=condition=ready --timeout=300s pod/data-pod
 kubectl cp data/ data-pod:/
 kubectl exec data-pod -- sh -c "chown -R 1000:0 /data/iam/"
 kubectl exec data-pod -- sh -c "chown -R 999:999 /data/mariadb/"
-kubectl exec data-pod -- sh -c "chown -R 1000:0 /data/kibana/
+kubectl exec data-pod -- sh -c "chown -R 1000:0 /data/kibana/"
 
 echo "deploying example..."
 kubectl apply -f example/
