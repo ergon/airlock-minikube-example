@@ -1798,13 +1798,6 @@ data:
               "legendFormat": "Concurrent ",
               "queryType": "randomWalk",
               "refId": "A"
-            },
-            {
-              "expr": "http_sessions_authenticated_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\".+\"}",
-              "hide": false,
-              "interval": "",
-              "legendFormat": "Authenticated",
-              "refId": "B"
             }
           ],
           "thresholds": [],
@@ -1832,7 +1825,7 @@ data:
               "label": null,
               "logBase": 1,
               "max": null,
-              "min": null,
+              "min": 0,
               "show": true
             },
             {
@@ -1841,7 +1834,7 @@ data:
               "label": null,
               "logBase": 1,
               "max": null,
-              "min": null,
+              "min": 0,
               "show": true
             }
           ],
@@ -1915,13 +1908,6 @@ data:
               "legendFormat": "Concurrent : {{kubernetes_service_name}}",
               "queryType": "randomWalk",
               "refId": "A"
-            },
-            {
-              "expr": "http_sessions_authenticated_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\"$service_name\"}",
-              "hide": false,
-              "interval": "",
-              "legendFormat": "Authenticated: {{kubernetes_service_name}}",
-              "refId": "B"
             }
           ],
           "thresholds": [],
@@ -1949,7 +1935,7 @@ data:
               "label": null,
               "logBase": 1,
               "max": null,
-              "min": null,
+              "min": 0,
               "show": true
             },
             {
@@ -1958,7 +1944,7 @@ data:
               "label": null,
               "logBase": 1,
               "max": null,
-              "min": null,
+              "min": 0,
               "show": true
             }
           ],
@@ -2032,13 +2018,6 @@ data:
               "legendFormat": "Concurrent : {{kubernetes_pod_name}}",
               "queryType": "randomWalk",
               "refId": "A"
-            },
-            {
-              "expr": "http_sessions_authenticated_current{kubernetes_namespace=~\"$namespace\", kubernetes_pod_name=~\"$pod_name\"}",
-              "hide": false,
-              "interval": "",
-              "legendFormat": "Authenticated: {{kubernetes_pod_name}}",
-              "refId": "B"
             }
           ],
           "thresholds": [],
@@ -2066,7 +2045,7 @@ data:
               "label": null,
               "logBase": 1,
               "max": null,
-              "min": null,
+              "min": 0,
               "show": true
             },
             {
@@ -2075,7 +2054,7 @@ data:
               "label": null,
               "logBase": 1,
               "max": null,
-              "min": null,
+              "min": 0,
               "show": true
             }
           ],
