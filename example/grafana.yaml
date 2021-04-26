@@ -144,7 +144,7 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 0,
-      "iteration": 1619428014370,
+      "iteration": 1619433781284,
       "links": [],
       "panels": [
         {
@@ -1481,11 +1481,6 @@ data:
               "$$hashKey": "object:10128",
               "alias": "Concurrent",
               "color": "#1F60C4"
-            },
-            {
-              "$$hashKey": "object:10136",
-              "alias": "Authenticated",
-              "color": "#8F3BB8"
             }
           ],
           "spaceLength": 10,
@@ -1521,6 +1516,7 @@ data:
           "yaxes": [
             {
               "$$hashKey": "object:416",
+              "decimals": 0,
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -1530,6 +1526,7 @@ data:
             },
             {
               "$$hashKey": "object:417",
+              "decimals": 0,
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -1591,11 +1588,6 @@ data:
               "$$hashKey": "object:10128",
               "alias": "Concurrent",
               "color": "#1F60C4"
-            },
-            {
-              "$$hashKey": "object:10136",
-              "alias": "Authenticated",
-              "color": "#8F3BB8"
             }
           ],
           "spaceLength": 10,
@@ -1631,6 +1623,7 @@ data:
           "yaxes": [
             {
               "$$hashKey": "object:416",
+              "decimals": 0,
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -1640,6 +1633,7 @@ data:
             },
             {
               "$$hashKey": "object:417",
+              "decimals": 0,
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -1701,11 +1695,6 @@ data:
               "$$hashKey": "object:10128",
               "alias": "Concurrent",
               "color": "#1F60C4"
-            },
-            {
-              "$$hashKey": "object:10136",
-              "alias": "Authenticated",
-              "color": "#8F3BB8"
             }
           ],
           "spaceLength": 10,
@@ -1741,6 +1730,7 @@ data:
           "yaxes": [
             {
               "$$hashKey": "object:416",
+              "decimals": 0,
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -1750,6 +1740,7 @@ data:
             },
             {
               "$$hashKey": "object:417",
+              "decimals": 0,
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -1808,11 +1799,6 @@ data:
           "renderer": "flot",
           "seriesOverrides": [
             {
-              "$$hashKey": "object:10128",
-              "alias": "Concurrent",
-              "color": "#1F60C4"
-            },
-            {
               "$$hashKey": "object:10136",
               "alias": "Authenticated",
               "color": "#8F3BB8"
@@ -1851,6 +1837,7 @@ data:
           "yaxes": [
             {
               "$$hashKey": "object:416",
+              "decimals": 0,
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -1860,6 +1847,7 @@ data:
             },
             {
               "$$hashKey": "object:417",
+              "decimals": 0,
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -1918,11 +1906,6 @@ data:
           "renderer": "flot",
           "seriesOverrides": [
             {
-              "$$hashKey": "object:10128",
-              "alias": "Concurrent",
-              "color": "#1F60C4"
-            },
-            {
               "$$hashKey": "object:10136",
               "alias": "Authenticated",
               "color": "#8F3BB8"
@@ -1961,6 +1944,7 @@ data:
           "yaxes": [
             {
               "$$hashKey": "object:416",
+              "decimals": 0,
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -1970,6 +1954,7 @@ data:
             },
             {
               "$$hashKey": "object:417",
+              "decimals": 0,
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -2028,11 +2013,6 @@ data:
           "renderer": "flot",
           "seriesOverrides": [
             {
-              "$$hashKey": "object:10128",
-              "alias": "Concurrent",
-              "color": "#1F60C4"
-            },
-            {
               "$$hashKey": "object:10136",
               "alias": "Authenticated",
               "color": "#8F3BB8"
@@ -2071,6 +2051,7 @@ data:
           "yaxes": [
             {
               "$$hashKey": "object:416",
+              "decimals": 0,
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -2080,6 +2061,7 @@ data:
             },
             {
               "$$hashKey": "object:417",
+              "decimals": 0,
               "format": "short",
               "label": null,
               "logBase": 1,
