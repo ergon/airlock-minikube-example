@@ -144,7 +144,7 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 0,
-      "iteration": 1619433781284,
+      "iteration": 1619434517753,
       "links": [],
       "panels": [
         {
@@ -1488,7 +1488,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "http_sessions_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\".+\"}",
+              "expr": "sum(http_sessions_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\".+\"}) by (kubernetes_namespace)",
               "interval": "",
               "legendFormat": "Concurrent ",
               "queryType": "randomWalk",
@@ -1809,7 +1809,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "http_sessions_authenticated_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\".+\"}",
+              "expr": "sum(http_sessions_authenticated_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\".+\"}) by (kubernetes_namespace)",
               "interval": "",
               "legendFormat": "Authenticated ",
               "queryType": "randomWalk",
