@@ -144,7 +144,7 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 0,
-      "iteration": 1615547708251,
+      "iteration": 1619502479935,
       "links": [],
       "panels": [
         {
@@ -197,7 +197,7 @@ data:
           },
           "lines": true,
           "linewidth": 1,
-          "nullPointMode": "null",
+          "nullPointMode": "null as zero",
           "options": {
             "alertThreshold": true
           },
@@ -326,7 +326,7 @@ data:
           },
           "lines": true,
           "linewidth": 2,
-          "nullPointMode": "null",
+          "nullPointMode": "null as zero",
           "options": {
             "alertThreshold": false
           },
@@ -469,7 +469,7 @@ data:
           },
           "lines": true,
           "linewidth": 2,
-          "nullPointMode": "null",
+          "nullPointMode": "null as zero",
           "options": {
             "alertThreshold": false
           },
@@ -580,7 +580,7 @@ data:
           },
           "lines": false,
           "linewidth": 1,
-          "nullPointMode": "null",
+          "nullPointMode": "null as zero",
           "options": {
             "alertThreshold": true
           },
@@ -708,7 +708,7 @@ data:
           },
           "lines": true,
           "linewidth": 1,
-          "nullPointMode": "null",
+          "nullPointMode": "null as zero",
           "options": {
             "alertThreshold": true
           },
@@ -839,7 +839,7 @@ data:
           },
           "lines": true,
           "linewidth": 1,
-          "nullPointMode": "null",
+          "nullPointMode": "null as zero",
           "options": {
             "alertThreshold": true
           },
@@ -954,7 +954,7 @@ data:
           },
           "lines": true,
           "linewidth": 1,
-          "nullPointMode": "null",
+          "nullPointMode": "null as zero",
           "options": {
             "alertThreshold": true
           },
@@ -1068,7 +1068,7 @@ data:
           },
           "lines": true,
           "linewidth": 1,
-          "nullPointMode": "null",
+          "nullPointMode": "null as zero",
           "options": {
             "alertThreshold": true
           },
@@ -1210,7 +1210,7 @@ data:
           },
           "lines": true,
           "linewidth": 1,
-          "nullPointMode": "null",
+          "nullPointMode": "null as zero",
           "options": {
             "alertThreshold": true
           },
@@ -1332,7 +1332,7 @@ data:
           },
           "lines": true,
           "linewidth": 1,
-          "nullPointMode": "null",
+          "nullPointMode": "null as zero",
           "options": {
             "alertThreshold": true
           },
@@ -1439,306 +1439,7 @@ data:
           "dashLength": 10,
           "dashes": false,
           "datasource": "Prometheus",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {},
-              "unit": "percentunit"
-            },
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 7,
-            "x": 0,
-            "y": 39
-          },
-          "hiddenSeries": false,
-          "id": 31,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "7.4.0",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "sum(rate(http_sessions_authenticated_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\".+\"}[2m])) by (kubernetes_namespace) /\nsum(rate(http_sessions_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\".+\"}[2m])) by (kubernetes_namespace)",
-              "interval": "",
-              "legendFormat": "Authenticated",
-              "queryType": "randomWalk",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Percentage authenticated sessions by namespace",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:416",
-              "format": "percentunit",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:417",
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "Prometheus",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {},
-              "unit": "percentunit"
-            },
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 7,
-            "y": 39
-          },
-          "hiddenSeries": false,
-          "id": 32,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "7.4.0",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "sum(rate(http_sessions_authenticated_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\"$service_name\"}[2m])) by (kubernetes_service_name) /\nsum(rate(http_sessions_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\"$service_name\"}[2m])) by (kubernetes_service_name)",
-              "interval": "",
-              "legendFormat": "{{kubernetes_service_name}}",
-              "queryType": "randomWalk",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Percentage authenticated sessions by service",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:416",
-              "format": "percentunit",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:417",
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "Prometheus",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {},
-              "unit": "percentunit"
-            },
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 9,
-            "x": 15,
-            "y": 39
-          },
-          "hiddenSeries": false,
-          "id": 33,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "7.4.0",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "sum(rate(http_sessions_authenticated_current{kubernetes_namespace=~\"$namespace\", kubernetes_pod_name=~\"$pod_name\"}[2m])) by (kubernetes_pod_name) /\nsum(rate(http_sessions_current{kubernetes_namespace=~\"$namespace\", kubernetes_pod_name=~\"$pod_name\"}[2m])) by (kubernetes_pod_name)",
-              "interval": "",
-              "legendFormat": "{{kubernetes_pod_name}}",
-              "queryType": "randomWalk",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Percentage authenticated sessions by pod",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:416",
-              "format": "percentunit",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:417",
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "Prometheus",
+          "decimals": 0,
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -1749,126 +1450,9 @@ data:
           "fillGradient": 0,
           "gridPos": {
             "h": 8,
-            "w": 7,
+            "w": 11,
             "x": 0,
-            "y": 47
-          },
-          "hiddenSeries": false,
-          "id": 30,
-          "legend": {
-            "alignAsTable": true,
-            "avg": false,
-            "current": true,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "7.4.0",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "$$hashKey": "object:10128",
-              "alias": "Concurrent",
-              "color": "#1F60C4"
-            },
-            {
-              "$$hashKey": "object:10136",
-              "alias": "Authenticated",
-              "color": "#8F3BB8"
-            }
-          ],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "avg(rate(http_sessions_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\".+\"}[2m])) by (kubernetes_namespace)",
-              "interval": "",
-              "legendFormat": "Concurrent ",
-              "queryType": "randomWalk",
-              "refId": "A"
-            },
-            {
-              "expr": "avg(rate(http_sessions_authenticated_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\".+\"}[2m])) by (kubernetes_namespace)",
-              "hide": false,
-              "interval": "",
-              "legendFormat": "Authenticated",
-              "refId": "B"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Session by namespace",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:416",
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:417",
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "Prometheus",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 7,
-            "y": 47
+            "y": 39
           },
           "hiddenSeries": false,
           "id": 34,
@@ -1884,7 +1468,7 @@ data:
           },
           "lines": true,
           "linewidth": 1,
-          "nullPointMode": "null",
+          "nullPointMode": "null as zero",
           "options": {
             "alertThreshold": true
           },
@@ -1898,11 +1482,6 @@ data:
               "$$hashKey": "object:10128",
               "alias": "Concurrent",
               "color": "#1F60C4"
-            },
-            {
-              "$$hashKey": "object:10136",
-              "alias": "Authenticated",
-              "color": "#8F3BB8"
             }
           ],
           "spaceLength": 10,
@@ -1910,18 +1489,11 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg(rate(http_sessions_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\"$service_name\"}[2m])) by (kubernetes_service_name)",
+              "expr": "http_sessions_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\"$service_name\"}",
               "interval": "",
-              "legendFormat": "Concurrent : {{kubernetes_service_name}}",
+              "legendFormat": "{{kubernetes_service_name}}",
               "queryType": "randomWalk",
               "refId": "A"
-            },
-            {
-              "expr": "avg(rate(http_sessions_authenticated_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\"$service_name\"}[2m])) by (kubernetes_service_name)",
-              "hide": false,
-              "interval": "",
-              "legendFormat": "Authenticated: {{kubernetes_service_name}}",
-              "refId": "B"
             }
           ],
           "thresholds": [],
@@ -1945,20 +1517,22 @@ data:
           "yaxes": [
             {
               "$$hashKey": "object:416",
+              "decimals": 0,
               "format": "short",
               "label": null,
               "logBase": 1,
               "max": null,
-              "min": null,
+              "min": 0,
               "show": true
             },
             {
               "$$hashKey": "object:417",
+              "decimals": 0,
               "format": "short",
               "label": null,
               "logBase": 1,
               "max": null,
-              "min": null,
+              "min": 0,
               "show": true
             }
           ],
@@ -1973,6 +1547,7 @@ data:
           "dashLength": 10,
           "dashes": false,
           "datasource": "Prometheus",
+          "decimals": 0,
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -1983,9 +1558,9 @@ data:
           "fillGradient": 0,
           "gridPos": {
             "h": 8,
-            "w": 9,
-            "x": 15,
-            "y": 47
+            "w": 13,
+            "x": 11,
+            "y": 39
           },
           "hiddenSeries": false,
           "id": 35,
@@ -2001,7 +1576,7 @@ data:
           },
           "lines": true,
           "linewidth": 1,
-          "nullPointMode": "null",
+          "nullPointMode": "null as zero",
           "options": {
             "alertThreshold": true
           },
@@ -2015,11 +1590,6 @@ data:
               "$$hashKey": "object:10128",
               "alias": "Concurrent",
               "color": "#1F60C4"
-            },
-            {
-              "$$hashKey": "object:10136",
-              "alias": "Authenticated",
-              "color": "#8F3BB8"
             }
           ],
           "spaceLength": 10,
@@ -2027,18 +1597,11 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg(rate(http_sessions_current{kubernetes_namespace=~\"$namespace\", kubernetes_pod_name=~\"$pod_name\"}[2m])) by (kubernetes_pod_name)",
+              "expr": "http_sessions_current{kubernetes_namespace=~\"$namespace\", kubernetes_pod_name=~\"$pod_name\"}",
               "interval": "",
-              "legendFormat": "Concurrent : {{kubernetes_pod_name}}",
+              "legendFormat": "{{kubernetes_pod_name}}",
               "queryType": "randomWalk",
               "refId": "A"
-            },
-            {
-              "expr": "avg(rate(http_sessions_authenticated_current{kubernetes_namespace=~\"$namespace\", kubernetes_pod_name=~\"$pod_name\"}[2m])) by (kubernetes_pod_name)",
-              "hide": false,
-              "interval": "",
-              "legendFormat": "Authenticated: {{kubernetes_pod_name}}",
-              "refId": "B"
             }
           ],
           "thresholds": [],
@@ -2062,20 +1625,238 @@ data:
           "yaxes": [
             {
               "$$hashKey": "object:416",
+              "decimals": 0,
               "format": "short",
               "label": null,
               "logBase": 1,
               "max": null,
-              "min": null,
+              "min": 0,
               "show": true
             },
             {
               "$$hashKey": "object:417",
+              "decimals": 0,
               "format": "short",
               "label": null,
               "logBase": 1,
               "max": null,
-              "min": null,
+              "min": 0,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Prometheus",
+          "decimals": 0,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 11,
+            "x": 0,
+            "y": 47
+          },
+          "hiddenSeries": false,
+          "id": 41,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.4.0",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "$$hashKey": "object:10136",
+              "alias": "Authenticated",
+              "color": "#8F3BB8"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "http_sessions_authenticated_current{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\"$service_name\"}",
+              "interval": "",
+              "legendFormat": "{{kubernetes_service_name}}",
+              "queryType": "randomWalk",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Authenticated session by service",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:416",
+              "decimals": 0,
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:417",
+              "decimals": 0,
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Prometheus",
+          "decimals": 0,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 13,
+            "x": 11,
+            "y": 47
+          },
+          "hiddenSeries": false,
+          "id": 42,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.4.0",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "$$hashKey": "object:10136",
+              "alias": "Authenticated",
+              "color": "#8F3BB8"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "http_sessions_authenticated_current{kubernetes_namespace=~\"$namespace\", kubernetes_pod_name=~\"$pod_name\"}",
+              "interval": "",
+              "legendFormat": "{{kubernetes_pod_name}}",
+              "queryType": "randomWalk",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Authenticated session by pod",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:416",
+              "decimals": 0,
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:417",
+              "decimals": 0,
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
               "show": true
             }
           ],
@@ -2129,6 +1910,8 @@ data:
             "alignAsTable": true,
             "avg": true,
             "current": true,
+            "hideEmpty": false,
+            "hideZero": false,
             "max": true,
             "min": false,
             "show": true,
@@ -2137,7 +1920,7 @@ data:
           },
           "lines": true,
           "linewidth": 1,
-          "nullPointMode": "null",
+          "nullPointMode": "null as zero",
           "options": {
             "alertThreshold": true
           },
@@ -2152,7 +1935,8 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(http_requests_duration_seconds{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\".+\"}) by (quantile)",
+              "exemplar": false,
+              "expr": "sum(http_requests_duration_seconds{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\".+\"} > 0) by (quantile)",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2171,19 +1955,7 @@ data:
             "sort": 0,
             "value_type": "individual"
           },
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "indexByName": {},
-                "renameByName": {
-                  "kubernetes_service_name": "Kubernetes service name",
-                  "quantile": "Percentile"
-                }
-              }
-            }
-          ],
+          "transformations": [],
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -2257,7 +2029,7 @@ data:
           },
           "lines": true,
           "linewidth": 1,
-          "nullPointMode": "null",
+          "nullPointMode": "null as zero",
           "options": {
             "alertThreshold": true
           },
@@ -2272,12 +2044,12 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(http_requests_duration_seconds{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\"$service_name\"}) by (quantile, kubernetes_service_name)",
+              "expr": "sum(http_requests_duration_seconds{kubernetes_namespace=~\"$namespace\", kubernetes_service_name=~\"$service_name\"} > 0) by (quantile, kubernetes_service_name)",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
-              "legendFormat": "{{kubernetes_service_name}}: Percentile {{quantile}}",
+              "legendFormat": "Percentile {{quantile}}: {{kubernetes_service_name}}",
               "refId": "B"
             }
           ],
@@ -2291,19 +2063,7 @@ data:
             "sort": 0,
             "value_type": "individual"
           },
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "indexByName": {},
-                "renameByName": {
-                  "kubernetes_service_name": "Kubernetes service name",
-                  "quantile": "Percentile"
-                }
-              }
-            }
-          ],
+          "transformations": [],
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -2377,7 +2137,7 @@ data:
           },
           "lines": true,
           "linewidth": 1,
-          "nullPointMode": "null",
+          "nullPointMode": "null as zero",
           "options": {
             "alertThreshold": true
           },
@@ -2392,12 +2152,12 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(http_requests_duration_seconds{kubernetes_namespace=~\"$namespace\", kubernetes_pod_name=~\"$pod_name\"}) by (quantile, kubernetes_pod_name)",
+              "expr": "sum(http_requests_duration_seconds{kubernetes_namespace=~\"$namespace\", kubernetes_pod_name=~\"$pod_name\"} > 0) by (quantile, kubernetes_pod_name)",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
-              "legendFormat": "{{kubernetes_pod_name}}: Percentile {{quantile}}",
+              "legendFormat": "Percentile {{quantile}}: {{kubernetes_pod_name}}",
               "refId": "B"
             }
           ],
@@ -2411,19 +2171,7 @@ data:
             "sort": 0,
             "value_type": "individual"
           },
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "indexByName": {},
-                "renameByName": {
-                  "kubernetes_service_name": "Kubernetes service name",
-                  "quantile": "Percentile"
-                }
-              }
-            }
-          ],
+          "transformations": [],
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -2491,7 +2239,7 @@ data:
           {
             "allValue": "",
             "current": {
-              "selected": false,
+              "selected": true,
               "text": "All",
               "value": "$__all"
             },
