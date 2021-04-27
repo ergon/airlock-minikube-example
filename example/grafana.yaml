@@ -2063,19 +2063,7 @@ data:
             "sort": 0,
             "value_type": "individual"
           },
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "indexByName": {},
-                "renameByName": {
-                  "kubernetes_service_name": "Kubernetes service name",
-                  "quantile": "Percentile"
-                }
-              }
-            }
-          ],
+          "transformations": [],
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -2183,19 +2171,7 @@ data:
             "sort": 0,
             "value_type": "individual"
           },
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "indexByName": {},
-                "renameByName": {
-                  "kubernetes_service_name": "Kubernetes service name",
-                  "quantile": "Percentile"
-                }
-              }
-            }
-          ],
+          "transformations": [],
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -2231,7 +2207,7 @@ data:
           }
         }
       ],
-      "refresh": "10s",
+      "refresh": "30s",
       "schemaVersion": 27,
       "style": "dark",
       "tags": [
