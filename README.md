@@ -28,7 +28,8 @@ the international distribution of globally revered products.
 ## Prerequisites
 
 * Install [Minikube].  
-  The Airlock Minikube example was tested with the Minikube version v1.19.0. If installed with a different version, it may lead to problems.  
+  The Airlock Minikube example was tested with Minikube v1.19.0.   
+  If installed with a different version, it may cause some problems.  
 * Install [kubectl].
 * A Docker Hub account with access to the private repositories:
     * `hub.docker.com/r/ergon/airlock-microgateway`
