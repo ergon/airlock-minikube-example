@@ -27,9 +27,14 @@ the international distribution of globally revered products.
 
 ## Prerequisites
 
-* Install [Minikube].  
-  The Airlock Minikube example was tested with Minikube v1.19.0.   
-  If installed with a different version, it may cause some problems.  
+* Install [Minikube].
+  The Airlock Minikube Example has been with the following versions:
+
+  | Airlock Minikube Example | Minikube | Kubernetes | Comments                                                 |
+  |:-------------------------|:---------|:-----------|:---------------------------------------------------------|
+  | v2.0.0                   | v1.19.0  | v1.20.2    | [Known bug](#creating-ingress-causes-a-validation-error) |
+
+  :warning: Using different versions may cause problems.
 * Install [kubectl].
 * A Docker Hub account with access to the private repositories:
     * `hub.docker.com/r/ergon/airlock-microgateway`
@@ -154,17 +159,6 @@ kubectl exec data-pod -- sh -c "chown -R 1000:0 /data/kibana/"
 ```
 :exclamation: Run the commands line by line because `kubectl wait` is non-blocking.
 
-:warning: Currently there is a bug which leads to an error with the webhook. The bug leads to the following Error Message when installing the example.
-```
-W0413 16:20:57.488050 1 dispatcher.go:134] Failed calling webhook, failing closed validate.nginx.ingress.kubernetes.io: failed calling webhook "validate.nginx.ingress.kubernetes.io": an error on the server ("") has prevented the request from succeeding
-```
-
-Until this bug is fixed, the following command must be executed as a workaround.
-
-```
-kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
-```
-
 ## Start deployment
 
 To deploy the example, run the following command:
@@ -206,6 +200,23 @@ If Minikube is not needed anymore or to restart from scratch, run this command:
 ```console
 minikube delete
 ```
+
+## Troubleshooting
+
+### Creating ingress causes a validation error
+
+Running the command `kubectl apply -f init/` prints the following error message:
+```
+W0413 16:20:57.488050 1 dispatcher.go:134] Failed calling webhook, failing closed validate.nginx.ingress.kubernetes.io: failed calling webhook "validate.nginx.ingress.kubernetes.io": an error on the server ("") has prevented the request from succeeding
+```
+The reason is a bug in Minikube v1.19.0 [issue 11121](https://github.com/kubernetes/minikube/issues/11121).
+
+As a workaround, run the following command:
+```console
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+```
+
+
 
 [MIT license]: https://github.com/ergon/airlock-minikube-examples/blob/main/LICENSE
 
