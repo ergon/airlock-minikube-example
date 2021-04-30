@@ -28,7 +28,7 @@ the international distribution of globally revered products.
 ## Prerequisites
 
 * Install [Minikube].<br>
-  The Airlock Minikube Example has been with the following versions:
+  The Airlock Minikube Example has been tested with the following versions:
 
   | Airlock Minikube Example | Minikube | Kubernetes | Comments                                                 |
   |:-------------------------|:---------|:-----------|:---------------------------------------------------------|
