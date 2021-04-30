@@ -27,7 +27,14 @@ the international distribution of globally revered products.
 
 ## Prerequisites
 
-* Install [Minikube].
+* Install [Minikube].<br>
+  The Airlock Minikube Example has been with the following versions:
+
+  | Airlock Minikube Example | Minikube | Kubernetes | Comments                                                 |
+  |:-------------------------|:---------|:-----------|:---------------------------------------------------------|
+  | v2.0.0                   | v1.19.0  | v1.20.2    | [Known bug](#creating-ingress-causes-a-validation-error) |
+
+  :warning: Using different versions may cause problems.
 * Install [kubectl].
 * A Docker Hub account with access to the private repositories:
     * `hub.docker.com/r/ergon/airlock-microgateway`
@@ -193,6 +200,23 @@ If Minikube is not needed anymore or to restart from scratch, run this command:
 ```console
 minikube delete
 ```
+
+## Troubleshooting
+
+### Creating ingress causes a validation error
+
+Running the command `kubectl apply -f example/` prints the following error message:
+```
+W0413 16:20:57.488050 1 dispatcher.go:134] Failed calling webhook, failing closed validate.nginx.ingress.kubernetes.io: failed calling webhook "validate.nginx.ingress.kubernetes.io": an error on the server ("") has prevented the request from succeeding
+```
+The reason is a bug in Minikube v1.19.0 [issue 11121](https://github.com/kubernetes/minikube/issues/11121).
+
+As a workaround, run the following command:
+```console
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+```
+
+
 
 [MIT license]: https://github.com/ergon/airlock-minikube-examples/blob/main/LICENSE
 
