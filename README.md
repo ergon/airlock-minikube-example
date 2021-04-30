@@ -205,7 +205,7 @@ minikube delete
 
 ### Creating ingress causes a validation error
 
-Running the command `kubectl apply -f init/` prints the following error message:
+Running the command `kubectl apply -f example/` prints the following error message:
 ```
 W0413 16:20:57.488050 1 dispatcher.go:134] Failed calling webhook, failing closed validate.nginx.ingress.kubernetes.io: failed calling webhook "validate.nginx.ingress.kubernetes.io": an error on the server ("") has prevented the request from succeeding
 ```
