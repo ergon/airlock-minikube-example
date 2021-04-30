@@ -27,7 +27,8 @@ the international distribution of globally revered products.
 
 ## Prerequisites
 
-* Install [Minikube].
+* Install [Minikube].  
+  The Airlock Minikube example was tested with the Minikube version v1.19.0. If installed with a different version, it may lead to problems.  
 * Install [kubectl].
 * A Docker Hub account with access to the private repositories:
     * `hub.docker.com/r/ergon/airlock-microgateway`
@@ -151,6 +152,17 @@ kubectl exec data-pod -- sh -c "chown -R 999:999 /data/mariadb/"
 kubectl exec data-pod -- sh -c "chown -R 1000:0 /data/kibana/"
 ```
 :exclamation: Run the commands line by line because `kubectl wait` is non-blocking.
+
+:warning: Currently there is a bug which leads to an error with the webhook. The bug leads to the following Error Message when installing the example.
+```
+W0413 16:20:57.488050 1 dispatcher.go:134] Failed calling webhook, failing closed validate.nginx.ingress.kubernetes.io: failed calling webhook "validate.nginx.ingress.kubernetes.io": an error on the server ("") has prevented the request from succeeding
+```
+
+Until this bug is fixed, the following command must be executed as a workaround.
+
+```
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+```
 
 ## Start deployment
 
