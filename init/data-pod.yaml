@@ -10,7 +10,7 @@ spec:
     - name: dockerregcred
   initContainers:
     - name: iam-init
-      image: ergon/airlock-iam:latest-7.4
+      image: docker.io/ergon/airlock-iam:latest-7.4
       imagePullPolicy: IfNotPresent
       args: [ "init" ]
       volumeMounts:
@@ -19,7 +19,7 @@ spec:
           subPath: iam
   containers:
     - name: data-container
-      image: alpine
+      image: docker.io/alpine:latest
       imagePullPolicy: IfNotPresent
       command: [ "/bin/sh" ]
       args: [ "-c", "tail -f /dev/null" ]

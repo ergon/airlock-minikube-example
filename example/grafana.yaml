@@ -23,7 +23,7 @@ spec:
         - name: dockerregcred
       containers:
         - name: grafana
-          image: grafana/grafana:7.4.0
+          image: docker.io/grafana/grafana:7.4.0
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:

@@ -20,7 +20,7 @@ spec:
         - name: dockerregcred
       containers:
         - name: iam
-          image: ergon/airlock-iam:latest-7.4
+          image: docker.io/ergon/airlock-iam:latest-7.4
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ

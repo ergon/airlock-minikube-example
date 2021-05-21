@@ -63,7 +63,7 @@ spec:
         - name: dockerregcred
       containers:
         - name: prometheus
-          image: prom/prometheus:v2.24.1
+          image: docker.io/prom/prometheus:v2.24.1
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
