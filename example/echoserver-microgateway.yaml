@@ -22,7 +22,7 @@ spec:
         - name: dockerregcred
       initContainers:
         - name: configbuilder
-          image: ergon/airlock-microgateway-configbuilder-nightly:2.0.sprint11_Build008
+          image: ergon/airlock-microgateway-configbuilder-nightly:2.0.0.sprint13_Build010
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -59,7 +59,7 @@ spec:
               mountPath: /resources-gen
       containers:
         - name: microgateway-echoserver
-          image: ergon/airlock-microgateway-nightly:2.0.sprint11_Build008
+          image: ergon/airlock-microgateway-nightly:2.0.0.sprint13_Build010
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
