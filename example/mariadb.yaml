@@ -17,7 +17,7 @@ spec:
         app: mariadb
     spec:
       containers:
-        - image: mariadb
+        - image: docker.io/mariadb
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ

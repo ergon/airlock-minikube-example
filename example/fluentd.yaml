@@ -26,7 +26,7 @@ spec:
           effect: NoSchedule
       containers:
         - name: fluentd
-          image: fluent/fluentd-kubernetes-daemonset:v1-debian-elasticsearch
+          image: docker.io/fluent/fluentd-kubernetes-daemonset:v1-debian-elasticsearch
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
