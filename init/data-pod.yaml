@@ -12,17 +12,7 @@ spec:
     - name: iam-init
       image: docker.io/ergon/airlock-iam:latest-7.4
       imagePullPolicy: IfNotPresent
-      # TODO:
-      # Not required anymore with AI-13645 (IAM 7.4)
-      # With IAM 7.4 no 'command', but 'args: [ "init" ]'
-      # https://github.com/ergon/airlock-minikube-example/blob/9f56124e767ec630d042ec43b0d8c4ae4b251f89/data/data-pod.yaml
-      command:
-        - bash
-        - -c
-        - |
-          if [ ! -d /home/airlock/iam/instances ]; then
-            /iam_entrypoint init
-          fi
+      args: [ "init" ]
       volumeMounts:
         - name: data
           mountPath: /home/airlock/iam/
