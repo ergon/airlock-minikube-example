@@ -1,11 +1,12 @@
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: iam
   labels:
     app: iam
 spec:
+  serviceName: iam
   replicas: 1
   selector:
     matchLabels:
@@ -17,50 +18,9 @@ spec:
     spec:
       imagePullSecrets:
         - name: dockerregcred
-      initContainers:
-        - name: iam-bootstrap
-          image: busybox
-          imagePullPolicy: IfNotPresent
-          env:
-            - name: TZ
-              valueFrom:
-                configMapKeyRef:
-                  name: generic-parameters
-                  key: TZ
-            - name: MARIADB_SERVICE
-              value: mariadb
-            - name: MYSQL_DATABASE
-              valueFrom:
-                secretKeyRef:
-                  name: mariadb-secret
-                  key: MYSQL_DATABASE
-            - name: MYSQL_USER
-              valueFrom:
-                secretKeyRef:
-                  name: mariadb-secret
-                  key: MYSQL_USER
-            - name: MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mariadb-secret
-                  key: MYSQL_PASSWORD
-          command:
-            - sh
-            - "-c"
-            - |
-              echo "- Replacing the placeholders in the IAM configuration"
-              sed -i "s,@@DB_SERVICE@@,${MARIADB_SERVICE},;\
-                s,@@DB_IAM@@,${MYSQL_DATABASE},; \
-                s,@@DB_USER@@,${MYSQL_USER},;\
-                s,@@DB_PASSWORD@@,${MYSQL_PASSWORD}," \
-                /home/airlock/iam/instances/auth/medusa-configuration.xml
-          volumeMounts:
-            - name: data
-              mountPath: /home/airlock/iam/
-              subPath: iam
       containers:
         - name: iam
-          image: ergon/airlock-iam:latest-7.3
+          image: docker.io/ergon/airlock-iam:latest-7.4
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -72,6 +32,8 @@ spec:
               value: INFO
             - name: IAM_HEALTH_ADDRESS
               value: .*
+            - name: IAM_MODULES
+              value: adminapp,loginapp
           ports:
             - name: https
               containerPort: 8443
@@ -82,6 +44,10 @@ spec:
             - name: secret
               mountPath: /home/airlock/iam/license.txt
               subPath: license.txt
+            - name: values-jwt
+              mountPath: /home/airlock/iam/instances/auth/values/jwt/
+            - name: values-mariadb
+              mountPath: /home/airlock/iam/instances/auth/values/mariadb/
           livenessProbe:
             httpGet:
               path: /health
@@ -101,6 +67,12 @@ spec:
         - name: secret
           secret:
             secretName: iam-secret
+        - name: values-jwt
+          secret:
+            secretName: jwt-secret
+        - name: values-mariadb
+          secret:
+            secretName: mariadb-secret
 ---
 apiVersion: v1
 kind: Service
@@ -114,3 +86,4 @@ spec:
   ports:
     - name: https
       port: 8443
+  clusterIP: None

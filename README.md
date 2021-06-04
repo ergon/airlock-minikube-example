@@ -1,7 +1,24 @@
 # Airlock Minikube Example
 
-This repository contains a deployment example for [Airlock] on [Minikube]. It shows how to protect a backend application with Airlock Microgateway and how to identify users using Airlock IAM. The
+This repository contains deployment examples for [Airlock] on [Minikube]. It shows how to protect a backend application with Airlock Microgateway and how to identify users using Airlock IAM. The
 source code is available under the [MIT license].
+
+## Overview
+
+![Overview](/.github/images/overview.svg)
+
+
+The different components in the example are described below:
+* The Ingress controller is accepting the external traffic and forwards it to the designated Microgateway service.
+* A specific Airlock Microgateway protects each of the following services:
+  * Airlock IAM, which is accessible for unauthenticated users. Filters, OpenAPI specifications and other security features protects IAM against attacks.
+  * Echo Server, which is only accessible for authenticated users and restrictive deny rules are enabled.
+  * Grafana, which is only accessible for authenticated users.
+  * Kibana, which is only accessible for authenticated users.
+* Airlock IAM authenticates users for services with authentication enforcement configured in the Microgateway. 
+  * For the Echo Server, the authenticated user is federated through a JWT token in a cookie.
+  * For Grafana, the IAM and Grafana Microgateway share the same Redis instance and therefore hold the same session data.
+  * For Kibana, the IAM and Kibana Microgateway share the same Redis instance and therefore hold the same session data.
 
 ## About Ergon
 
@@ -10,7 +27,14 @@ the international distribution of globally revered products.
 
 ## Prerequisites
 
-* Install [Minikube].
+* Install [Minikube].<br>
+  The Airlock Minikube Example has been tested with the following versions:
+
+  | Airlock Minikube Example | Minikube | Kubernetes | Comments                                                 |
+  |:-------------------------|:---------|:-----------|:---------------------------------------------------------|
+  | v2.0.0                   | v1.19.0  | v1.20.2    | [Known bug](#creating-ingress-causes-a-validation-error) |
+
+  :warning: Using different versions may cause problems.
 * Install [kubectl].
 * A Docker Hub account with access to the private repositories:
     * `hub.docker.com/r/ergon/airlock-microgateway`
@@ -64,6 +88,28 @@ kubectl create secret generic iam-secret \
   -o yaml > init/iam-secret.yaml
 ```
 
+### JSON Web Token
+
+* Generate the two secrets for the JSON Web Token.
+    * `init/jwt.encryption.passphrase`
+    * `init/jwt.signature.passphrase`
+
+```console
+openssl rand -base64 32 | tr -d '\n' > init/jwt.encryption.passphrase
+openssl rand -base64 64 | tr -d '\n' > init/jwt.signature.passphrase
+```
+
+* Create the secret `jwt-secret`:
+
+```console
+kubectl create secret generic jwt-secret \
+  --from-file=JWT_ENCRYPTION_PASSPHRASE=init/jwt.encryption.passphrase \
+  --from-file=JWT_SIGNATURE_PASSPHRASE=init/jwt.signature.passphrase \
+  --from-literal=COOKIE_NAME=iam_auth \
+  --dry-run=client \
+  -o yaml > init/jwt-secret.yaml
+```
+
 ### MariaDB
 
 Airlock IAM uses MariaDB as storage backend.
@@ -109,6 +155,7 @@ kubectl wait --for=condition=ready --timeout=300s pod/data-pod
 kubectl cp data/ data-pod:/
 kubectl exec data-pod -- sh -c "chown -R 1000:0 /data/iam/"
 kubectl exec data-pod -- sh -c "chown -R 999:999 /data/mariadb/"
+kubectl exec data-pod -- sh -c "chown -R 1000:0 /data/kibana/"
 ```
 :exclamation: Run the commands line by line because `kubectl wait` is non-blocking.
 
@@ -130,12 +177,13 @@ minikube ip
 
 Open a browser to navigate to the different web applications. Use `user` as the username and `password` as the password to authenticate.
 
-* Kibana URL: `https://<MINIKUBE_IP>/kibana`
-* Echoserver URL: `https://<MINIKUBE_IP>/echo`
+* Echoserver URL: `https://<MINIKUBE_IP>/echo/`
+* Grafana URL: `https://<MINIKUBE_IP>/grafana/`
+* Kibana URL: `https://<MINIKUBE_IP>/kibana/`
 
 Use the Airlock IAM Adminapp to administer users and their login factors.
 
-* Airlock IAM Adminapp URL: `https://<MINIKUBE_IP>/auth-admin`
+* Airlock IAM Adminapp URL: `https://<MINIKUBE_IP>/auth-admin/`
     * Username: `admin`
     * Password: `password`
 
@@ -152,6 +200,23 @@ If Minikube is not needed anymore or to restart from scratch, run this command:
 ```console
 minikube delete
 ```
+
+## Troubleshooting
+
+### Creating ingress causes a validation error
+
+Running the command `kubectl apply -f example/` prints the following error message:
+```
+W0413 16:20:57.488050 1 dispatcher.go:134] Failed calling webhook, failing closed validate.nginx.ingress.kubernetes.io: failed calling webhook "validate.nginx.ingress.kubernetes.io": an error on the server ("") has prevented the request from succeeding
+```
+The reason is a bug in Minikube v1.19.0 [issue 11121](https://github.com/kubernetes/minikube/issues/11121).
+
+As a workaround, run the following command:
+```console
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+```
+
+
 
 [MIT license]: https://github.com/ergon/airlock-minikube-examples/blob/main/LICENSE
 

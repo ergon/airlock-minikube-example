@@ -1,4 +1,8 @@
 /.idea/
-/init/microgateway.passphrase
+/init/*.passphrase
 /init/*.lic
 /init/*-secret.yaml
+
+.github/build
+
+.DS_Store

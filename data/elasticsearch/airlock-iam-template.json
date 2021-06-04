@@ -97,12 +97,8 @@
 	"settings": {
 		"index": {
 			"default_pipeline": "airlock-iam-default-pipeline",
-			"sort.field": [
-				"@timestamp"
-			],
-			"sort.order": [
-				"desc"
-			],
+			"sort.field": ["@timestamp"],
+			"sort.order": ["desc"],
 			"refresh_interval": "10s"
 		}
 	},

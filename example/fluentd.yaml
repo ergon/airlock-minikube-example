@@ -26,7 +26,7 @@ spec:
           effect: NoSchedule
       containers:
         - name: fluentd
-          image: fluent/fluentd-kubernetes-daemonset:v1-debian-elasticsearch
+          image: docker.io/fluent/fluentd-kubernetes-daemonset:v1-debian-elasticsearch
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -180,13 +180,13 @@ data:
       </parse>
     </filter>
 
-    # Create the key 'req_id' to track the requests across applications.
+    # Create the key 'corr_id' to track the requests across applications.
     <filter kubernetes.var.log.containers.ingress-nginx-controller**>
       @type record_transformer
       enable_ruby
 
       <record>
-        req_id ${record['ingress.req_id']}
+        corr_id ${record['ingress.req_id']}
       </record>
     </filter>
 
@@ -207,12 +207,12 @@ data:
       </parse>
     </filter>
 
-    # Create the key 'req_id' to track the requests across applications.
+    # Create the key 'corr_id' to track the requests across applications.
     <filter kubernetes.var.log.containers.echoserver**>
       @type record_transformer
       enable_ruby
 
       <record>
-        req_id ${record['echoserver.http_req']['http_x_request_id']}
+        corr_id ${record['echoserver.http_req']['http_x_request_id']}
       </record>
     </filter>

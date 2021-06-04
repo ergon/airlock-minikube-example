@@ -6,18 +6,18 @@ metadata:
   labels:
     app: mariadb
 spec:
+  serviceName: mariadb
   replicas: 1
   selector:
     matchLabels:
       app: mariadb
-  serviceName: mariadb
   template:
     metadata:
       labels:
         app: mariadb
     spec:
       containers:
-        - image: mariadb
+        - image: docker.io/mariadb
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -101,6 +101,7 @@ spec:
   ports:
     - name: mysql
       port: 3306
+  clusterIP: None
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

@@ -14,12 +14,15 @@ spec:
     metadata:
       labels:
         app: microgateway-echoserver
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9102"
     spec:
       imagePullSecrets:
         - name: dockerregcred
-      containers:
-        - name: microgateway-echoserver
-          image: ergon/airlock-microgateway:1.0
+      initContainers:
+        - name: configbuilder
+          image: docker.io/ergon/airlock-microgateway-configbuilder:2.0.0
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -27,11 +30,23 @@ spec:
                 configMapKeyRef:
                   name: generic-parameters
                   key: TZ
-            - name: ALG_CFG_OPERATIONAL_MODE
+            - name: OPERATIONAL_MODE
               value: integration
-          ports:
-            - name: https
-              containerPort: 8443
+            - name: JWT_ENCRYPTION_PASSPHRASE
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_ENCRYPTION_PASSPHRASE
+            - name: JWT_SIGNATURE_PASSPHRASE
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_SIGNATURE_PASSPHRASE
+            - name: COOKIE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: COOKIE_NAME
           volumeMounts:
             - name: config
               mountPath: /config/config.yaml
@@ -40,20 +55,40 @@ spec:
             - name: secret
               mountPath: /secret/config/
               readOnly: true
+            - name: config-files
+              mountPath: /resources-gen
+      containers:
+        - name: microgateway-echoserver
+          image: docker.io/ergon/airlock-microgateway:2.0.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: TZ
+              valueFrom:
+                configMapKeyRef:
+                  name: generic-parameters
+                  key: TZ
+          ports:
+            - name: https
+              containerPort: 8443
+            - name: probes
+              containerPort: 9090
+            - name: metrics
+              containerPort: 9102
+          volumeMounts:
+            - name: config-files
+              mountPath: /config/
           livenessProbe:
             failureThreshold: 9
             timeoutSeconds: 5
             httpGet:
-              path: /healthz
-              port: https
-              scheme: HTTPS
+              path: /alive
+              port: probes
             initialDelaySeconds: 90
           readinessProbe:
             failureThreshold: 3
             httpGet:
-              path: /healthz
-              port: https
-              scheme: HTTPS
+              path: /healthy
+              port: probes
             initialDelaySeconds: 10
           lifecycle:
             preStop:
@@ -74,6 +109,8 @@ spec:
         - name: secret
           secret:
             secretName: microgateway-secret
+        - name: config-files
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
@@ -100,9 +137,6 @@ data:
       level: info
 
     session:
-      redis_hosts:
-      - 'redis:6379'
-      store_mode: server
       encryption_passphrase_file: /secret/config/passphrase
 
     expert_settings:
@@ -112,37 +146,58 @@ data:
         RemoteIPInternalProxy 172.16.0.0/12
         RemoteIPInternalProxy 192.168.0.0/16
       security_gate: |
-        # TODO:
-        # Needed until AP-21937 is available.
-        # Attention: Request Header Whitelist must allow this header
-        Request.Logging.Headers.Enable        "TRUE"
-        Request.Logging.Headers.Mode          "request"
-        Request.Logging.Headers.Pattern       "^x-request-id:"
-        Request.Logging.Headers.IgnoreCase    "TRUE"
-        Request.Logging.Headers.InvertPattern "FALSE"
+        CorrelationId.Extraction.0.Request.Header.Pattern       "^X-Request-ID: ([[:graph:]]+)$"
+        CorrelationId.Extraction.0.Request.Header.IgnoreCase    "TRUE"
+        CorrelationId.Extraction.0.Request.Header.Template      "$1"
 
     apps:
-    - virtual_host:
-        name: vh-echoserver
-      mappings:
-      - name: echoserver
-        entry_path: /
-        session_handling: enforce_session
-        operational_mode: @@ALG_CFG_OPERATIONAL_MODE@@
-        threat_handling: notify
-        deny_rules:
-        - level: strict
-          enabled: true
-        expert_settings:
-          security_gate: |
-            Backend.AddEnvironmentCookies         "TRUE"
-            Cookie.PassthroughSelector.Pattern    "^.*$"
-            Cookie.PassthroughSelector.IgnoreCase "TRUE"
-      backend:
-        name: beg-echoserver
-        protocol: 'http'
-        hostname: echoserver
-        port: 8080
+      - virtual_host:
+          name: vh-echoserver
+        mappings:
+          - name: echoserver
+            entry_path:
+              value: /echo/
+            session_handling: ignore_session
+            operational_mode: ${OPERATIONAL_MODE:-production}
+            threat_handling: block
+            deny_rule_groups:
+              - level: strict
+            auth:
+              flow: redirect
+              denied_access_url: /auth/ui/app/auth/application/access
+              access:
+                - roles:
+                  - echo-user
+            access_token:
+              mandatory: true
+              token_type: signed_and_encrypted
+              expiry_checked: true
+              extraction:
+                mode: cookie
+                cookie: ${COOKIE_NAME}
+              signature:
+                method: HS512
+                passphrase: ${JWT_SIGNATURE_PASSPHRASE}
+              encryption:
+                algorithm: A256GCM
+                passphrase: ${JWT_ENCRYPTION_PASSPHRASE}
+              roles:
+                - claim: roles
+                  extraction:
+                    regex:
+                      pattern: customer
+                    substitution: echo-user
+            expert_settings:
+              security_gate: |
+                Backend.AddEnvironmentCookies         "TRUE"
+                Cookie.PassthroughSelector.Pattern    "^${COOKIE_NAME}$"
+                Cookie.PassthroughSelector.IgnoreCase "TRUE"
+            backend:
+              name: beg-echoserver
+              hosts:
+                - protocol: 'http'
+                  name: echoserver
+                  port: 8080
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -154,7 +209,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: /echo
+          - path: /echo/
             pathType: Prefix
             backend:
               service:

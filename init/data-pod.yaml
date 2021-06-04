@@ -10,7 +10,7 @@ spec:
     - name: dockerregcred
   initContainers:
     - name: iam-init
-      image: ergon/airlock-iam:latest-7.3
+      image: docker.io/ergon/airlock-iam:latest-7.4
       imagePullPolicy: IfNotPresent
       # TODO:
       # Not required anymore with AI-13645 (IAM 7.4)
@@ -29,7 +29,7 @@ spec:
           subPath: iam
   containers:
     - name: data-container
-      image: alpine
+      image: docker.io/alpine
       imagePullPolicy: IfNotPresent
       command: [ "/bin/sh" ]
       args: [ "-c", "tail -f /dev/null" ]

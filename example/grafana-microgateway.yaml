@@ -2,18 +2,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: microgateway-kibana
+  name: microgateway-grafana
   labels:
-    app: microgateway-kibana
+    app: microgateway-grafana
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: microgateway-kibana
+      app: microgateway-grafana
   template:
     metadata:
       labels:
-        app: microgateway-kibana
+        app: microgateway-grafana
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9102"
@@ -43,7 +43,7 @@ spec:
             - name: config-files
               mountPath: /resources-gen
       containers:
-        - name: microgateway-kibana
+        - name: microgateway-grafana
           image: docker.io/ergon/airlock-microgateway:2.0.0
           imagePullPolicy: IfNotPresent
           env:
@@ -90,7 +90,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: microgateway-kibana-config
+            name: microgateway-grafana-config
         - name: secret
           secret:
             secretName: microgateway-secret
@@ -100,12 +100,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: microgateway-kibana
+  name: microgateway-grafana
   labels:
-    app: microgateway-kibana
+    app: microgateway-grafana
 spec:
   selector:
-    app: microgateway-kibana
+    app: microgateway-grafana
   ports:
     - name: https
       port: 8443
@@ -113,7 +113,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: microgateway-kibana-config
+  name: microgateway-grafana-config
 data:
   config.yaml: |
     license_file: /secret/config/license
@@ -138,45 +138,43 @@ data:
 
     apps:
       - virtual_host:
-          name: vh-kibana
+          name: vh-grafana
         mappings:
-          - name: kibana
+          - name: grafana
             entry_path:
-              value: /
+              value: /grafana/
             session_handling: enforce_session
             operational_mode: ${OPERATIONAL_MODE:-production}
+            threat_handling: notify
             deny_rule_groups:
               - level: basic
-            limits:
-              json_limits:
-                max_value_length: 819200
             auth:
               flow: redirect
               denied_access_url: /auth/ui/app/auth/application/access
               access:
                 - roles:
-                  - authenticated
+                    - authenticated
             backend:
-              name: beg-kibana
+              name: grafana
               hosts:
-                - protocol: 'http'
-                  name: kibana
-                  port: 5601
+                - protocol: http
+                  name: grafana
+                  port: 3000
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-microgateway-kibana
+  name: ingress-microgateway-grafana
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: https
 spec:
   rules:
     - http:
         paths:
-          - path: /kibana/
+          - path: /grafana/
             pathType: Prefix
             backend:
               service:
-                name: microgateway-kibana
+                name: microgateway-grafana
                 port:
                   number: 8443

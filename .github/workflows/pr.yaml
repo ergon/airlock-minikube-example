@@ -1,0 +1,49 @@
+name: Deploy and Test
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  kubeval:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run kubeval
+        env:
+          KUBERNETES_VERSION: 1.18.1
+        run: .github/kubeval.sh
+  test:
+    runs-on: ubuntu-latest
+    needs:
+      - kubeval
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Create kind cluster
+        uses: engineerd/setup-kind@v0.5.0
+        with:
+          config: ./.github/kind/cluster.yaml
+          version: v0.10.0
+      - name: Testing Cluster
+        run: |
+          docker version
+          kind version
+          kubectl cluster-info
+          kubectl get pods -n kube-system
+          echo "current-context:" $(kubectl config current-context)
+          echo "environment-kubeconfig:" ${KUBECONFIG}
+      - name: deploy
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+          DOCKER_EMAIL: ${{ secrets.DOCKER_EMAIL }}
+          IAM_LIC: ${{ secrets.IAM_LIC }}
+          MICROGATEWAY_LIC: ${{ secrets.MICROGATEWAY_LIC }}
+        run: .github/deploy.sh
+      - name: Testing deployment
+        run: .github/run-cypress.sh
+      - name: Collect logs
+        if: ${{ failure() }}
+        run: .github/collect-logs.sh
