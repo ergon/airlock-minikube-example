@@ -1,4 +1,4 @@
----
+  ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -22,7 +22,7 @@ spec:
         - name: dockerregcred
       initContainers:
         - name: configbuilder
-          image: docker.io/ergon/airlock-microgateway-configbuilder-nightly:2.1.0.sprint2_Build002
+          image: docker.io/ergon/airlock-microgateway-configbuilder-nightly:2.1.0.sprint3_Build003
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -44,7 +44,7 @@ spec:
               mountPath: /resources-gen
       containers:
         - name: microgateway-kibana
-          image: docker.io/ergon/airlock-microgateway-nightly:2.1.0.sprint2_Build002
+          image: docker.io/ergon/airlock-microgateway-nightly:2.1.0.sprint3_Build003
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
