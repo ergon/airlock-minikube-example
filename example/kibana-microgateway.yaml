@@ -22,7 +22,7 @@ spec:
         - name: dockerregcred
       initContainers:
         - name: configbuilder
-          image: docker.io/ergon/airlock-microgateway-configbuilder:2.0.0
+          image: docker.io/ergon/airlock-microgateway-configbuilder:2.0.1
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -44,7 +44,7 @@ spec:
               mountPath: /resources-gen
       containers:
         - name: microgateway-kibana
-          image: docker.io/ergon/airlock-microgateway:2.0.0
+          image: docker.io/ergon/airlock-microgateway:2.0.1
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
