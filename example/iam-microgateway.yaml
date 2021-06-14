@@ -22,7 +22,7 @@ spec:
         - name: dockerregcred
       initContainers:
         - name: configbuilder
-          image: docker.io/ergon/airlock-microgateway-configbuilder-nightly:2.1.0.sprint2_Build002
+          image: docker.io/ergon/airlock-microgateway-configbuilder-nightly:2.1.0.sprint3_Build003
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -52,7 +52,7 @@ spec:
               mountPath: /resources-gen
       containers:
         - name: microgateway-iam
-          image: docker.io/ergon/airlock-microgateway-nightly:2.1.0.sprint2_Build002
+          image: docker.io/ergon/airlock-microgateway-nightly:2.1.0.sprint3_Build003
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -148,7 +148,7 @@ data:
         CorrelationId.Extraction.0.Request.Header.Template      "$1"
 
         RolesWhitelist.Pattern                "^authenticated$"
-        
+
     apps:
       - virtual_host:
           name: vh-iam
@@ -162,15 +162,14 @@ data:
               value: /auth/
             backend_path: /auth-login/
             operational_mode: ${OPERATIONAL_MODE:-production}
+            cookies:
+              passthrough:
+                pattern: ^${COOKIE_NAME}$
             allow_rules:
               - name: "Loginapp Single Page Application"
                 enabled: true
             csrf_token: 
               enabled: false
-            expert_settings:
-              security_gate: |
-                Cookie.PassthroughSelector.Pattern    "^${COOKIE_NAME}$"
-                Cookie.PassthroughSelector.IgnoreCase "TRUE"
             backend:
               name: beg-iam
               hosts:
@@ -182,13 +181,12 @@ data:
               value: /auth/rest/public
             backend_path: /auth-login/rest/public
             operational_mode: ${OPERATIONAL_MODE:-production}
+            cookies:
+              passthrough:
+                pattern: ^${COOKIE_NAME}$
             api_security:
               openapi:
                 spec_file: /config/templates/login-rest-openapi.json
-            expert_settings:
-              security_gate: |
-                Cookie.PassthroughSelector.Pattern    "^${COOKIE_NAME}$"
-                Cookie.PassthroughSelector.IgnoreCase "TRUE"
             backend:
               name: beg-iam
               hosts:
@@ -199,14 +197,13 @@ data:
             entry_path:
               value: /auth/rest/protected
             backend_path: /auth-login/rest/protected
+            operational_mode: ${OPERATIONAL_MODE:-production}
+            cookies:
+              passthrough:
+                pattern: ^${COOKIE_NAME}$
             api_security:
               openapi:
                 spec_file: /config/templates/login-rest-openapi.json
-            operational_mode: ${OPERATIONAL_MODE:-production}
-            expert_settings:
-              security_gate: |
-                Cookie.PassthroughSelector.Pattern    "^${COOKIE_NAME}$"
-                Cookie.PassthroughSelector.IgnoreCase "TRUE"
             backend:
               name: beg-iam
               hosts:

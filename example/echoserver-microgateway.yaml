@@ -22,7 +22,7 @@ spec:
         - name: dockerregcred
       initContainers:
         - name: configbuilder
-          image: docker.io/ergon/airlock-microgateway-configbuilder-nightly:2.1.0.sprint2_Build002
+          image: docker.io/ergon/airlock-microgateway-configbuilder-nightly:2.1.0.sprint3_Build003
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -59,7 +59,7 @@ spec:
               mountPath: /resources-gen
       containers:
         - name: microgateway-echoserver
-          image: docker.io/ergon/airlock-microgateway-nightly:2.1.0.sprint2_Build002
+          image: docker.io/ergon/airlock-microgateway-nightly:2.1.0.sprint3_Build003
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -162,6 +162,9 @@ data:
             threat_handling: block
             deny_rule_groups:
               - level: strict
+            cookies:
+              passthrough:
+                pattern: ^${COOKIE_NAME}$
             auth:
               flow: redirect
               denied_access_url: /auth/ui/app/auth/application/access
@@ -190,8 +193,6 @@ data:
             expert_settings:
               security_gate: |
                 Backend.AddEnvironmentCookies         "TRUE"
-                Cookie.PassthroughSelector.Pattern    "^${COOKIE_NAME}$"
-                Cookie.PassthroughSelector.IgnoreCase "TRUE"
             backend:
               name: beg-echoserver
               hosts:
