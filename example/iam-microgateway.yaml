@@ -168,11 +168,8 @@ data:
             allow_rules:
               - name: "Loginapp Single Page Application"
                 enabled: true
-            expert_settings:
-              security_gate: |
-                # TODO:
-                # Not required anymore with: ALMICRO-467
-                CsrfTokens.Enable    "FALSE"
+            csrf_token: 
+              enabled: false
             backend:
               name: beg-iam
               hosts:
