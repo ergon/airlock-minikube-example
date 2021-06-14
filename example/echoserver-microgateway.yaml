@@ -162,6 +162,9 @@ data:
             threat_handling: block
             deny_rule_groups:
               - level: strict
+            cookies:
+              passthrough:
+                pattern: ^${COOKIE_NAME}$
             auth:
               flow: redirect
               denied_access_url: /auth/ui/app/auth/application/access
@@ -190,8 +193,6 @@ data:
             expert_settings:
               security_gate: |
                 Backend.AddEnvironmentCookies         "TRUE"
-                Cookie.PassthroughSelector.Pattern    "^${COOKIE_NAME}$"
-                Cookie.PassthroughSelector.IgnoreCase "TRUE"
             backend:
               name: beg-echoserver
               hosts:
