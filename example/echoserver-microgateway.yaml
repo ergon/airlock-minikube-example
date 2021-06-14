@@ -139,12 +139,14 @@ data:
     session:
       encryption_passphrase_file: /secret/config/passphrase
 
+    remote_ip:
+      header: x-real-ip
+      internal_proxies:
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+
     expert_settings:
-      apache: |
-        RemoteIPHeader x-real-ip
-        RemoteIPInternalProxy 10.0.0.0/8
-        RemoteIPInternalProxy 172.16.0.0/12
-        RemoteIPInternalProxy 192.168.0.0/16
       security_gate: |
         CorrelationId.Extraction.0.Request.Header.Pattern       "^X-Request-ID: ([[:graph:]]+)$"
         CorrelationId.Extraction.0.Request.Header.IgnoreCase    "TRUE"
