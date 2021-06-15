@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="US-ASCII"?>
 <ExportConfigRoot Version="168" ConfigHash="d186203f92c475c5293b801e13951788">
     <Mappings>
-        <Mapping Id="5" Tenant="">
+        <Mapping Id="8" Tenant="">
             <Name>Airlock-IAM-Loginapp</Name>
             <LockingEnabled>true</LockingEnabled>
             <MappingTemplateName></MappingTemplateName>
@@ -134,7 +134,7 @@
             <UrlEncryptionIllegalRedirectLocation Locked="false">%ENTRYDIR%/</UrlEncryptionIllegalRedirectLocation>
             <UrlEncryptionPathExceptionPatterns Locked="false">
                 <UrlEncryptionPathExceptionPattern>
-                    <ExceptionPattern>^%ENTRYDIR%/(?:.*\.(?:ttf|otf|woff2?|eot|svg|css|ico|gif|jpg|js|png|html?)|selfunlock|credSelfRegMtanIak[12]|polling-state|mtan-number-management|check-client-cert|check-login|check-ntlm|check-spnego|check-twv|contact-me|cronto-(?:response|notification-id-registration|registration|push-notification-activation|transaction-list|device-management|challenge|order-additional-letter)|(vasco|cronto)/transaction|(vasco|cronto)/notification|error|http-basic-auth|login|logout|logout-disclaimer|logout-disclaimer-user-deleted|oauth2/.*|oauth2-(?:manage|confirm|resource/.*|introspection/.*|client(?:/.*)?|login(?:/.*)?)|credential-migration-hint|password|password-change|password-selfservice(-request)?|msofba-success|portal|representation/start|representation/start_intern|representation/stop|selflockout|SPAcs(?:/.*)?|SPSloInit(?:/.*)?|SPSloResponder(?:/.*)?|SSOPOST(?:/.*)?|SSORedirect(?:/.*)?|ArtifactResolver(?:/.*)?|IDPSloInit(?:/.*)?|IDPSloRedirect(?:/.*)?|SPinitiatedSaml|SamlError|account-(?:link-management|linking-confirmation|registration-confirmation)|system-not-available|user-data-edit|delete-user|user-self-reg|user-consents|protected-service-consents|ui(?:/.*)?|rest/(?:public|protected|oauth2)/.*|log(?:in|out)-oneshot)?$</ExceptionPattern>
+                    <ExceptionPattern>^%ENTRYDIR%/(?:.*\.(?:ttf|otf|woff2?|eot|svg|css|ico|gif|jpg|js|png|html?)|selfunlock|credSelfRegMtanIak[12]|cred-self-reg-mtan-confirmation|secret-questions-provisioning|polling-state|mtan-number-management|check-client-cert|check-login|check-ntlm|check-spnego|check-twv|contact-me|cronto-(?:response|notification-id-registration|registration|push-notification-activation|transaction-list|device-management|challenge|order-additional-letter)|(vasco|cronto)/transaction|(vasco|cronto)/notification|error|http-basic-auth|login|logout|logout-disclaimer|logout-disclaimer-user-deleted|oauth2/.*|oauth2-(?:manage|confirm|resource/.*|introspection/.*|client(?:/.*)?|login(?:/.*)?)|credential-migration-hint|password|password-change|password-selfservice(-request)?|msofba-success|portal|representation/start|representation/start_intern|representation/stop|selflockout|SPAcs(?:/.*)?|SPSloInit(?:/.*)?|SPSloResponder(?:/.*)?|SSOPOST(?:/.*)?|SSORedirect(?:/.*)?|ArtifactResolver(?:/.*)?|IDPSloInit(?:/.*)?|IDPSloRedirect(?:/.*)?|SPinitiatedSaml|SamlError|account-(?:link-management|linking-confirmation|registration-confirmation)|system-not-available|user-data-edit|delete-user|user-self-reg|user-consents|protected-service-consents|ui(?:/.*)?|rest/(?:public|protected|oauth2)/.*|log(?:in|out)-oneshot)?$</ExceptionPattern>
                     <IgnoreCase>false</IgnoreCase>
                     <Comment>Many exceptions as there are many paths that must be directly available, especially for SAML.</Comment>
                 </UrlEncryptionPathExceptionPattern>
@@ -766,6 +766,110 @@ The empty pattern matches any string.</Comment>
                                         <Name>(default) No Restriction</Name>
                                         <Comment>All Header Values.
 The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-900</DefaultId>
+                                    </HeaderValuePattern>
+                                    <HttpMethodPattern>
+                                        <Name>(default) POST</Name>
+                                        <Comment>HTTP method POST</Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>^POST$</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-602</DefaultId>
+                                    </HttpMethodPattern>
+                                    <ContentTypePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All content types. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-700</DefaultId>
+                                    </ContentTypePattern>
+                                </DenyRuleException>
+                                <DenyRuleException>
+                                    <Comment></Comment>
+                                    <Enabled>true</Enabled>
+                                    <PathPattern>
+                                        <Name>FIDO Self-Service Check Authenticator Attestation Response</Name>
+                                        <Comment></Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>^%ENTRYDIR%/self-service/fido/registration/attestation-response/check$</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-1</DefaultId>
+                                    </PathPattern>
+                                    <IpPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All IP addresses.
+                                            The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-100</DefaultId>
+                                    </IpPattern>
+                                    <ParameterNamePattern>
+                                        <Name>FIDO Public Key Credential Attributes</Name>
+                                        <Comment></Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>^#json#publicKeyCredential#id
+^#json#publicKeyCredential#response#attestationObject</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-1</DefaultId>
+                                    </ParameterNamePattern>
+                                    <ParameterValuePattern>
+                                        <Name>Base64URL</Name>
+                                        <Comment></Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>[a-z,A-Z,0-9,-,_]*</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-1</DefaultId>
+                                    </ParameterValuePattern>
+                                    <HeaderNamePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Names.
+                                            The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-800</DefaultId>
+                                    </HeaderNamePattern>
+                                    <HeaderValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Values.
+                                            The empty pattern matches any string.</Comment>
                                         <Active>false</Active>
                                         <Pattern>
                                             <PatternString></PatternString>
@@ -2029,6 +2133,110 @@ The empty pattern matches any string.</Comment>
                                         <Active>true</Active>
                                         <Pattern>
                                             <PatternString>^(?:Signature|SAMLRequest|SAMLResponse)$</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-1</DefaultId>
+                                    </ParameterNamePattern>
+                                    <ParameterValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All values. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-400</DefaultId>
+                                    </ParameterValuePattern>
+                                    <HeaderNamePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Names.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-800</DefaultId>
+                                    </HeaderNamePattern>
+                                    <HeaderValuePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All Header Values.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-900</DefaultId>
+                                    </HeaderValuePattern>
+                                    <HttpMethodPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All HTTP Methods.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-604</DefaultId>
+                                    </HttpMethodPattern>
+                                    <ContentTypePattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All content types. The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-700</DefaultId>
+                                    </ContentTypePattern>
+                                </DenyRuleException>
+                                <DenyRuleException>
+                                    <Comment></Comment>
+                                    <Enabled>true</Enabled>
+                                    <PathPattern>
+                                        <Name>OAuth 2.0 Account Link Management Path</Name>
+                                        <Comment></Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>^%ENTRYDIR%/account-link-management$</PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-1</DefaultId>
+                                    </PathPattern>
+                                    <IpPattern>
+                                        <Name>(default) No Restriction</Name>
+                                        <Comment>All IP addresses.
+The empty pattern matches any string.</Comment>
+                                        <Active>false</Active>
+                                        <Pattern>
+                                            <PatternString></PatternString>
+                                            <IgnoreCase>false</IgnoreCase>
+                                            <InvertPattern>false</InvertPattern>
+                                            <AirlockRegexFormat>true</AirlockRegexFormat>
+                                        </Pattern>
+                                        <DefaultId>-100</DefaultId>
+                                    </IpPattern>
+                                    <ParameterNamePattern>
+                                        <Name>OAuth 2.0 Account Link Provider Id</Name>
+                                        <Comment></Comment>
+                                        <Active>true</Active>
+                                        <Pattern>
+                                            <PatternString>^LINK[a-zA-Z0-9]+$</PatternString>
                                             <IgnoreCase>false</IgnoreCase>
                                             <InvertPattern>false</InvertPattern>
                                             <AirlockRegexFormat>true</AirlockRegexFormat>
@@ -6007,7 +6215,7 @@ The empty pattern matches any string.</Comment>
                     <Name>OAuth 2.0 Client Functionality</Name>
                     <Comment>Allows OAuth 2.0 SSO (Airlock IAM as OAuth 2.0 client).</Comment>
                     <PathPattern>
-                        <Name>Auth OAuth 2.0 Client Servlet</Name>
+                        <Name>Auth OAuth 2.0 Client Servlet (imported 19/02/2021-18:22)</Name>
                         <Comment></Comment>
                         <Active>true</Active>
                         <Pattern>
@@ -6020,6 +6228,7 @@ account-link-management/?
 | oauth2-client(?:/.*)?
 | oauth2-login(?:/.*)?
 | oauth2-sso-access-denied(?:/.*)?
+| oauth2-authentication-failed/?
 )$</PatternString>
                             <IgnoreCase>false</IgnoreCase>
                             <InvertPattern>false</InvertPattern>
@@ -6895,7 +7104,7 @@ The empty pattern matches any string.</Comment>
                 </GlobalActionUsage>
                 <GlobalActionUsage Locked="false">
                     <GlobalActionId>-20016</GlobalActionId>
-                    <State>INHERIT</State>
+                    <State>ENABLED</State>
                 </GlobalActionUsage>
                 <GlobalActionUsage Locked="false">
                     <GlobalActionId>-20017</GlobalActionId>
@@ -7006,8 +7215,8 @@ Pattern: the empty string.</Comment>
             </HttpLimits>
             <UseEncryptedCookiePrefix Locked="false">true</UseEncryptedCookiePrefix>
             <EncryptedCookiePrefix Locked="false">^RememberMe$</EncryptedCookiePrefix>
-            <UsePassthroughCookiePrefix Locked="false">false</UsePassthroughCookiePrefix>
-            <PassthroughCookiePrefix Locked="false"></PassthroughCookiePrefix>
+            <UsePassthroughCookiePrefix Locked="false">true</UsePassthroughCookiePrefix>
+            <PassthroughCookiePrefix Locked="false">^IAM_OP_USER_AGENT_STATE$</PassthroughCookiePrefix>
             <EntryPathRegexEnabled Locked="false">false</EntryPathRegexEnabled>
             <OrderPriority Locked="false">0</OrderPriority>
             <RequestBodySizeLimit Locked="false">10485760</RequestBodySizeLimit>
@@ -7073,7 +7282,7 @@ Pattern: the empty string.</Comment>
                 <ModelSimpleClassName>Mapping</ModelSimpleClassName>
                 <Description></Description>
                 <Link>Airlock-IAM-Loginapp</Link>
-                <EntityId>5</EntityId>
+                <EntityId>8</EntityId>
                 <DisplayName>Airlock-IAM-Loginapp</DisplayName>
             </EntitySoftLink>
             <SoftLinks>
