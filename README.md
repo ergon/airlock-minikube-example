@@ -45,7 +45,7 @@ definitely does not unleash the whole power of the Airlock suite. Because it is 
 * Access to the public repositories:
     * `hub.docker.com/r/ergon/airlock-microgateway-configbuilder`
     * `hub.docker.com/r/ergon/airlock-microgateway`
-    :exclamation: The Microgateway repositories are public, but Docker has [rate limits](https://www.docker.com/increase-rate-limits) for anonymous users in place. Therefore, it is recommended to use an Docker Hub account to pull the image.
+    :exclamation: The Microgateway repositories are public, but Docker has [rate limits](https://www.docker.com/increase-rate-limits) for anonymous users in place. Therefore, it is recommended to use a Docker Hub account to pull the image.
 * A Docker Hub account with access to the private repository:
     * `hub.docker.com/r/ergon/airlock-iam`  
       :exclamation: Please contact `order@airlock.com` to get access to the private repositories.
@@ -53,7 +53,7 @@ definitely does not unleash the whole power of the Airlock suite. Because it is 
     * A valid license for Airlock Microgateway
       :exclamation: Without a valide license, Airlock Microgateway works as community edition with [limited functionality](https://docs.airlock.com/microgateway/latest/?topic=MGW-00000056). The example is designed for the premium edition.
     * A valid license for Airlock IAM  
-      :exclamation: Airlock IAM do not work without a valid license. Please contact `order@airlock.com` to get temporary Airlock license files.
+      :exclamation: Airlock IAM does not work without a valid license. Please contact `order@airlock.com` to get temporary Airlock license files.
 
 ## Start Minikube
 
