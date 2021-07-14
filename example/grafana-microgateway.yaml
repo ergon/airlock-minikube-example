@@ -22,7 +22,7 @@ spec:
         - name: dockerregcred
       initContainers:
         - name: configbuilder
-          image: docker.io/ergon/airlock-microgateway-configbuilder-nightly:2.1.0.sprint4_Build004
+          image: docker.io/ergon/airlock-microgateway-configbuilder-nightly:2.1.0
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -44,7 +44,7 @@ spec:
               mountPath: /resources-gen
       containers:
         - name: microgateway-grafana
-          image: docker.io/ergon/airlock-microgateway-nightly:2.1.0.sprint4_Build004
+          image: docker.io/ergon/airlock-microgateway-nightly:2.1.0
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
