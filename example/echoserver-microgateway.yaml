@@ -22,7 +22,7 @@ spec:
         - name: dockerregcred
       initContainers:
         - name: configbuilder
-          image: docker.io/ergon/airlock-microgateway-configbuilder:2.0.1
+          image: docker.io/ergon/airlock-microgateway-configbuilder:2.1.0
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -59,7 +59,7 @@ spec:
               mountPath: /resources-gen
       containers:
         - name: microgateway-echoserver
-          image: docker.io/ergon/airlock-microgateway:2.0.1
+          image: docker.io/ergon/airlock-microgateway:2.1.0
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -139,12 +139,14 @@ data:
     session:
       encryption_passphrase_file: /secret/config/passphrase
 
+    remote_ip:
+      header: x-real-ip
+      internal_proxies:
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+
     expert_settings:
-      apache: |
-        RemoteIPHeader x-real-ip
-        RemoteIPInternalProxy 10.0.0.0/8
-        RemoteIPInternalProxy 172.16.0.0/12
-        RemoteIPInternalProxy 192.168.0.0/16
       security_gate: |
         CorrelationId.Extraction.0.Request.Header.Pattern       "^X-Request-ID: ([[:graph:]]+)$"
         CorrelationId.Extraction.0.Request.Header.IgnoreCase    "TRUE"
@@ -162,6 +164,9 @@ data:
             threat_handling: block
             deny_rule_groups:
               - level: strict
+            cookies:
+              passthrough:
+                pattern: ^${COOKIE_NAME}$
             auth:
               flow: redirect
               denied_access_url: /auth/ui/app/auth/application/access
@@ -190,8 +195,6 @@ data:
             expert_settings:
               security_gate: |
                 Backend.AddEnvironmentCookies         "TRUE"
-                Cookie.PassthroughSelector.Pattern    "^${COOKIE_NAME}$"
-                Cookie.PassthroughSelector.IgnoreCase "TRUE"
             backend:
               name: beg-echoserver
               hosts:
