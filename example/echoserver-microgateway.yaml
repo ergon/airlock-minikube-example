@@ -22,7 +22,7 @@ spec:
         - name: dockerregcred
       initContainers:
         - name: configbuilder
-          image: docker.io/ergon/airlock-microgateway-configbuilder:2.1.0
+          image: docker.io/ergon/airlock-microgateway-configbuilder-nightly:3.0.0.sprint3_Build002
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -59,7 +59,7 @@ spec:
               mountPath: /resources-gen
       containers:
         - name: microgateway-echoserver
-          image: docker.io/ergon/airlock-microgateway:2.1.0
+          image: docker.io/ergon/airlock-microgateway-nightly:3.0.0.sprint3_Build002
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -162,6 +162,7 @@ data:
             session_handling: ignore_session
             operational_mode: ${OPERATIONAL_MODE:-production}
             threat_handling: block
+            env_cookies: true
             deny_rule_groups:
               - level: strict
             cookies:
@@ -180,27 +181,43 @@ data:
               extraction:
                 mode: cookie
                 cookie: ${COOKIE_NAME}
-              signature:
-                method: HS512
-                passphrase: ${JWT_SIGNATURE_PASSPHRASE}
-              encryption:
-                algorithm: A256GCM
-                passphrase: ${JWT_ENCRYPTION_PASSPHRASE}
+              jwks_providers:
+                -  echoserver_jwks
               roles:
                 - claim: roles
                   extraction:
                     regex:
                       pattern: customer
                     substitution: echo-user
-            expert_settings:
-              security_gate: |
-                Backend.AddEnvironmentCookies         "TRUE"
             backend:
               name: beg-echoserver
               hosts:
                 - protocol: 'http'
                   name: echoserver
                   port: 8080
+    jwks_providers:
+      local:
+        - name: echoserver_jwks
+          jwks: |
+            {
+                "keys": 
+                    [     
+                    {
+                        "kty": "oct",
+                        "use": "sig",
+                        "alg": "HS512",
+                        "k": "${JWT_SIGNATURE_PASSPHRASE}",
+                        "key_ops": ["verify"]
+                    },
+                    {
+                        "kty": "oct",
+                        "use": "enc",
+                        "alg": "dir",
+                        "k": "${JWT_ENCRYPTION_PASSPHRASE}",
+                        "key_ops": ["decrypt"]
+                    }
+                ]
+            }
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
