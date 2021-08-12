@@ -162,6 +162,7 @@ data:
             session_handling: ignore_session
             operational_mode: ${OPERATIONAL_MODE:-production}
             threat_handling: block
+            env_cookies: true
             deny_rule_groups:
               - level: strict
             cookies:
@@ -188,9 +189,6 @@ data:
                     regex:
                       pattern: customer
                     substitution: echo-user
-            expert_settings:
-              security_gate: |
-                Backend.AddEnvironmentCookies         "TRUE"
             backend:
               name: beg-echoserver
               hosts:
@@ -219,7 +217,7 @@ data:
                         "key_ops": ["decrypt"]
                     }
                 ]
-            }                  
+            }
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
