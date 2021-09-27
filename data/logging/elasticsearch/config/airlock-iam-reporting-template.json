@@ -1,0 +1,13 @@
+{
+  "index_patterns": [
+    "airlock-iam-reporting-*"
+  ],
+  "settings": {
+    "index": {
+      "lifecycle": {
+        "name": "airlock-ilm-policy",
+        "rollover_alias": "airlock-iam-reporting"
+      }
+    }
+  }
+}

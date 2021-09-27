@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: echoserver-microgateway
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: "{{ .Values.echoserver.microgateway.spec.source.repoURL }}"
+    targetRevision: "{{ .Values.echoserver.microgateway.spec.source.targetRevision }}"
+    chart: "{{ .Values.echoserver.microgateway.spec.source.chart }}"
+
+    helm:
+      values: |{{ toYaml .Values.echoserver.microgateway.helm.values | nindent 8 }}
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true

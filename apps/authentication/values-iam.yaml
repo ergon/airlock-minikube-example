@@ -1,0 +1,3 @@
+iam:
+  resources:
+    path: apps/iam

@@ -1,0 +1,7 @@
+{
+  "aliases": {
+    "airlock-waf-default": {
+      "is_write_index": true
+    }
+  }
+}

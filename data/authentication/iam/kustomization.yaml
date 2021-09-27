@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - name: iam-libs
+    files:
+      - mariadb-java-client.jar=config/libs/mariadb-java-client-2.4.0.jar
+  - name: iam-loginapp-texts
+    files:
+      - config/loginapp-texts/strings_en.properties
+  - name: iam-config
+    files:
+      - config/medusa-configuration.xml
+  - name: iam-env-config
+    literals:
+      - IAM_LOG_LEVEL=INFO
+      - IAM_LOG_STRUCTURED_STDOUT_ENABLED="true"
+      - IAM_HEALTH_ADDRESS=".*"
+      - IAM_MODULES=adminapp,loginapp

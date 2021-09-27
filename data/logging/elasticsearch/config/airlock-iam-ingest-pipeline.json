@@ -1,0 +1,33 @@
+{
+	"description": "Airlock IAM Default Ingest Pipeline",
+	"processors": [
+		{
+			"set": {
+				"if": "ctx.log_id == 'IAM-DETAIL'",
+				"field": "_index",
+				"value": "airlock-iam-detail"
+			}
+		},
+		{
+			"set": {
+				"if": "ctx.log_id == 'IAM-AUDIT'",
+				"field": "_index",
+				"value": "airlock-iam-audit"
+			}
+		},
+		{
+			"set": {
+				"if": "ctx.log_id == 'IAM-USERTRAIL'",
+				"field": "_index",
+				"value": "airlock-iam-usertrail"
+			}
+		},
+		{
+			"set": {
+				"if": "ctx.log_id == 'IAM-REPORTING'",
+				"field": "_index",
+				"value": "airlock-iam-reporting"
+			}
+		}
+	]
+}

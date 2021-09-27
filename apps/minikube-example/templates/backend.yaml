@@ -1,0 +1,42 @@
+{{- if .Values.backend.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: backend
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: "{{ .Values.spec.source.repoURL }}"
+    targetRevision: "{{ .Values.spec.source.targetRevision }}"
+    path: apps/backend/
+
+    helm:
+      valueFiles:
+        - values-echoserver.yaml
+        - values-echoserver-microgateway.yaml
+        {{- if .Values.authentication.enabled }}
+        - values-microgateway-config-with-iam.yaml
+        {{- else }}
+        - values-microgateway-config-without-iam.yaml
+        {{- end }}
+        {{- if .Values.microgateway.license.secretName }}
+        - values-microgateway-with-license.yaml
+        {{- end }}
+
+      values: |
+        example:
+          repoURL: "{{ .Values.spec.source.repoURL }}"
+          targetRevision: "{{ .Values.spec.source.targetRevision }}"
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+{{- end }}

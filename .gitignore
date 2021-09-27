@@ -1,8 +1,2 @@
-/.idea/
-/init/*.passphrase
-/init/*.lic
-/init/*-secret.yaml
-
 .github/build
-
-.DS_Store
+secrets/*

@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: "{{ .Values.prometheus.spec.source.repoURL }}"
+    targetRevision: "{{ .Values.prometheus.spec.source.targetRevision }}"
+    chart: "{{ .Values.prometheus.spec.source.chart }}"
+
+    helm:
+      values: |{{ toYaml .Values.prometheus.helm.values | nindent 8 }}
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true

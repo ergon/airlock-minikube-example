@@ -1,0 +1,17 @@
+{
+	"description": "Airlock WAF Default Ingest Pipeline",
+	"processors": [
+		{
+			"remove": {
+				"field": "_type",
+				"ignore_missing": true
+			}
+		},
+		{
+			"set": {
+				"field": "_index",
+				"value": "airlock-waf-default"
+			}
+		}
+	]
+}

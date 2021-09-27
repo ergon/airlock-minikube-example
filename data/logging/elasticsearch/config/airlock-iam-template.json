@@ -1,0 +1,112 @@
+{
+	"index_patterns": [
+		"airlock-iam-*"
+	],
+	"mappings": {
+		"dynamic": false,
+		"properties": {
+			"@timestamp": {
+				"type": "date"
+			},
+			"host": {
+				"type": "keyword"
+			},
+			"program": {
+				"type": "keyword"
+			},
+			"priority": {
+				"type": "keyword"
+			},
+			"instance": {
+				"type": "keyword"
+			},
+			"message": {
+				"type": "text"
+			},
+			"log_id": {
+				"type": "keyword"
+			},
+			"logger_name": {
+				"type": "keyword"
+			},
+			"exception": {
+				"type": "text"
+			},
+			"thread": {
+				"type": "keyword"
+			},
+			"sess_id": {
+				"type": "keyword"
+			},
+			"req_id": {
+				"type": "keyword"
+			},
+			"client_ip": {
+				"type": "ip"
+			},
+			"configuration_context": {
+				"type": "keyword"
+			},
+			"environment": {
+				"type": "keyword"
+			},
+			"label": {
+				"type": "keyword"
+			},
+			"action_group": {
+				"type": "keyword"
+			},
+			"action": {
+				"type": "keyword"
+			},
+			"status": {
+				"type": "keyword"
+			},
+			"audit_token": {
+				"type": "keyword"
+			},
+			"target_id": {
+				"type": "keyword"
+			},
+			"authentee_id": {
+				"type": "keyword"
+			},
+			"authentee_type": {
+				"type": "keyword"
+			},
+			"authentee_provided_id": {
+				"type": "keyword"
+			},
+			"factor": {
+				"type": "keyword"
+			},
+			"factor_detail": {
+				"type": "keyword"
+			},
+			"user_agent": {
+				"type": "keyword"
+			},
+			"engine": {
+				"type": "keyword"
+			},
+			"channel": {
+				"type": "keyword"
+			}
+		}
+	},
+	"settings": {
+		"index": {
+			"default_pipeline": "airlock-iam-default-pipeline",
+			"sort.field": [
+				"@timestamp"
+			],
+			"sort.order": [
+				"desc"
+			],
+			"refresh_interval": "10s",
+			"number_of_replicas": "0",
+			"number_of_shards": "1"
+		}
+	},
+	"version": 7300
+}

@@ -1,0 +1,7 @@
+{
+  "aliases": {
+    "airlock-iam-detail": {
+      "is_write_index": true
+    }
+  }
+}

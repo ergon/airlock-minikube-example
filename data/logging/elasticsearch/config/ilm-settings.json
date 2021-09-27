@@ -1,0 +1,5 @@
+{
+  "transient": {
+    "indices.lifecycle.poll_interval": "5m"
+  }
+}

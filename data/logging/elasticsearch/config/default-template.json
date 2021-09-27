@@ -1,0 +1,68 @@
+{
+  "aliases": {},
+  "index_patterns": [
+    "default-*"
+  ],
+  "mappings": {
+    "dynamic_templates": [
+      {
+        "other_fields": {
+          "mapping": {
+            "norms": false,
+            "type": "keyword"
+          },
+          "match": "*",
+          "match_mapping_type": "string"
+        }
+      }
+    ],
+    "properties": {
+      "@timestamp": {
+        "type": "date"
+      },
+      "client_ip": {
+        "type": "ip"
+      },
+      "front_dst_port": {
+        "type": "integer"
+      },
+      "front_src_ip": {
+        "type": "ip"
+      },
+      "front_src_port": {
+        "type": "integer"
+      },
+      "http_status": {
+        "type": "short"
+      },
+      "req_size": {
+        "type": "long"
+      },
+      "resp_size": {
+        "type": "long"
+      },
+      "time_resp": {
+        "type": "long"
+      }
+    }
+  },
+  "settings": {
+    "index": {
+      "default_pipeline": "default-pipeline",
+      "sort.field": [
+        "@timestamp"
+      ],
+      "sort.order": [
+        "desc"
+      ],
+      "lifecycle": {
+        "name": "airlock-ilm-policy",
+        "rollover_alias": "default"
+      },
+      "refresh_interval": "10s",
+      "number_of_replicas": "0",
+      "number_of_shards": "1"
+    }
+  },
+  "version": 7300
+}

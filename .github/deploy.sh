@@ -9,54 +9,75 @@ kubectl wait --namespace ingress-nginx \
   --timeout=90s
 kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
 
-echo "creating microgateway secrets..."
-openssl rand -base64 102 | tr -d '\n' > init/microgateway.passphrase
-echo ${MICROGATEWAY_LIC} > init/microgateway.lic
-kubectl create secret generic microgateway-secret \
-  --from-file=license=init/microgateway.lic \
-  --from-file=passphrase=init/microgateway.passphrase
+echo "creating folder secrets..."
+mkdir -p secrets/
 
-echo "creating iam secrets..."
-echo ${IAM_LIC} > init/iam.lic
-kubectl create secret generic iam-secret \
-  --from-file=license.txt=init/iam.lic
+echo "creating the microgateway secret..."
+echo "${MICROGATEWAY_LIC}" > secrets/microgateway.lic
+kubectl create secret generic microgateway-license \
+  --from-file=license=secrets/microgateway.lic \
+  --dry-run=client \
+  -o yaml > secrets/microgateway-license.yaml
 
-echo "creating secrets for JWT"
-openssl rand -base64 32 | tr -d '\n' > init/jwt.encryption.passphrase
-openssl rand -base64 64 | tr -d '\n' > init/jwt.signature.passphrase
-kubectl create secret generic jwt-secret \
-   --from-file=JWT_ENCRYPTION_PASSPHRASE=init/jwt.encryption.passphrase \
-   --from-file=JWT_SIGNATURE_PASSPHRASE=init/jwt.signature.passphrase \
-   --from-literal=COOKIE_NAME=iam_auth \
-   --from-literal=JWT_ROLE=customer
-
-echo "creating mariadb secrets..."
-kubectl create secret generic mariadb-secret \
-  --from-literal=MYSQL_DATABASE=iamdb \
-  --from-literal=MYSQL_ROOT_PASSWORD=$(openssl rand -base64 36) \
-  --from-literal=MYSQL_USER=airlock \
-  --from-literal=MYSQL_PASSWORD=$(openssl rand -base64 36)
+echo "creating the iam secret..."
+echo "${IAM_LIC}" > secrets/iam.lic
+kubectl create secret generic iam-license \
+  --from-file=license.txt=secrets/iam.lic \
+  --dry-run=client \
+  -o yaml > secrets/iam-license.yaml
 
 echo "creating docker secret..."
 kubectl create secret docker-registry dockerregcred \
   --docker-server='https://index.docker.io/v1/' \
-  --docker-username=${DOCKER_USER} \
-  --docker-password=${DOCKER_TOKEN} \
-  --docker-email=${DOCKER_EMAIL}
+  --docker-username="${DOCKER_USER}" \
+  --docker-password="${DOCKER_TOKEN}" \
+  --docker-email="${DOCKER_EMAIL}" \
+  --dry-run=client \
+  -o yaml > secrets/dockerhub-secret.yaml
 
-echo "initializing config data..."
-kubectl apply -f init/
+echo "creating the secrets..."
+kubectl apply -f secrets/
 
-echo "preparing data-pod..."
-kubectl wait --for=condition=ready --timeout=300s pod/data-pod
+echo "creating the namespace argocd with the secret dockerregcred..."
+kubectl create ns argocd --dry-run=client -o yaml > /tmp/argocd-ns.yaml
+kubectl apply -f /tmp/argocd-ns.yaml
+kubectl apply -n argocd -f secrets/dockerhub-secret.yaml
 
-kubectl cp data/ data-pod:/
-kubectl exec data-pod -- sh -c "chown -R 1000:0 /data/iam/"
-kubectl exec data-pod -- sh -c "chown -R 999:999 /data/mariadb/"
-kubectl exec data-pod -- sh -c "chown -R 1000:0 /data/kibana/"
+echo "installing ArgoCD"
+kubectl apply -k apps/argo-cd/
 
-echo "deploying example..."
-kubectl apply -f example/
+echo "wait until ArgoCD is ready"
+kubectl -n argocd wait --for=condition=ready --timeout=600s pod -l app=argo
+
+echo "deploying the example..."
+kubectl apply -f example/premium-with-iam.yaml
+sleep 30
 
 echo "wait and display status of resources"
-kubectl wait --for=condition=ready  --timeout=420s pod --all
+# Argocd creates new deployments. To ensure that all 
+# deployments are up and running, more than one check 
+# with 'kubectl wait' is required.
+retry=0
+maxRetries=10
+success=0
+deployedOnSuccess=2
+until [ ${retry} -ge ${maxRetries} ]
+do
+  set +e pipefail
+  kubectl wait --for=condition=ready --timeout=30s --all pod
+  rc=$?
+  set -e pipefail
+
+  if [ ${rc} -eq 0 ]
+  then
+    success=$((success+1))
+  fi
+
+  if [ ${success} -ge ${deployedOnSuccess} ]
+  then
+    break
+  fi
+
+  sleep 30
+  retry=$((retry+1))
+done

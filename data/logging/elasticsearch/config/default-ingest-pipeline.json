@@ -1,0 +1,11 @@
+{
+  "description": "Default Ingest Pipeline",
+  "processors": [
+    {
+      "set": {
+        "field": "_index",
+        "value": "default"
+      }
+    }
+  ]
+}

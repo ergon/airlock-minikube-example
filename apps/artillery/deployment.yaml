@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: artillery
+  labels:
+    app: artillery
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: artillery
+  template:
+    metadata:
+      labels:
+        app: artillery
+    spec:
+      imagePullSecrets:
+        - name: dockerregcred
+      containers:
+        - name: artillery
+          image: docker.io/artilleryio/artillery:1.6.2
+          imagePullPolicy: IfNotPresent
+          args: ["run", "/config/artillery.yaml"]
+          # env:
+          #   - name: "DEBUG"
+          #     value: "http"
+          volumeMounts:
+            - name: config
+              mountPath: /config/
+      volumes:
+        - name: config
+          configMap:
+            name: artillery-config

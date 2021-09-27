@@ -1,0 +1,7 @@
+{
+  "aliases": {
+    "default": {
+      "is_write_index": true
+    }
+  }
+}
