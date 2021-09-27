@@ -1,0 +1,7 @@
+{
+  "aliases": {
+    "airlock-iam-audit": {
+      "is_write_index": true
+    }
+  }
+}

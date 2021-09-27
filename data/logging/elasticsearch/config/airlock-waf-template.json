@@ -1,0 +1,136 @@
+{
+  "aliases": {},
+  "index_patterns": [
+    "airlock-waf-default-*"
+  ],
+  "mappings": {
+    "dynamic_templates": [
+      {
+        "other_fields": {
+          "mapping": {
+            "norms": false,
+            "type": "keyword"
+          },
+          "match": "*",
+          "match_mapping_type": "string"
+        }
+      }
+    ],
+    "properties": {
+      "@timestamp": {
+        "type": "date"
+      },
+      "back_dst_ip": {
+        "type": "ip"
+      },
+      "back_dst_port": {
+        "type": "integer"
+      },
+      "back_src_ip": {
+        "type": "ip"
+      },
+      "back_src_port": {
+        "type": "integer"
+      },
+      "client_ip": {
+        "type": "ip"
+      },
+      "front_dst_ip": {
+        "type": "ip"
+      },
+      "front_dst_port": {
+        "type": "integer"
+      },
+      "front_src_ip": {
+        "type": "ip"
+      },
+      "front_src_port": {
+        "type": "integer"
+      },
+      "geoip_location": {
+        "type": "geo_point"
+      },
+      "http_status": {
+        "type": "short"
+      },
+      "message": {
+        "norms": false,
+        "type": "text"
+      },
+      "pid": {
+        "type": "integer"
+      },
+      "rcpt_id": {
+        "type": "long"
+      },
+      "req_rate": {
+        "type": "long"
+      },
+      "req_rate_licensed": {
+        "type": "long"
+      },
+      "req_size": {
+        "type": "long"
+      },
+      "resp_size": {
+        "type": "long"
+      },
+      "sess_auth": {
+        "type": "boolean"
+      },
+      "time_backend": {
+        "type": "long"
+      },
+      "time_filter": {
+        "type": "long"
+      },
+      "time_req_icap": {
+        "type": "long"
+      },
+      "time_resp": {
+        "type": "long"
+      },
+      "time_resp_icap": {
+        "type": "long"
+      },
+      "time_total": {
+        "type": "long"
+      },
+      "time_wsock_total": {
+        "type": "long"
+      },
+      "vhost_ip": {
+        "type": "ip"
+      },
+      "vhost_port": {
+        "type": "integer"
+      },
+      "wsock_bytes_in": {
+        "type": "long"
+      },
+      "wsock_bytes_out": {
+        "type": "long"
+      }
+    }
+  },
+  "order": 0,
+  "settings": {
+    "index": {
+      "default_pipeline": "airlock-waf-default-pipeline",
+      "sort.field": [
+        "@timestamp"
+      ],
+      "sort.order": [
+        "desc"
+      ],
+      "lifecycle": {
+        "name": "airlock-ilm-policy",
+        "rollover_alias": "airlock-waf-default"
+      },
+      "refresh_interval": "10s",
+      "number_of_replicas": "0",
+      "number_of_shards": "1"
+    }
+  },
+  "version": 7300
+}

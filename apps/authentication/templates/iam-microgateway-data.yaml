@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: iam-microgateway-data
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+spec:
+  project: default
+  source:
+    repoURL: "{{ .Values.example.repoURL }}"
+    targetRevision: "{{ .Values.example.targetRevision }}"
+    path: "{{ .Values.iam.microgateway.resources.path }}"
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - Replace=true

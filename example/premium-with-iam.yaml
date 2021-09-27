@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: premium-with-iam
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/ergon/airlock-minikube-example.git
+    targetRevision: v3.0.0
+    path: apps/minikube-example/
+
+    helm:
+      values: |
+        spec:
+          source:
+            repoURL: https://github.com/ergon/airlock-minikube-example.git
+            targetRevision: v3.0.0
+
+        microgateway:
+          license:
+            secretName: microgateway-license
+            
+        authentication:
+          enabled: true
+
+        logging:
+          enabled: true
+
+        monitoring:
+          enabled: true
+
+        backend:
+          enabled: true
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

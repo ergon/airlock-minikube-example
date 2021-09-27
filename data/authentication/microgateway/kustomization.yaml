@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - name: iam-microgateway-mapping-template-adminapp
+    files:
+      - iam-adminapp.xml=config/iam-adminapp-mgw1.0-mapping-template.xml
+  - name: iam-microgateway-mapping-template-loginapp
+    files:
+      - iam-loginapp.xml=config/iam-loginapp-mgw1.0-mapping-template.xml
+  - name: iam-microgateway-mapping-template-loginapp-rest-protected
+    files:
+      - iam-loginapp-rest-protected.xml=config/iam-loginapp-rest-protected-mgw1.0-mapping-template.xml
+  - name: iam-microgateway-mapping-template-loginapp-rest-public
+    files:
+      - iam-loginapp-rest-public.xml=config/iam-loginapp-rest-public-mgw1.0-mapping-template.xml
+  - name: iam-microgateway-openapi-login-rest
+    files:
+      - openapi-loginapp-rest.json=config/login-rest-openapi.json

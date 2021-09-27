@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fluentd
+  namespace: argocd
+  annotations:
+    helm.sh/hook-weight: "-5"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: "{{ .Values.fluentd.spec.source.repoURL }}"
+    targetRevision: "{{ .Values.fluentd.spec.source.targetRevision }}"
+    chart: "{{ .Values.fluentd.spec.source.chart }}"
+
+    helm:
+      values: |{{ toYaml .Values.fluentd.helm.values | nindent 8 }}
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true

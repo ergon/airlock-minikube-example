@@ -1,0 +1,29 @@
+echoserver:
+  microgateway:
+    spec:
+      source:
+        repoURL: https://ergon.github.io/airlock-helm-charts
+        targetRevision: 2.1.0
+        chart: microgateway
+
+    helm:
+      values:
+        fullnameOverride: echoserver-microgateway
+
+        resources:
+          limits:
+            memory: 512Mi
+
+        podAnnotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "9102"
+
+        service:
+          annotations:
+            prometheus.io/scrape: "true"
+            prometheus.io/port: "9102"
+
+        config:
+          passphrase:
+            useExistingSecret: true
+            secretName: "microgateway-passphrase"

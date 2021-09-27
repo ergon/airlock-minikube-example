@@ -1,0 +1,22 @@
+fluentd:
+  spec:
+    source:
+      repoURL: https://charts.bitnami.com/bitnami
+      targetRevision: 4.1.3
+      chart: fluentd
+
+  resources:
+    path: data/logging/fluentd/
+
+  helm:
+    values:
+      aggregator:
+        enabled: false
+
+      forwarder:
+        configMap: fluentd-forwarder
+        extraEnv:
+          - name: FLUENTD_DAEMON_USER
+            value: root
+          - name: FLUENTD_DAEMON_GROUP
+            value: root

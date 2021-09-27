@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - name: fluentd-forwarder
+    files:
+      - config/fluentd.conf
+      - config/fluentd.conf.tmpl
+      - config/fluentd-inputs.conf
+      - config/fluentd-outputs-default.conf
+      - config/fluentd-outputs-microgateway.conf
+      - config/fluentd-outputs-iam.conf
+      - config/fluentd-outputs-nginx-ingress.conf
+      - config/fluentd-outputs-echoserver.conf

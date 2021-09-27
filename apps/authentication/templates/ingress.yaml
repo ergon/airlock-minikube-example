@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-iam-microgateway
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/backend-protocol: https
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /$
+            pathType: Prefix
+            backend:
+              service:
+                name: iam-microgateway
+                port:
+                  number: 443
+          - path: /auth/
+            pathType: Prefix
+            backend:
+              service:
+                name: iam-microgateway
+                port:
+                  number: 443
+          - path: /auth-admin/
+            pathType: Prefix
+            backend:
+              service:
+                name: iam-microgateway
+                port:
+                  number: 443

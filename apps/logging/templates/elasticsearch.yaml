@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: elasticsearch
+  namespace: argocd
+  annotations:
+    helm.sh/hook-weight: "-10"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: "{{ .Values.elasticsearch.spec.source.repoURL }}"
+    targetRevision: "{{ .Values.elasticsearch.spec.source.targetRevision }}"
+    chart: "{{ .Values.elasticsearch.spec.source.chart }}"
+
+    helm:
+      values: |{{ toYaml .Values.elasticsearch.helm.values | nindent 8 }}
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
