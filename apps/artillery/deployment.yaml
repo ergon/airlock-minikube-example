@@ -18,7 +18,7 @@ spec:
         - name: dockerregcred
       containers:
         - name: artillery
-          image: docker.io/artilleryio/artillery:1.6.2
+          image: docker.io/artilleryio/artillery:v1.7.9
           imagePullPolicy: IfNotPresent
           args: ["run", "/config/artillery.yaml"]
           # env:

@@ -5,14 +5,15 @@ config:
   plugins:
     expect: {}
   phases:
-    # Ramp up: From 5 VU to 5 VU over 45 seconds
+    # Ramp up: From 1 VU to 5 VU over 45 seconds
     - name: "Warm up the application"
       duration: 45
       arrivalRate: 1
       rampTo: 5
     - name: "Sustained max load"
       duration: 1200
-      arrivalRate: 8
+      arrivalRate: 1
+      rampTo: 10
   variables:
     user-agents:
       - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36
@@ -36,6 +37,40 @@ config:
       - Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36
       - Mozilla/5.0 (iPhone; CPU iPhone OS 8_4_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) GSA/7.0.55539 Mobile/12H321 Safari/600.1.4
       - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.130 Safari/537.36
+    X-Forwarded-For:
+      # https://lite.ip2location.com/ip-address-ranges-by-country
+      # Brazil
+      - 103.4.98.225
+      - 103.4.98.230
+      # USA
+      - 102.140.88.1
+      - 102.140.88.3
+      - 102.140.88.7
+      # Germany
+      - 102.165.8.1
+      - 102.165.8.3
+      - 102.165.8.14
+      # Switzerland
+      - 104.132.24.1
+      - 104.132.24.5
+      - 104.132.24.18
+      # France
+      - 103.153.7.1
+      - 103.153.7.5
+      - 103.153.7.19
+      # Denmark
+      - 104.160.16.1
+      - 104.160.16.5
+      - 104.160.16.9
+      # Croatia
+      - 130.176.45.1
+      - 130.176.45.5
+      # Sweden
+      - 104.123.68.1
+      - 104.123.68.6
+      # China
+      - 1.2.0.1
+      - 1.2.0.2
     attack-strings:
       - 1=1--
       - <script>onclick('xss')</script>
@@ -49,39 +84,51 @@ scenarios:
           url: "/auth/rest/public/authentication/location/access"
           headers:
             User-Agent: "{{ user-agents }}"
+            X-Forwarded-For: "{{ X-Forwarded-For }}"
             X-Same-Domain: "1"
           json:
             location: "https://ingress-nginx-controller.ingress-nginx/echo/"
           expect:
             - statusCode: 401
-      - think: "{{ $randomNumber(4, 8) }}"
+      - think: 4
       - post:
           url: "/auth/rest/public/authentication/password/check"
           headers:
             User-Agent: "{{ user-agents }}"
+            X-Forwarded-For: "{{ X-Forwarded-For }}"
             X-Same-Domain: "1"
           json:
             username: user
             password: password
           expect:
             - statusCode: 200
-      - think: "{{ $randomNumber(4, 8) }}"
+      - think: 4
       - get:
           url: "/echo/users/{{ $randomNumber(1, 100) }}"
           headers:
             User-Agent: "{{ user-agents }}"
+            X-Forwarded-For: "{{ X-Forwarded-For }}"
           expect:
             - statusCode: 200
-      - think: "{{ $randomNumber(4, 8) }}"
+      - think: 4
       - post:
           url: "/echo/users/create/"
           headers:
             User-Agent: "{{ user-agents }}"
+            X-Forwarded-For: "{{ X-Forwarded-For }}"
             Content-Type: application/json
           json:
             username: "{{ $randomString(5) }}"
           expect:
             - statusCode: 200
+      - think: 4
+      - get:
+          url: "/auth/logout"
+          headers:
+            User-Agent: "{{ user-agents }}"
+            X-Forwarded-For: "{{ X-Forwarded-For }}"
+          expect:
+            - statusCode: 302
     weight: 7
   - name: "Attack string"
     flow:
@@ -90,28 +137,33 @@ scenarios:
           url: "/echo/"
           headers:
             User-Agent: "{{ user-agents }}"
+            X-Forwarded-For: "{{ X-Forwarded-For }}"
             X-Attack: "{{ attack-strings }}"
           expect:
             - statusCode: 400
-      - think: "{{ $randomNumber(4, 8) }}"
+      - think: 4
       - get:
           url: "/echo/"
           headers:
             User-Agent: "{{ user-agents }}"
+            X-Forwarded-For: "{{ X-Forwarded-For }}"
             X-Attack: "{{ attack-strings }}"
           expect:
             - statusCode: 400
-      - think: "{{ $randomNumber(4, 8) }}"
+      - think: 4
       - get:
           url: "/echo/?q=<img src='https://www.evil.com/script.js'>"
           headers:
             User-Agent: "{{ user-agents }}"
+            X-Forwarded-For: "{{ X-Forwarded-For }}"
           expect:
             - statusCode: 400
+      - think: 4
       - get:
           url: "/auth/login/?file={{ attack-strings }}"
           headers:
             User-Agent: "{{ user-agents }}"
+            X-Forwarded-For: "{{ X-Forwarded-For }}"
           expect:
             - statusCode: 400
     weight: 2
@@ -122,6 +174,7 @@ scenarios:
           url: "/auth/login"
           headers:
             User-Agent: "{{ user-agents }}"
+            X-Forwarded-For: "{{ X-Forwarded-For }}"
             Content-Type: application/json
           json:
             user: user
