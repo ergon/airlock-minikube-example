@@ -8,6 +8,35 @@
 			}
 		},
 		{
+			"geoip": {
+				"field": "client_ip",
+				"ignore_missing": true,
+				"database_file": "GeoLite2-City.mmdb"
+			}
+		},
+		{
+			"set": {
+				"if": "ctx.geoip?.location != null",
+				"field": "geoip_location.lat",
+				"value": "{{{ geoip.location.lat }}}",
+				"override": false
+			}
+		},
+		{
+			"set": {
+				"if": "ctx.geoip?.location != null",
+				"field": "geoip_location.lon",
+				"value": "{{{ geoip.location.lon }}}",
+				"override": false
+			}
+		},
+		{
+			"remove": {
+				"field": "geoip",
+				"ignore_missing": true
+			}
+		},
+		{
 			"set": {
 				"field": "_index",
 				"value": "airlock-waf-default"

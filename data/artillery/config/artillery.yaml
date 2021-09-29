@@ -13,8 +13,14 @@ config:
     - name: "Sustained max load"
       duration: 1200
       arrivalRate: 1
-      rampTo: 10
+      rampTo: 5
   variables:
+    username:
+      - customer1
+      - customer2
+      - customer3
+      - customer4
+      - customer5
     user-agents:
       - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36
       - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36
@@ -98,7 +104,7 @@ scenarios:
             X-Forwarded-For: "{{ X-Forwarded-For }}"
             X-Same-Domain: "1"
           json:
-            username: user
+            username: "{{ username }}"
             password: password
           expect:
             - statusCode: 200
@@ -121,6 +127,38 @@ scenarios:
             username: "{{ $randomString(5) }}"
           expect:
             - statusCode: 200
+      - think: 4
+      - get:
+          url: "/echo/?sleep=y"
+          headers:
+            User-Agent: "{{ user-agents }}"
+            X-Forwarded-For: "{{ X-Forwarded-For }}"
+          expect:
+            - statusCode: 204
+      - think: 4
+      - get:
+          url: "/echo/?code=204"
+          headers:
+            User-Agent: "{{ user-agents }}"
+            X-Forwarded-For: "{{ X-Forwarded-For }}"
+          expect:
+            - statusCode: 204
+      - think: 4
+      - get:
+          url: "/echo/?code=403"
+          headers:
+            User-Agent: "{{ user-agents }}"
+            X-Forwarded-For: "{{ X-Forwarded-For }}"
+          expect:
+            - statusCode: 403
+      - think: 4
+      - get:
+          url: "/echo/?code=503"
+          headers:
+            User-Agent: "{{ user-agents }}"
+            X-Forwarded-For: "{{ X-Forwarded-For }}"
+          expect:
+            - statusCode: 503
       - think: 4
       - get:
           url: "/auth/logout"
@@ -177,7 +215,7 @@ scenarios:
             X-Forwarded-For: "{{ X-Forwarded-For }}"
             Content-Type: application/json
           json:
-            user: user
+            user: "{{ username }}"
             password: password
           expect:
             - statusCode: 400

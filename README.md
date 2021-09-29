@@ -285,7 +285,7 @@ Afterwards sign in: `https://localhost:8080/`
 - [Airlock Microgateway](https://www.airlock.com/microgateway)
 - [Airlock Microgateway Manual](https://docs.airlock.com/microgateway/latest/)
 - [Airlock Community Forum](https://forum.airlock.com)
-- [Airlock Helm Charts Example](https://github.com/ergon/airlock-helm-charts)
+- [Airlock Helm Charts](https://github.com/ergon/airlock-helm-charts)
 
 [MIT license]: https://github.com/ergon/airlock-minikube-examples/blob/main/LICENSE
 

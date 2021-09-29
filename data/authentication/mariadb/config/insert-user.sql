@@ -14,7 +14,57 @@ INSERT INTO `medusa_user` (username,
 
 VALUES ('user',
         'Airlock',
-        'Minikube Example',
+        'Secure Access Hub',
+        'PASSWORD',
+        1,
+        '{}',
+        'MedusaPwdHistoryAAAARjE2Mzg0fEk61Xwi7Q16p0tt9fakb+j9EcLtch4QXhWuGnQzczaRue8NSY6TZIgCGll6+x7ZwT4ujRO3dNvAxBNRM6dZbNY=',
+        0, /* Enforced password change is disabled */
+        'customer'
+       ),
+       ('customer1',
+        'Airlock',
+        'Secure Access Hub',
+        'PASSWORD',
+        1,
+        '{}',
+        'MedusaPwdHistoryAAAARjE2Mzg0fEk61Xwi7Q16p0tt9fakb+j9EcLtch4QXhWuGnQzczaRue8NSY6TZIgCGll6+x7ZwT4ujRO3dNvAxBNRM6dZbNY=',
+        0, /* Enforced password change is disabled */
+        'customer'
+       ),
+       ('customer2',
+        'Airlock',
+        'Secure Access Hub',
+        'PASSWORD',
+        1,
+        '{}',
+        'MedusaPwdHistoryAAAARjE2Mzg0fEk61Xwi7Q16p0tt9fakb+j9EcLtch4QXhWuGnQzczaRue8NSY6TZIgCGll6+x7ZwT4ujRO3dNvAxBNRM6dZbNY=',
+        0, /* Enforced password change is disabled */
+        'customer'
+       ),
+       ('customer3',
+        'Airlock',
+        'Secure Access Hub',
+        'PASSWORD',
+        1,
+        '{}',
+        'MedusaPwdHistoryAAAARjE2Mzg0fEk61Xwi7Q16p0tt9fakb+j9EcLtch4QXhWuGnQzczaRue8NSY6TZIgCGll6+x7ZwT4ujRO3dNvAxBNRM6dZbNY=',
+        0, /* Enforced password change is disabled */
+        'customer'
+       ),
+       ('customer4',
+        'Airlock',
+        'Secure Access Hub',
+        'PASSWORD',
+        1,
+        '{}',
+        'MedusaPwdHistoryAAAARjE2Mzg0fEk61Xwi7Q16p0tt9fakb+j9EcLtch4QXhWuGnQzczaRue8NSY6TZIgCGll6+x7ZwT4ujRO3dNvAxBNRM6dZbNY=',
+        0, /* Enforced password change is disabled */
+        'customer'
+       ),
+       ('customer5',
+        'Airlock',
+        'Secure Access Hub',
         'PASSWORD',
         1,
         '{}',
