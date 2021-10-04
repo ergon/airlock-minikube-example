@@ -19,6 +19,11 @@ spec:
             repoURL: https://github.com/ergon/airlock-minikube-example.git
             targetRevision: v3.1.0
 
+          syncPolicy:
+            automated:
+              selfHeal: true
+              prune: true
+
         microgateway:
           license:
             secretName:

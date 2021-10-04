@@ -31,12 +31,12 @@ spec:
           repoURL: "{{ .Values.spec.source.repoURL }}"
           targetRevision: "{{ .Values.spec.source.targetRevision }}"
 
+        spec:
+          syncPolicy: {{ toYaml .Values.spec.syncPolicy | nindent 12 }}
+
   destination:
     server: https://kubernetes.default.svc
     namespace: default
 
-  syncPolicy:
-    automated:
-      selfHeal: true
-      prune: true
+  syncPolicy: {{ toYaml .Values.spec.syncPolicy | nindent 4 }}
 {{- end }}

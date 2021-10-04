@@ -17,8 +17,6 @@ spec:
     namespace: default
 
   syncPolicy:
-    automated:
-      selfHeal: true
-      prune: true
+    {{ toYaml .Values.spec.syncPolicy | nindent 4 }}
     syncOptions:
       - Replace=true
