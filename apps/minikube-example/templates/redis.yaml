@@ -32,4 +32,4 @@ spec:
     server: https://kubernetes.default.svc
     namespace: default
 
-  "{{ .Values.spec.syncPolicy }}"
+  syncPolicy: {{ toYaml .Values.spec.syncPolicy | nindent 4 }}
