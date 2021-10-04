@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/ergon/airlock-minikube-example.git
+    repoURL: https://github.com/dieti80/airlock-minikube-example.git
     targetRevision: HEAD
     path: apps/minikube-example/
 
@@ -16,7 +16,7 @@ spec:
       values: |
         spec:
           source:
-            repoURL: https://github.com/ergon/airlock-minikube-example.git
+            repoURL: https://github.com/dieti80/airlock-minikube-example.git
             targetRevision: HEAD
 
           syncPolicy:
