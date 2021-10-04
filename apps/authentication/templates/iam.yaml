@@ -16,4 +16,7 @@ spec:
     server: https://kubernetes.default.svc
     namespace: default
 
-  syncPolicy: {{ toYaml .Values.spec.syncPolicy | nindent 4 }}
+  syncPolicy:
+    {{ toYaml .Values.spec.syncPolicy | nindent 4 }}
+    syncOptions:
+      - Replace=true
