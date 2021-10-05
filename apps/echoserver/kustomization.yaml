@@ -1,11 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+bases:
+  - ../../data/echoserver
+
 resources:
   - deployment.yaml
   - service.yaml
-
-configMapGenerator:
-  - name: echoserver-nginx-config
-    files:
-      - config/nginx.conf
