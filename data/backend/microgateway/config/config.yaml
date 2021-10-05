@@ -28,7 +28,7 @@ apps:
           - level: strict
         cookies:
           passthrough:
-            pattern: ^${COOKIE_NAME}$
+            pattern: ${COOKIE_NAME:-}
         auth:
           flow: redirect
           denied_access_url: /auth/ui/app/auth/application/access
