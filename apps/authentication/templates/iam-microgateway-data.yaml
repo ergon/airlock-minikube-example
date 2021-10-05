@@ -10,8 +10,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: "{{ .Values.example.repoURL }}"
-    targetRevision: "{{ .Values.example.targetRevision }}"
+    repoURL: "{{ .Values.spec.source.repoURL }}"
+    targetRevision: "{{ .Values.spec.source.targetRevision }}"
     path: "{{ .Values.iam.microgateway.resources.path }}"
 
   destination:
