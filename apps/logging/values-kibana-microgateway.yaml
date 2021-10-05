@@ -6,6 +6,9 @@ kibana:
         targetRevision: 2.2.1
         chart: microgateway
 
+    resources:
+      path: data/logging/microgateway/
+
     helm:
       values:
         fullnameOverride: kibana-microgateway
