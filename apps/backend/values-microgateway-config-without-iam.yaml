@@ -10,4 +10,4 @@ echoserver:
               - name: OPERATIONAL_MODE
                 value: integration
 
-          dslConfigMap: echoserver-microgateway-config
+          dslConfigMap: echoserver-microgateway-without-iam-config
