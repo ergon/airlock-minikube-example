@@ -20,3 +20,6 @@ configMapGenerator:
   - name: iam-microgateway-openapi-login-rest
     files:
       - openapi-loginapp-rest.json=config/login-rest-openapi.json
+  - name: iam-microgateway-config
+    files:
+      - config/config.yaml
