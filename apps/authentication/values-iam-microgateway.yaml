@@ -3,7 +3,7 @@ iam:
     spec:
       source:
         repoURL: https://ergon.github.io/airlock-helm-charts
-        targetRevision: 2.1.0
+        targetRevision: 2.2.1
         chart: microgateway
 
     resources:
