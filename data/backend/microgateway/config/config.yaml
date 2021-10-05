@@ -43,10 +43,10 @@ apps:
             cookie: ${COOKIE_NAME}
           signature:
             method: HS512
-            passphrase: ${JWT_SIGNATURE_PASSPHRASE}
+            passphrase: ${JWT_SIGNATURE_PASSPHRASE:-}
           encryption:
             algorithm: A256GCM
-            passphrase: ${JWT_ENCRYPTION_PASSPHRASE}
+            passphrase: ${JWT_ENCRYPTION_PASSPHRASE:-}
           roles:
             - claim: roles
               extraction:
