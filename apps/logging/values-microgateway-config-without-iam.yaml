@@ -1,5 +1,7 @@
 kibana:
   microgateway:
+    resources:
+      path: data/logging/microgateway-without-iam/
     helm:
       values:
         config:
@@ -10,4 +12,4 @@ kibana:
               - name: OPERATIONAL_MODE
                 value: production
 
-          dslConfigMap: kibana-microgateway-without-iam-config
+          dslConfigMap: kibana-microgateway-config
