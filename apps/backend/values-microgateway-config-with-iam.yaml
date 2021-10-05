@@ -10,7 +10,7 @@ echoserver:
               - name: OPERATIONAL_MODE
                 value: integration
               - name: ACCESS_ROLES
-                value: [{ "roles": ["echo-user"] }]
+                value: ["echo-user"]
               - name: JWT_ENCRYPTION_PASSPHRASE
                 valueFrom:
                   secretKeyRef:

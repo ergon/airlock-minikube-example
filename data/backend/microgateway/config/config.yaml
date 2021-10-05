@@ -32,7 +32,8 @@ apps:
         auth:
           flow: redirect
           denied_access_url: /auth/ui/app/auth/application/access
-          access: ^${ACCESS_ROLES:-[]}$
+          access:
+            - roles: ${ACCESS_ROLES:-}
         access_token:
           mandatory: true
           token_type: signed_and_encrypted
