@@ -1,5 +1,7 @@
 grafana:
   microgateway:
+    resources:
+      path: data/monitoring/microgateway-without-iam/
     helm:
       values:
         config:
@@ -10,4 +12,4 @@ grafana:
               - name: OPERATIONAL_MODE
                 value: production
 
-          dslConfigMap: grafana-microgateway-without-iam-config
+          dslConfigMap: grafana-microgateway-config

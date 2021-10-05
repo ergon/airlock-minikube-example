@@ -6,9 +6,6 @@ grafana:
         targetRevision: 2.2.1
         chart: microgateway
 
-    resources:
-      path: data/monitoring/microgateway/
-
     helm:
       values:
         fullnameOverride: grafana-microgateway
