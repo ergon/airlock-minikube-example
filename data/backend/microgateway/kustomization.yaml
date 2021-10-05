@@ -5,6 +5,9 @@ generatorOptions:
   disableNameSuffixHash: true
 
 configMapGenerator:
-  - name: echoserver-microgateway-config
+  - name: echoserver-microgateway-with-iam-config
     files:
-      - config/config.yaml
+      - config-with-iam/config.yaml
+  - name: echoserver-microgateway-without-iam-config
+    files:
+      - config-without-iam/config.yaml
