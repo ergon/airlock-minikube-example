@@ -44,10 +44,10 @@ apps:
             cookie: ${COOKIE_NAME:-iam_auth}
           signature:
             method: HS512
-            passphrase: ${JWT_SIGNATURE_PASSPHRASE:zAFf45QOLWq+ql4iuGgge4T/aFK6LfNCaUu824p3UaOYWQAH4gujR16ybiX7Hrg7Hx3+FHHYtH4xgPVCu0TFtw==}
+            passphrase: ${JWT_SIGNATURE_PASSPHRASE:-zAFf45QOLWq+ql4iuGgge4T/aFK6LfNCaUu824p3UaOYWQAH4gujR16ybiX7Hrg7Hx3+FHHYtH4xgPVCu0TFtw==}
           encryption:
             algorithm: A256GCM
-            passphrase: ${JWT_ENCRYPTION_PASSPHRASE:7ZKlDTVy5fjBPJ+XlGO+GAeQijvX/FmoGvlOM69nCzM=}
+            passphrase: ${JWT_ENCRYPTION_PASSPHRASE:-7ZKlDTVy5fjBPJ+XlGO+GAeQijvX/FmoGvlOM69nCzM=}
           roles:
             - claim: roles
               extraction:
