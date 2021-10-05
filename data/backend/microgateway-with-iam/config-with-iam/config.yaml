@@ -42,7 +42,7 @@ apps:
           audittoken: true
           extraction:
             mode: cookie
-            cookie: ^${COOKIE_NAME}$
+            cookie: ${COOKIE_NAME}
           signature:
             method: HS512
             passphrase: ${JWT_SIGNATURE_PASSPHRASE}
