@@ -9,5 +9,20 @@ echoserver:
                 value: info
               - name: OPERATIONAL_MODE
                 value: integration
+              - name: JWT_ENCRYPTION_PASSPHRASE
+                valueFrom:
+                  secretKeyRef:
+                    name: jwt-secret
+                    key: JWT_ENCRYPTION_PASSPHRASE
+              - name: JWT_SIGNATURE_PASSPHRASE
+                valueFrom:
+                  secretKeyRef:
+                    name: jwt-secret
+                    key: JWT_SIGNATURE_PASSPHRASE
+              - name: COOKIE_NAME
+                valueFrom:
+                  secretKeyRef:
+                    name: jwt-secret
+                    key: COOKIE_NAME
 
-          dslConfigMap: echoserver-microgateway-without-iam-config
+          dslConfigMap: echoserver-microgateway-config

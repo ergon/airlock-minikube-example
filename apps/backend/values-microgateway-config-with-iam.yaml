@@ -9,6 +9,8 @@ echoserver:
                 value: info
               - name: OPERATIONAL_MODE
                 value: integration
+              - name: ACCESS_ROLES
+                value: [{ "roles": ["echo-user"] }]
               - name: JWT_ENCRYPTION_PASSPHRASE
                 valueFrom:
                   secretKeyRef:
@@ -25,4 +27,4 @@ echoserver:
                     name: jwt-secret
                     key: COOKIE_NAME
 
-          dslConfigMap: echoserver-microgateway-with-iam-config
+          dslConfigMap: echoserver-microgateway-config

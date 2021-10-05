@@ -26,6 +26,33 @@ apps:
         threat_handling: block
         deny_rule_groups:
           - level: strict
+        cookies:
+          passthrough:
+            pattern: ^${COOKIE_NAME}$
+        auth:
+          flow: redirect
+          denied_access_url: /auth/ui/app/auth/application/access
+          access: ^${ACCESS_ROLES:-[]}$
+        access_token:
+          mandatory: true
+          token_type: signed_and_encrypted
+          expiry_checked: true
+          audittoken: true
+          extraction:
+            mode: cookie
+            cookie: ${COOKIE_NAME}
+          signature:
+            method: HS512
+            passphrase: ${JWT_SIGNATURE_PASSPHRASE}
+          encryption:
+            algorithm: A256GCM
+            passphrase: ${JWT_ENCRYPTION_PASSPHRASE}
+          roles:
+            - claim: roles
+              extraction:
+                regex:
+                  pattern: customer
+                substitution: echo-user
         expert_settings:
           security_gate: |
             Backend.AddEnvironmentCookies         "TRUE"
