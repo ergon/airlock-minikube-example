@@ -6,9 +6,6 @@ echoserver:
         targetRevision: 2.2.1
         chart: microgateway
 
-    resources:
-      path: data/backend/microgateway/
-
     helm:
       values:
         fullnameOverride: echoserver-microgateway

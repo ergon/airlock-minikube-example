@@ -1,5 +1,7 @@
 echoserver:
   microgateway:
+    resources:
+      path: data/backend/microgateway-without-iam/
     helm:
       values:
         config:
@@ -10,4 +12,4 @@ echoserver:
               - name: OPERATIONAL_MODE
                 value: integration
 
-          dslConfigMap: echoserver-microgateway-without-iam-config
+          dslConfigMap: echoserver-microgateway-config

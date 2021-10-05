@@ -1,5 +1,7 @@
 echoserver:
   microgateway:
+    resources:
+      path: data/backend/microgateway-with-iam/
     helm:
       values:
         config:
@@ -25,4 +27,4 @@ echoserver:
                     name: jwt-secret
                     key: COOKIE_NAME
 
-          dslConfigMap: echoserver-microgateway-with-iam-config
+          dslConfigMap: echoserver-microgateway-config
