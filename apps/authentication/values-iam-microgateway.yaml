@@ -3,7 +3,7 @@ iam:
     spec:
       source:
         repoURL: https://ergon.github.io/airlock-helm-charts
-        targetRevision: 2.1.0
+        targetRevision: 2.2.1
         chart: microgateway
 
     resources:
@@ -62,110 +62,18 @@ iam:
         config:
           passphrase:
             useExistingSecret: true
-            secretName: "microgateway-passphrase"
+            secretName: microgateway-passphrase
+
+          license:
+            useExistingSecret: true
+            secretName: microgateway-license
 
           env:
             configbuilder:
-              - name: LOG_LEVEL
-                value: info
-              - name: OPERATIONAL_MODE
-                value: production
               - name: COOKIE_NAME
                 valueFrom:
                   secretKeyRef:
                     name: jwt-secret
                     key: COOKIE_NAME
 
-          dsl:
-            log:
-              level: ${LOG_LEVEL:-info}
-
-            session:
-              redis_hosts: [redis-master]
-
-            remote_ip:
-              header: X-Forwarded-For
-              internal_proxies:
-                - 10.0.0.0/8
-                - 172.16.0.0/12
-                - 192.168.0.0/16
-
-            expert_settings:
-              security_gate: |
-                CorrelationId.Extraction.0.Request.Header.Pattern       "^X-Request-ID: ([[:graph:]]+)$"
-                CorrelationId.Extraction.0.Request.Header.IgnoreCase    "TRUE"
-                CorrelationId.Extraction.0.Request.Header.Template      "$1"
-
-                RolesWhitelist.Pattern                "^authenticated$"
-
-            apps:
-              - virtual_host:
-                  name: vh-iam
-                  expert_settings:
-                    apache: |
-                      # default redirect
-                      RewriteRule ^/$ https://%{ENV:HTTP_HOST_NOPORT}/auth/portal [R=303,NE]
-                mappings:
-                  - mapping_template_file: /config/templates/iam-loginapp.xml
-                    entry_path:
-                      value: /auth/
-                    backend_path: /auth-login/
-                    operational_mode: ${OPERATIONAL_MODE:-production}
-                    cookies:
-                      passthrough:
-                        pattern: ^${COOKIE_NAME}$
-                    allow_rules:
-                      - name: "Loginapp Single Page Application"
-                        enabled: true
-                    csrf_token:
-                      enabled: false
-                    backend:
-                      name: beg-iam
-                      hosts:
-                        - protocol: "https"
-                          name: iam-0.iam
-                          port: 8443
-                  - mapping_template_file: /config/templates/iam-loginapp-rest-public.xml
-                    entry_path:
-                      value: /auth/rest/public
-                    backend_path: /auth-login/rest/public
-                    operational_mode: ${OPERATIONAL_MODE:-production}
-                    cookies:
-                      passthrough:
-                        pattern: ^${COOKIE_NAME}$
-                    api_security:
-                      openapi:
-                        spec_file: /config/openapi/openapi-loginapp-rest.json
-                    backend:
-                      name: beg-iam
-                      hosts:
-                        - protocol: "https"
-                          name: iam-0.iam
-                          port: 8443
-                  - mapping_template_file: /config/templates/iam-loginapp-rest-protected.xml
-                    entry_path:
-                      value: /auth/rest/protected
-                    backend_path: /auth-login/rest/protected
-                    operational_mode: ${OPERATIONAL_MODE:-production}
-                    cookies:
-                      passthrough:
-                        pattern: ^${COOKIE_NAME}$
-                    api_security:
-                      openapi:
-                        spec_file: /config/openapi/openapi-loginapp-rest.json
-                    backend:
-                      name: beg-iam
-                      hosts:
-                        - protocol: "https"
-                          name: iam-0.iam
-                          port: 8443
-                  - mapping_template_file: /config/templates/iam-adminapp.xml
-                    entry_path:
-                      value: /auth-admin/
-                    operational_mode: ${OPERATIONAL_MODE:-production}
-                    backend:
-                      name: beg-iam
-                      hosts:
-                        - protocol: "https"
-                          name: iam-0.iam
-                          port: 8443
+          dslConfigMap: iam-microgateway-config

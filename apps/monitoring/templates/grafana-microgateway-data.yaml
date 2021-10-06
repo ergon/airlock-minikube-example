@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: iam-microgateway-data
+  name: grafana-microgateway-data
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -12,13 +12,10 @@ spec:
   source:
     repoURL: "{{ .Values.spec.source.repoURL }}"
     targetRevision: "{{ .Values.spec.source.targetRevision }}"
-    path: "{{ .Values.iam.microgateway.resources.path }}"
+    path: "{{ .Values.grafana.microgateway.resources.path }}"
 
   destination:
     server: https://kubernetes.default.svc
     namespace: default
 
-  syncPolicy:
-    {{ toYaml .Values.spec.syncPolicy | nindent 4 }}
-    syncOptions:
-      - Replace=true
+  syncPolicy: {{ toYaml .Values.spec.syncPolicy | nindent 4 }}

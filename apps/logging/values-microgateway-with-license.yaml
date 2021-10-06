@@ -5,4 +5,4 @@ kibana:
         config:
           license:
             useExistingSecret: true
-            secretName: "microgateway-license"
+            secretName: microgateway-license
