@@ -1,5 +1,5 @@
 log:
-  level: ${LOG_LEVEL:-info}
+  level: info
 
 session:
   redis_hosts: [redis-master]
@@ -25,7 +25,7 @@ apps:
         entry_path:
           value: /grafana/
         session_handling: enforce_session
-        operational_mode: ${OPERATIONAL_MODE:-production}
+        operational_mode: production
         deny_rule_groups:
           - level: basic
         auth:

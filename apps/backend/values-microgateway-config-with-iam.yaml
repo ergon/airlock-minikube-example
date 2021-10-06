@@ -7,10 +7,6 @@ echoserver:
         config:
           env:
             configbuilder:
-              - name: LOG_LEVEL
-                value: info
-              - name: OPERATIONAL_MODE
-                value: integration
               - name: JWT_ENCRYPTION_PASSPHRASE
                 valueFrom:
                   secretKeyRef:

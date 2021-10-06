@@ -5,11 +5,4 @@ kibana:
     helm:
       values:
         config:
-          env:
-            configbuilder:
-              - name: LOG_LEVEL
-                value: info
-              - name: OPERATIONAL_MODE
-                value: production
-
           dslConfigMap: kibana-microgateway-config

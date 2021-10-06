@@ -5,11 +5,4 @@ grafana:
     helm:
       values:
         config:
-          env:
-            configbuilder:
-              - name: LOG_LEVEL
-                value: info
-              - name: OPERATIONAL_MODE
-                value: production
-
           dslConfigMap: grafana-microgateway-config

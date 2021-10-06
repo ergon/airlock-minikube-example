@@ -1,5 +1,5 @@
 log:
-  level: ${LOG_LEVEL:-info}
+  level: info
 
 remote_ip:
   header: X-Forwarded-For
@@ -22,7 +22,7 @@ apps:
         entry_path:
           value: /echo/
         session_handling: ignore_session
-        operational_mode: ${OPERATIONAL_MODE:-production}
+        operational_mode: integration
         threat_handling: block
         deny_rule_groups:
           - level: strict

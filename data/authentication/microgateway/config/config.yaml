@@ -1,5 +1,5 @@
 log:
-  level: ${LOG_LEVEL:-info}
+  level: info
 
 session:
   redis_hosts: [redis-master]
@@ -31,7 +31,7 @@ apps:
         entry_path:
           value: /auth/
         backend_path: /auth-login/
-        operational_mode: ${OPERATIONAL_MODE:-production}
+        operational_mode: production
         cookies:
           passthrough:
             pattern: ^${COOKIE_NAME}$
@@ -50,7 +50,7 @@ apps:
         entry_path:
           value: /auth/rest/public
         backend_path: /auth-login/rest/public
-        operational_mode: ${OPERATIONAL_MODE:-production}
+        operational_mode: production
         cookies:
           passthrough:
             pattern: ^${COOKIE_NAME}$
@@ -67,7 +67,7 @@ apps:
         entry_path:
           value: /auth/rest/protected
         backend_path: /auth-login/rest/protected
-        operational_mode: ${OPERATIONAL_MODE:-production}
+        operational_mode: production
         cookies:
           passthrough:
             pattern: ^${COOKIE_NAME}$
@@ -83,7 +83,7 @@ apps:
       - mapping_template_file: /config/templates/iam-adminapp.xml
         entry_path:
           value: /auth-admin/
-        operational_mode: ${OPERATIONAL_MODE:-production}
+        operational_mode: production
         backend:
           name: beg-iam
           hosts:
