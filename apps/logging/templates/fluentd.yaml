@@ -15,7 +15,7 @@ spec:
     chart: "{{ .Values.fluentd.spec.source.chart }}"
 
     helm:
-      values: {{ toYaml .Values.fluentd.helm.values | nindent 8 }}
+      values: |{{ toYaml .Values.fluentd.helm.values | nindent 8 }}
 
   destination:
     server: https://kubernetes.default.svc
