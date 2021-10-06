@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/ergon/airlock-minikube-example.git
-    targetRevision: v3.1.0
+    targetRevision: v3.2.0
     path: apps/minikube-example/
 
     helm:
@@ -17,7 +17,7 @@ spec:
         spec:
           source:
             repoURL: https://github.com/ergon/airlock-minikube-example.git
-            targetRevision: v3.1.0
+            targetRevision: v3.2.0
 
           syncPolicy:
             automated:
