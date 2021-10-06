@@ -26,4 +26,4 @@ echoserver:
         config:
           passphrase:
             useExistingSecret: true
-            secretName: "microgateway-passphrase"
+            secretName: microgateway-passphrase

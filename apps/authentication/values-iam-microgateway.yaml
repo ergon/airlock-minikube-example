@@ -62,7 +62,11 @@ iam:
         config:
           passphrase:
             useExistingSecret: true
-            secretName: "microgateway-passphrase"
+            secretName: microgateway-passphrase
+
+          license:
+            useExistingSecret: true
+            secretName: microgateway-license
 
           env:
             configbuilder:
