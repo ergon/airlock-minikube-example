@@ -15,7 +15,7 @@ spec:
     chart: "{{ .Values.mariadb.spec.source.chart }}"
 
     helm:
-      values: |{{ toYaml .Values.mariadb.helm.values | nindent 8 }}
+      values: {{ toYaml .Values.mariadb.helm.values | nindent 8 }}
 
   destination:
     server: https://kubernetes.default.svc

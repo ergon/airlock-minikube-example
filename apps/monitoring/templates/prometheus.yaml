@@ -13,7 +13,7 @@ spec:
     chart: "{{ .Values.prometheus.spec.source.chart }}"
 
     helm:
-      values: |{{ toYaml .Values.prometheus.helm.values | nindent 8 }}
+      values: {{ toYaml .Values.prometheus.helm.values | nindent 8 }}
 
   destination:
     server: https://kubernetes.default.svc

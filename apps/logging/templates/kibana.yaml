@@ -13,7 +13,7 @@ spec:
     chart: "{{ .Values.kibana.spec.source.chart }}"
 
     helm:
-      values: |{{ toYaml .Values.kibana.helm.values | nindent 8 }}
+      values: {{ toYaml .Values.kibana.helm.values | nindent 8 }}
 
   destination:
     server: https://kubernetes.default.svc
