@@ -68,13 +68,13 @@ spec:
             httpGet:
               path: /health/live
               port: probes
-              scheme: HTTPS
+              scheme: HTTP
             initialDelaySeconds: 120
           readinessProbe:
             httpGet:
               path: /health/ready
               port: probes
-              scheme: HTTPS
+              scheme: HTTP
             initialDelaySeconds: 120
       volumes:
         - name: data
