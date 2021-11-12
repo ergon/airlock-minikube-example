@@ -88,6 +88,8 @@ apps:
         entry_path:
           value: /auth-admin/
         operational_mode: production
+        csrf_token:
+          enabled: false
         backend:
           name: beg-iam
           hosts:
