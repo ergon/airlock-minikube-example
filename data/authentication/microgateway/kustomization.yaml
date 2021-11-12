@@ -7,16 +7,16 @@ generatorOptions:
 configMapGenerator:
   - name: iam-microgateway-mapping-template-adminapp
     files:
-      - iam-adminapp.xml=config/iam-adminapp-mgw1.0-mapping-template.xml
+      - iam-adminapp.xml=config/iam-adminapp-mgw2.0-mapping-template.xml
   - name: iam-microgateway-mapping-template-loginapp
     files:
-      - iam-loginapp.xml=config/iam-loginapp-mgw1.0-mapping-template.xml
+      - iam-loginapp.xml=config/iam-loginapp-mgw2.0-mapping-template.xml
   - name: iam-microgateway-mapping-template-loginapp-rest-protected
     files:
-      - iam-loginapp-rest-protected.xml=config/iam-loginapp-rest-protected-mgw1.0-mapping-template.xml
+      - iam-loginapp-rest-protected.xml=config/iam-loginapp-rest-protected-mgw2.0-mapping-template.xml
   - name: iam-microgateway-mapping-template-loginapp-rest-public
     files:
-      - iam-loginapp-rest-public.xml=config/iam-loginapp-rest-public-mgw1.0-mapping-template.xml
+      - iam-loginapp-rest-public.xml=config/iam-loginapp-rest-public-mgw2.0-mapping-template.xml
   - name: iam-microgateway-openapi-login-rest
     files:
       - openapi-loginapp-rest.json=config/login-rest-openapi.json

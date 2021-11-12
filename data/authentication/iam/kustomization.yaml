@@ -18,5 +18,4 @@ configMapGenerator:
     literals:
       - IAM_LOG_LEVEL=INFO
       - IAM_LOG_STRUCTURED_STDOUT_ENABLED="true"
-      - IAM_HEALTH_ADDRESS=".*"
       - IAM_MODULES=adminapp,loginapp
