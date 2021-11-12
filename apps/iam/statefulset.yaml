@@ -69,13 +69,13 @@ spec:
               path: /health/live
               port: probes
               scheme: HTTP
-            initialDelaySeconds: 30
+            initialDelaySeconds: 120
           readinessProbe:
             httpGet:
               path: /health/ready
               port: probes
               scheme: HTTP
-            initialDelaySeconds: 30
+            initialDelaySeconds: 120
       volumes:
         - name: data
           emptyDir: {}
