@@ -64,18 +64,18 @@ spec:
               mountPath: /home/airlock/iam/instances/auth/values/jwt/
             - name: values-mariadb
               mountPath: /home/airlock/iam/instances/auth/values/mariadb/
-          livenessProbe:
-            httpGet:
-              path: /health/live
-              port: probes
-              scheme: HTTP
-            initialDelaySeconds: 120
-          readinessProbe:
-            httpGet:
-              path: /health/ready
-              port: probes
-              scheme: HTTP
-            initialDelaySeconds: 120
+          # livenessProbe:
+          #   httpGet:
+          #     path: /health/live
+          #     port: probes
+          #     scheme: HTTP
+          #   initialDelaySeconds: 30
+          # readinessProbe:
+          #   httpGet:
+          #     path: /health/ready
+          #     port: probes
+          #     scheme: HTTP
+          #   initialDelaySeconds: 30
       volumes:
         - name: data
           emptyDir: {}
