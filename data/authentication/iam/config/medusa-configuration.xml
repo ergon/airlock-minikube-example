@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<medusaConfiguration xmlns="http://www.ergon.ch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ergon.ch medusa-config.xsd" medusa-version="7.4">
+<medusaConfiguration xmlns="http://www.ergon.ch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ergon.ch medusa-config.xsd" medusa-version="7.5">
   <plugin class="com.airlock.iam.admin.app.application.configuration.Adminapp" id="adminapp" uuid="a25f0193-6c34-44eb-9708-cf7ac234cca3">
     <pluginProperty name="accessControl">
       <plugin uuidref="2e2e41d5-5bca-450b-bc88-b1c0b273a9ba"/>
@@ -341,9 +341,9 @@
     <pluginProperty name="passwordRepository">
       <plugin uuidref="5c54b2e6-287c-4118-a5b6-d64e8d4caf36"/>
     </pluginProperty>
-    <pluginList name="skipConditionTags">
-      <plugin uuidref="8a3cae4d-85fa-471a-b933-00d948455da8"/>
-    </pluginList>
+    <pluginProperty name="skipCondition">
+      <plugin uuidref="b4a68208-0b33-4fc9-8626-c9845088b77f"/>
+    </pluginProperty>
     <pluginProperty name="stepId">
       <plugin uuidref="a29f520f-a7f0-48bc-8efd-a4bdbc5cada3"/>
     </pluginProperty>
@@ -1068,6 +1068,7 @@
     <pluginProperty name="first">
       <plugin uuidref="a1486d28-0d83-4495-b287-c22511ee9fc0"/>
     </pluginProperty>
+    <property name="useUsernameFromUserPersister">false</property>
     <pluginProperty name="userPersister">
       <plugin uuidref="6ebce410-5585-44c1-9868-2cc114b304fb"/>
     </pluginProperty>
@@ -1245,15 +1246,14 @@
     <pluginProperty name="dataSources">
       <plugin uuidref="d0064eff-e40b-496d-8dca-6eec870a96ad"/>
     </pluginProperty>
+    <pluginProperty name="mainAuthenticator">
+      <plugin uuidref="3905a5aa-114e-4123-99b5-5b5c33f9b466"/>
+    </pluginProperty>
     <pluginProperty name="passwordSettings">
       <plugin uuidref="2c362f77-b400-4367-bf89-2d5d571b00d1"/>
     </pluginProperty>
   </plugin>
-  <plugin class="com.airlock.iam.core.misc.plugin.config.GlobalConfiguration$AuthenticationSettings" id="Main Authentication Settings" uuid="e41183de-281e-4aa0-9234-a71ce8e56cfb">
-    <pluginProperty name="authenticator">
-      <plugin uuidref="3905a5aa-114e-4123-99b5-5b5c33f9b466"/>
-    </pluginProperty>
-  </plugin>
+  <plugin class="com.airlock.iam.core.misc.plugin.config.GlobalConfiguration$AuthenticationSettings" id="Main Authentication Settings" uuid="e41183de-281e-4aa0-9234-a71ce8e56cfb"/>
   <plugin class="com.airlock.iam.core.misc.plugin.config.GlobalConfiguration$PersisterSettings" id="Data sources" uuid="d0064eff-e40b-496d-8dca-6eec870a96ad">
     <pluginProperty name="userDataSource">
       <plugin uuidref="2c2fe396-d7c4-45ab-b7d2-1fab5ecee047"/>
@@ -1290,9 +1290,18 @@
   <plugin class="com.airlock.iam.flow.api.application.configuration.step.StepIdConfig" id="Password Authentication Step ID &quot;pwcheck&quot;" uuid="a29f520f-a7f0-48bc-8efd-a4bdbc5cada3">
     <property name="id">pwcheck</property>
   </plugin>
+  <plugin class="com.airlock.iam.flow.application.configuration.selection.condition.TagConditionConfig" uuid="b4a68208-0b33-4fc9-8626-c9845088b77f">
+    <pluginProperty name="tag">
+      <plugin uuidref="8a3cae4d-85fa-471a-b933-00d948455da8"/>
+    </pluginProperty>
+  </plugin>
   <plugin class="com.airlock.iam.flow.application.configuration.tag.TagConfigImpl" id="Password Verified Tag" uuid="8a3cae4d-85fa-471a-b933-00d948455da8">
     <property name="name">PASSWORD_VERIFIED</property>
   </plugin>
+  <plugin class="com.airlock.iam.flow.ui.application.configuration.SameFlowRedirectTargetConfig" uuid="033926a2-16b6-4eb0-9851-94913ef81742"/>
+  <plugin class="com.airlock.iam.flow.ui.application.configuration.SameFlowRedirectTargetConfig" uuid="9b92b004-f45e-4fcd-9a3e-2a9c04b03c3c"/>
+  <plugin class="com.airlock.iam.flow.ui.application.configuration.SameFlowRedirectTargetConfig" uuid="a15a3c91-6454-442c-bde3-ccaca7f33123"/>
+  <plugin class="com.airlock.iam.flow.ui.application.configuration.SameFlowRedirectTargetConfig" uuid="b060d35d-f1ac-48cd-a0be-44a2074d75a4"/>
   <plugin class="com.airlock.iam.login.app.misc.configuration.AuthenticationConfig" uuid="1a1d8ec5-6d95-4155-b8e9-252044e2def2">
     <pluginProperty name="authenticator"/>
     <property name="defaultAfterLogoutUrl">ui/app/auth/logout/disclaimer</property>
@@ -1309,6 +1318,9 @@
     <pluginProperty name="authentication">
       <plugin uuidref="1a1d8ec5-6d95-4155-b8e9-252044e2def2"/>
     </pluginProperty>
+    <pluginProperty name="authenticationFlows">
+      <plugin uuidref="5e478f8a-d129-4b58-9487-cd940bd98dc6"/>
+    </pluginProperty>
     <pluginProperty name="miscellaneousSettings">
       <plugin uuidref="c074dafd-a5e3-4b94-9cfd-76e568c430df"/>
     </pluginProperty>
@@ -1317,6 +1329,12 @@
     </pluginProperty>
     <pluginProperty name="securitySettings">
       <plugin uuidref="6c87b73b-e06d-4835-9fd1-4f5b39e48e49"/>
+    </pluginProperty>
+    <pluginProperty name="ui">
+      <plugin uuidref="20905f4b-85aa-445b-a7ca-5f7eea1875ac"/>
+    </pluginProperty>
+    <pluginProperty name="userStore">
+      <plugin uuidref="6a76be1e-94af-4a57-9837-ef7e4e15b7af"/>
     </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.login.app.misc.configuration.security.ContentSecurityPolicyConfig" uuid="85337d01-b570-44a7-94a4-27297b09d4f7"/>
@@ -1559,18 +1577,9 @@
       <plugin uuidref="1d826138-48f9-430e-92bf-403f7db6395e"/>
     </pluginProperty>
     <property name="encryptionKey">7aTaMWPIFivk+x+jV+bBodugwFaer+SawuPcKP+nxes=</property>
-    <pluginProperty name="flowAuthenticationConfig">
-      <plugin uuidref="5e478f8a-d129-4b58-9487-cd940bd98dc6"/>
-    </pluginProperty>
     <property name="hmacKey">J1P1j8VWpVA5/x+W00OU/Bw3ARUg1nSp639EREr2nbsYD5Rxzwu8lXuxjfhiRUuMbAuo5ox950ZIBlMe6ycqmw==</property>
     <pluginProperty name="requestCredentialPolicy">
       <plugin uuidref="025ab856-5262-4163-9e4b-cf325a1bdad0"/>
-    </pluginProperty>
-    <pluginProperty name="ui">
-      <plugin uuidref="20905f4b-85aa-445b-a7ca-5f7eea1875ac"/>
-    </pluginProperty>
-    <pluginProperty name="userStoreProvider">
-      <plugin uuidref="6a76be1e-94af-4a57-9837-ef7e4e15b7af"/>
     </pluginProperty>
     <pluginProperty name="wafConfig">
       <plugin uuidref="96252446-240e-4321-afc7-53796b0ed76d"/>
@@ -1598,6 +1607,9 @@
     </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.login.rest.application.configuration.ui.authentication.AuthenticationUiConfig" id="Echo Authentication Flow UI" uuid="06b3d8a5-0bba-4d76-8575-62eecf127ce0">
+    <pluginProperty name="cancellationTarget">
+      <plugin uuidref="b060d35d-f1ac-48cd-a0be-44a2074d75a4"/>
+    </pluginProperty>
     <pluginList name="stepUiConfigurations">
       <plugin uuidref="7358849e-c98d-4609-a8a6-9cfca00a9baf"/>
     </pluginList>
@@ -1609,6 +1621,9 @@
     </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.login.rest.application.configuration.ui.authentication.AuthenticationUiConfig" id="Grafana Authentication Flow UI" uuid="92dc3ac1-1295-47ca-8f3c-85b98429eedd">
+    <pluginProperty name="cancellationTarget">
+      <plugin uuidref="a15a3c91-6454-442c-bde3-ccaca7f33123"/>
+    </pluginProperty>
     <pluginList name="stepUiConfigurations">
       <plugin uuidref="7358849e-c98d-4609-a8a6-9cfca00a9baf"/>
     </pluginList>
@@ -1620,6 +1635,9 @@
     </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.login.rest.application.configuration.ui.authentication.AuthenticationUiConfig" id="Default Authentication Flow UI" uuid="e4d340ab-bc10-4a2b-8376-bbbfaea64561">
+    <pluginProperty name="cancellationTarget">
+      <plugin uuidref="033926a2-16b6-4eb0-9851-94913ef81742"/>
+    </pluginProperty>
     <pluginList name="stepUiConfigurations">
       <plugin uuidref="7358849e-c98d-4609-a8a6-9cfca00a9baf"/>
     </pluginList>
@@ -1631,6 +1649,9 @@
     </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.login.rest.application.configuration.ui.authentication.AuthenticationUiConfig" id="Kibana Authentication Flow UI" uuid="f7c67bf3-fff9-4d98-8478-9cb4c0b680f7">
+    <pluginProperty name="cancellationTarget">
+      <plugin uuidref="9b92b004-f45e-4fcd-9a3e-2a9c04b03c3c"/>
+    </pluginProperty>
     <pluginList name="stepUiConfigurations">
       <plugin uuidref="7358849e-c98d-4609-a8a6-9cfca00a9baf"/>
     </pluginList>
@@ -1654,7 +1675,7 @@
       <plugin uuidref="a29f520f-a7f0-48bc-8efd-a4bdbc5cada3"/>
     </pluginProperty>
   </plugin>
-  <plugin class="com.airlock.iam.selfservice.rest.application.configuration.ui.SelfServiceUiConfigs" id="Protected Self-Service Flow UIs" uuid="50452fff-b076-4ef4-9cf0-787e24401b25"/>
+  <plugin class="com.airlock.iam.selfservice.application.configuration.ui.SelfServiceUiConfigs" id="Protected Self-Service Flow UIs" uuid="50452fff-b076-4ef4-9cf0-787e24401b25"/>
   <configHistoryMetaData>
   </configHistoryMetaData>
 </medusaConfiguration>
