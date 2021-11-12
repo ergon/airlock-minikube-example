@@ -48,8 +48,8 @@ apps:
               port: 8443
       - mapping_template_file: /config/templates/iam-loginapp-rest-public.xml
         entry_path:
-          value: /auth/rest/public
-        backend_path: /auth-login/rest/public
+          value: /auth/rest/public/
+        backend_path: /auth-login/rest/public/
         operational_mode: production
         cookies:
           passthrough:
@@ -65,8 +65,8 @@ apps:
               port: 8443
       - mapping_template_file: /config/templates/iam-loginapp-rest-protected.xml
         entry_path:
-          value: /auth/rest/protected
-        backend_path: /auth-login/rest/protected
+          value: /auth/rest/protected/
+        backend_path: /auth-login/rest/protected/
         operational_mode: production
         cookies:
           passthrough:
