@@ -57,6 +57,8 @@ apps:
         api_security:
           openapi:
             spec_file: /config/openapi/openapi-loginapp-rest.json
+        csrf_token:
+          enabled: false
         backend:
           name: beg-iam
           hosts:
@@ -74,6 +76,8 @@ apps:
         api_security:
           openapi:
             spec_file: /config/openapi/openapi-loginapp-rest.json
+        csrf_token:
+          enabled: false
         backend:
           name: beg-iam
           hosts:
