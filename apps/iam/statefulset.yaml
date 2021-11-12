@@ -35,7 +35,7 @@ spec:
             - name: IAM_HEALTH_ADDRESS
               value: .*
             - name: IAM_HEALTH_PORT
-              value: 9090
+              value: "9090"
           envFrom:
             - configMapRef:
                 name: iam-env-config
