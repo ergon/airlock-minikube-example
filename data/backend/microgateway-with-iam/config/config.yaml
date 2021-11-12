@@ -44,7 +44,7 @@ apps:
             mode: cookie
             cookie: ${COOKIE_NAME}
           jwks_providers:
-            - echoserver-jwks
+            - airlock_iam
           roles:
             - claim: roles
               extraction:
@@ -60,11 +60,12 @@ apps:
 
 jwks_providers:
   local:
-    - name: echoserver-jwks
+    - name: airlock-iam
+      issuer: airlock-iam
       jwks: |
         {
-            "keys": 
-                [     
+            "keys":
+            [
                 {
                     "kty": "oct",
                     "use": "sig",

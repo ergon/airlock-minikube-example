@@ -378,7 +378,7 @@
     <pluginProperty name="encrypter">
       <plugin uuidref="05009e0f-7a37-4c0d-a2f4-898f40051156"/>
     </pluginProperty>
-    <property name="issuer">Airlock IAM</property>
+    <property name="issuer">airlock-iam</property>
     <pluginProperty name="signer">
       <plugin uuidref="3bcae214-793d-403b-a0a4-3799843e7b35"/>
     </pluginProperty>
@@ -391,7 +391,7 @@
     <pluginProperty name="encrypter">
       <plugin uuidref="28e4196f-de4b-4733-8999-d4ec05e72767"/>
     </pluginProperty>
-    <property name="issuer">iam</property>
+    <property name="issuer">airlock-iam</property>
     <pluginProperty name="signer">
       <plugin uuidref="f65106a9-4fb3-4d91-a1ab-b3ff72c8b2c4"/>
     </pluginProperty>
@@ -1676,6 +1676,4 @@
     </pluginProperty>
   </plugin>
   <plugin class="com.airlock.iam.selfservice.application.configuration.ui.SelfServiceUiConfigs" id="Protected Self-Service Flow UIs" uuid="50452fff-b076-4ef4-9cf0-787e24401b25"/>
-  <configHistoryMetaData>
-  </configHistoryMetaData>
 </medusaConfiguration>
