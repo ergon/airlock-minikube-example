@@ -76,7 +76,7 @@ jwks_providers:
                 {
                     "kty": "oct",
                     "use": "enc",
-                    "alg": "A256GCMKW",
+                    "enc": "A256GCM",
                     "k": "${JWT_ENCRYPTION_PASSPHRASE}",
                     "key_ops": ["decrypt"]
                 }
