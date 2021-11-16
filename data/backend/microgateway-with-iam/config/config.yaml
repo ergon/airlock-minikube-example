@@ -61,7 +61,6 @@ apps:
 jwks_providers:
   local:
     - name: airlock-iam
-      issuer: airlock-iam
       jwks: |
         {
             "keys":
@@ -75,7 +74,6 @@ jwks_providers:
                 },
                 {
                     "kty": "oct",
-                    "use": "enc",
                     "alg": "dir",
                     "k": "${JWT_ENCRYPTION_PASSPHRASE}",
                     "key_ops": ["decrypt"]
