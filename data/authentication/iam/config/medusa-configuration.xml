@@ -1564,7 +1564,7 @@
     </propertyList>
   </plugin>
   <plugin class="com.airlock.iam.login.application.configuration.targetapp.StaticWafCredentialProviderConfig" id="Static WAF Role &quot;authenticated&quot;" uuid="70559820-d8e5-49ca-aedb-64d51415ecf1">
-    <property name="idleTimeout">1800</property>
+    <property name="idleTimeout">3600</property>
     <property name="lifetime">28800</property>
     <property name="wafCredentialName">authenticated</property>
   </plugin>
