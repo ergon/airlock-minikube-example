@@ -3,11 +3,6 @@
 This repository contains deployment examples for [Airlock] on [Minikube]. It shows how to protect a backend application with Airlock Microgateway and how to authenticate users using Airlock IAM. The
 source code is available under the [MIT license].
 
-## About Ergon
-
-*Airlock* is a registered trademark of [Ergon]. Ergon is a Swiss leader in leveraging digitalisation to create unique and effective client benefits, from conception to market, the result of which is
-the international distribution of globally revered products.
-
 ## Overview
 
 ![Overview](/.github/images/overview.svg)
@@ -281,11 +276,14 @@ Afterwards sign in: `https://localhost:8080/`
   * Username: `admin`
   * Password: `<From the command described above>`
 
-## Additional information
-- [Airlock Microgateway](https://www.airlock.com/microgateway)
-- [Airlock Microgateway Manual](https://docs.airlock.com/microgateway/latest/)
-- [Airlock Community Forum](https://forum.airlock.com)
-- [Airlock Helm Charts](https://github.com/ergon/airlock-helm-charts)
+## Additional Information
+- Introduction: [Airlock Microgateway](https://www.airlock.com/microgateway)
+- Documentation: [Airlock Microgateway Manual](https://docs.airlock.com/microgateway/latest/)
+- Community Support: [Airlock Community Forum](https://forum.airlock.com)
+- Helm Charts: [Airlock Helm Charts](https://github.com/ergon/airlock-helm-charts)
+
+## About Ergon
+*Airlock* is a registered trademark of [Ergon](https://www.ergon.ch). Ergon is a Swiss leader in leveraging digitalisation to create unique and effective client benefits, from conception to market, the result of which is the international distribution of globally revered products.
 
 [MIT license]: https://github.com/ergon/airlock-minikube-examples/blob/main/LICENSE
 

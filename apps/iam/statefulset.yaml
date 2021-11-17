@@ -20,7 +20,7 @@ spec:
 
       initContainers:
         - name: iam-init
-          image: docker.io/ergon/airlock-iam:latest-7.4
+          image: docker.io/ergon/airlock-iam:latest-7.5
           imagePullPolicy: IfNotPresent
           args: ["init"]
           volumeMounts:
@@ -29,14 +29,21 @@ spec:
               subPath: iam
       containers:
         - name: iam
-          image: docker.io/ergon/airlock-iam:latest-7.4
+          image: docker.io/ergon/airlock-iam:latest-7.5
           imagePullPolicy: IfNotPresent
+          env:
+            - name: IAM_HEALTH_ADDRESS
+              value: .*
+            - name: IAM_HEALTH_PORT
+              value: "9090"
           envFrom:
             - configMapRef:
                 name: iam-env-config
           ports:
             - name: https
               containerPort: 8443
+            - name: probes
+              containerPort: 9090
           volumeMounts:
             - name: data
               mountPath: /home/airlock/iam/
@@ -59,15 +66,15 @@ spec:
               mountPath: /home/airlock/iam/instances/auth/values/mariadb/
           livenessProbe:
             httpGet:
-              path: /health
-              port: https
-              scheme: HTTPS
+              path: /health/live
+              port: probes
+              scheme: HTTP
             initialDelaySeconds: 120
           readinessProbe:
             httpGet:
-              path: /auth-login/rest/health
-              port: https
-              scheme: HTTPS
+              path: /health/ready
+              port: probes
+              scheme: HTTP
             initialDelaySeconds: 120
       volumes:
         - name: data

@@ -3,6 +3,8 @@ log:
 
 session:
   redis_hosts: [redis-master]
+  idle_timeout: 600
+  lifetime: 28800
 
 remote_ip:
   header: X-Forwarded-For
