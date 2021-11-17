@@ -315,8 +315,10 @@
     <property name="unorderPassword">useradmin,superadmin</property>
     <property name="viewAdministrator">superadmin</property>
     <property name="viewContextData">useradmin,tokenadmin,helpdesk,superadmin</property>
+    <property name="viewKobilActivationCode">tokenadmin,superadmin</property>
     <property name="viewLicense">superadmin</property>
     <property name="viewLog">sysadmin,superadmin</property>
+    <property name="viewOathOtpTokenSecret">tokenadmin,superadmin</property>
     <property name="viewStatistics">tokenadmin,superadmin</property>
     <property name="viewTechnicalClients">techclientadmin,superadmin</property>
     <property name="viewToken">tokenadmin,helpdesk,superadmin</property>
@@ -1562,6 +1564,8 @@
     </propertyList>
   </plugin>
   <plugin class="com.airlock.iam.login.application.configuration.targetapp.StaticWafCredentialProviderConfig" id="Static WAF Role &quot;authenticated&quot;" uuid="70559820-d8e5-49ca-aedb-64d51415ecf1">
+    <property name="idleTimeout">1800</property>
+    <property name="lifetime">28800</property>
     <property name="wafCredentialName">authenticated</property>
   </plugin>
   <plugin class="com.airlock.iam.login.application.configuration.targetapp.UserRolesProviderConfig" uuid="6af9773c-1081-4754-a038-390dbb5c2189"/>

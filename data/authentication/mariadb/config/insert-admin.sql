@@ -2,6 +2,10 @@
     This script inserts a default administrator with username 'admin' into the table 'medusa_admin'.
 */
 
+DELETE
+FROM medusa_admin
+WHERE username = 'admin';
+
 INSERT INTO medusa_admin (username,
                           givenname,
                           surname,
@@ -14,4 +18,4 @@ VALUES ('admin',
         'superadmin',
         'MedusaPwdHistoryAAAARjE2Mzg0fF1jjOhya0ZuJ5OrHXgSXznOBBLl6eJ70PTdFYerSYPwgrlK1uq6UCzc5cvN8t1xtgc+YBQO8UgWBYhzDgpkQGM=',
         0 /* Enforced password change is disabled */
-       ) ON DUPLICATE KEY UPDATE username=username;
+       );
