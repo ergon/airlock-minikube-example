@@ -1,22 +1,13 @@
-/*
-    This script creates the Airlock IAM default schema for MariaDB.
+--
+-- This script creates the Airlock IAM default schema for MariaDB.
+--
+-- Please ensure that the database uses 'utf8mb4' character encoding and InnoDB as storage engine.
+--
 
-    Please use spaces instead of tabs in this file to allow copy/pasting the
-    SQL statements directly in the console (1 tab = 4 spaces)
-
-    Please ensure that the database uses 'utf8mb4' character encoding and InnoDB as storage engine.
-**/
-
-/*
-    This table contains the authentication information about the
-    end users.
-*/
-CREATE TABLE IF NOT EXISTS medusa_user
+CREATE TABLE medusa_user
 (
     -- General authentication information fields
-
     username                      VARCHAR(100)      NOT NULL,
-
     auth_method                   VARCHAR(50),
     next_auth_method              VARCHAR(50),
     auth_migration_date           DATETIME(6),
@@ -69,6 +60,7 @@ CREATE TABLE IF NOT EXISTS medusa_user
     disclaimer_tag                VARCHAR(1024),
     remember_me_secret            VARCHAR(1024),
     remember_me_gen_date          DATETIME(6),
+    realm                         VARCHAR(50),
 
     -- Technical database fields
     rowVersionId                  INTEGER DEFAULT 0 NOT NULL,
@@ -146,18 +138,14 @@ CREATE TABLE IF NOT EXISTS medusa_user
     -- Secret questions features per user
     secret_questions_enabled      INTEGER DEFAULT 0 NOT NULL,
 
-    PRIMARY KEY (username)
+    CONSTRAINT pk_medusa_user PRIMARY KEY (username)
 ) CHARACTER SET utf8mb4
   COLLATE utf8mb4_general_nopad_ci;
 
-/*
-    This table contains the authentication information about a users accessing the admin GUI.
-*/
-CREATE TABLE IF NOT EXISTS medusa_admin
+CREATE TABLE medusa_admin
 (
     -- General authentication information fields
     username                     VARCHAR(100)      NOT NULL,
-
     locked                       INTEGER DEFAULT 0 NOT NULL,
     lock_reason                  VARCHAR(50),
     lock_date                    DATETIME(6),
@@ -182,6 +170,7 @@ CREATE TABLE IF NOT EXISTS medusa_admin
     givenname                    VARCHAR(50),
     surname                      VARCHAR(50),
     email                        VARCHAR(100),
+    realm                        VARCHAR(50),
 
     -- Technical database fields
     rowVersionId                 INTEGER DEFAULT 0 NOT NULL,
@@ -200,14 +189,11 @@ CREATE TABLE IF NOT EXISTS medusa_admin
     pwd_next_chg                 DATETIME(6),
     pwd_order_new                INTEGER DEFAULT 0 NOT NULL,
 
-    PRIMARY KEY (username)
+    CONSTRAINT pk_medusa_admin PRIMARY KEY (username)
 ) CHARACTER SET utf8mb4
   COLLATE utf8mb4_general_nopad_ci;
 
-/*
-    This table contains the basic information of maintenance messages.
-*/
-CREATE TABLE IF NOT EXISTS medusa_maint_msg
+CREATE TABLE medusa_maint_msg
 (
     name             VARCHAR(255)      NOT NULL,
     system_available INTEGER DEFAULT 1 NOT NULL,
@@ -223,14 +209,11 @@ CREATE TABLE IF NOT EXISTS medusa_maint_msg
     rowUpdateUser    VARCHAR(20),
     deleted          INTEGER DEFAULT 0 NOT NULL,
 
-    PRIMARY KEY (name)
+    CONSTRAINT pk_medusa_maint_msg PRIMARY KEY (name)
 ) CHARACTER SET utf8mb4
   COLLATE utf8mb4_general_nopad_ci;
 
-/*
-    This table contains the translations of maintenance messages.
-*/
-CREATE TABLE IF NOT EXISTS medusa_maint_msg_tnsl
+CREATE TABLE medusa_maint_msg_tnsl
 (
     message_ref   VARCHAR(255)      NOT NULL,
     language      VARCHAR(2)        NOT NULL,
@@ -243,18 +226,18 @@ CREATE TABLE IF NOT EXISTS medusa_maint_msg_tnsl
     rowUpdateUser VARCHAR(20),
     deleted       INTEGER DEFAULT 0 NOT NULL,
 
-    PRIMARY KEY (message_ref, language)
+    CONSTRAINT pk_medusa_maint_msg_tnsl PRIMARY KEY (message_ref, language)
 ) CHARACTER SET utf8mb4
   COLLATE utf8mb4_general_nopad_ci;
 
-CREATE TABLE IF NOT EXISTS token
+CREATE TABLE token
 (
-    token_id                INTEGER           NOT NULL AUTO_INCREMENT,
+    token_id                BIGINT            NOT NULL AUTO_INCREMENT,
     type                    VARCHAR(20),
     serial_id               VARCHAR(50),
-    active                  INTEGER DEFAULT 0 NOT NULL,
+    active                  TINYINT DEFAULT 0 NOT NULL,
     activation_date         DATETIME(6),
-    obsoletes_token_id      INTEGER,
+    obsoletes_token_id      BIGINT,
     validity_range_lower    DATETIME(6),
     validity_range_upper    DATETIME(6),
     generation_date         DATETIME(6),
@@ -262,7 +245,7 @@ CREATE TABLE IF NOT EXISTS token
     latest_usage_date       DATETIME(6),
     total_usages            INTEGER DEFAULT 0 NOT NULL,
     token_data              TEXT,
-    activates_token_id      INTEGER,
+    activates_token_id      BIGINT,
     tracking_id             TEXT,
     generic_data_element_1  TEXT,
     generic_data_element_2  TEXT,
@@ -277,58 +260,60 @@ CREATE TABLE IF NOT EXISTS token
     generic_data_element_11 TEXT,
     generic_data_element_12 TEXT,
 
-    CONSTRAINT fk_obsoletes_token_id FOREIGN KEY (obsoletes_token_id) REFERENCES token (token_id),
-    CONSTRAINT fk_activates_token_id FOREIGN KEY (activates_token_id) REFERENCES token (token_id),
-
-    PRIMARY KEY (token_id)
+    CONSTRAINT pk_token_id PRIMARY KEY (token_id)
 ) CHARACTER SET utf8mb4
   COLLATE utf8mb4_general_nopad_ci;
-CREATE INDEX IF NOT EXISTS token_type_index
-    ON token (type);
-CREATE INDEX IF NOT EXISTS token_serial_id_index
-    ON token (serial_id);
-CREATE INDEX IF NOT EXISTS activates_token_id_index
-    ON token (activates_token_id);
-CREATE INDEX IF NOT EXISTS generic_data_element_1_idx
-    ON token (generic_data_element_1(40));
-CREATE INDEX IF NOT EXISTS generic_data_element_2_idx
-    ON token (generic_data_element_2(40));
-CREATE INDEX IF NOT EXISTS generic_data_element_3_idx
-    ON token (generic_data_element_3(40));
-CREATE INDEX IF NOT EXISTS generic_data_element_4_idx
-    ON token (generic_data_element_4(40));
-CREATE INDEX IF NOT EXISTS generic_data_element_6_idx
-    ON token (generic_data_element_6(40));
-CREATE INDEX IF NOT EXISTS generic_data_element_7_idx
-    ON token (generic_data_element_7(40));
-CREATE INDEX IF NOT EXISTS obsoletes_token_id_idx
+-- FOREIGN KEY indexes
+CREATE INDEX obsoletes_token_id_idx
     ON token (obsoletes_token_id);
+ALTER TABLE token
+    ADD CONSTRAINT fk_obsoletes_token_id FOREIGN KEY (obsoletes_token_id) REFERENCES token (token_id);
+CREATE INDEX activates_token_id_index
+    ON token (activates_token_id);
+ALTER TABLE token
+    ADD CONSTRAINT fk_activates_token_id FOREIGN KEY (activates_token_id) REFERENCES token (token_id);
+-- Additional indexes
+CREATE INDEX token_type_index
+    ON token (type);
+CREATE INDEX token_serial_id_index
+    ON token (serial_id);
+CREATE INDEX generic_data_element_1_idx
+    ON token (generic_data_element_1(40));
+CREATE INDEX generic_data_element_2_idx
+    ON token (generic_data_element_2(40));
+CREATE INDEX generic_data_element_3_idx
+    ON token (generic_data_element_3(40));
+CREATE INDEX generic_data_element_4_idx
+    ON token (generic_data_element_4(40));
+CREATE INDEX generic_data_element_6_idx
+    ON token (generic_data_element_6(40));
+CREATE INDEX generic_data_element_7_idx
+    ON token (generic_data_element_7(40));
 
-CREATE TABLE IF NOT EXISTS token_assignment
+CREATE TABLE token_assignment
 (
-    ta_token_id               INTEGER           NOT NULL,
+    ta_token_id               BIGINT            NOT NULL,
     ta_user                   VARCHAR(100)      NOT NULL,
     ta_assignment_date        DATETIME(6)       NOT NULL,
     ta_assignment_user        VARCHAR(100)      NOT NULL,
-    ta_order_new              INTEGER DEFAULT 0 NOT NULL,
+    ta_order_new              TINYINT DEFAULT 0 NOT NULL,
     ta_order_new_date         DATETIME(6),
     ta_order_new_user         VARCHAR(100),
     ta_order_options          VARCHAR(250),
     ta_additional_information VARCHAR(250),
     ta_comment                TEXT,
 
-    CONSTRAINT fk_ta_token_id FOREIGN KEY (ta_token_id) REFERENCES token (token_id),
-
-    PRIMARY KEY (ta_token_id, ta_user)
+    CONSTRAINT pk_ta_token_id_user PRIMARY KEY (ta_token_id, ta_user)
 ) CHARACTER SET utf8mb4
   COLLATE utf8mb4_general_nopad_ci;
-CREATE INDEX IF NOT EXISTS ta_index
+-- FOREIGN KEY indexes
+ALTER TABLE token_assignment
+    ADD CONSTRAINT fk_ta_token_id FOREIGN KEY (ta_token_id) REFERENCES token (token_id);
+-- Additional indexes
+CREATE INDEX ta_index
     ON token_assignment (ta_user, ta_token_id);
 
-/*
-    Table for password self service token.
-*/
-CREATE TABLE IF NOT EXISTS medusa_pwd_selfservice_token
+CREATE TABLE medusa_pwd_selfservice_token
 (
     token_id           VARCHAR(100),
     username           VARCHAR(100),
@@ -347,11 +332,11 @@ CREATE TABLE IF NOT EXISTS medusa_pwd_selfservice_token
     rowUpdateDate      DATETIME(6),
     rowUpdateUser      VARCHAR(100),
 
-    PRIMARY KEY (token_id)
+    CONSTRAINT pk_pwd_selfservice_token PRIMARY KEY (token_id)
 ) CHARACTER SET utf8mb4
   COLLATE utf8mb4_general_nopad_ci;
 
-CREATE TABLE IF NOT EXISTS login_history
+CREATE TABLE login_history
 (
     id                     INTEGER      NOT NULL AUTO_INCREMENT,
     username               VARCHAR(100) NOT NULL,
@@ -370,13 +355,14 @@ CREATE TABLE IF NOT EXISTS login_history
     geoloc_latitude        VARCHAR(16),
     geoloc_longitude       VARCHAR(16),
 
-    PRIMARY KEY (id)
+    CONSTRAINT pk_login_history PRIMARY KEY (id)
 ) CHARACTER SET utf8mb4
   COLLATE utf8mb4_general_nopad_ci;
-CREATE INDEX IF NOT EXISTS login_history_idx
+-- Additional indexes
+CREATE INDEX login_history_idx
     ON login_history (username);
 
-CREATE TABLE IF NOT EXISTS account_link
+CREATE TABLE account_link
 (
     link_id        INTEGER      NOT NULL AUTO_INCREMENT,
     username       VARCHAR(100) NOT NULL,
@@ -386,18 +372,18 @@ CREATE TABLE IF NOT EXISTS account_link
     established_at DATETIME(6)  NOT NULL,
     tenant_id      VARCHAR(50)  NOT NULL,
 
-    PRIMARY KEY (link_id)
+    CONSTRAINT pk_account_link PRIMARY KEY (link_id)
 ) CHARACTER SET utf8mb4
   COLLATE utf8mb4_general_nopad_ci;
-CREATE INDEX IF NOT EXISTS account_link_idx_username
+-- Additional indexes
+CREATE INDEX account_link_idx_username
     ON account_link (username, tenant_id);
-CREATE INDEX IF NOT EXISTS account_link_idx_usr_prov
+CREATE INDEX account_link_idx_usr_prov
     ON account_link (username, provider_id, tenant_id);
-CREATE UNIQUE INDEX IF NOT EXISTS account_link_idx_unique
+CREATE UNIQUE INDEX account_link_idx_unique
     ON account_link (account_sub, provider_id, tenant_id);
 
-
-CREATE TABLE IF NOT EXISTS user_consent
+CREATE TABLE user_consent
 (
     consent_id    INTEGER      NOT NULL AUTO_INCREMENT,
     username      VARCHAR(100) NOT NULL,
@@ -408,28 +394,30 @@ CREATE TABLE IF NOT EXISTS user_consent
     given_at      DATETIME(6)  NOT NULL,
     tenant_id     VARCHAR(50)  NOT NULL,
 
-    PRIMARY KEY (consent_id)
+    CONSTRAINT pk_user_consent PRIMARY KEY (consent_id)
 ) CHARACTER SET utf8mb4
   COLLATE utf8mb4_general_nopad_ci;
-CREATE INDEX IF NOT EXISTS user_consent_idx_username
+-- Additional indexes
+CREATE INDEX user_consent_idx_username
     ON user_consent (username, tenant_id);
-CREATE UNIQUE INDEX IF NOT EXISTS user_consent_idx_unique
+CREATE UNIQUE INDEX user_consent_idx_unique
     ON user_consent (username, consent_key, tenant_id);
 
-CREATE TABLE IF NOT EXISTS subscription
+CREATE TABLE subscription
 (
     pk           INTEGER                               NOT NULL AUTO_INCREMENT,
     id           VARCHAR(36) COLLATE latin1_nopad_bin  NOT NULL,
     display_name VARCHAR(100)                          NOT NULL,
     tenant_id    VARCHAR(50) COLLATE utf8mb4_nopad_bin NOT NULL,
 
-    PRIMARY KEY (pk)
+    CONSTRAINT pk_subscription PRIMARY KEY (pk)
 ) CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_520_nopad_ci;
-CREATE UNIQUE INDEX IF NOT EXISTS subscription_id_idx_unique
+-- Additional indexes
+CREATE UNIQUE INDEX subscription_id_idx_unique
     ON subscription (id);
 
-CREATE TABLE IF NOT EXISTS principal
+CREATE TABLE principal
 (
     pk              INTEGER           NOT NULL AUTO_INCREMENT,
     id              VARCHAR(36)       NOT NULL,
@@ -443,18 +431,21 @@ CREATE TABLE IF NOT EXISTS principal
     label           VARCHAR(100),
     subscription_pk INTEGER,
 
-    PRIMARY KEY (pk),
-    CONSTRAINT fk_subscription_pk FOREIGN KEY (subscription_pk) REFERENCES subscription (pk)
+    CONSTRAINT pk_principal PRIMARY KEY (pk)
 ) CHARACTER SET utf8mb4
   COLLATE utf8mb4_general_nopad_ci;
-CREATE UNIQUE INDEX IF NOT EXISTS principal_id_idx_unique
-    ON principal (id);
-CREATE INDEX IF NOT EXISTS tenant_id_idx
-    ON principal (tenant_id);
-CREATE INDEX IF NOT EXISTS subscription_idx
+-- FOREIGN KEY indexes
+CREATE INDEX subscription_idx
     ON principal (subscription_pk);
+ALTER TABLE principal
+    ADD CONSTRAINT fk_subscription_pk FOREIGN KEY (subscription_pk) REFERENCES subscription (pk);
+-- Additional indexes
+CREATE UNIQUE INDEX principal_id_idx_unique
+    ON principal (id);
+CREATE INDEX tenant_id_idx
+    ON principal (tenant_id);
 
-CREATE TABLE IF NOT EXISTS oauth2_attributes
+CREATE TABLE oauth2_attributes
 (
     pk                         INTEGER     NOT NULL AUTO_INCREMENT,
     principal_pk               INTEGER     NOT NULL,
@@ -481,31 +472,61 @@ CREATE TABLE IF NOT EXISTS oauth2_attributes
     cert_subject               VARCHAR(450),
     tenant_id                  VARCHAR(50) NOT NULL,
 
-    PRIMARY KEY (pk),
-    CONSTRAINT fk_oa_principal_pk FOREIGN KEY (principal_pk) REFERENCES principal (pk) ON DELETE CASCADE
+    CONSTRAINT pk_oauth2_attributes PRIMARY KEY (pk)
 ) CHARACTER SET utf8mb4
   COLLATE utf8mb4_general_nopad_ci;
-CREATE UNIQUE INDEX IF NOT EXISTS oa2_attrs_principal_idx_unique
+-- FOREIGN KEY indexes
+CREATE UNIQUE INDEX oa2_attrs_principal_idx_unique
     ON oauth2_attributes (principal_pk);
-CREATE UNIQUE INDEX IF NOT EXISTS oa2_attrs_as_cid_idx_unique
+ALTER TABLE oauth2_attributes
+    ADD CONSTRAINT fk_oa_principal_pk FOREIGN KEY (principal_pk) REFERENCES principal (pk) ON DELETE CASCADE;
+-- Additional indexes
+CREATE UNIQUE INDEX oa2_attrs_as_cid_idx_unique
     ON oauth2_attributes (authorization_server_id, client_id, tenant_id);
 
-CREATE TABLE IF NOT EXISTS oauth2_attribute_translation
+CREATE TABLE oauth2_attribute_translation
 (
     oauth2_attributes_pk INTEGER NOT NULL,
     attribute_name       VARCHAR(20),
     locale               VARCHAR(20),
-    text                 VARCHAR(200),
-
-    CONSTRAINT fk_oauth2_attributes_pk FOREIGN KEY (oauth2_attributes_pk) REFERENCES oauth2_attributes (pk) ON DELETE CASCADE
+    text                 VARCHAR(200)
 ) CHARACTER SET utf8mb4
   COLLATE utf8mb4_general_nopad_ci;
-CREATE INDEX IF NOT EXISTS oauth2_attributes_pk_idx
+-- FOREIGN KEY indexes
+CREATE INDEX oauth2_attributes_pk_idx
     ON oauth2_attribute_translation (oauth2_attributes_pk);
-CREATE UNIQUE INDEX IF NOT EXISTS oauth2_translation_idx_unique
+ALTER TABLE oauth2_attribute_translation
+    ADD CONSTRAINT fk_oauth2_attributes_pk FOREIGN KEY (oauth2_attributes_pk) REFERENCES oauth2_attributes (pk) ON DELETE CASCADE;
+-- Additional indexes
+CREATE UNIQUE INDEX oauth2_translation_idx_unique
     ON oauth2_attribute_translation (oauth2_attributes_pk, attribute_name, locale);
 
-CREATE TABLE IF NOT EXISTS client_cert_credential
+CREATE TABLE oauth2_session
+(
+    pk BIGINT                                       NOT NULL AUTO_INCREMENT,
+    id VARCHAR(40) COLLATE utf8mb4_general_nopad_ci NOT NULL,
+
+    CONSTRAINT pk_oauth2_session PRIMARY KEY (pk)
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_520_nopad_ci;
+-- Additional indexes
+CREATE UNIQUE INDEX ux_oauth2_session_id
+    ON oauth2_session (id);
+
+CREATE TABLE oauth2_session_attribute
+(
+    oauth2_session_pk BIGINT                                NOT NULL,
+    name              VARCHAR(50) COLLATE utf8mb4_nopad_bin NOT NULL,
+    value             VARCHAR(200)                          NOT NULL
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_520_nopad_ci;
+-- FOREIGN KEY indexes
+CREATE INDEX ix_osa_oauth2_session_pk
+    ON oauth2_session_attribute (oauth2_session_pk);
+ALTER TABLE oauth2_session_attribute
+    ADD CONSTRAINT fk_oauth2_session_pk FOREIGN KEY (oauth2_session_pk) REFERENCES oauth2_session (pk) ON DELETE CASCADE;
+
+CREATE TABLE client_cert_credential
 (
     id           VARCHAR(36)                      NOT NULL,
     principal_pk INTEGER                          NOT NULL,
@@ -516,36 +537,39 @@ CREATE TABLE IF NOT EXISTS client_cert_credential
     not_after    DATETIME(6)                      NOT NULL,
     certificate  TEXT                             NOT NULL,
     fingerprint  VARCHAR(200) COLLATE utf8mb4_bin NOT NULL,
-    tenant_id    VARCHAR(50)                      NOT NULL,
-
-    CONSTRAINT fk_ccc_principal_pk FOREIGN KEY (principal_pk) REFERENCES principal (pk) ON DELETE CASCADE
+    tenant_id    VARCHAR(50)                      NOT NULL
 ) CHARACTER SET utf8mb4
   COLLATE utf8mb4_general_nopad_ci;
-CREATE UNIQUE INDEX IF NOT EXISTS ccc_id_idx_unique
-    ON client_cert_credential (id);
-CREATE INDEX IF NOT EXISTS principal_pk_idx
+-- FOREIGN KEY indexes
+CREATE INDEX principal_pk_idx
     ON client_cert_credential (principal_pk);
-CREATE UNIQUE INDEX IF NOT EXISTS fingerprint_idx_unique
+ALTER TABLE client_cert_credential
+    ADD CONSTRAINT fk_ccc_principal_pk FOREIGN KEY (principal_pk) REFERENCES principal (pk) ON DELETE CASCADE;
+-- Additional indexes
+CREATE UNIQUE INDEX ccc_id_idx_unique
+    ON client_cert_credential (id);
+CREATE UNIQUE INDEX fingerprint_idx_unique
     ON client_cert_credential (fingerprint, tenant_id);
-CREATE INDEX IF NOT EXISTS ccc_subject_idx
+CREATE INDEX ccc_subject_idx
     ON client_cert_credential (subject);
 
-CREATE TABLE IF NOT EXISTS airlock_2fa_user
+CREATE TABLE airlock_2fa_user
 (
     pk                  INTEGER                                NOT NULL AUTO_INCREMENT,
     iam_user_id         VARCHAR(100) COLLATE utf8mb4_nopad_bin NOT NULL,
     airlock_2fa_user_id VARCHAR(50) COLLATE latin1_nopad_bin   NOT NULL,
     tenant_id           VARCHAR(50) COLLATE utf8mb4_nopad_bin  NOT NULL,
 
-    PRIMARY KEY (pk)
+    CONSTRAINT pk_airlock_2fa_user PRIMARY KEY (pk)
 ) CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_520_nopad_ci;
-CREATE UNIQUE INDEX IF NOT EXISTS a2fa_iam_user_id_idx_unique
+-- Additional indexes
+CREATE UNIQUE INDEX a2fa_iam_user_id_idx_unique
     ON airlock_2fa_user (iam_user_id, tenant_id);
-CREATE UNIQUE INDEX IF NOT EXISTS a2fa_user_id_idx_unique
+CREATE UNIQUE INDEX a2fa_user_id_idx_unique
     ON airlock_2fa_user (airlock_2fa_user_id);
 
-CREATE TABLE IF NOT EXISTS airlock_2fa_activation_letter
+CREATE TABLE airlock_2fa_activation_letter
 (
     pk                  INTEGER                                NOT NULL AUTO_INCREMENT,
     id                  VARCHAR(36) COLLATE latin1_nopad_bin   NOT NULL,
@@ -553,15 +577,35 @@ CREATE TABLE IF NOT EXISTS airlock_2fa_activation_letter
     airlock_2fa_user_pk INTEGER                                NOT NULL,
     creator             VARCHAR(100) COLLATE utf8mb4_nopad_bin NOT NULL,
 
-    PRIMARY KEY (pk),
-    CONSTRAINT fk_activation_letter_user_pk FOREIGN KEY (airlock_2fa_user_pk) REFERENCES airlock_2fa_user (pk) ON DELETE CASCADE
+    CONSTRAINT pk_2fa_activation_letter PRIMARY KEY (pk)
 ) CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_520_nopad_ci;
-
-CREATE UNIQUE INDEX IF NOT EXISTS a2fa_letter_id_idx_unique
+-- FOREIGN KEY indexes
+CREATE INDEX fk_activation_letter_user_pk
+    ON airlock_2fa_activation_letter (airlock_2fa_user_pk);
+ALTER TABLE airlock_2fa_activation_letter
+    ADD CONSTRAINT fk_activation_letter_user_pk FOREIGN KEY (airlock_2fa_user_pk) REFERENCES airlock_2fa_user (pk) ON DELETE CASCADE;
+-- Additional indexes
+CREATE UNIQUE INDEX a2fa_letter_id_idx_unique
     ON airlock_2fa_activation_letter (id);
 
-CREATE TABLE IF NOT EXISTS api_key
+CREATE TABLE airlock_2fa_activation_order
+(
+    id                  VARCHAR(36) COLLATE utf8mb4_nopad_bin  NOT NULL,
+    airlock_2fa_user_pk INTEGER                                NOT NULL,
+    creator             VARCHAR(100) COLLATE utf8mb4_nopad_bin NOT NULL,
+    ordered_at          BIGINT                                 NOT NULL
+);
+-- FOREIGN KEY indexes
+CREATE INDEX ix_a2fa_activ_order_user_pk
+    ON airlock_2fa_activation_order (airlock_2fa_user_pk);
+ALTER TABLE airlock_2fa_activation_order
+    ADD CONSTRAINT fk_a2fa_activ_order_user_pk FOREIGN KEY (airlock_2fa_user_pk) REFERENCES airlock_2fa_user (pk) ON DELETE CASCADE;
+-- Additional indexes
+CREATE UNIQUE INDEX ux_a2fa_activ_order_id
+    ON airlock_2fa_activation_order (id);
+
+CREATE TABLE api_key
 (
     id            VARCHAR(36) COLLATE latin1_nopad_bin  NOT NULL,
     principal_pk  INTEGER                               NOT NULL,
@@ -572,29 +616,98 @@ CREATE TABLE IF NOT EXISTS api_key
     valid_to      DATETIME(6),
     locked        INTEGER DEFAULT 0                     NOT NULL,
     creation_date DATETIME(6)                           NOT NULL,
-    tenant_id     VARCHAR(50) COLLATE utf8mb4_nopad_bin NOT NULL,
-
-    CONSTRAINT fk_api_key_principal_pk FOREIGN KEY (principal_pk) REFERENCES principal (pk) ON DELETE CASCADE
+    tenant_id     VARCHAR(50) COLLATE utf8mb4_nopad_bin NOT NULL
 ) CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_520_nopad_ci;
-CREATE UNIQUE INDEX IF NOT EXISTS api_key_id_idx_unique
+-- FOREIGN KEY indexes
+CREATE INDEX fk_api_key_principal_pk
+    ON api_key (principal_pk);
+ALTER TABLE api_key
+    ADD CONSTRAINT fk_api_key_principal_pk FOREIGN KEY (principal_pk) REFERENCES principal (pk) ON DELETE CASCADE;
+-- Additional indexes
+CREATE UNIQUE INDEX api_key_id_idx_unique
     ON api_key (id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS api_key_fp_idx_unique
+CREATE UNIQUE INDEX api_key_fp_idx_unique
     ON api_key (fingerprint, tenant_id);
 
-CREATE TABLE IF NOT EXISTS plan_usage
+CREATE TABLE plan_usage
 (
     id              VARCHAR(36) COLLATE latin1_nopad_bin NOT NULL,
     subscription_pk INTEGER                              NOT NULL,
     name            VARCHAR(100)                         NOT NULL,
-    rate_limit      INTEGER,
-
-    CONSTRAINT fk_plan_usage_subscription_pk FOREIGN KEY (subscription_pk) REFERENCES subscription (pk) ON DELETE CASCADE
+    rate_limit      INTEGER
 ) CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_520_nopad_ci;
-CREATE UNIQUE INDEX IF NOT EXISTS plan_usage_subscr_idx_unique
+-- FOREIGN KEY indexes
+CREATE INDEX fk_plan_usage_subscription_pk
+    ON plan_usage (subscription_pk);
+ALTER TABLE plan_usage
+    ADD CONSTRAINT fk_plan_usage_subscription_pk FOREIGN KEY (subscription_pk) REFERENCES subscription (pk) ON DELETE CASCADE;
+-- Additional indexes
+CREATE UNIQUE INDEX plan_usage_subscr_idx_unique
     ON plan_usage (name, subscription_pk);
-CREATE UNIQUE INDEX IF NOT EXISTS plan_usage_id_idx_unique
+CREATE UNIQUE INDEX plan_usage_id_idx_unique
     ON plan_usage (id);
 
+CREATE TABLE last_selection
+(
+    last_selection_id INTEGER                               NOT NULL AUTO_INCREMENT,
+    username          VARCHAR(100)                          NOT NULL,
+    option_id         VARCHAR(50) COLLATE utf8mb4_nopad_bin NOT NULL,
+    selected_at       DATETIME                              NOT NULL,
+    step_id           VARCHAR(50) COLLATE utf8mb4_nopad_bin NOT NULL,
+    tenant_id         VARCHAR(50) COLLATE utf8mb4_nopad_bin NOT NULL,
+
+    CONSTRAINT pk_last_selection PRIMARY KEY (last_selection_id)
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_520_nopad_ci;
+-- Additional indexes
+CREATE UNIQUE INDEX ux_last_selection
+    ON last_selection (username, tenant_id, step_id);
+
+CREATE TABLE fido_user
+(
+    pk               BIGINT                                        NOT NULL AUTO_INCREMENT,
+    iam_user_id      VARCHAR(100) COLLATE utf8mb4_general_nopad_ci NOT NULL,
+    user_handle      VARCHAR(36) COLLATE utf8mb4_nopad_bin         NOT NULL,
+    relying_party_id VARCHAR(255) COLLATE utf8mb4_general_nopad_ci NOT NULL,
+    tenant_id        VARCHAR(50) COLLATE utf8mb4_nopad_bin         NOT NULL,
+
+    CONSTRAINT pk_fido_user PRIMARY KEY (pk)
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_520_nopad_ci;
+-- Additional indexes
+CREATE UNIQUE INDEX ux_fido_user_handle
+    ON fido_user (user_handle);
+CREATE UNIQUE INDEX ux_fido_iam_user_rpid
+    ON fido_user (iam_user_id, relying_party_id, tenant_id);
+
+CREATE TABLE fido_credential
+(
+    id                            VARCHAR(36) COLLATE utf8mb4_nopad_bin         NOT NULL,
+    fido_user_pk                  BIGINT                                        NOT NULL,
+    name                          VARCHAR(100) COLLATE utf8mb4_general_nopad_ci NOT NULL,
+    display_name                  VARCHAR(100) COLLATE utf8mb4_general_nopad_ci NOT NULL,
+    public_key_credential_id      BLOB                                          NOT NULL,
+    public_key_credential_id_hash VARBINARY(64)                                 NOT NULL,
+    public_key                    VARBINARY(1024)                               NOT NULL,
+    signature_counter             BIGINT  DEFAULT 0                             NOT NULL,
+    resident_requested            TINYINT                                       NOT NULL,
+    attestation_object            BLOB                                          NOT NULL,
+    registered_at                 BIGINT                                        NOT NULL,
+    first_used_at                 BIGINT,
+    last_used_at                  BIGINT,
+    total_usages                  INTEGER DEFAULT 0                             NOT NULL,
+    locked                        TINYINT                                       NOT NULL
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_520_nopad_ci;
+-- FOREIGN KEY indexes
+CREATE INDEX ix_fido_credential_user_pk
+    ON fido_credential (fido_user_pk);
+ALTER TABLE fido_credential
+    ADD CONSTRAINT fk_fido_credential_user_pk FOREIGN KEY (fido_user_pk) REFERENCES fido_user (pk) ON DELETE CASCADE;
+-- Additional indexes
+CREATE UNIQUE INDEX ux_fido_cred_id
+    ON fido_credential (id);
+CREATE UNIQUE INDEX ux_fido_cred_id_hash
+    ON fido_credential (public_key_credential_id_hash);

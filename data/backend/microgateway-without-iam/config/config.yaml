@@ -24,11 +24,9 @@ apps:
         session_handling: ignore_session
         operational_mode: integration
         threat_handling: block
+        env_cookies: true
         deny_rule_groups:
           - level: strict
-        expert_settings:
-          security_gate: |
-            Backend.AddEnvironmentCookies         "TRUE"
         backend:
           name: beg-echoserver
           hosts:

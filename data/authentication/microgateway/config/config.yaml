@@ -3,6 +3,8 @@ log:
 
 session:
   redis_hosts: [redis-master]
+  idle_timeout: 600
+  lifetime: 28800
 
 remote_ip:
   header: X-Forwarded-For
@@ -48,8 +50,8 @@ apps:
               port: 8443
       - mapping_template_file: /config/templates/iam-loginapp-rest-public.xml
         entry_path:
-          value: /auth/rest/public
-        backend_path: /auth-login/rest/public
+          value: /auth/rest/public/
+        backend_path: /auth-login/rest/public/
         operational_mode: production
         cookies:
           passthrough:
@@ -57,6 +59,8 @@ apps:
         api_security:
           openapi:
             spec_file: /config/openapi/openapi-loginapp-rest.json
+        csrf_token:
+          enabled: false
         backend:
           name: beg-iam
           hosts:
@@ -65,8 +69,8 @@ apps:
               port: 8443
       - mapping_template_file: /config/templates/iam-loginapp-rest-protected.xml
         entry_path:
-          value: /auth/rest/protected
-        backend_path: /auth-login/rest/protected
+          value: /auth/rest/protected/
+        backend_path: /auth-login/rest/protected/
         operational_mode: production
         cookies:
           passthrough:
@@ -74,6 +78,8 @@ apps:
         api_security:
           openapi:
             spec_file: /config/openapi/openapi-loginapp-rest.json
+        csrf_token:
+          enabled: false
         backend:
           name: beg-iam
           hosts:
@@ -84,6 +90,8 @@ apps:
         entry_path:
           value: /auth-admin/
         operational_mode: production
+        csrf_token:
+          enabled: false
         backend:
           name: beg-iam
           hosts:

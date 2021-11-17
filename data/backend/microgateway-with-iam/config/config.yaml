@@ -24,6 +24,7 @@ apps:
         session_handling: ignore_session
         operational_mode: integration
         threat_handling: block
+        env_cookies: true
         deny_rule_groups:
           - level: strict
         cookies:
@@ -37,30 +38,45 @@ apps:
                 - echo-user
         access_token:
           mandatory: true
-          token_type: signed_and_encrypted
           expiry_checked: true
           audittoken: true
           extraction:
             mode: cookie
             cookie: ${COOKIE_NAME}
-          signature:
-            method: HS512
-            passphrase: ${JWT_SIGNATURE_PASSPHRASE}
-          encryption:
-            algorithm: A256GCM
-            passphrase: ${JWT_ENCRYPTION_PASSPHRASE}
+          jwks_providers:
+            - airlock-iam
           roles:
             - claim: roles
               extraction:
                 regex:
                   pattern: customer
                 substitution: echo-user
-        expert_settings:
-          security_gate: |
-            Backend.AddEnvironmentCookies         "TRUE"
         backend:
           name: beg-echoserver
           hosts:
             - protocol: "http"
               name: echoserver
               port: 8080
+
+jwks_providers:
+  local:
+    - name: airlock-iam
+      jwks: |
+        {
+            "keys":
+            [
+                {
+                    "kty": "oct",
+                    "use": "sig",
+                    "alg": "HS512",
+                    "k": "${JWT_SIGNATURE_PASSPHRASE}",
+                    "key_ops": ["verify"]
+                },
+                {
+                    "kty": "oct",
+                    "alg": "dir",
+                    "k": "${JWT_ENCRYPTION_PASSPHRASE}",
+                    "key_ops": ["decrypt"]
+                }
+            ]
+        }
