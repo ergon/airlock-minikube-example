@@ -51,14 +51,7 @@ Starting the example as community edition might be useful to get familiar with t
 
 ## General prerequisites
 
-* Install [Minikube].<br>
-  The Airlock Minikube Example has been tested with the following versions:
-
-  | Airlock Minikube Example | Minikube | Kubernetes | Comments |
-  | :----------------------- | :------- | :--------- | :------- |
-  | v3.0.0                   | v1.22.0  | v1.20.2    |          |
-
-  :warning: Using different versions may cause problems.
+* Install [Minikube].
 * Install [kubectl].
 * Access to the Docker Hub repositories:
     * For Airlock Microgateway (public repository):
