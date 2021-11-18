@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: premium-with-iam
+  name: devel
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/ergon/airlock-minikube-example.git
-    targetRevision: v4.0.1
+    targetRevision: HEAD
     path: apps/minikube-example/
 
     helm:
@@ -17,12 +17,12 @@ spec:
         spec:
           source:
             repoURL: https://github.com/ergon/airlock-minikube-example.git
-            targetRevision: v4.0.1
+            targetRevision: HEAD
 
           syncPolicy:
             automated:
-              selfHeal: true
-              prune: true
+              selfHeal: false
+              prune: false
 
         microgateway:
           license:
@@ -46,5 +46,5 @@ spec:
 
   syncPolicy:
     automated:
-      selfHeal: true
-      prune: true
+      selfHeal: false
+      prune: false
