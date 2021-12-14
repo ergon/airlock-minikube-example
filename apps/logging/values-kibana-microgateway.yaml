@@ -26,6 +26,15 @@ kibana:
             prometheus.io/scrape: "true"
             prometheus.io/port: "9102"
 
+        ingress:
+          enabled: true
+          annotations:
+            kubernetes.io/ingress.class: "nginx"
+            nginx.ingress.kubernetes.io/backend-protocol: https
+          path: /kibana/
+          pathType: Prefix
+          servicePortName: https
+
         config:
           passphrase:
             useExistingSecret: true
