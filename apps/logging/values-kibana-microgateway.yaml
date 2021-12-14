@@ -31,8 +31,8 @@ kibana:
           annotations:
             kubernetes.io/ingress.class: "nginx"
             nginx.ingress.kubernetes.io/backend-protocol: https
-            nginx.ingress.kubernetes.io/rewrite-target: $1
-          path: (/kibana/.*)
+            nginx.ingress.kubernetes.io/rewrite-target: /kibana/
+          path: /kibana/
           pathType: Prefix
           servicePortName: https
 

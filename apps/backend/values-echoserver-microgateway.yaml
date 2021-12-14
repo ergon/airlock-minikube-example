@@ -31,8 +31,8 @@ echoserver:
           annotations:
             kubernetes.io/ingress.class: "nginx"
             nginx.ingress.kubernetes.io/backend-protocol: https
-            nginx.ingress.kubernetes.io/rewrite-target: $1
-          path: (/echo/.*)
+            nginx.ingress.kubernetes.io/rewrite-target: /echo/
+          path: /echo/
           pathType: Prefix
           servicePortName: https
 
