@@ -3,11 +3,14 @@ kibana:
     spec:
       source:
         repoURL: https://ergon.github.io/airlock-helm-charts
-        targetRevision: 3.0.1
+        targetRevision: 3.0.4
         chart: microgateway
 
     helm:
       values:
+        image:
+          tag: "3.1"
+
         fullnameOverride: kibana-microgateway
 
         resources:
