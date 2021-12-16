@@ -31,6 +31,7 @@ elasticsearch:
       antiAffinity: "soft"
 
       # Shrink default JVM heap.
+      # To prevent Log4Shell: -Dlog4j2.formatMsgNoLookups=true
       esJavaOpts: "-Xmx512m -Xms512m -Dlog4j2.formatMsgNoLookups=true"
 
       # Allocate smaller chunks of memory per pod.
