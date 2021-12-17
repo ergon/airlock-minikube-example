@@ -9,9 +9,7 @@ grafana:
     helm:
       values:
         image:
-          tag: "3.1"
-          repository:
-            runtime: docker.io/ergondieti80/airlock-microgateway
+          tag: "3.0"
 
         fullnameOverride: grafana-microgateway
 
