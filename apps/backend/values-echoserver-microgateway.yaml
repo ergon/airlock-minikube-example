@@ -12,6 +12,7 @@ echoserver:
           tag: "3.1"
           repository:
             runtime: docker.io/ergondieti80/airlock-microgateway
+          pullPolicy: "Always"
 
         fullnameOverride: echoserver-microgateway
 
