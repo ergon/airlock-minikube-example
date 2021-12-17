@@ -9,7 +9,7 @@ grafana:
     helm:
       values:
         image:
-          tag: "3.0"
+          tag: "3.1"
 
         fullnameOverride: grafana-microgateway
 

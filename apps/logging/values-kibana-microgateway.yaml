@@ -10,8 +10,6 @@ kibana:
       values:
         image:
           tag: "3.1"
-          repository:
-            runtime: docker.io/ergondieti80/airlock-microgateway
 
         fullnameOverride: kibana-microgateway
 
