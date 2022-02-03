@@ -7,3 +7,11 @@ bases:
 resources:
   - deployment.yaml
   - service.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - name: echoserver-nginx-config
+    files:
+      - config/nginx.conf
