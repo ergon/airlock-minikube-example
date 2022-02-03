@@ -30,4 +30,4 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: echoserver-nginx-config
+            name: echoserver-config
