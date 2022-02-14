@@ -15,10 +15,6 @@ spec:
     path: apps/authentication/
 
     helm:
-      valueFiles:
-        - values-iam.yaml
-        - values-iam-microgateway.yaml
-
       values: |
         spec:
           source:

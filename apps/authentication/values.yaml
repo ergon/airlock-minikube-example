@@ -5,3 +5,12 @@ mariadb:
       repoURL: https://charts.bitnami.com/bitnami
       targetRevision: 9.4.3
       chart: mariadb
+iam:
+  microgateway:
+    spec:
+      source:
+        repoURL: https://ergon.github.io/airlock-helm-charts
+        targetRevision: 3.0.8
+        chart: microgateway
+  resources:
+    path: apps/iam
