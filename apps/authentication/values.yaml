@@ -13,4 +13,4 @@ iam:
         targetRevision: 3.0.8
         chart: microgateway
   resources:
-    path: apps/iam
+    path: data/authentication/microgateway/
