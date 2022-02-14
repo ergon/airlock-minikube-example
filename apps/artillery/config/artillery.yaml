@@ -1,3 +1,4 @@
+---
 config:
   target: https://ingress-nginx-controller.ingress-nginx
   tls:
