@@ -24,7 +24,7 @@ spec:
 
         microgateway:
           license:
-            secretName: "{{ .Values.microgateway.license.secretName }}"
+            secretName: {{ .Values.microgateway.license.secretName }}
 
   destination:
     server: https://kubernetes.default.svc
