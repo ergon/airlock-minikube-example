@@ -1,6 +1,4 @@
 ---
-authentication:
-  enabled: false
 echoserver:
   microgateway:
     spec:
