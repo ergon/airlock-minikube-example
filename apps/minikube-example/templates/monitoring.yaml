@@ -1,3 +1,4 @@
+---
 {{- if .Values.monitoring.enabled }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -18,7 +19,6 @@ spec:
 
     helm:
       valueFiles:
-        - values-prometheus.yaml
         - values-grafana-microgateway.yaml
         {{- if .Values.authentication.enabled }}
         - values-microgateway-config-with-iam.yaml

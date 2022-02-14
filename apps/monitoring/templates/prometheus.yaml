@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -8,12 +9,29 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: "{{ .Values.prometheus.spec.source.repoURL }}"
-    targetRevision: "{{ .Values.prometheus.spec.source.targetRevision }}"
-    chart: "{{ .Values.prometheus.spec.source.chart }}"
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 14.3.0
+    chart: prometheus
 
     helm:
-      values: |{{ toYaml .Values.prometheus.helm.values | nindent 8 }}
+      values: |
+        imagePullSecrets:
+          - name: dockerregcred
+
+        alertmanager:
+          enabled: false
+        alertmanagerFiles:
+          alertmanager.yml: ""
+        kubeStateMetrics:
+          enabled: false
+        nodeExporter:
+          enabled: false
+        pushgateway:
+          enabled: false
+
+        server:
+          persistentVolume:
+            size: 100M
 
   destination:
     server: https://kubernetes.default.svc
