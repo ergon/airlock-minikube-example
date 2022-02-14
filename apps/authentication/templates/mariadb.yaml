@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -15,7 +16,16 @@ spec:
     chart: "{{ .Values.mariadb.spec.source.chart }}"
 
     helm:
-      values: |{{ toYaml .Values.mariadb.helm.values | nindent 8 }}
+      values: |
+        initdbScriptsConfigMap: iam-mariadb-sql-files
+        primary:
+          persistence:
+            size: 100M
+
+        auth:
+          database: iamdb
+          username: airlock
+          existingSecret: mariadb-secret
 
   destination:
     server: https://kubernetes.default.svc

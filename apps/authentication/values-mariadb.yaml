@@ -1,3 +1,4 @@
+---
 mariadb:
   spec:
     source:
@@ -7,16 +8,3 @@ mariadb:
 
   resources:
     path: data/authentication/mariadb/
-
-  helm:
-    values:
-      initdbScriptsConfigMap: iam-mariadb-sql-files
-
-      primary:
-        persistence:
-          size: 100M
-
-      auth:
-        database: iamdb
-        username: airlock
-        existingSecret: mariadb-secret
