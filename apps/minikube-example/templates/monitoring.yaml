@@ -19,7 +19,6 @@ spec:
     helm:
       valueFiles:
         - values-prometheus.yaml
-        - values-grafana.yaml
         - values-grafana-microgateway.yaml
         {{- if .Values.authentication.enabled }}
         - values-microgateway-config-with-iam.yaml

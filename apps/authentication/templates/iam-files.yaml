@@ -13,7 +13,7 @@ spec:
   source:
     repoURL: "{{ .Values.spec.source.repoURL }}"
     targetRevision: "{{ .Values.spec.source.targetRevision }}"
-    path: "{{ .Values.iam.resources.path }}"
+    path: data/authentication/iam/
 
   destination:
     server: https://kubernetes.default.svc

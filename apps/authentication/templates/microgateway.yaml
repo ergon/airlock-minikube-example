@@ -9,9 +9,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: "{{ .Values.iam.microgateway.spec.source.repoURL }}"
-    targetRevision: "{{ .Values.iam.microgateway.spec.source.targetRevision }}"
-    chart: "{{ .Values.iam.microgateway.spec.source.chart }}"
+    repoURL: https://ergon.github.io/airlock-helm-charts
+    targetRevision: 3.0.8
+    chart: microgateway
 
     helm:
       values: |

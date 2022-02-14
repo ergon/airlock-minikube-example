@@ -11,9 +11,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: "{{ .Values.mariadb.spec.source.repoURL }}"
-    targetRevision: "{{ .Values.mariadb.spec.source.targetRevision }}"
-    chart: "{{ .Values.mariadb.spec.source.chart }}"
+    repoURL: https://charts.bitnami.com/bitnami
+    targetRevision: 9.4.3
+    chart: mariadb
 
     helm:
       values: |

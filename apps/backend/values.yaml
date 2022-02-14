@@ -1,8 +1,0 @@
----
-echoserver:
-  microgateway:
-    spec:
-      source:
-        repoURL: https://ergon.github.io/airlock-helm-charts
-        targetRevision: 3.0.8
-        chart: microgateway
