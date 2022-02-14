@@ -54,7 +54,7 @@ spec:
             secretName: {{ .Values.microgateway.license.secretName }}
           {{- end }}
 
-          dslConfigMap: echoserver-microgateway-config
+          dslConfigMap: grafana-microgateway-config
 
   destination:
     server: https://kubernetes.default.svc
