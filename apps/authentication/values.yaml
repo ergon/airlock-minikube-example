@@ -14,3 +14,5 @@ iam:
         chart: microgateway
     resources:
       path: data/authentication/microgateway/
+  resources:
+    path: apps/iam/
