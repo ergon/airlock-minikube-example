@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -32,6 +33,12 @@ spec:
           image: docker.io/ergon/airlock-iam:latest-7.5
           imagePullPolicy: IfNotPresent
           env:
+            - name: IAM_LOG_LEVEL
+              value: INFO
+            - name: IAM_LOG_STRUCTURED_STDOUT_ENABLED
+              value: "true"
+            - name: IAM_MODULES
+              value: "adminapp,loginapp"
             - name: IAM_HEALTH_ADDRESS
               value: .*
             - name: IAM_HEALTH_PORT

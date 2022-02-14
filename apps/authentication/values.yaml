@@ -15,4 +15,4 @@ iam:
     resources:
       path: data/authentication/microgateway/
   resources:
-    path: apps/iam/
+    path: data/authentication/iam/
