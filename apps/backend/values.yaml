@@ -1,3 +1,4 @@
+---
 echoserver:
   microgateway:
     spec:
