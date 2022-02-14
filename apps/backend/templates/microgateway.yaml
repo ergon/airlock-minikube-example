@@ -20,7 +20,7 @@ spec:
           {{- if .Values.microgateway.license.secretName }}
           license:
             useExistingSecret: true
-            secretName: microgateway-license
+            secretName: {{ .Values.microgateway.license.secretName }}
           {{- end }}
 
           {{- if .Values.authentication.enabled }}
