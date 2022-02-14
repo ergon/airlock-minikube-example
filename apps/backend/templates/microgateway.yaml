@@ -1,0 +1,52 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: echoserver-microgateway
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: "{{ .Values.echoserver.microgateway.spec.source.repoURL }}"
+    targetRevision: "{{ .Values.echoserver.microgateway.spec.source.targetRevision }}"
+    chart: "{{ .Values.echoserver.microgateway.spec.source.chart }}"
+
+    helm:
+      values: |
+        config:
+
+          {{- if .Values.microgateway.license.secretName }}
+          license:
+            useExistingSecret: true
+            secretName: microgateway-license
+          {{- end }}
+
+          {{- if .Values.authentication.enabled }}
+          env:
+            configbuilder:
+              - name: JWT_ENCRYPTION_PASSPHRASE
+                valueFrom:
+                  secretKeyRef:
+                    name: jwt-secret
+                    key: JWT_ENCRYPTION_PASSPHRASE
+              - name: JWT_SIGNATURE_PASSPHRASE
+                valueFrom:
+                  secretKeyRef:
+                    name: jwt-secret
+                    key: JWT_SIGNATURE_PASSPHRASE
+              - name: COOKIE_NAME
+                valueFrom:
+                  secretKeyRef:
+                    name: jwt-secret
+                    key: COOKIE_NAME
+          {{- end }}
+
+          dslConfigMap: echoserver-microgateway-config
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  syncPolicy: "{{ toYaml .Values.spec.syncPolicy | nindent 4 }}"

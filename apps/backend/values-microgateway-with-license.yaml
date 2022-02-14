@@ -1,8 +1,0 @@
-echoserver:
-  microgateway:
-    helm:
-      values:
-        config:
-          license:
-            useExistingSecret: true
-            secretName: microgateway-license

@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -30,4 +31,4 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: echoserver-nginx-config
+            name: echoserver-config

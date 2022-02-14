@@ -1,8 +1,0 @@
-echoserver:
-  microgateway:
-    resources:
-      path: data/backend/microgateway-without-iam/
-    helm:
-      values:
-        config:
-          dslConfigMap: echoserver-microgateway-config

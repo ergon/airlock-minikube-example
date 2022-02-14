@@ -1,3 +1,0 @@
-echoserver:
-  resources:
-    path: apps/echoserver
