@@ -1,0 +1,66 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: iam-microgateway-config
+  annotations:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "-90"
+data:
+  config.json: |-
+  {{ .Files.Get "config/microgateway/config.yaml" | nindent 4}}
+ ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: iam-microgateway-openapi-login-rest
+  annotations:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "-90"
+data:
+  openapi-loginapp-rest.json: |-
+  {{ .Files.Get "config/microgateway/login-rest-openapi.json" | nindent 4}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: iam-microgateway-openapi-login-rest
+  annotations:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "-90"
+data:
+  iam-loginapp-rest-public.xml: |-
+  {{ .Files.Get "config/microgateway/iam-loginapp-rest-public-mgw2.0-mapping-template.xml" | nindent 4}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: iam-microgateway-mapping-template-loginapp-rest-protected
+  annotations:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "-90"
+data:
+  iam-loginapp-rest-protected.xml: |-
+  {{ .Files.Get "config/microgateway/iam-loginapp-rest-protected-mgw2.0-mapping-template.xml" | nindent 4}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: iam-microgateway-mapping-template-loginapp
+  annotations:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "-90"
+data:
+  iam-loginapp.xml: |-
+  {{ .Files.Get "config/microgateway/iam-loginapp-mgw2.0-mapping-template.xml" | nindent 4}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: iam-microgateway-mapping-template-adminapp
+  annotations:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "-90"
+data:
+  iam-adminapp.xml: |-
+  {{ .Files.Get "config/microgateway/iam-adminapp-mgw2.0-mapping-template.xml" | nindent 4}}

@@ -8,7 +8,7 @@ metadata:
     helm.sh/hook-weight: "-90"
 data:
   {{- if .Values.authentication.enabled }}
-  {{ (.Files.Glob "config/echoserver-microgateway/authentication-enabled/*").AsConfig | nindent 2 }}
+  {{ (.Files.Glob "config/microgateway/authentication-enabled/*").AsConfig | nindent 2 }}
   {{- else }}
-  {{ (.Files.Glob "config/echoserver-microgateway/authentication-disable/*").AsConfig | nindent 2 }}
+  {{ (.Files.Glob "config/microgateway/authentication-disable/*").AsConfig | nindent 2 }}
   {{- end }}
