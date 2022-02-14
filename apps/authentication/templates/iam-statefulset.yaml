@@ -43,9 +43,6 @@ spec:
               value: .*
             - name: IAM_HEALTH_PORT
               value: "9090"
-          envFrom:
-            - configMapRef:
-                name: iam-env-config
           ports:
             - name: https
               containerPort: 8443
