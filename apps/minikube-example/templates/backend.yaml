@@ -15,6 +15,9 @@ spec:
     path: apps/backend/
 
     helm:
+      valueFiles:
+        - values.yaml
+
       values: |
         spec:
           syncPolicy: {{ toYaml .Values.spec.syncPolicy | nindent 12 }}
