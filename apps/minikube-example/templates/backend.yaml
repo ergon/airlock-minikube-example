@@ -19,7 +19,8 @@ spec:
         spec:
           syncPolicy: {{ toYaml .Values.spec.syncPolicy | nindent 12 }}
 
-        "{{ .Values.authentication }}"
+        authentication:
+          enabled: "{{ .Values.authentication.enabled }}"
 
         microgateway:
           license:
