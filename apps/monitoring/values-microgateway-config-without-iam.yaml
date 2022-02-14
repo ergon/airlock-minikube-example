@@ -1,8 +1,0 @@
-grafana:
-  microgateway:
-    resources:
-      path: data/monitoring/microgateway-without-iam/
-    helm:
-      values:
-        config:
-          dslConfigMap: grafana-microgateway-config
