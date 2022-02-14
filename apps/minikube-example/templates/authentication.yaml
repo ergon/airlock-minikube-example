@@ -1,3 +1,4 @@
+---
 {{- if .Values.authentication.enabled }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -26,6 +27,9 @@ spec:
 
           syncPolicy: {{ toYaml .Values.spec.syncPolicy | nindent 12 }}
 
+        microgateway:
+          license:
+            secretName: {{ .Values.microgateway.license.secretName }}
   destination:
     server: https://kubernetes.default.svc
     namespace: default
