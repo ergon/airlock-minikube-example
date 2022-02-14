@@ -17,7 +17,6 @@ spec:
       valueFiles:
         - values-iam.yaml
         - values-iam-microgateway.yaml
-        - values-mariadb.yaml
 
       values: |
         spec:
