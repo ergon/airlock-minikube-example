@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-set -x
+# set -x
 
 KIBANA_URL=${KIBANA_URL:-http://localhost:5601}
 TMPL_DIR=${TMPL_DIR:-/var/tmp/kibana/}
