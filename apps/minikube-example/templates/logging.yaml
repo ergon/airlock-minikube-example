@@ -17,9 +17,6 @@ spec:
     path: apps/logging/
 
     helm:
-      valueFiles:
-        - values-kibana.yaml
-
       values: |
         spec:
           source:

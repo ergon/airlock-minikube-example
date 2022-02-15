@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -8,12 +9,36 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: "{{ .Values.kibana.spec.source.repoURL }}"
-    targetRevision: "{{ .Values.kibana.spec.source.targetRevision }}"
-    chart: "{{ .Values.kibana.spec.source.chart }}"
+    repoURL: https://helm.elastic.co
+    targetRevision: 7.14.0
+    chart: kibana
 
     helm:
-      values: |{{ toYaml .Values.kibana.helm.values | nindent 8 }}
+      values: |
+        # The newer Helm chart is required to use "extraVolumes" and "extraVolumeMounts"
+        imageTag: 7.8.1
+
+        extraEnvs:
+          - name: "SERVER_BASEPATH"
+            value: "/kibana"
+          - name: "SERVER_REWRITEBASEPATH"
+            value: "true"
+
+        healthCheckPath: "${SERVER_BASEPATH}/app/kibana"
+
+        extraVolumes:
+          - name: kibana-airlock-reporting-bundle
+            configMap:
+              name: kibana-airlock-reporting-bundle
+
+        extraVolumeMounts:
+          - name: kibana-airlock-reporting-bundle
+            mountPath: /var/tmp/kibana/
+
+        lifecycle:
+          postStart:
+            exec:
+              command: ["bash", "-c", ". /var/tmp/kibana/init-script.bash"]
 
   destination:
     server: https://kubernetes.default.svc
