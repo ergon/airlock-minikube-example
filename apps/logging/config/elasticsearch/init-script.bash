@@ -5,7 +5,7 @@ ES_URL=${ES_URL:-http://localhost:9200}
 TMPL_DIR=${TMPL_DIR:-/var/tmp/elasticsearch/}
 
 # Wait for Elasticsearch to be up and running
-while [[ "$(curl -s -o /dev/null -w '%{http_code}\n' ${ES_URL})" != "200" ]]; do sleep 1; done
+while [[ "$(curl -s -o /dev/null -w '%{http_code}\n' ${ES_URL})" != "200" ]]; do sleep 5; done
 
 function curl_es() {
   curl -fisS -w "\n" \
