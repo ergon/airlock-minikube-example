@@ -32,7 +32,7 @@ spec:
         # accept node as ready when status "yellow" is reached
         # since it is a single node cluster, green is impossible if
         # replicas is configured > 0
-        #clusterHealthCheckParams: "wait_for_status=yellow&timeout=1s"
+        clusterHealthCheckParams: "wait_for_status=yellow&timeout=1s"
 
         # Permit co-located instances for solitary minikube virtual machines.
         antiAffinity: "soft"
