@@ -20,7 +20,6 @@ spec:
     helm:
       values: |
         spec:
-          source:
           syncPolicy: {{ toYaml .Values.spec.syncPolicy | nindent 12 }}
 
         authentication:
