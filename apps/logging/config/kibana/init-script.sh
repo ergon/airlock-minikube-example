@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -x
 
-KIBANA_URL=${KIBANA_URL:-http://kibana-kibana:5601}
+KIBANA_URL=${KIBANA_URL:-http://localhost:5601}
 TMPL_DIR=${TMPL_DIR:-/var/tmp/kibana/}
 
 # Wait for Kibana to be up and running
