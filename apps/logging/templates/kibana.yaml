@@ -26,21 +26,6 @@ spec:
 
         healthCheckPath: "${SERVER_BASEPATH}/app/kibana"
 
-        #extraVolumes:
-        #  - name: kibana-airlock-reporting-bundle
-        #    configMap:
-        #      name: kibana-airlock-reporting-bundle
-
-        #extraVolumeMounts:
-        #  - name: kibana-airlock-reporting-bundle
-        #    mountPath: /var/tmp/kibana/
-        #
-        #
-        #lifecycle:
-        #  postStart:
-        #    exec:
-        #      command: ["bash", "-c", ". /var/tmp/kibana/init-script.sh"]
-
   destination:
     server: https://kubernetes.default.svc
     namespace: default

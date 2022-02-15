@@ -1,0 +1,25 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kibana-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: kibana-job
+          image: curlimages/curl:7.81.0
+          command:
+            - sh
+            - -c
+            - . /var/tmp/kibana/init-script.sh
+          volumeMounts:
+            - name: reporting-bundle
+              mountPath: /var/tmp/kibana/
+          resources: {}
+      volumes:
+        - name: reporting-bundle
+          configMap:
+            name: kibana-airlock-reporting-bundle
+      restartPolicy: Never
+status: {}
