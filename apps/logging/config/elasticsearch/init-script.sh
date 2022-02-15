@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
-# set -x
+set -x
 
-ES_URL=${ES_URL:-http://localhost:9200}
+ES_URL=${ES_URL:-http://elasticsearch-master:9200}
 TMPL_DIR=${TMPL_DIR:-/var/tmp/elasticsearch/}
 
 # Wait for Elasticsearch to be up and running
