@@ -1,5 +1,5 @@
 #!/bin/bash
-# set -x
+set -x
 
 ES_URL=${ES_URL:-http://localhost:9200}
 TMPL_DIR=${TMPL_DIR:-/var/tmp/elasticsearch/}
