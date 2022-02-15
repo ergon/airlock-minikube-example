@@ -53,15 +53,6 @@ spec:
             requests:
               storage: 1Gi
 
-        extraVolumes:
-          - name: elasticsearch-airlock-reporting-bundle
-            configMap:
-              name: elasticsearch-airlock-reporting-bundle
-
-        extraVolumeMounts:
-          - name: elasticsearch-airlock-reporting-bundle
-            mountPath: /var/tmp/elasticsearch/
-
   destination:
     server: https://kubernetes.default.svc
     namespace: default
