@@ -1,3 +1,0 @@
-elasticsearch:
-  resources:
-    path: data/logging/elasticsearch/
