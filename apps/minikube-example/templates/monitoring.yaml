@@ -21,9 +21,6 @@ spec:
       values: |
         spec:
           source:
-            repoURL: "{{ .Values.spec.source.repoURL }}"
-            targetRevision: "{{ .Values.spec.source.targetRevision }}"
-
           syncPolicy: {{ toYaml .Values.spec.syncPolicy | nindent 12 }}
 
         authentication:
