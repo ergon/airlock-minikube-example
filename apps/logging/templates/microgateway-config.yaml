@@ -10,5 +10,5 @@ data:
   {{- if .Values.authentication.enabled }}
   {{ (.Files.Glob "config/microgateway/authentication-enabled/*").AsConfig | nindent 2 }}
   {{- else }}
-  {{ (.Files.Glob "config/microgateway/authentication-disable/*").AsConfig | nindent 2 }}
+  {{ (.Files.Glob "config/microgateway/authentication-disabled/*").AsConfig | nindent 2 }}
   {{- end }}
