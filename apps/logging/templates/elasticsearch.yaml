@@ -62,11 +62,6 @@ spec:
           - name: elasticsearch-airlock-reporting-bundle
             mountPath: /var/tmp/elasticsearch/
 
-        lifecycle:
-          postStart:
-            exec:
-              command: ["bash", "-c", ". /var/tmp/elasticsearch/init-script.bash"]
-
   destination:
     server: https://kubernetes.default.svc
     namespace: default

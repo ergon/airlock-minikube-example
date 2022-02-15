@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 # set -x
 
 KIBANA_URL=${KIBANA_URL:-http://localhost:5601}
