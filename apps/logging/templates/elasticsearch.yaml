@@ -39,7 +39,7 @@ spec:
 
         # Shrink default JVM heap.
         # To prevent Log4Shell: -Dlog4j2.formatMsgNoLookups=true
-        esJavaOpts: "-Xmx1024m -Xms1024m -Dlog4j2.formatMsgNoLookups=true"
+        esJavaOpts: "-Xmx512m -Xms512m -Dlog4j2.formatMsgNoLookups=true"
 
         # Allocate smaller chunks of memory per pod.
         resources:
@@ -62,10 +62,10 @@ spec:
           - name: elasticsearch-airlock-reporting-bundle
             mountPath: /var/tmp/elasticsearch/
 
-        lifecycle:
-          postStart:
-            exec:
-              command: ["bash", "-c", ". /var/tmp/elasticsearch/init-script.bash"]
+        # lifecycle:
+        #   postStart:
+        #     exec:
+        #       command: ["bash", "-c", ". /var/tmp/elasticsearch/init-script.bash"]
 
   destination:
     server: https://kubernetes.default.svc
