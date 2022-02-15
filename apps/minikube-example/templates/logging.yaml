@@ -19,7 +19,6 @@ spec:
     helm:
       valueFiles:
         - values-elasticsearch.yaml
-        - values-fluentd.yaml
         - values-kibana.yaml
 
       values: |
