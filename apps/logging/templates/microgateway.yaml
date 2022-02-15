@@ -1,13 +1,20 @@
-kibana:
-  microgateway:
-    spec:
-      source:
-        repoURL: https://ergon.github.io/airlock-helm-charts
-        targetRevision: 3.0.5
-        chart: microgateway
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kibana-microgateway
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://ergon.github.io/airlock-helm-charts
+    targetRevision: 3.0.8
+    chart: microgateway
 
     helm:
-      values:
+      values: |
         image:
           tag: "3.1"
 
@@ -40,3 +47,17 @@ kibana:
           passphrase:
             useExistingSecret: true
             secretName: microgateway-passphrase
+
+          {{- if .Values.microgateway.license.secretName }}
+          license:
+            useExistingSecret: true
+            secretName: {{ .Values.microgateway.license.secretName }}
+          {{- end }}
+
+          dslConfigMap: kibana-microgateway-config
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  syncPolicy: {{ toYaml .Values.spec.syncPolicy | nindent 4 }}

@@ -1,8 +1,0 @@
-kibana:
-  microgateway:
-    resources:
-      path: data/logging/microgateway-without-iam/
-    helm:
-      values:
-        config:
-          dslConfigMap: kibana-microgateway-config
