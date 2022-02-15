@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -10,12 +11,61 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: "{{ .Values.elasticsearch.spec.source.repoURL }}"
-    targetRevision: "{{ .Values.elasticsearch.spec.source.targetRevision }}"
-    chart: "{{ .Values.elasticsearch.spec.source.chart }}"
+    repoURL: https://helm.elastic.co
+    targetRevision: 7.8.1
+    chart: elasticsearch
 
     helm:
-      values: |{{ toYaml .Values.elasticsearch.helm.values | nindent 8 }}
+      values: |
+        # Start only a single node
+        replicas: 1
+
+        # elasticsearch.yml is required when starting single node
+        esConfig:
+          elasticsearch.yml: |
+            cluster.name: "elasticsearch"
+            network.host: 0.0.0.0
+            xpack.security.enabled: false
+            xpack.monitoring.enabled: false
+            xpack.enrich.enabled: false
+
+        # accept node as ready when status "yellow" is reached
+        # since it is a single node cluster, green is impossible if
+        # replicas is configured > 0
+        clusterHealthCheckParams: "wait_for_status=yellow&timeout=1s"
+
+        # Permit co-located instances for solitary minikube virtual machines.
+        antiAffinity: "soft"
+
+        # Shrink default JVM heap.
+        # To prevent Log4Shell: -Dlog4j2.formatMsgNoLookups=true
+        esJavaOpts: "-Xmx1024m -Xms1024m -Dlog4j2.formatMsgNoLookups=true"
+
+        # Allocate smaller chunks of memory per pod.
+        resources:
+          requests:
+            cpu: "10m"
+            memory: "100Mi"
+
+        # Request smaller persistent volumes.
+        volumeClaimTemplate:
+          resources:
+            requests:
+              storage: 1Gi
+
+        extraVolumes:
+          - name: elasticsearch-airlock-reporting-bundle
+            configMap:
+              name: elasticsearch-airlock-reporting-bundle
+
+        extraVolumeMounts:
+          - name: elasticsearch-airlock-reporting-bundle
+            mountPath: /var/tmp/elasticsearch/
+
+        lifecycle:
+          postStart:
+            exec:
+              command: ["bash", "-c", ". /var/tmp/elasticsearch/init-script.bash"]
 
   destination:
     server: https://kubernetes.default.svc
