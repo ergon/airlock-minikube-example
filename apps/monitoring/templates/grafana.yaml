@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -8,12 +9,45 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: "{{ .Values.grafana.spec.source.repoURL }}"
-    targetRevision: "{{ .Values.grafana.spec.source.targetRevision }}"
-    chart: "{{ .Values.grafana.spec.source.chart }}"
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 6.6.0
+    chart: grafana
 
     helm:
-      values: |{{ toYaml .Values.grafana.helm.values | nindent 8 }}
+      values: |
+        image:
+          tag: 7.4.0
+          pullSecrets:
+            - dockerregcred
+
+        dashboardProviders:
+          dashboardproviders.yaml:
+            apiVersion: 1
+            providers:
+              - name: "default"
+                orgId: 1
+                folder: ""
+                type: file
+                disableDeletion: false
+                editable: true
+                options:
+                  path: /var/lib/grafana/dashboards/default
+        datasources:
+          datasources.yaml:
+            apiVersion: 1
+            datasources:
+              - name: Prometheus
+                type: prometheus
+                access: proxy
+                editable: false
+                url: http://prometheus-server:80
+        dashboardsConfigMaps:
+          default: grafana-dashboard-airlock-microgateway
+        env:
+          GF_AUTH_ANONYMOUS_ENABLED: true
+          GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+          GF_SERVER_ROOT_URL: /grafana/
+          GF_SERVER_SERVE_FROM_SUB_PATH: true
 
   destination:
     server: https://kubernetes.default.svc

@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kibana-airlock-reporting-bundle
+  annotations:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "-90"
+data:
+  {{ (.Files.Glob "config/kibana/*").AsConfig | nindent 2 }}

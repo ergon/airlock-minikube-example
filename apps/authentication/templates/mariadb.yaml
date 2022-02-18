@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -10,12 +11,21 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: "{{ .Values.mariadb.spec.source.repoURL }}"
-    targetRevision: "{{ .Values.mariadb.spec.source.targetRevision }}"
-    chart: "{{ .Values.mariadb.spec.source.chart }}"
+    repoURL: https://charts.bitnami.com/bitnami
+    targetRevision: 9.4.3
+    chart: mariadb
 
     helm:
-      values: |{{ toYaml .Values.mariadb.helm.values | nindent 8 }}
+      values: |
+        initdbScriptsConfigMap: iam-mariadb-sql-files
+        primary:
+          persistence:
+            size: 100M
+
+        auth:
+          database: iamdb
+          username: airlock
+          existingSecret: mariadb-secret
 
   destination:
     server: https://kubernetes.default.svc

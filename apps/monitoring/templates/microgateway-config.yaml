@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-microgateway-config
+  annotations:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "-90"
+data:
+  {{- if .Values.authentication.enabled }}
+  {{ (.Files.Glob "config/microgateway/authentication-enabled/*").AsConfig | nindent 2 }}
+  {{- else }}
+  {{ (.Files.Glob "config/microgateway/authentication-disabled/*").AsConfig | nindent 2 }}
+  {{- end }}

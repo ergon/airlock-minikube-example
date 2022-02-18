@@ -1,0 +1,83 @@
+---
+log:
+  level: info
+
+remote_ip:
+  header: X-Forwarded-For
+  internal_proxies:
+    - 10.0.0.0/8
+    - 172.16.0.0/12
+    - 192.168.0.0/16
+
+expert_settings:
+  security_gate: |
+    CorrelationId.Extraction.0.Request.Header.Pattern       "^X-Request-ID: ([[:graph:]]+)$"
+    CorrelationId.Extraction.0.Request.Header.IgnoreCase    "TRUE"
+    CorrelationId.Extraction.0.Request.Header.Template      "$1"
+
+apps:
+  - virtual_host:
+      name: vh-echoserver
+    mappings:
+      - name: echoserver
+        entry_path:
+          value: /echo/
+        session_handling: ignore_session
+        operational_mode: integration
+        threat_handling: block
+        env_cookies: true
+        deny_rule_groups:
+          - level: strict
+        cookies:
+          passthrough:
+            pattern: ^${COOKIE_NAME}$
+        auth:
+          flow: redirect
+          denied_access_url: /auth/ui/app/auth/application/access
+          access:
+            - roles:
+                - echo-user
+        access_token:
+          mandatory: true
+          expiry_checked: true
+          audittoken: true
+          extraction:
+            mode: cookie
+            cookie: ${COOKIE_NAME}
+          jwks_providers:
+            - airlock-iam
+          roles:
+            - claim: roles
+              extraction:
+                regex:
+                  pattern: customer
+                substitution: echo-user
+        backend:
+          name: beg-echoserver
+          hosts:
+            - protocol: "http"
+              name: echoserver
+              port: 8080
+
+jwks_providers:
+  local:
+    - name: airlock-iam
+      jwks: |
+        {
+            "keys":
+            [
+                {
+                    "kty": "oct",
+                    "use": "sig",
+                    "alg": "HS512",
+                    "k": "${JWT_SIGNATURE_PASSPHRASE}",
+                    "key_ops": ["verify"]
+                },
+                {
+                    "kty": "oct",
+                    "alg": "dir",
+                    "k": "${JWT_ENCRYPTION_PASSPHRASE}",
+                    "key_ops": ["decrypt"]
+                }
+            ]
+        }

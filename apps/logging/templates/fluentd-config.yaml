@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluentd-forwarder
+  annotations:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "-90"
+data: {{ (.Files.Glob "config/fluentd/*").AsConfig | nindent 2 }}

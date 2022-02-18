@@ -1,0 +1,9 @@
+@log_level info
+include_tag_key true
+host "#{ENV['FLUENT_ELASTICSEARCH_HOST'] || 'elasticsearch-master'}"
+port "#{ENV['FLUENT_ELASTICSEARCH_PORT'] || '9200'}"
+scheme "#{ENV['FLUENT_ELASTICSEARCH_SCHEME'] || 'http'}"
+index_name "#{ENV['FLUENT_ELASTICSEARCH_LOGSTASH_INDEX_NAME'] || 'default'}"
+logstash_prefix "#{ENV['FLUENT_ELASTICSEARCH_LOGSTASH_PREFIX'] || 'default'}"
+logstash_format true
+suppress_type_name true

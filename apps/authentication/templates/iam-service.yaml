@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iam
+  labels:
+    app: iam
+spec:
+  selector:
+    app: iam
+  ports:
+    - name: https
+      port: 8443
+  clusterIP: None

@@ -1,3 +1,4 @@
+---
 {{- if .Values.monitoring.enabled }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -17,26 +18,16 @@ spec:
     path: apps/monitoring/
 
     helm:
-      valueFiles:
-        - values-prometheus.yaml
-        - values-grafana.yaml
-        - values-grafana-microgateway.yaml
-        {{- if .Values.authentication.enabled }}
-        - values-microgateway-config-with-iam.yaml
-        {{- else }}
-        - values-microgateway-config-without-iam.yaml
-        {{- end }}
-        {{- if .Values.microgateway.license.secretName }}
-        - values-microgateway-with-license.yaml
-        {{- end }}
-
       values: |
         spec:
-          source:
-            repoURL: "{{ .Values.spec.source.repoURL }}"
-            targetRevision: "{{ .Values.spec.source.targetRevision }}"
-
           syncPolicy: {{ toYaml .Values.spec.syncPolicy | nindent 12 }}
+
+        authentication:
+          enabled: {{ .Values.authentication.enabled }}
+
+        microgateway:
+          license:
+            secretName: {{ .Values.microgateway.license.secretName }}
 
   destination:
     server: https://kubernetes.default.svc

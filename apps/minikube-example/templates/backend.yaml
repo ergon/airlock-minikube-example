@@ -20,15 +20,15 @@ spec:
           syncPolicy: {{ toYaml .Values.spec.syncPolicy | nindent 12 }}
 
         authentication:
-          enabled: "{{ .Values.authentication.enabled }}"
+          enabled: {{ .Values.authentication.enabled }}
 
         microgateway:
           license:
-            secretName: "{{ .Values.microgateway.license.secretName }}"
+            secretName: {{ .Values.microgateway.license.secretName }}
 
   destination:
     server: https://kubernetes.default.svc
     namespace: default
 
-  syncPolicy: "{{ toYaml .Values.spec.syncPolicy | nindent 4 }}"
+  syncPolicy: {{ toYaml .Values.spec.syncPolicy | nindent 4 }}
 {{- end }}
