@@ -51,7 +51,7 @@ spec:
         volumeClaimTemplate:
           resources:
             requests:
-              storage: 1Gi
+              storage: 2Gi
 
         extraVolumes:
           - name: elasticsearch-airlock-reporting-bundle
