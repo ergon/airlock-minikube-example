@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 5.0.0
+    targetRevision: 5.0.21
     chart: fluentd
 
     helm:
