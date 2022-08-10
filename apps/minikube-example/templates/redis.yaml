@@ -13,20 +13,28 @@ spec:
   project: default
   source:
     repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 10.6.12
+    targetRevision: 15.7.6
     chart: redis
 
     helm:
       values: |
         fullnameOverride: redis
-        securityContext:
+        architecture: standalone
+        auth:
           enabled: false
-        cluster:
-          enabled: false
-        usePassword: false
         master:
+          containerSecurityContext:
+            enabled: false
           disableCommands: []
+          # do not disable any commands since Microgateway needs full control
+          # to configure the redis session store.
           persistence:
+            enabled: false
+        replica:
+          containerSecurityContext:
+            enabled: false
+        metrics:
+          containerSecurityContext:
             enabled: false
 
   destination:
