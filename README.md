@@ -1,3 +1,6 @@
+# DEPRECATED
+This repository was archived on 2023-07-28. It is no longer maintained. As a replacement we offer a growing number of [Airlock Microgateway labs](https://airlock.com/labs/microgateway) that are designed to be easy-to-follow tutorials.
+
 # Airlock Minikube Example
 
 This repository contains deployment examples for [Airlock] on [Minikube]. It shows how to protect a backend application with Airlock Microgateway and how to authenticate users using Airlock IAM. The
